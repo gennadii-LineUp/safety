@@ -1,0 +1,43 @@
+#left-menu{
+    float: left;
+    background-color: #3ba890;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-family: Righteous;
+    font-size: 24px;
+    width: 100%;
+}
+#left-menu ul {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+#left-menu ul li{
+    list-style: none;
+    text-indent: -1em;
+    padding: 13px 0px 13px 52px;
+    color: white;
+}
+
+#left-menu ul li a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 100;
+    width: 100%;
+}
+#left-menu ul li:hover,
+.active {
+    background-color: #71dac0;
+    color: #000000;
+    cursor: pointer;
+}
+
+#logo .img-holder {
+    margin-top: 40px;
+}
+#logo p {
+    text-transform: uppercase;
+    margin-top: -1px;
+}
