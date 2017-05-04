@@ -14,10 +14,12 @@ import {SiteFichiersPageComponent} from '../pages/site/site-fichiers-page/site-f
 import {SiteParcPageComponent} from '../pages/site/site-parc-page/site-parc-page.component';
 import {SiteSalariesPageComponent} from '../pages/site/site-salaries-page/site-salaries-page.component';
 import {ClientSalariesPageComponent} from 'app/pages/client/client-salaries-page/client-salaries-page.component';
+import {LoginStartComponent} from '../pages/login/login-start/login-start.component';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'admin/accueil', pathMatch: 'full' },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginStartComponent },
     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
     { path: 'admin/reglages',  component: AdminReglagesPageComponent },
     { path: 'admin/client', component: AdminClientsPageComponent },

@@ -41,6 +41,8 @@ import { SiteSalariesPageComponent } from './site/site-salaries-page/site-salari
 import { SiteSalariesContentComponent } from './site/site-salaries-page/site-salaries-content/site-salaries-content.component';
 import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
 import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page/admin-bibliotheque-content/admin-bibliotheque-content.component';
+import { LoginStartComponent } from './login/login-start/login-start.component';
+import { LoginMalchanceComponent } from './login/login-malchance/login-malchance.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page
         SiteParcPageComponent,        SiteParcContentComponent,
         SiteParcModalMachineComponent,        SiteParcModalEnginComponent,        SiteParcModalDetailsComponent,
         SiteSalariesPageComponent,        SiteSalariesContentComponent,        SiteSalariesCreationComponent,
+        LoginStartComponent,
+        LoginMalchanceComponent,
 
     ],
     exports: [
@@ -85,6 +89,8 @@ import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page
         SiteParcPageComponent,        SiteParcContentComponent,
         SiteParcModalMachineComponent,        SiteParcModalEnginComponent,        SiteParcModalDetailsComponent,
         SiteSalariesPageComponent,        SiteSalariesContentComponent,        SiteSalariesCreationComponent,
+        LoginStartComponent,
+        LoginMalchanceComponent,
 
     ],
     providers: [],
