@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import 'hammerjs';
 import {AppRoutingModule} from '../services/routing.module';
-import { LeftMenuComponent } from './left-menu/left-menu.component';
+import { LeftMenuComponent } from './left-menu-gena/left-menu.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { NavbarClientComponent } from './navbar-client/navbar-client.component';

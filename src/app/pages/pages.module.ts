@@ -11,7 +11,6 @@ import { AdminClientsPageComponent } from './admin/admin-clients-page/admin-clie
 import { AdminBibliothequePageComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-page.component';
 import { AdminReglagesContentComponent } from './admin/admin-reglages-page/admin-reglages-content/admin-reglages-content.component';
 import { AdminAccueilContentComponent } from './admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
-import { AdminBibliothequeContentComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-content/admin-bibliotheque-content.component';
 import { AdminClientsContentComponent } from './admin/admin-clients-page/admin-clients-content/admin-clients-content.component';
 import { ClientSitesPageComponent } from './client/client-sites-page/client-sites-page.component';
 import { ClientSitesContentComponent } from './client/client-sites-page/client-sites-content/client-sites-content.component';
@@ -41,6 +40,7 @@ import { SiteParcModalDetailsComponent } from './site/site-parc-page/site-parc-m
 import { SiteSalariesPageComponent } from './site/site-salaries-page/site-salaries-page.component';
 import { SiteSalariesContentComponent } from './site/site-salaries-page/site-salaries-content/site-salaries-content.component';
 import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
+import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page/admin-bibliotheque-content/admin-bibliotheque-content.component';
 
 
 @NgModule({

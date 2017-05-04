@@ -2,3 +2,18 @@ div.circle-wrapper{
     display: inline-block;
     margin: 10px;
 }
+
+.main-content-header-block {
+    background-color: white;
+    height: 140px;
+    width: 100%;
+    display: table;
+}
+.main-content-header {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+h1{
+    width: 100%;
+}

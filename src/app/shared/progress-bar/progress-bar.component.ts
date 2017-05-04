@@ -1,6 +1,4 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {ProgressBarFillService} from '../../services/progress-bar-fill.service';
-import {ProgressBarTESTclass} from '../../const/progress-bar-test-class';
 
 @Component({
     selector: 'circle-progress',

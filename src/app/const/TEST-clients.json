@@ -1,0 +1,11 @@
+{"result": {
+  "col1": "enterprise",
+  "col2": "Sites",
+  "col3": {
+    "Employes": [
+      {"value": "New", "onclick": "CreateNewDoc()"},
+      {"value": "Open", "onclick": "OpenDoc()"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}

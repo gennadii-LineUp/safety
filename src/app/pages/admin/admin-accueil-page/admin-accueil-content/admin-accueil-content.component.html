@@ -1,8 +1,7 @@
-<div class="main-content-header-block">
-    <h1 class="main-content-header">Bienvenue dans votre tableau de bord</h1>
-</div>
-<div class="main-content-wrapper col-md-12">
-    <div class="col-xs-12 col-sm-12 col-md-12">
+<header class="main-header">
+    <h1>Bienvenue dans votre tableau de bord</h1>
+</header>
+<div class="main-content">
 
         <div style='text-align: center'>
             <div class='circle-wrapper' *ngFor='let progressBar of progressBarValues'>
@@ -24,5 +23,36 @@
             </div>
         </div>
 
-    </div>
 </div>
+
+
+
+<!--==================== КИРИЛЛ ====================-->
+<!--<div class="main-content-header-block">-->
+    <!--<h1 class="main-content-header">Bienvenue dans votre tableau de bord</h1>-->
+<!--</div>-->
+<!--<div class="main-content-wrapper col-md-12">-->
+    <!--<div class="col-xs-12 col-sm-12 col-md-12">-->
+
+        <!--<div style='text-align: center'>-->
+            <!--<div class='circle-wrapper' *ngFor='let progressBar of progressBarValues'>-->
+                <!--<circle-progress #circleProg1-->
+                                 <!--[percent]=progressBar.value-->
+                                 <!--[caption]=progressBar.name-->
+                                 <!--[boxSize]="160"-->
+                                 <!--[backgroundColor] = "'#8d8d8d'"-->
+                                 <!--[radius]="80"-->
+                                 <!--[lowColor]="'#71dac0'"-->
+                                 <!--[middleColor]="'#71dac0'"-->
+                                 <!--[interColor]="'#71dac0'"-->
+                                 <!--[highColor]="'#71dac0'"-->
+                                 <!--[border]="14"-->
+                                 <!--[time]="1"-->
+                                 <!--[fontSize]="30"-->
+                                 <!--(click)="circleProg1.animate()"-->
+                <!--&gt;</circle-progress>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
