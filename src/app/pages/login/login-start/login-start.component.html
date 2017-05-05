@@ -19,7 +19,7 @@
                 </div>
                 <p>Mot de passe oublié ?</p>
                 <div class="button-wrapper">
-                    <button type="submit" class="form-button connexion-button">Connexion</button>
+                    <button type="submit" class="form-button connexion-button"  [routerLink]="['/admin/accueil']">Connexion</button>
                 </div>
             </form>
 
@@ -31,9 +31,24 @@
             <div>Découvrez nos solutions !</div>
             <br>
             <div class="solution-wrapper">
-                <div class="solution">data</div>
-                <div class="solution">data</div>
-                <div class="solution">data</div>
+                <div class="solution">
+                    <div class="image-wrapper">
+                        <img src="../../../../assets/img/sigma_b.png" alt="PRO">
+                    </div>
+                    <div>PRO</div>
+                </div>
+                <div class="solution">
+                    <div class="image-wrapper">
+                        <img src="../../../../assets/img/sigma_w.png" alt="SAFE">
+                    </div>
+                    <div>SAFE</div>
+                </div>
+                <div class="solution"  [routerLink]="['/admin/accueil']">
+                    <div class="image-wrapper">
+                        <img src="../../../../assets/img/sigma_w.png" alt="DATA">
+                    </div>
+                    <div>DATA</div>
+                </div>
             </div>
         </div>
     </div>
