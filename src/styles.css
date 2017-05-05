@@ -16,6 +16,10 @@
     src: url(assets/fonts/OpenSans-Semibold.ttf);
 }
 
+body {
+    max-width: 1600px;
+    min-width: 320px;
+}
 /* End of fonts */
 
 
