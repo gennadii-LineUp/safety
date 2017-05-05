@@ -1,3 +1,53 @@
-<p>
-  login-malchance works!
-</p>
+<!--<p>-->
+<!--login-start works!-->
+<!--</p>-->
+<div class="wrapper">
+    <div class="login-block">
+        <div class="caption">
+            <div>Safetyfirst</div>
+            <br>
+            <div>Formation manager</div>
+        </div>
+
+        <div class="main">
+            <form action="/" id="login-rappeler-form">
+                <p>Vous avez oublié votre mot de passe ?</p>
+                <p>Nous allons vous en envoyer un autre par email.</p>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="loginInputEmail" placeholder="Email">
+                </div>
+                <div class="button-wrapper">
+                    <button type="submit" class="form-button password-envoi-button" [routerLink]="['/admin/accueil']">Envoi</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="footer">
+            <div>Pas encore d'accèss  ?</div>
+            <br>
+            <div>Découvrez nos solutions !</div>
+            <br>
+            <div class="solution-wrapper">
+                <div class="solution">
+                    <div class="image-wrapper">
+                        <img src="../../../../assets/img/sigma_b.png" alt="PRO">
+                    </div>
+                    <div>PRO</div>
+                </div>
+                <div class="solution">
+                    <div class="image-wrapper">
+                        <img src="../../../../assets/img/sigma_w.png" alt="SAFE">
+                    </div>
+                    <div>SAFE</div>
+                </div>
+                <div class="solution"  [routerLink]="['/admin/accueil']">
+                    <div class="image-wrapper">
+                        <img src="../../../../assets/img/sigma_w.png" alt="DATA">
+                    </div>
+                    <div>DATA</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
