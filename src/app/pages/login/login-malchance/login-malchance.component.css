@@ -123,7 +123,7 @@ div.main {
     line-height: 0.1;
 }
 .login-block div.footer > div:nth-of-type(1){
-    margin: 29px 0 0 7px;
+    margin: 29px 0 0 0;
 }
 .login-block div.footer > div:nth-of-type(2){
     margin: 0px;
