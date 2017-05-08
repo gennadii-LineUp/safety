@@ -1,11 +1,14 @@
+
+
+/*OLD*/
 /* SIDEBAR */
 
 .sidebar {
     width: 320px;
     background: #3ba890;
     float: left;
-    position: relative;
-    height: 100%;
+    position: relative;  /*deleted*/
+    height: 100%;            /*deleted*/
 }
 
 .brand-wrapper {
@@ -17,6 +20,11 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
+    text-decoration: none;
+}
+
+.brand:focus,
+.brand:hover {
     text-decoration: none;
 }
 
@@ -68,4 +76,15 @@
 .sidebar-nav li:hover a {
     color: #000;
     transition:.4s;
+}
+
+
+@media (max-width: 991px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar-nav a {
+        padding-left: 30px;
+    }
 }

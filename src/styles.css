@@ -16,11 +16,10 @@
     src: url(assets/fonts/OpenSans-Semibold.ttf);
 }
 
-body {
-    max-width: 1600px;
-    min-width: 320px;
-}
 /* End of fonts */
+
+
+
 
 
 
@@ -388,6 +387,10 @@ main {
     padding-bottom: 0;
     background: #efefef;
 }
+
+
+
+
 
 article {
     max-width: 880px;
@@ -939,3 +942,14 @@ h2 {
     width: 20.25%;
 }
 
+/* MOBILE */
+@media (max-width: 991px) {
+    main {
+        width: 100%;
+    }
+
+    main {
+        padding: 30px;
+    }
+
+}

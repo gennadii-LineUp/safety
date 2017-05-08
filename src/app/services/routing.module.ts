@@ -19,7 +19,7 @@ import {LoginMalchanceComponent} from 'app/pages/login/login-malchance/login-mal
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'admin/reglages', pathMatch: 'full' },
     { path: 'login', component: LoginStartComponent },
     { path: 'login_', component: LoginMalchanceComponent },
     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
