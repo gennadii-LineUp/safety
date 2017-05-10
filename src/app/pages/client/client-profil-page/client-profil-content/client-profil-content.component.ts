@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-client-profil-content',
+  selector: 'client-profil-content',
   templateUrl: './client-profil-content.component.html',
   styleUrls: ['./client-profil-content.component.css']
 })

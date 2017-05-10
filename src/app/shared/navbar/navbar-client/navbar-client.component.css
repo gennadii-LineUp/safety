@@ -1,0 +1,90 @@
+
+
+/*OLD*/
+/* SIDEBAR */
+
+.sidebar {
+    width: 320px;
+    background: #3ba890;
+    float: left;
+    position: relative;  /*deleted*/
+    height: 100%;            /*deleted*/
+}
+
+.brand-wrapper {
+    text-align: center;
+}
+
+.brand {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    text-decoration: none;
+}
+
+.brand:focus,
+.brand:hover {
+    text-decoration: none;
+}
+
+.brand img {
+    margin-bottom: -3px;
+}
+
+.brand p {
+    font-family: 'Righteous', cursive;
+    font-size: 26px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.sidebar-nav {
+    margin-top: -1px;
+}
+
+.sidebar-nav li {
+    height: 56px;
+    margin-bottom: 4px;
+    padding-top: 12px;
+    transition:.4s;
+}
+
+.sidebar-nav a {
+    font-family: 'Righteous', cursive;
+    font-size: 24px;
+    color: #fff;
+    display: block;
+    padding-left: 32px;
+    text-decoration: none;
+    transition:.4s;
+}
+
+.sidebar-nav .active {
+    background: #71dac0;
+}
+
+.sidebar-nav .active a {
+    color: #000;
+}
+
+.sidebar-nav li:hover {
+    background: #71dac0;
+    transition:.4s;
+}
+
+.sidebar-nav li:hover a {
+    color: #000;
+    transition:.4s;
+}
+
+
+@media (max-width: 991px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar-nav a {
+        padding-left: 30px;
+    }
+}

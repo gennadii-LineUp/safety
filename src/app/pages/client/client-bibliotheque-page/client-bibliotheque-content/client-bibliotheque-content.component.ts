@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-client-bibliotheque-content',
+  selector: 'client-bibliotheque-content',
   templateUrl: './client-bibliotheque-content.component.html',
   styleUrls: ['./client-bibliotheque-content.component.css']
 })
