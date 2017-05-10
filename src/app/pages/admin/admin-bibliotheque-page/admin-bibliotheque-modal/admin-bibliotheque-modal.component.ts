@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 
+
 @Component({
     selector: "modal-header",
     template: `<ng-content></ng-content>`
@@ -22,11 +23,12 @@ export class ModalFooter {}
 
 
 @Component({
-  selector: 'client-sites-modal',
-  templateUrl: './client-sites-modal.component.html',
-  styleUrls: ['./client-sites-modal.component.css']
+  selector: 'admin-bibliotheque-modal',
+  templateUrl: './admin-bibliotheque-modal.component.html',
+  styleUrls: ['./admin-bibliotheque-modal.component.css']
 })
-export class ClientSitesModalComponent {
+export class AdminBibliothequeModalComponent  {
+
 
     // -------------------------------------------------------------------------
     // Inputs

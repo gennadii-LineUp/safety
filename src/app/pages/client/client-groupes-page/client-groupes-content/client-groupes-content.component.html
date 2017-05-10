@@ -3,7 +3,41 @@
 </header>
 <div class="main-content">
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
+        <!--<button class="add-an-item-button" data-toggle="modal" data-target=".bs-example-modal-sm"></button>-->
+
+
+            <button class="add-an-item-button" (click)="myModal.open()"></button>
+
+            <client-groupes-modal #myModal>
+                <modal-header>
+                    <h2>Ajouter un groupe</h2>
+                </modal-header>
+
+                <modal-content>
+                    <form action="/" class="modal-form">
+                        <div class="input-wrapper">
+                            <input class="form-control" id="exampleInputEmail1" placeholder="Nom*" type="text">
+                            <p class="requred-field hidden">Champs requis</p>
+                        </div>
+                        <div class="control-group">
+                            <label class="control control--checkbox">Accès Admin (entreprise + sites)
+                                <input type="checkbox"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </form>
+                </modal-content>
+
+                <modal-footer>
+                    <div class="button-wrapper">
+                        <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
+                                (click)="myModal.close()">Annuler</button>
+                        <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Créer</button>
+                    </div>
+                </modal-footer>
+            </client-groupes-modal>
+
+
         <div class="search-wrapper">
             <button class="search-button" type="button"></button>
             <input type="text" class="form-control search-input" placeholder="Rechercher">

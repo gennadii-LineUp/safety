@@ -43,6 +43,7 @@ import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-sa
 import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page/admin-bibliotheque-content/admin-bibliotheque-content.component';
 import { LoginStartComponent } from './login/login-start/login-start.component';
 import { LoginMalchanceComponent } from './login/login-malchance/login-malchance.component';
+import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-modal/admin-bibliotheque-modal.component';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { LoginMalchanceComponent } from './login/login-malchance/login-malchance
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,        AdminReglagesContentComponent,
         AdminClientsPageComponent,        AdminClientsContentComponent,
-        AdminBibliothequePageComponent,        AdminBibliothequeContentComponent,
+        AdminBibliothequePageComponent,   AdminBibliothequeContentComponent,  AdminBibliothequeModalComponent,
         ClientSitesPageComponent,        ClientSitesContentComponent,        ClientSitesModalComponent,
         ClientGroupesPageComponent,        ClientGroupesContentComponent,        ClientGroupesModalComponent,
         ClientSalariesPageComponent,        ClientSalariesContentComponent,
@@ -70,7 +71,8 @@ import { LoginMalchanceComponent } from './login/login-malchance/login-malchance
         LoginStartComponent,
         LoginMalchanceComponent,
 
-        ModalHeader, ModalContent, ModalFooter
+        ModalHeader, ModalContent, ModalFooter,
+
     ],
     exports: [
         AppComponent,
@@ -78,7 +80,7 @@ import { LoginMalchanceComponent } from './login/login-malchance/login-malchance
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,        AdminReglagesContentComponent,
         AdminClientsPageComponent,        AdminClientsContentComponent,
-        AdminBibliothequePageComponent,        AdminBibliothequeContentComponent,
+        AdminBibliothequePageComponent,   AdminBibliothequeContentComponent,  AdminBibliothequeModalComponent,
         ClientSitesPageComponent,        ClientSitesContentComponent,        ClientSitesModalComponent,
         ClientGroupesPageComponent,        ClientGroupesContentComponent,        ClientGroupesModalComponent,
         ClientSalariesPageComponent,        ClientSalariesContentComponent,
