@@ -17,6 +17,7 @@ import {InputTestComponent} from './ang-material/input-test/input-test.component
 import { SpinnerComponent } from './ang-material/spinner/spinner.component';
 import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-delete.component';
 
+// import {ModalModule} from "ng2-modal";
 
 
 @NgModule({
@@ -27,8 +28,8 @@ import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-
         NoopAnimationsModule,  // ang-material
         MdInputModule,   // ang-material
         MdButtonModule,  // ang-material
-        MdProgressSpinnerModule  // ang-material
-
+        MdProgressSpinnerModule,  // ang-material
+        // ModalModule
     ],
     declarations: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -40,7 +41,8 @@ import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-
 
         ButtonTestComponent,  // ang-material
         InputTestComponent, SpinnerComponent,    // ang-material
-        NavbarForDeleteComponent   //моя верстка, удалить потом
+        NavbarForDeleteComponent,   //моя верстка, удалить потом
+
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -52,7 +54,9 @@ import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-
 
         ButtonTestComponent,  // ang-material
         InputTestComponent, SpinnerComponent,    // ang-material
-        NavbarForDeleteComponent   //моя верстка, удалить потом
+        NavbarForDeleteComponent,   //моя верстка, удалить потом
+
+        // ModalModule
     ],
     providers: [],
     bootstrap: []

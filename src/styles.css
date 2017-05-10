@@ -1907,3 +1907,6 @@ h2 {
 
 }
 
+.modal-content{
+    border-radius: 0px;
+}

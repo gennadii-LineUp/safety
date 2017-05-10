@@ -14,7 +14,7 @@ import { AdminAccueilContentComponent } from './admin/admin-accueil-page/admin-a
 import { AdminClientsContentComponent } from './admin/admin-clients-page/admin-clients-content/admin-clients-content.component';
 import { ClientSitesPageComponent } from './client/client-sites-page/client-sites-page.component';
 import { ClientSitesContentComponent } from './client/client-sites-page/client-sites-content/client-sites-content.component';
-import { ClientSitesModalComponent } from './client/client-sites-page/client-sites-modal/client-sites-modal.component';
+import { ClientSitesModalComponent, ModalHeader, ModalContent, ModalFooter } from './client/client-sites-page/client-sites-modal/client-sites-modal.component';
 import { ClientGroupesPageComponent } from './client/client-groupes-page/client-groupes-page.component';
 import { ClientGroupesContentComponent } from './client/client-groupes-page/client-groupes-content/client-groupes-content.component';
 import { ClientGroupesModalComponent } from './client/client-groupes-page/client-groupes-modal/client-groupes-modal.component';
@@ -70,6 +70,7 @@ import { LoginMalchanceComponent } from './login/login-malchance/login-malchance
         LoginStartComponent,
         LoginMalchanceComponent,
 
+        ModalHeader, ModalContent, ModalFooter
     ],
     exports: [
         AppComponent,
@@ -92,6 +93,7 @@ import { LoginMalchanceComponent } from './login/login-malchance/login-malchance
         LoginStartComponent,
         LoginMalchanceComponent,
 
+        ModalHeader, ModalContent, ModalFooter
     ],
     providers: [],
     bootstrap: [AppComponent]

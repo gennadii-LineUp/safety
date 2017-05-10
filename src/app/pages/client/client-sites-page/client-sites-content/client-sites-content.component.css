@@ -1,0 +1,7 @@
+h2 {
+    margin-top: 1px;
+}
+
+.ajouter-un-site-table th:first-of-type, .ajouter-un-site-table td:first-of-type {
+    width: 80.25%;
+}
