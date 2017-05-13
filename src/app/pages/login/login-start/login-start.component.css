@@ -58,16 +58,16 @@ div.main {
     margin-top: 19px;
     margin-left: -4px;
 }
-#login-form{
+form{
     width: 100%;
     height: 100%;
     text-align: center;
 }
-#login-form .form-group {
+.form-group {
     display: inline-block;
     margin: 0px;
 }
-#login-form .form-control {
+.form-control {
     font-family: OpenSans-Regular, sans-serif;
     font-weight: 400;
     border-radius: 0;
@@ -78,7 +78,7 @@ div.main {
     margin: 24px 0 0 -2px;
     padding: 0 0 0 6px;
 }
-#login-form p{
+form p{
     font-family: OpenSans-Regular, sans-serif;
     font-weight: 400;
     font-size: 12px;
@@ -97,7 +97,7 @@ div.main {
     padding-right: 2px;
     padding-bottom: 5px;
 }
-#login-form .button-wrapper{
+form .button-wrapper{
     margin-top: 16px;
     margin-left: -2px;
 }

@@ -15,16 +15,30 @@
             </div>
 
             <div class="main">
-                <form action="/" id="login-form">
+                <form #loginForm="ngForm" (submit)="login(email.value, password.value)">
                     <div class="form-group">
-                        <input type="email" class="form-control" id="loginInputEmail" placeholder="Email">
+                        <input type="email"
+                               #email
+                               name="email"
+                               id='email'
+                               required
+                               placeholder="Email"
+                               class="form-control"
+                               ngModel>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="loginInputPassword" placeholder="Mot de passe">
+                        <input type="password"
+                               #password
+                               name="password"
+                               id='password'
+                               required
+                               class="form-control"
+                               placeholder="Mot de passe"
+                               ngModel>
                     </div>
                     <p>Mot de passe oublié ?</p>
                     <div class="button-wrapper">
-                        <button type="submit" class="form-button connexion-button"  [routerLink]="['/login_']">Connexion</button>
+                        <button type="submit" class="form-button connexion-button">Connexion</button>
                     </div>
                 </form>
 

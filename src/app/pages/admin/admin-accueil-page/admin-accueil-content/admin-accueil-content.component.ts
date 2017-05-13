@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProgressBarFillService} from '../../../../services/progress-bar-fill.service';
-import {ProgressBarTESTclass} from 'app/const/progress-bar-test-class';
+import {ProgressBarTESTclass} from 'app/models/const/progress-bar-test-class';
 
 @Component({
   selector: 'admin-accueil-content',

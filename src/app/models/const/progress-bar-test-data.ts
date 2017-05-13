@@ -1,4 +1,4 @@
-import {ProgressBarTESTclass} from 'app/const/progress-bar-test-class';
+import {ProgressBarTESTclass} from 'app/models/const/progress-bar-test-class';
 
 export const ProgressBarTESTvalues: ProgressBarTESTclass[] = [
     {id: 1, name: 'clients', value: 58},

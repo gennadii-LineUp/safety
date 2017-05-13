@@ -16,6 +16,8 @@ import {ButtonTestComponent} from './ang-material/button-test/button-test.compon
 import {InputTestComponent} from './ang-material/input-test/input-test.component';
 import { SpinnerComponent } from './ang-material/spinner/spinner.component';
 import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-delete.component';
+import {BackendService} from '../services/backend/backend.service';
+import {LoginService} from '../services/login/login.service';
 
 // import {ModalModule} from "ng2-modal";
 
@@ -58,7 +60,10 @@ import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-
 
         // ModalModule
     ],
-    providers: [],
+    providers: [
+        BackendService,
+        LoginService
+    ],
     bootstrap: []
 
 })
