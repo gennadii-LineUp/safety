@@ -13,7 +13,6 @@ body, .main-wrapper {
 }
 
 
-
 @media (min-width: 992px) {
     body, .main-wrapper {
         display: flex;

@@ -44,6 +44,9 @@ import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page
 import { LoginStartComponent } from './login/login-start/login-start.component';
 import { LoginMalchanceComponent } from './login/login-malchance/login-malchance.component';
 import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-modal/admin-bibliotheque-modal.component';
+import { AdminComponent } from './admin/admin.component';
+import { ClientComponent } from './client/client.component';
+import { SiteComponent } from './site/site.component';
 
 
 @NgModule({
@@ -72,6 +75,9 @@ import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page
         LoginMalchanceComponent,
 
         ModalHeader, ModalContent, ModalFooter,
+        AdminComponent,
+        ClientComponent,
+        SiteComponent,
 
     ],
     exports: [
@@ -95,7 +101,9 @@ import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page
         LoginStartComponent,
         LoginMalchanceComponent,
 
-        ModalHeader, ModalContent, ModalFooter
+        ModalHeader, ModalContent, ModalFooter,
+        AdminComponent,
+        ClientComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

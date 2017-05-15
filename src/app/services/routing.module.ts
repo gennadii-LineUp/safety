@@ -17,54 +17,95 @@ import {ClientSalariesPageComponent} from 'app/pages/client/client-salaries-page
 import {LoginStartComponent} from '../pages/login/login-start/login-start.component';
 import {LoginMalchanceComponent} from 'app/pages/login/login-malchance/login-malchance.component';
 
+import {AdminRoutingModule} from '../pages/admin/admin-routing.module';
+import {AppComponent} from '../pages/index-page/app.component';
+import {ClientRoutingModule} from '../pages/client/client-routing.module';
+import {SiteRoutingModule} from '../pages/site/site-routing.module';
+
+
+// const routes: Routes = [
+//     { path: '', redirectTo: 'login', pathMatch: 'full' },
+//     { path: 'login', component: LoginStartComponent },
+//     { path: 'login_', component: LoginMalchanceComponent },
+//     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
+//     { path: 'admin/reglages',  component: AdminReglagesPageComponent },
+//     { path: 'admin/client', component: AdminClientsPageComponent },
+//     { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
+//     { path: 'client/accueil', component: ClientSitesPageComponent },
+//     { path: 'client/groupes', component: ClientGroupesPageComponent },
+//     { path: 'client/salaries', component: ClientSalariesPageComponent },
+//     { path: 'client/profil', component: ClientProfilPageComponent },
+//     { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
+//     { path: 'site/accueil', component: SiteAccueilPageComponent },
+//     { path: 'site/reglages', component: SiteReglagesPageComponent },
+//     { path: 'site/fichiers', component: SiteFichiersPageComponent },
+//     { path: 'site/parc', component: SiteParcPageComponent },
+//     { path: 'site/parc', component: SiteParcPageComponent },
+//     { path: 'site/salaries', component: SiteSalariesPageComponent }
+// ];
+
+    { path: 'crisis-center', component: CrisisListComponent },
+    // { path: 'heroes',     component: HeroListComponent }, // <-- delete this line
+    { path: '',   redirectTo: '/heroes', pathMatch: 'full' },
+    { path: '**', component: PageNotFoundComponent }
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginStartComponent },
-    { path: 'login_', component: LoginMalchanceComponent },
-    { path: 'admin/accueil',  component: AdminAccueilPageComponent },
-    { path: 'admin/reglages',  component: AdminReglagesPageComponent },
-    { path: 'admin/client', component: AdminClientsPageComponent },
-    { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
-    { path: 'client/accueil', component: ClientSitesPageComponent },
-    { path: 'client/groupes', component: ClientGroupesPageComponent },
-    { path: 'client/salaries', component: ClientSalariesPageComponent },
-    { path: 'client/profil', component: ClientProfilPageComponent },
-    { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
-    { path: 'site/accueil', component: SiteAccueilPageComponent },
-    { path: 'site/reglages', component: SiteReglagesPageComponent },
-    { path: 'site/fichiers', component: SiteFichiersPageComponent },
-    { path: 'site/parc', component: SiteParcPageComponent },
-    { path: 'site/parc', component: SiteParcPageComponent },
-    { path: 'site/salaries', component: SiteSalariesPageComponent }
-];
+    { path: '', redirectTo: 'organization', pathMatch: 'full'},
+    {
+        path: '',
+        component: AppComponent,
+        children: [
+            {
+                path: '',
+                component: InnerPagesComponent,
+                // canActivate: [AuthGuard],
+                children: [
+                    AdminRoutingModule,
+                    ClientRoutingModule,
+                    SiteRoutingModule
+                ]
+            },
+            {
+                path: 'login',
+                component: LoginStartComponent
+            }
+        ]
+    },
+    {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    }
+]
 
+
+// const routes: Routes = [
+//     { path: '', redirectTo: 'login', pathMatch: 'full' },
+//     { path: 'login', component: LoginStartComponent },
+//     { path: 'login_', component: LoginMalchanceComponent },
+//     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
+//     { path: 'admin/reglages',  component: AdminReglagesPageComponent },
+//     { path: 'admin/client', component: AdminClientsPageComponent },
+//     { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
+//     { path: 'client/accueil', component: ClientSitesPageComponent },
+//     { path: 'client/groupes', component: ClientGroupesPageComponent },
+//     { path: 'client/salaries', component: ClientSalariesPageComponent },
+//     { path: 'client/profil', component: ClientProfilPageComponent },
+//     { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
+//     { path: 'site/accueil', component: SiteAccueilPageComponent },
+//     { path: 'site/reglages', component: SiteReglagesPageComponent },
+//     { path: 'site/fichiers', component: SiteFichiersPageComponent },
+//     { path: 'site/parc', component: SiteParcPageComponent },
+//     { path: 'site/parc', component: SiteParcPageComponent },
+//     { path: 'site/salaries', component: SiteSalariesPageComponent }
+// ];
 
 @NgModule({
     imports: [ RouterModule.forRoot(routes) ],
-    exports: [ RouterModule ]
+    exports: [ RouterModule ],
+    providers: [ ]
 })
 export class AppRoutingModule {}
 
 
-// const routes: Routes = [
-//     {
-//         path: '',
-//         component: AdminPageComponent
-//     }, {
-//         path: 'results',
-//         component: ResultsPageComponent,
-//         pathMatch: 'full'
-//     }, {
-//         path: 'fullInfo',
-//         component: DescriptionPageComponent,
-//         pathMatch: 'full'
-//     }, {
-//         path: 'favorites',
-//         component: FavoritesPageComponent,
-//         pathMatch: 'full'
-//     }, {
-//         path: '**',
-//         component: NotFoundPageComponent
-//     }
-// ]
+

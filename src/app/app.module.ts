@@ -12,9 +12,7 @@ import {AlertModule} from 'ngx-bootstrap';
 
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [ ],
   imports: [
       AlertModule.forRoot(),
       BrowserModule,
