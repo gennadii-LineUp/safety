@@ -12,12 +12,30 @@
 /*html {*/
 /*height: 100%;*/
 /*}*/
+html {
+    height: 100%;
+    overflow-x: hidden;
+}
 
 body, .main-wrapper {
     max-width: 1600px;
     min-width: 320px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+}
+
+@media (max-width: 1199px) {
+    /*article {*/
+        /*max-width: 100%;*/
+    /*}*/
+    .alert-danger {
+        height: auto;
+        top: 0px;
+    }
+    td .control__indicator {
+        left: calc(50% - 10px) !important;
+    }
 }
 
 @media (min-width: 992px) {
