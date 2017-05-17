@@ -34,17 +34,17 @@ export class LoginService {
 
           const roles = res.roles;
           const token = res.token;
-          localStorage.setItem('roles', '11');
-          localStorage.setItem('token', '22');
 
               console.log('localStorage');
 
-          this.router.navigate(['/']);
-          // this.router.navigate(['/admin']);
+              localStorage.setItem('roles', roles);
+              localStorage.setItem('token', token);
 
-          alert('check localStorage for token');
-              localStorage.setItem('roles', '11');
-              localStorage.setItem('token', '22');
+          // this.router.navigate(['/']);
+          this.router.navigate(['/admin']);
+
+          console.log(localStorage);
+
         },
         err => {
           console.log(err);
