@@ -42,7 +42,7 @@ import { SiteSalariesContentComponent } from './site/site-salaries-page/site-sal
 import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
 import {AdminBibliothequeContentComponent} from './admin/admin-bibliotheque-page/admin-bibliotheque-content/admin-bibliotheque-content.component';
 import { LoginStartComponent } from './login/login-start/login-start.component';
-import { LoginMalchanceComponent } from './login/login-malchance/login-malchance.component';
+import { RappelerLeMotDePasseComponent } from './login/login-rappeler/login-rappeler.component';
 import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-modal/admin-bibliotheque-modal.component';
 import { AdminComponent } from './admin/admin.component';
 import { ClientComponent } from './client/client.component';
@@ -72,7 +72,7 @@ import { SiteComponent } from './site/site.component';
         SiteParcModalMachineComponent,        SiteParcModalEnginComponent,        SiteParcModalDetailsComponent,
         SiteSalariesPageComponent,        SiteSalariesContentComponent,        SiteSalariesCreationComponent,
         LoginStartComponent,
-        LoginMalchanceComponent,
+        RappelerLeMotDePasseComponent,
 
         ModalHeader, ModalContent, ModalFooter,
         AdminComponent,
@@ -99,7 +99,7 @@ import { SiteComponent } from './site/site.component';
         SiteParcModalMachineComponent,        SiteParcModalEnginComponent,        SiteParcModalDetailsComponent,
         SiteSalariesPageComponent,        SiteSalariesContentComponent,        SiteSalariesCreationComponent,
         LoginStartComponent,
-        LoginMalchanceComponent,
+        RappelerLeMotDePasseComponent,
 
         ModalHeader, ModalContent, ModalFooter,
         AdminComponent,

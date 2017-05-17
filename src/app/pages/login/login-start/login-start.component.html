@@ -35,7 +35,7 @@
                                placeholder="Mot de passe"
                                ngModel>
                     </div>
-                    <p>Mot de passe oublié ?</p>
+                    <p [routerLink]="['/login/rappeler-le-mot-de-passe']">Mot de passe oublié ?</p>
                     <div class="button-wrapper">
                         <button type="submit" class="form-button connexion-button">Connexion</button>
                     </div>

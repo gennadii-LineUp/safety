@@ -15,7 +15,7 @@ import {SiteParcPageComponent} from '../pages/site/site-parc-page/site-parc-page
 import {SiteSalariesPageComponent} from '../pages/site/site-salaries-page/site-salaries-page.component';
 import {ClientSalariesPageComponent} from 'app/pages/client/client-salaries-page/client-salaries-page.component';
 import {LoginStartComponent} from '../pages/login/login-start/login-start.component';
-import {LoginMalchanceComponent} from 'app/pages/login/login-malchance/login-malchance.component';
+import {RappelerLeMotDePasseComponent} from 'app/pages/login/login-rappeler/login-rappeler.component';
 import {AdminComponent} from '../pages/admin/admin.component';
 import {ClientComponent} from '../pages/client/client.component';
 
@@ -28,7 +28,7 @@ import {ClientComponent} from '../pages/client/client.component';
 // const routes: Routes = [
 //     { path: '', redirectTo: 'login', pathMatch: 'full' },
 //     { path: 'login', component: LoginStartComponent },
-//     { path: 'login_', component: LoginMalchanceComponent },
+//     { path: 'login_', component: RappelerLeMotDePasseComponent },
 //     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
 //     { path: 'admin/reglages',  component: AdminReglagesPageComponent },
 //     { path: 'admin/client', component: AdminClientsPageComponent },
@@ -79,7 +79,7 @@ import {ClientComponent} from '../pages/client/client.component';
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginStartComponent },
-    { path: 'login_', component: LoginMalchanceComponent },
+    { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
     { path: 'admin', component: AdminComponent, // canActivate: [AuthGuard],
         children: [
                     { path: 'accueil', component: AdminAccueilPageComponent  },
@@ -99,6 +99,7 @@ const routes: Routes = [
             { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
+    // { path: 'login_', component: RappelerLeMotDePasseComponent },
     // { path: 'admin/accueil',  component: AdminAccueilPageComponent },
     // { path: 'admin/reglages',  component: AdminReglagesPageComponent },
     // { path: 'admin/client', component: AdminClientsPageComponent },
