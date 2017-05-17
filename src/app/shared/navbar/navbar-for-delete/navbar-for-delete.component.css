@@ -2,9 +2,14 @@
 /* MENU FOR DELETE */
 div.menu-for-delete{
     position: fixed;
-    top: 15px;
+    top: 5px;
     left: 15px;
 }
+
+div.menu-for-delete p{
+    margin-top: 2px;
+}
+
 div.menu-for-delete button {
     background: tomato;
     border: 1px solid #71dac0;

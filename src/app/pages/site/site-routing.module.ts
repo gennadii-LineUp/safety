@@ -1,25 +1,27 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AdminReglagesPageComponent} from './admin-reglages-page/admin-reglages-page.component';
-import {AdminClientsPageComponent} from './admin-clients-page/admin-clients-page.component';
-import {AdminBibliothequePageComponent} from './admin-bibliotheque-page/admin-bibliotheque-page.component';
-import {AdminAccueilPageComponent} from './admin-accueil-page/admin-accueil-page.component';
-import {AdminComponent} from 'app/pages/admin/admin.component';
+import {SiteAccueilPageComponent} from 'app/pages/site/site-accueil-page/site-accueil-page.component';
+import {SiteParcPageComponent} from './site-parc-page/site-parc-page.component';
+import {SiteComponent} from './site.component';
+import {SiteFichiersPageComponent} from './site-fichiers-page/site-fichiers-page.component';
+import {SiteReglagesPageComponent} from './site-reglages-page/site-reglages-page.component';
+import {SiteSalariesPageComponent} from './site-salaries-page/site-salaries-page.component';
 
 const siteRoutes: Routes = [
     {
         path: '',
-        component: AdminComponent,
+        component: SiteComponent,
         // canActivate: [AuthGuard],
         children: [
             {
                 path: '',
                 // canActivateChild: [AuthGuard],
                 children: [
-                    { path: 'reglages', component: AdminReglagesPageComponent },
-                    { path: 'client', component: AdminClientsPageComponent },
-                    { path: 'bibliotheque', component: AdminBibliothequePageComponent },
-                    { path: '', component: AdminAccueilPageComponent }
+                    { path: 'fichiers', component: SiteFichiersPageComponent },
+                    { path: 'parc', component: SiteParcPageComponent },
+                    { path: 'reglages', component: SiteReglagesPageComponent },
+                    { path: 'salaries', component: SiteSalariesPageComponent },
+                    { path: '', component: SiteAccueilPageComponent }
                 ]
             }
         ]

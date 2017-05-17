@@ -16,11 +16,13 @@ import {SiteSalariesPageComponent} from '../pages/site/site-salaries-page/site-s
 import {ClientSalariesPageComponent} from 'app/pages/client/client-salaries-page/client-salaries-page.component';
 import {LoginStartComponent} from '../pages/login/login-start/login-start.component';
 import {LoginMalchanceComponent} from 'app/pages/login/login-malchance/login-malchance.component';
+import {AdminComponent} from '../pages/admin/admin.component';
+import {ClientComponent} from '../pages/client/client.component';
 
-import {AdminRoutingModule} from '../pages/admin/admin-routing.module';
-import {AppComponent} from '../pages/index-page/app.component';
-import {ClientRoutingModule} from '../pages/client/client-routing.module';
-import {SiteRoutingModule} from '../pages/site/site-routing.module';
+// import {AdminRoutingModule} from '../pages/admin/admin-routing.module';
+// import {AppComponent} from '../pages/index-page/app.component';
+// import {ClientRoutingModule} from '../pages/client/client-routing.module';
+// import {SiteRoutingModule} from '../pages/site/site-routing.module';
 
 
 // const routes: Routes = [
@@ -44,61 +46,76 @@ import {SiteRoutingModule} from '../pages/site/site-routing.module';
 //     { path: 'site/salaries', component: SiteSalariesPageComponent }
 // ];
 
-    { path: 'crisis-center', component: CrisisListComponent },
-    // { path: 'heroes',     component: HeroListComponent }, // <-- delete this line
-    { path: '',   redirectTo: '/heroes', pathMatch: 'full' },
-    { path: '**', component: PageNotFoundComponent }
+
+// const routes: Routes = [
+//     {
+//         path: '',
+//         component: AppComponent,
+//         children: [
+//             {
+//                 path: '',
+//                 component: InnerPagesComponent,
+//                 // canActivate: [AuthGuard],
+//                 children: [
+//                     AdminRoutingModule,
+//                     ClientRoutingModule,
+//                     SiteRoutingModule
+//                 ]
+//             },
+//             {
+//                 path: 'login',
+//                 component: LoginStartComponent
+//             }
+//         ]
+//     },
+//     {
+//         path: '',
+//         redirectTo: 'login',
+//         pathMatch: 'full'
+//     }
+// ]
+
 
 const routes: Routes = [
-    { path: '', redirectTo: 'organization', pathMatch: 'full'},
-    {
-        path: '',
-        component: AppComponent,
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginStartComponent },
+    { path: 'login_', component: LoginMalchanceComponent },
+    { path: 'admin', component: AdminComponent, // canActivate: [AuthGuard],
         children: [
-            {
-                path: '',
-                component: InnerPagesComponent,
-                // canActivate: [AuthGuard],
-                children: [
-                    AdminRoutingModule,
-                    ClientRoutingModule,
-                    SiteRoutingModule
+                    { path: 'accueil', component: AdminAccueilPageComponent  },
+                    { path: 'reglages', component: AdminReglagesPageComponent },
+                    { path: 'client', component: AdminClientsPageComponent },
+                    { path: 'bibliotheque', component: AdminBibliothequePageComponent },
+                    { path: '', redirectTo: 'accueil', pathMatch: 'full' }
                 ]
-            },
-            {
-                path: 'login',
-                component: LoginStartComponent
-            }
+    },
+    { path: 'client', component: ClientComponent, // canActivate: [AuthGuard],
+        children: [
+            { path: 'accueil', component: ClientSitesPageComponent  },
+            { path: 'groupes', component: ClientGroupesPageComponent },
+            { path: 'salaries', component: ClientSalariesPageComponent },
+            { path: 'profil', component: ClientProfilPageComponent },
+            { path: 'bibliotheque', component: ClientBibliothequePageComponent },
+            { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
-    {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
-    }
-]
+    // { path: 'admin/accueil',  component: AdminAccueilPageComponent },
+    // { path: 'admin/reglages',  component: AdminReglagesPageComponent },
+    // { path: 'admin/client', component: AdminClientsPageComponent },
+    // { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
 
-
-// const routes: Routes = [
-//     { path: '', redirectTo: 'login', pathMatch: 'full' },
-//     { path: 'login', component: LoginStartComponent },
-//     { path: 'login_', component: LoginMalchanceComponent },
-//     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
-//     { path: 'admin/reglages',  component: AdminReglagesPageComponent },
-//     { path: 'admin/client', component: AdminClientsPageComponent },
-//     { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
-//     { path: 'client/accueil', component: ClientSitesPageComponent },
-//     { path: 'client/groupes', component: ClientGroupesPageComponent },
-//     { path: 'client/salaries', component: ClientSalariesPageComponent },
-//     { path: 'client/profil', component: ClientProfilPageComponent },
-//     { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
-//     { path: 'site/accueil', component: SiteAccueilPageComponent },
-//     { path: 'site/reglages', component: SiteReglagesPageComponent },
-//     { path: 'site/fichiers', component: SiteFichiersPageComponent },
-//     { path: 'site/parc', component: SiteParcPageComponent },
-//     { path: 'site/parc', component: SiteParcPageComponent },
-//     { path: 'site/salaries', component: SiteSalariesPageComponent }
-// ];
+    // { path: 'client/accueil', component: ClientSitesPageComponent },
+    // { path: 'client/groupes', component: ClientGroupesPageComponent },
+    // { path: 'client/salaries', component: ClientSalariesPageComponent },
+    // { path: 'client/profil', component: ClientProfilPageComponent },
+    // { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
+    { path: 'site/accueil', component: SiteAccueilPageComponent },
+    { path: 'site/reglages', component: SiteReglagesPageComponent },
+    { path: 'site/fichiers', component: SiteFichiersPageComponent },
+    { path: 'site/parc', component: SiteParcPageComponent },
+    { path: 'site/parc', component: SiteParcPageComponent },
+    { path: 'site/salaries', component: SiteSalariesPageComponent }
+];
 
 @NgModule({
     imports: [ RouterModule.forRoot(routes) ],

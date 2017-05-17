@@ -18,7 +18,7 @@
 
 /* End of fonts */
 
-
+body {position: relative; }
 
 /*==================== КИРИЛЛ ====================*/
 /* GENERAL */
@@ -1238,24 +1238,24 @@ h2 {
 
 .table-default th,
 .table-default td {
-    padding-left: 10px;
-    position: relative;
+    padding-left: 10px !important;
+    position: relative !important;
 }
 
 .table-default td {
-    padding-right: 24px;
-    text-align: right;
-    color: #000;
+    padding-right: 24px !important;
+    text-align: right !important;
+    color: #000 !important;
 }
 
 .table-default th:first-of-type {
-    padding-left: 47px;
+    padding-left: 47px !important;
 }
 
 .table-default td:first-of-type {
-    padding-left: 24px;
-    padding-right: 0;
-    text-align: left;
+    padding-left: 24px !important;
+    padding-right: 0 !important;
+    text-align: left !important;
 }
 
 .table-default th:nth-of-type(n+1) {

@@ -31,15 +31,16 @@ export class LoginService {
       .subscribe((res: any) => {
           console.log(res);
           console.log(res.roles);
-          console.log(res.token);
 
           const roles = res.roles;
           const token = res.token;
           localStorage.setItem('roles', '11');
           localStorage.setItem('token', '22');
 
-          // this.router.navigate(['/']);
-          this.router.navigate(['/admin/accueil']);
+              console.log('localStorage');
+
+          this.router.navigate(['/']);
+          // this.router.navigate(['/admin']);
 
           alert('check localStorage for token');
               localStorage.setItem('roles', '11');

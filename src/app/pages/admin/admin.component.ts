@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnDestroy {
 
-  constructor() { }
+    private menuItem: number;
+    private routeSubscription: Subscription;
 
-  ngOnInit() {
-  }
+    constructor(private route: ActivatedRoute) {
 
+        this.routeSubscription = route.params.subscribe(params => this.menuItem = params['menuItem']);
+    }
+
+    ngOnDestroy() {
+        this.routeSubscription.unsubscribe();
+    }
 }
