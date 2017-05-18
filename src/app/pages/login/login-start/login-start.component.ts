@@ -18,8 +18,8 @@ export class LoginStartComponent implements OnInit {
   }
 
     login(userEmail:string, password: string) {
-        // this.loginService.login(userEmail, password);
-           this.loginService.login('admin@example.com', 'admin');
+        this.loginService.login(userEmail, password);
+        //   this.loginService.login('admin@example.com', 'admin');
     }
 
 

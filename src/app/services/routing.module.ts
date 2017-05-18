@@ -18,6 +18,7 @@ import {LoginStartComponent} from '../pages/login/login-start/login-start.compon
 import {RappelerLeMotDePasseComponent} from 'app/pages/login/login-rappeler/login-rappeler.component';
 import {AdminComponent} from '../pages/admin/admin.component';
 import {ClientComponent} from '../pages/client/client.component';
+import {AuthGuard} from 'app/guards/auth-guards.service';
 
 // import {AdminRoutingModule} from '../pages/admin/admin-routing.module';
 // import {AppComponent} from '../pages/index-page/app.component';
@@ -80,7 +81,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginStartComponent },
     { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
-    { path: 'admin', component: AdminComponent, // canActivate: [AuthGuard],
+    { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard],
         children: [
                     { path: 'accueil', component: AdminAccueilPageComponent  },
                     { path: 'reglages', component: AdminReglagesPageComponent },
@@ -121,7 +122,9 @@ const routes: Routes = [
 @NgModule({
     imports: [ RouterModule.forRoot(routes) ],
     exports: [ RouterModule ],
-    providers: [ ]
+    providers: [
+        AuthGuard
+    ]
 })
 export class AppRoutingModule {}
 

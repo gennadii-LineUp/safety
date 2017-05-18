@@ -15,37 +15,40 @@ export class LoginService {
     // admin@example.com
     // admin
 
-    // let data: any = {
-    //   username: '',
-    //   password: ''
-    // };
+      let usernamePassword = btoa(user+':'+password);
+    // let usernamePassword: any = { username: '', password: '' };
+    // usernamePassword.username = user;
+    // usernamePassword.password = password;
     //
-    // data.username = user;
-    // data.password = password;
-    //
-    // data = this.encode(data);
+    // usernamePassword = this.encode(usernamePassword);
+      console.log('====');
 
-      let usernamePassword = 'YWRtaW5AZXhhbXBsZS5jb206YWRtaW4=';
+    //  let usernamePassword = 'YWRtaW5AZXhhbXBsZS5jb206YWRtaW4=';
 
     return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword)
       .subscribe((res: any) => {
-          console.log(res);
-          console.log(res.roles);
 
           const roles = res.roles;
           const token = res.token;
 
-              console.log('localStorage');
-
               localStorage.setItem('roles', roles);
               localStorage.setItem('token', token);
 
-          // this.router.navigate(['/']);
-          this.router.navigate(['/admin']);
 
-          console.log(localStorage);
+              // this.router.navigate(['/']);
+          // this.router.navigate(['/admin']);
 
-        },
+          console.log(localStorage.roles);
+
+              if (localStorage.roles === 'ROLE_ADMIN') {
+                  this.router.navigate(['/admin']);
+              }
+              if (localStorage.roles === 'ROLE_CLIENT') {
+                  this.router.navigate(['/client']);
+              }
+
+
+          },
         err => {
           console.log(err);
         });
@@ -59,7 +62,6 @@ export class LoginService {
       newData += '=' + encodeURI(obj[key]) + '&';
     }
     newData = newData.slice(0, -1);
-    // console.log(newData);
     return newData;
   }
 
