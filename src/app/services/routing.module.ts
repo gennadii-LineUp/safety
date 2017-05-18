@@ -91,12 +91,12 @@ const routes: Routes = [
     },
     { path: 'client', component: ClientComponent, // canActivate: [AuthGuard],
         children: [
-            { path: 'accueil', component: ClientSitesPageComponent  },
-            { path: 'groupes', component: ClientGroupesPageComponent },
-            { path: 'salaries', component: ClientSalariesPageComponent },
-            { path: 'profil', component: ClientProfilPageComponent },
-            { path: 'bibliotheque', component: ClientBibliothequePageComponent },
-            { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+                    { path: 'accueil', component: ClientSitesPageComponent  },
+                    { path: 'groupes', component: ClientGroupesPageComponent },
+                    { path: 'salaries', component: ClientSalariesPageComponent },
+                    { path: 'profil', component: ClientProfilPageComponent },
+                    { path: 'bibliotheque', component: ClientBibliothequePageComponent },
+                    { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
     // { path: 'login_', component: RappelerLeMotDePasseComponent },

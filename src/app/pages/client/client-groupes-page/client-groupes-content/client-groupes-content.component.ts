@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare let jQuery:any;
 
 @Component({
   selector: 'client-groupes-content',
@@ -11,6 +12,7 @@ export class ClientGroupesContentComponent implements OnInit {
 
     ngOnInit() {
         this.tableMobileViewInit();
+        // this.mobileMenuClickable();
     }
 
     public tableMobileViewInit() {
@@ -29,6 +31,25 @@ export class ClientGroupesContentComponent implements OnInit {
                 }
             }
         }
+    }
+
+    public mobileMenuClickable() {
+        jQuery('#nav-icon1').click(function () {
+            jQuery(this).toggleClass('open');
+        });
+        jQuery('#nav-icon1').click(function () {
+            jQuery('.sidebar-nav').slideToggle(400);
+        });
+        jQuery(window).resize(function () {
+            let windowWidth = window.innerWidth;
+            if (windowWidth > 991) {
+                jQuery(".sidebar-nav").slideDown();
+            }
+            else {
+                jQuery("#nav-icon1").removeClass('open');
+                jQuery(".sidebar-nav").slideUp();
+            }
+        });
     }
 
 }
