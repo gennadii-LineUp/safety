@@ -3,57 +3,43 @@ import {BackendService} from '../backend/backend.service';
 import {Router} from '@angular/router';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class LoginService {
+    public token: string;
 
-  constructor(private backendService: BackendService,
-              private router: Router) { }
-
-  login(user: string, password: string) {
-
-    // admin@example.com
-    // admin
-
-      let usernamePassword = btoa(user+':'+password);
-    // let usernamePassword: any = { username: '', password: '' };
-    // usernamePassword.username = user;
-    // usernamePassword.password = password;
-    //
-    // usernamePassword = this.encode(usernamePassword);
-      console.log('====');
-
-    //  let usernamePassword = 'YWRtaW5AZXhhbXBsZS5jb206YWRtaW4=';
-
-    return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword)
-      .subscribe((res: any) => {
-
-          const roles = res.roles;
-          const token = res.token;
-
-              localStorage.setItem('roles', roles);
-              localStorage.setItem('token', token);
+    constructor(private backendService: BackendService,
+                private router: Router) {
+        //var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.token = localStorage.token;
+        console.log(this.token);
+    }
 
 
-              // this.router.navigate(['/']);
-          // this.router.navigate(['/admin']);
+  login(user: string, password: string): Observable<any> {
+    this.logout();
 
-          console.log(localStorage.roles);
+    let usernamePassword = btoa(user+':'+password);
+    console.log('====');
 
-              if (localStorage.roles === 'ROLE_ADMIN') {
-                  this.router.navigate(['/admin']);
-              }
-              if (localStorage.roles === 'ROLE_CLIENT') {
-                  this.router.navigate(['/client']);
-              }
-
-
-          },
-        err => {
-          console.log(err);
-        });
+    return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword);
 
   }
+
+
+    logout(): void {
+        // clear token remove user from local storage to log user out
+        this.token = null;
+        localStorage.removeItem('role');
+        localStorage.removeItem('token');
+    }
+
+
+    //============
+    // =================
+
+
 
   encode(obj) {
     let newData = '';

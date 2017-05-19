@@ -12,4 +12,9 @@ export class NavbarForDeleteComponent implements OnInit {
   ngOnInit() {
   }
 
+  private clearLS() {
+      localStorage.clear();
+      console.log(localStorage);
+    }
+
 }

@@ -19,6 +19,8 @@ import {RappelerLeMotDePasseComponent} from 'app/pages/login/login-rappeler/logi
 import {AdminComponent} from '../pages/admin/admin.component';
 import {ClientComponent} from '../pages/client/client.component';
 import {AuthGuard} from 'app/guards/auth-guards.service';
+import {AdminGuard} from '../guards/admin-guard.service';
+import {ClientGuard} from '../guards/client-guard.service';
 
 // import {AdminRoutingModule} from '../pages/admin/admin-routing.module';
 // import {AppComponent} from '../pages/index-page/app.component';
@@ -81,7 +83,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginStartComponent },
     { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
-    { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard],
+    { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
         children: [
                     { path: 'accueil', component: AdminAccueilPageComponent  },
                     { path: 'reglages', component: AdminReglagesPageComponent },
@@ -90,7 +92,7 @@ const routes: Routes = [
                     { path: '', redirectTo: 'accueil', pathMatch: 'full' }
                 ]
     },
-    { path: 'client', component: ClientComponent, // canActivate: [AuthGuard],
+    { path: 'client', component: ClientComponent, canActivate: [AuthGuard, ClientGuard],
         children: [
                     { path: 'accueil', component: ClientSitesPageComponent  },
                     { path: 'groupes', component: ClientGroupesPageComponent },
@@ -123,7 +125,7 @@ const routes: Routes = [
     imports: [ RouterModule.forRoot(routes) ],
     exports: [ RouterModule ],
     providers: [
-        AuthGuard
+        AuthGuard, AdminGuard, ClientGuard
     ]
 })
 export class AppRoutingModule {}

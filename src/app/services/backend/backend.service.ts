@@ -10,7 +10,7 @@ export class BackendService {
 
     constructor(private http: Http) { }
 
-    public login(url, body, usernamePassword) {
+    public login(url, body, usernamePassword) : Observable<any>  {
         let headers: Headers = new Headers();
         headers.append('Authorization', 'Basic ' + usernamePassword);
 
