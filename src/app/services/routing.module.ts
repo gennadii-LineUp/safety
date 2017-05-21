@@ -50,33 +50,7 @@ import {ClientGuard} from '../guards/client-guard.service';
 // ];
 
 
-// const routes: Routes = [
-//     {
-//         path: '',
-//         component: AppComponent,
-//         children: [
-//             {
-//                 path: '',
-//                 component: InnerPagesComponent,
-//                 // canActivate: [AuthGuard],
-//                 children: [
-//                     AdminRoutingModule,
-//                     ClientRoutingModule,
-//                     SiteRoutingModule
-//                 ]
-//             },
-//             {
-//                 path: 'login',
-//                 component: LoginStartComponent
-//             }
-//         ]
-//     },
-//     {
-//         path: '',
-//         redirectTo: 'login',
-//         pathMatch: 'full'
-//     }
-// ]
+
 
 
 const routes: Routes = [

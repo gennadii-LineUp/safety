@@ -7,24 +7,18 @@ import {ClientSalariesPageComponent} from './client-salaries-page/client-salarie
 import {ClientProfilPageComponent} from './client-profil-page/client-profil-page.component';
 import {ClientBibliothequePageComponent} from './client-bibliotheque-page/client-bibliotheque-page.component';
 import {ClientSitesPageComponent} from './client-sites-page/client-sites-page.component';
+import {AuthGuard} from '../../guards/auth-guards.service';
+import {ClientGuard} from '../../guards/client-guard.service';
 
 const clientRoutes: Routes = [
-    {
-        path: '',
-        component: ClientComponent,
-        // canActivate: [AuthGuard],
+    { path: 'client', component: ClientComponent, canActivate: [AuthGuard, ClientGuard],
         children: [
-            {
-                path: '',
-                // canActivateChild: [AuthGuard],
-                children: [
-                    { path: 'groupes', component: ClientGroupesPageComponent },
-                    { path: 'salaries', component: ClientSalariesPageComponent },
-                    { path: 'profil', component: ClientProfilPageComponent },
-                    { path: 'bibliotheque', component: ClientBibliothequePageComponent },
-                    { path: '', component: ClientSitesPageComponent }
-                ]
-            }
+            { path: 'accueil', component: ClientSitesPageComponent  },
+            { path: 'groupes', component: ClientGroupesPageComponent },
+            { path: 'salaries', component: ClientSalariesPageComponent },
+            { path: 'profil', component: ClientProfilPageComponent },
+            { path: 'bibliotheque', component: ClientBibliothequePageComponent },
+            { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     }
 ];
@@ -32,7 +26,10 @@ const clientRoutes: Routes = [
 
 @NgModule({
     imports: [ RouterModule.forRoot(clientRoutes) ],
-    exports: [ RouterModule ]
+    exports: [ RouterModule ],
+    providers: [
+        AuthGuard, ClientGuard
+    ]
 })
 export class ClientRoutingModule {}
 
