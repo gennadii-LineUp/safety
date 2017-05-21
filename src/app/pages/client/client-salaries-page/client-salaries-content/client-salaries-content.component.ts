@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare let jQuery:any;
+//declare let jQuery:any;
 
 @Component({
   selector: 'client-salaries-content',
@@ -10,27 +10,26 @@ export class ClientSalariesContentComponent implements OnInit {
 
   constructor() { }
 
-    ngOnInit(): void {
-        // this.mobileMenuClickable();
+    ngOnInit() {
+        this.tableMobileViewInit();
     }
 
-    public mobileMenuClickable() {
-        jQuery('#nav-icon1').click(function () {
-            jQuery(this).toggleClass('open');
-        });
-        jQuery('#nav-icon1').click(function () {
-            jQuery('.sidebar-nav').slideToggle(400);
-        });
-        jQuery(window).resize(function () {
-            let windowWidth = window.innerWidth;
-            if (windowWidth > 991) {
-                jQuery(".sidebar-nav").slideDown();
+    public tableMobileViewInit() {
+        let headertext = [],
+            headers = document.querySelectorAll("th"),
+            tablerows = document.querySelectorAll("th"),
+            tablebody = document.querySelector("tbody");
+        if (document.querySelector("table")) {
+            for(let i = 0; i < headers.length; i++) {
+                let current = headers[i];
+                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
             }
-            else {
-                jQuery("#nav-icon1").removeClass('open');
-                jQuery(".sidebar-nav").slideUp();
+            for (let i = 0, row; row = tablebody.rows[i]; i++) {
+                for (let j = 0, col; col = row.cells[j]; j++) {
+                    col.setAttribute("data-th", headertext[j]);
+                }
             }
-        });
+        }
     }
 
 }

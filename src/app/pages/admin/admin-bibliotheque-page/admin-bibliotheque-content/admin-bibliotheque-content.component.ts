@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-declare let jQuery:any;
+//declare let jQuery:any;
 
 @Component({
   selector: 'admin-bibliotheque-content',

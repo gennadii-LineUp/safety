@@ -47,6 +47,7 @@ import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page
 import { AdminComponent } from './admin/admin.component';
 import { ClientComponent } from './client/client.component';
 import { SiteComponent } from './site/site.component';
+import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { SiteComponent } from './site/site.component';
         AdminComponent,
         ClientComponent,
         SiteComponent,
+        InnerPagesComponent
 
     ],
     exports: [
@@ -104,6 +106,8 @@ import { SiteComponent } from './site/site.component';
         ModalHeader, ModalContent, ModalFooter,
         AdminComponent,
         ClientComponent,
+        SiteComponent,
+        InnerPagesComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

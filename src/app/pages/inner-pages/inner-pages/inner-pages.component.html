@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<div class="main-wrapper">
+
+    <navbar-admin *ngIf="loggedInAsAdmin"></navbar-admin>
+    <navbar-client *ngIf="loggedInAsClient"></navbar-client>
+
+    <main>
+        <article>
+            <router-outlet></router-outlet>
+
+        </article>
+    </main>
+
+</div>
