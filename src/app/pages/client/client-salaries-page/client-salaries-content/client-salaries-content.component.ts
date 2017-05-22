@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//declare let jQuery:any;
 
 @Component({
   selector: 'client-salaries-content',
