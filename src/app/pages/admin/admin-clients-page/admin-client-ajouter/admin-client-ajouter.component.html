@@ -1,0 +1,123 @@
+<header class="main-header">
+    <h1>Créer un client</h1>
+</header>
+<div class="main-content">  <!--(ngSubmit)="submitNewClientFunction(admin_newClientForm)"-->
+    <form #admin_newClientForm="ngForm"  class="creer-un-client-form"  novalidate
+          (submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"
+          (click)='cancellError()'>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Entreprise*"
+                   #company="ngModel" id="company" name='company' required (ngModel)="company" />
+            <p [hidden]="company.valid || company.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Adresse*"
+                   #address="ngModel" id="address" name='address' required (ngModel)="address" />
+            <p [hidden]="address.valid || address.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Code postal*"
+                   #postalCode="ngModel" id="postalCode" name='postalCode' required (ngModel)="postalCode" />
+            <p [hidden]="postalCode.valid || postalCode.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Ville*"
+                   #city="ngModel" id="city" name='city' required (ngModel)="city" />
+            <p [hidden]="city.valid || city.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="control-group">
+            <label class="control control--checkbox">Adresse de facturation si différente
+                <input type="checkbox" checked="checked"
+                       #billingAddressIfDifferent id="billingAddressIfDifferent" name='billingAddressIfDifferent'
+                        required (ngModel)="billingAddressIfDifferent" />
+                <span class="control__indicator"></span>
+            </label>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Nom*"
+                   #diffName="ngModel" id="diffName" name='diffName' required (ngModel)="diffName" />
+            <p [hidden]="diffName.valid || diffName.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Adresse*"
+                   #diffAddress="ngModel" id="diffAddress" name='diffAddress' required (ngModel)="diffAddress" />
+            <p [hidden]="diffAddress.valid || diffAddress.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Code postal*"
+                   #diffPostalCode="ngModel" id="diffPostalCode" name='diffPostalCode' required (ngModel)="diffPostalCode" />
+            <p [hidden]="diffPostalCode.valid || diffPostalCode.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" class="form-control" placeholder="Ville*"
+                   #diffCity="ngModel" id="diffCity" name='diffCity' required (ngModel)="diffCity" />
+            <p [hidden]="diffCity.valid || diffCity.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="form-divider"></div>
+        <div class="input-wrapper">
+            <input type="email" class="form-control" placeholder="Email*"
+                   #email="ngModel" id="email" name='email' required email (ngModel)="email" />
+            <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <input type="number" class="form-control" placeholder="Téléphone*"
+                   #phone="ngModel" id="phone" name='phone' required (ngModel)="phone" />
+            <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="form-divider"></div>
+        <div class="input-wrapper" style="margin-bottom: 21px;">
+            <input type="number" class="form-control" placeholder="Numéro SIRET*"
+                   #numberSiret="ngModel" id="numberSiret" name='numberSiret' required (ngModel)="numberSiret" />
+            <p [hidden]="numberSiret.valid || numberSiret.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper" style="margin-bottom: 21px;">
+            <input type="text" class="form-control" placeholder="Nom du contact"
+                   #contactName="ngModel" id="contactName" name='contactName' required (ngModel)="contactName" />
+            <p [hidden]="contactName.valid || contactName.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="input-wrapper">
+            <!--=======================-->
+            <input type='number' class="form-control" placeholder="Téléphone du contact"
+                   #contactPhone="ngModel" id="contactPhone" name='contactPhone' required (ngModel)="contactPhone" />
+            <p [hidden]="contactPhone.valid || contactPhone.untouched " class="requred-field ">Champs requis</p>
+            <!--=======================-->
+        </div>
+        <div class="input-wrapper">
+
+            <input type="email" class="form-control" placeholder="Email du contact*"
+                   #contactEmail="ngModel" id="contactEmail" name='contactEmail' required email (ngModel)="contactEmail" />
+            <p [hidden]="contactEmail.valid || contactEmail.untouched " class="requred-field ">Champs requis</p>
+        </div>
+        <div class="spin">
+            <p>Nombre limite de salariés</p>
+            <span>
+                <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+              </span>
+            <input value="0" #employeesLimit id="employeesLimit" name='employeesLimit' required (ngModel)="employeesLimit" />
+            <span>
+                <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+              </span>
+        </div>
+        <div class="button-wrapper">
+            <button class="form-button red-button annuler-button">Annuler</button>
+            <button type="submit" [disabled]="loading" [disabled]="contactPhone.invalid" class="form-button green-button creer-button"
+                    (click)="submitNewClientFunction()">Créer</button>
+            <br>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <div *ngIf="error" style='position: absolute;' class="alert alert-danger">{{error}}</div>
+    </form>
+</div>
+
+<script>
+    var spins = document.getElementsByClassName("spin");
+    for (var i = 0, len = spins.length; i < len; i++) {
+        var spin = spins[i],
+            span = spin.getElementsByTagName("span"),
+            input = spin.getElementsByTagName("input")[0];
+
+        input.onchange = function() { input.value = +input.value || 0; };
+        span[1].onclick = function() { input.value = Math.max(0, input.value - 1); };
+        span[0].onclick = function() { input.value -= -1; };
+    }
+</script>

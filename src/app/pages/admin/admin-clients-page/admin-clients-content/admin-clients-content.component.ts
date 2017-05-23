@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router}    from '@angular/router';
 
 @Component({
   selector: 'admin-clients-content',
@@ -7,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminClientsContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
     ngOnInit() {
         this.tableMobileViewInit();
+    }
+
+    gotoNewClientForm() {
+        this.router.navigate(['/admin/client/ajouter-un-client']);
+      console.log('==85== newClient ====');
     }
 
     public tableMobileViewInit() {

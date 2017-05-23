@@ -22,6 +22,7 @@ import {ClientGroupesContentComponent} from '../pages/client/client-groupes-page
 import {ClientBibliothequeContentComponent} from '../pages/client/client-bibliotheque-page/client-bibliotheque-content/client-bibliotheque-content.component';
 // import {SiteRoutingModule} from '../pages/site/site-routing.module';
 import {ClientProfilContentComponent} from 'app/pages/client/client-profil-page/client-profil-content/client-profil-content.component';
+import {AdminClientAjouterComponent} from '../pages/admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 
 
 // const routes: Routes = [
@@ -52,9 +53,12 @@ const routes: Routes = [
     { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
     { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
         children: [
-                { path: 'accueil', component: AdminAccueilContentComponent },//AdminAccueilPageComponent
+                { path: 'accueil', component: AdminAccueilContentComponent }, //AdminAccueilPageComponent
                 { path: 'reglages', component: AdminReglagesContentComponent }, //AdminReglagesPageComponent
-                { path: 'client', component: AdminClientsContentComponent }, //AdminClientsPageComponent
+                { path: 'client', component: AdminClientsContentComponent},  //AdminClientsPageComponent
+                   // children: [
+                { path: 'client/ajouter-un-client', component: AdminClientAjouterComponent },
+                    //]},
                 { path: 'bibliotheque', component: AdminBibliothequeContentComponent }, //AdminBibliothequePageComponent
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]

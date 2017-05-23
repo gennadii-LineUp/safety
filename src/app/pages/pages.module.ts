@@ -48,6 +48,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ClientComponent } from './client/client.component';
 import { SiteComponent } from './site/site.component';
 import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.component';
+import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 
 
 @NgModule({
@@ -59,7 +60,7 @@ import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.compone
         NotFoundPageComponent,
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,        AdminReglagesContentComponent,
-        AdminClientsPageComponent,        AdminClientsContentComponent,
+        AdminClientsPageComponent,        AdminClientsContentComponent,     AdminClientAjouterComponent,
         AdminBibliothequePageComponent,   AdminBibliothequeContentComponent,  AdminBibliothequeModalComponent,
         ClientSitesPageComponent,        ClientSitesContentComponent,        ClientSitesModalComponent,
         ClientGroupesPageComponent,        ClientGroupesContentComponent,        ClientGroupesModalComponent,
@@ -87,7 +88,7 @@ import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.compone
         NotFoundPageComponent,
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,        AdminReglagesContentComponent,
-        AdminClientsPageComponent,        AdminClientsContentComponent,
+        AdminClientsPageComponent,        AdminClientsContentComponent,     AdminClientAjouterComponent,
         AdminBibliothequePageComponent,   AdminBibliothequeContentComponent,  AdminBibliothequeModalComponent,
         ClientSitesPageComponent,        ClientSitesContentComponent,        ClientSitesModalComponent,
         ClientGroupesPageComponent,        ClientGroupesContentComponent,        ClientGroupesModalComponent,
