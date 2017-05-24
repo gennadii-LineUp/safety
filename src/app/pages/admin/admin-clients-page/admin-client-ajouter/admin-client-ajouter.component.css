@@ -6,3 +6,7 @@ button.green-button[disabled] {
 }
 
 p.color-valid {color: #3ba890}
+
+.spin input {
+    padding-left: 12px;
+}

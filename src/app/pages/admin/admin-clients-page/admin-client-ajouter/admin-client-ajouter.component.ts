@@ -32,23 +32,13 @@ export class AdminClientAjouterComponent implements OnInit {
     loading = false;
     error = '';
     billingAddressIsDifferent:boolean = true;
+    spins = document.getElementsByClassName("spin");
 
     client: Client[] = [];
 
     constructor(private router: Router) {}
 
     ngOnInit() {
-        // var spins = document.getElementsByClassName("spin");
-        // for (var i = 0, len = spins.length; i < len; i++) {
-        //     var spin = spins[i],
-        //         span = spin.getElementsByTagName("span"),
-        //         input = spin.getElementsByTagName("input")[0];
-        //
-        //     input.onchange = function() { input.value = +input.value || 0; };
-        //     span[1].onclick = function() { input.value = Math.max(0, +input.value - 1); };
-        //     span[0].onclick = function() { input.value -= -1; };
-        // }
-
     }
 
     private cancellError() {
@@ -87,10 +77,31 @@ export class AdminClientAjouterComponent implements OnInit {
     }
 
     public increaseEmployees() {
-        console.log('+');
+        for (let i = 0; i < this.spins.length; i++) {
+            let spin = this.spins[i];
+            let input = spin.getElementsByTagName("input")[0];
+
+            input.value = +input.value + 1 + '';
+        }
     }
+
     public decreaseEmployees() {
-        console.log('-');
+        for (let i = 0; i < this.spins.length; i++) {
+            let spin = this.spins[i];
+            let input = spin.getElementsByTagName("input")[0];
+
+            input.value = Math.max(0, +input.value - 1) +'';
+        }
+    }
+
+    public checkForNegativeNumber() {
+        for (let i = 0; i < this.spins.length; i++) {
+            let spin = this.spins[i];
+            let input = spin.getElementsByTagName("input")[0];
+
+           // if (+input.value < 0)    input.value = '0';
+            input.value = Math.max(0, +input.value) + '';
+        }
     }
 
 

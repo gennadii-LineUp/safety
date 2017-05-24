@@ -104,12 +104,12 @@
                    #contactEmail="ngModel" id="contactEmail" name='contactEmail' required email (ngModel)="contactEmail" />
             <p [hidden]="contactEmail.valid || contactEmail.untouched " class="requred-field ">Champs requis</p>
         </div>
-        <div class="spin">
+        <div class="spin" >
             <p>Nombre limite de salariés</p>
             <span (click)='increaseEmployees()'>
                 <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
             </span>
-            <input type='number' #employeesLimit id="employeesLimit" name='employeesLimit' required (ngModel)="employeesLimit" />
+            <input value='0' (change)='checkForNegativeNumber()' type='number'  #employeesLimit id="employeesLimit" name='employeesLimit' required (ngModel)="employeesLimit" />
             <span (click)='decreaseEmployees()'>
                 <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
             </span>
@@ -125,16 +125,3 @@
         <div *ngIf="error" style='position: absolute;' class="alert alert-danger">{{error}}</div>
     </form>
 </div>
-
-<script>
-    var spins = document.getElementsByClassName("spin");
-    for (var i = 0, len = spins.length; i < len; i++) {
-        var spin = spins[i],
-            span = spin.getElementsByTagName("span"),
-            input = spin.getElementsByTagName("input")[0];
-
-        input.onchange = function() { input.value = +input.value || 0; };
-        span[1].onclick = function() { input.value = Math.max(0, input.value - 1); };
-        span[0].onclick = function() { input.value -= -1; };
-    }
-</script>
