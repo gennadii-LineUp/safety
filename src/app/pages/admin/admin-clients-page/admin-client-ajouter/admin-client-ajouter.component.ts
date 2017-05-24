@@ -10,7 +10,7 @@ import {AdminService} from '../../../../services/admin/admin.service';
   selector: 'admin-client-ajouter',
   templateUrl: './admin-client-ajouter.component.html',
   styleUrls: ['./admin-client-ajouter.component.css'],
-    providers: [AdminService]
+    providers: [AdminService ]
 })
 export class AdminClientAjouterComponent implements OnInit {
     loading = false;
@@ -21,8 +21,7 @@ export class AdminClientAjouterComponent implements OnInit {
     client: Client[] = [];
 
 
-    constructor(private backendService: BackendService,
-                private adminService: AdminService,
+    constructor(private adminService: AdminService,
                 private router: Router) {}
 
     ngOnInit() {
@@ -33,29 +32,61 @@ export class AdminClientAjouterComponent implements OnInit {
         this.error = '';
     }
 
-    submitNewClientFunction(email: string,
-                            company: string,
-                            address: string,
-                            postalCode: string,
-                            city: string,
-                            billingAddressIfDifferent: boolean,
-                            diffName: string,
-                            diffAddress: string,
-                            diffPostalCode: string,
-                            diffCity: string,
-                            phone: number,
-                            numberSiret: number,
-                            contactName: string,
-                            contactPhone: number,
-                            contactEmail: string,
-                            employeesLimit: number) {
+    // submitNewClientFunction(email: string,
+    //                         company: string,
+    //                         address: string,
+    //                         postalCode: string,
+    //                         city: string,
+    //                         billingAddressIfDifferent: boolean,
+    //                         diffName: string,
+    //                         diffAddress: string,
+    //                         diffPostalCode: string,
+    //                         diffCity: string,
+    //                         phone: number,
+    //                         numberSiret: number,
+    //                         contactName: string,
+    //                         contactPhone: number,
+    //                         contactEmail: string,
+    //                         employeesLimit: number)
+    submitNewClientFunction(newClientForm: NgForm) {
         this.loading = true;
 
-        let newClient = new Client(email, company, address, postalCode, city, billingAddressIfDifferent, diffName,
-                                    diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone,
-                                    contactEmail, employeesLimit);
+        let newClient = new Client(newClientForm.value.email,
+                                    newClientForm.value.company,
+                                    newClientForm.value.address,
+                                    newClientForm.value.postalCode,
+                                    newClientForm.value.city,
+                                    newClientForm.value.billingAddressIfDifferent,
+                                    newClientForm.value.diffName,
+                                    newClientForm.value.diffAddress,
+                                    newClientForm.value.diffPostalCode,
+                                    newClientForm.value.diffCity,
+                                    newClientForm.value.phone,
+                                    newClientForm.value.numberSiret,
+                                    newClientForm.value.contactName,
+                                    newClientForm.value.contactPhone,
+                                    newClientForm.value.contactEmail,
+                                    newClientForm.value.employeesLimit);
 
-        console.log(newClient);
+        console.dir(newClient);
+        // console.log(this.adminService);
+
+        this.adminService.addNewClient(newClient)
+            .subscribe(result => {
+                if (result) {
+                    // localStorage.setItem('role', result.roles);
+                    // localStorage.setItem('token', result.token);
+                    console.log('======result==========');
+                    console.log(result);
+                    // if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
+                    // if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']);}
+                    this.loading = false;
+                }
+            }, (err) => {
+                this.error = JSON.parse(err._body.errors);
+                this.loading = false;
+                console.log(JSON.parse(err._body.errors));
+            });
 
 
     }

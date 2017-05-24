@@ -13,13 +13,11 @@ export class AdminService {
     }
 
 
-    login(user: string, password: string): Observable<any> {
-        this.logout();
+    addNewClient(newClient: any): Observable<any> {
+        console.log('==admin service started==');
+        let useTolkin:boolean = true;
 
-        let usernamePassword = btoa(user+':'+password);
-        console.log('====');
-
-        return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword);
+        return this.backendService.post(UrlParams.adminCreateNewClient, JSON.stringify(newClient), useTolkin);
 
     }
 

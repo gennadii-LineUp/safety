@@ -10,6 +10,7 @@ export class BackendService {
 
     constructor(private http: Http) { }
 
+
     public login(url, body, usernamePassword) : Observable<any>  {
         let headers: Headers = new Headers();
         headers.append('Authorization', 'Basic ' + usernamePassword);
@@ -17,6 +18,43 @@ export class BackendService {
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
     }
+
+    public post(url: string,
+                body: any,
+                token: boolean = false,
+                contentType: string = CONTENT_TYPE.JSON_TYPE) : Observable<any> {
+
+        let headers: Headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        return this.http.post(url, body, {headers: headers})
+            .map((res: Response) => <Object[]>res.json());
+        // .catch((err: Response) => this.errorHandler.handleError(err));
+    }
+
+
+    // public post(url: string,
+    //             body: any,
+    //             token: boolean = false,
+    //             contentType: string = CONTENT_TYPE.JSON_TYPE) : Observable<any> {
+    //
+    //     let headers: Headers = new Headers();
+    //
+    //     this.composeHeaders(headers, contentType);
+    //
+    //     if (token) {
+    //         this.addToken(headers);
+    //     }
+    //
+    //     if (contentType === CONTENT_TYPE.JSON_TYPE) {
+    //         body = JSON.stringify(body);
+    //     }
+    //
+    //     return this.http.post(url, body, {headers: headers})
+    //         .map((res: Response) => <Object[]>res.json());
+    //         // .catch((err: Response) => this.errorHandler.handleError(err));
+    // }
 
 
   public get(url: string, addToken = false, contentType: string = CONTENT_TYPE.JSON): Observable<any> {
@@ -83,23 +121,7 @@ export class BackendService {
   //     .catch((err: Response) => this.errorHandler.handleError(err));
   // }
 
-  // public post(query: string, body: any, token: boolean = false, contentType: string = CONTENT_TYPE.JSON_TYPE): Observable<{}> {
-  //   let headers: Headers = new Headers();
-  //
-  //   this.composeHeaders(headers, contentType);
-  //
-  //   if (token) {
-  //     this.addToken(headers);
-  //   }
-  //
-  //   if (contentType === CONTENT_TYPE.JSON_TYPE) {
-  //     body = JSON.stringify(body);
-  //   }
-  //
-  //   return this.http.post(query, body, {headers: headers})
-  //     .map((res: Response) => <Object[]>res.json())
-  //     // .catch((err: Response) => this.errorHandler.handleError(err));
-  // }
+
   //
   // public delete(query: string): Observable<any> {
   //   let headers: Headers = new Headers();

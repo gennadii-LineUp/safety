@@ -1,10 +1,10 @@
 <header class="main-header">
     <h1>Créer un client</h1>
 </header>
-<div class="main-content">  <!--(ngSubmit)="submitNewClientFunction(admin_newClientForm)"-->
+<div class="main-content">  <!--(submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"-->
     <form #admin_newClientForm="ngForm"  class="creer-un-client-form"  novalidate
-          (submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"
-          (click)='cancellError()'>
+            (ngSubmit)="submitNewClientFunction(admin_newClientForm)"
+            (click)='cancellError()'>
         <div class="input-wrapper">
             <p [hidden]="company.invalid" class="requred-field color-valid">Entreprise</p>
             <input type="text" class="form-control" placeholder="Entreprise*"
@@ -117,8 +117,8 @@
         <div class="button-wrapper"> <!--[disabled]="loading"-->
             <button type="button" class="form-button red-button annuler-button"
                     (click)='gotoAdminClientForm()'>Annuler</button>
-            <button type="submit"  [disabled]="!admin_newClientForm.form.valid"  class="form-button green-button creer-button"
-                    (click)="submitNewClientFunction()">Créer</button>
+            <button type="submit"  [disabled]="!admin_newClientForm.form.valid"
+                    class="form-button green-button creer-button">Créer</button>
             <br>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         </div>
