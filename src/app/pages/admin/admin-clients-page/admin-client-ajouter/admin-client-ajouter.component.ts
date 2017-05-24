@@ -1,32 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { NgForm} from '@angular/forms';
-
-export class Client{
-    constructor(public email: string,
-                public company: string,
-                public address: string,
-                public postalCode: string,
-                public city: string,
-                public billingAddressIfDifferent: boolean,
-                public diffName: string,
-                public diffAddress: string,
-                public diffPostalCode: string,
-                public diffCity: string,
-                public phone: number,
-                public numberSiret: number,
-                public contactName: string,
-                public contactPhone: number,
-                public contactEmail: string,
-                public employeesLimit: number)
-    { }
-}
+import { Client } from '../../../../models/const/client-class';
+import {BackendService} from '../../../../services/backend/backend.service';
+import {AdminService} from '../../../../services/admin/admin.service';
 
 
 @Component({
   selector: 'admin-client-ajouter',
   templateUrl: './admin-client-ajouter.component.html',
-  styleUrls: ['./admin-client-ajouter.component.css']
+  styleUrls: ['./admin-client-ajouter.component.css'],
+    providers: [AdminService]
 })
 export class AdminClientAjouterComponent implements OnInit {
     loading = false;
@@ -36,7 +20,10 @@ export class AdminClientAjouterComponent implements OnInit {
 
     client: Client[] = [];
 
-    constructor(private router: Router) {}
+
+    constructor(private backendService: BackendService,
+                private adminService: AdminService,
+                private router: Router) {}
 
     ngOnInit() {
     }
@@ -63,7 +50,12 @@ export class AdminClientAjouterComponent implements OnInit {
                             contactEmail: string,
                             employeesLimit: number) {
         this.loading = true;
-        console.log(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit);
+
+        let newClient = new Client(email, company, address, postalCode, city, billingAddressIfDifferent, diffName,
+                                    diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone,
+                                    contactEmail, employeesLimit);
+
+        console.log(newClient);
 
 
     }
