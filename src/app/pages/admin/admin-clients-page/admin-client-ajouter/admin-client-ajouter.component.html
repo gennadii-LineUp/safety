@@ -6,101 +6,118 @@
           (submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"
           (click)='cancellError()'>
         <div class="input-wrapper">
+            <p [hidden]="company.invalid" class="requred-field color-valid">Entreprise</p>
             <input type="text" class="form-control" placeholder="Entreprise*"
                    #company="ngModel" id="company" name='company' required (ngModel)="company" />
             <p [hidden]="company.valid || company.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
+            <p [hidden]="address.invalid" class="requred-field color-valid">Adresse</p>
             <input type="text" class="form-control" placeholder="Adresse*"
                    #address="ngModel" id="address" name='address' required (ngModel)="address" />
             <p [hidden]="address.valid || address.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
+            <p [hidden]="postalCode.invalid" class="requred-field color-valid">Code postal</p>
             <input type="text" class="form-control" placeholder="Code postal*"
                    #postalCode="ngModel" id="postalCode" name='postalCode' required (ngModel)="postalCode" />
             <p [hidden]="postalCode.valid || postalCode.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
+            <p [hidden]="city.invalid" class="requred-field color-valid">Ville</p>
             <input type="text" class="form-control" placeholder="Ville*"
                    #city="ngModel" id="city" name='city' required (ngModel)="city" />
             <p [hidden]="city.valid || city.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="control-group">
             <label class="control control--checkbox">Adresse de facturation si différente
-                <input type="checkbox" checked="checked"
+                <input type="checkbox" (click)='toggleDifferentBillingAddress($event)'
                        #billingAddressIfDifferent id="billingAddressIfDifferent" name='billingAddressIfDifferent'
                         required (ngModel)="billingAddressIfDifferent" />
                 <span class="control__indicator"></span>
             </label>
         </div>
+        <!--=======================-->
         <div class="input-wrapper">
-            <input type="text" class="form-control" placeholder="Nom*"
+            <p [hidden]="diffName.invalid" class="requred-field color-valid">Nom</p>
+            <input type="text" class="form-control" placeholder="Nom*" [disabled]='billingAddressIsDifferent'
                    #diffName="ngModel" id="diffName" name='diffName' required (ngModel)="diffName" />
             <p [hidden]="diffName.valid || diffName.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <input type="text" class="form-control" placeholder="Adresse*"
+            <p [hidden]="diffAddress.invalid" class="requred-field color-valid">Adresse</p>
+            <input type="text" class="form-control" placeholder="Adresse*"  [disabled]='billingAddressIsDifferent'
                    #diffAddress="ngModel" id="diffAddress" name='diffAddress' required (ngModel)="diffAddress" />
             <p [hidden]="diffAddress.valid || diffAddress.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <input type="text" class="form-control" placeholder="Code postal*"
+            <p [hidden]="diffPostalCode.invalid" class="requred-field color-valid">Code postal</p>
+            <input type="text" class="form-control" placeholder="Code postal*" [disabled]='billingAddressIsDifferent'
                    #diffPostalCode="ngModel" id="diffPostalCode" name='diffPostalCode' required (ngModel)="diffPostalCode" />
             <p [hidden]="diffPostalCode.valid || diffPostalCode.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <input type="text" class="form-control" placeholder="Ville*"
+            <p [hidden]="diffCity.invalid" class="requred-field color-valid">Ville</p>
+            <input type="text" class="form-control" placeholder="Ville*" [disabled]='billingAddressIsDifferent'
                    #diffCity="ngModel" id="diffCity" name='diffCity' required (ngModel)="diffCity" />
             <p [hidden]="diffCity.valid || diffCity.untouched " class="requred-field ">Champs requis</p>
         </div>
+        <!--=======================-->
         <div class="form-divider"></div>
+
         <div class="input-wrapper">
+            <p [hidden]="email.invalid" class="requred-field color-valid">Email</p>
             <input type="email" class="form-control" placeholder="Email*"
                    #email="ngModel" id="email" name='email' required email (ngModel)="email" />
             <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
+            <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone</p>
             <input type="number" class="form-control" placeholder="Téléphone*"
                    #phone="ngModel" id="phone" name='phone' required (ngModel)="phone" />
             <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
         </div>
+
         <div class="form-divider"></div>
+
         <div class="input-wrapper" style="margin-bottom: 21px;">
+            <p [hidden]="numberSiret.invalid" class="requred-field color-valid">Numéro SIRET</p>
             <input type="number" class="form-control" placeholder="Numéro SIRET*"
                    #numberSiret="ngModel" id="numberSiret" name='numberSiret' required (ngModel)="numberSiret" />
             <p [hidden]="numberSiret.valid || numberSiret.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper" style="margin-bottom: 21px;">
+            <p [hidden]="contactName.invalid" class="requred-field color-valid">Nom du contact</p>
             <input type="text" class="form-control" placeholder="Nom du contact"
                    #contactName="ngModel" id="contactName" name='contactName' required (ngModel)="contactName" />
             <p [hidden]="contactName.valid || contactName.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <!--=======================-->
-            <input type='number' class="form-control" placeholder="Téléphone du contact"
+            <p [hidden]="contactPhone.invalid" class="requred-field color-valid">Téléphone du contact</p>
+            <input type='number' class="form-control" placeholder="Téléphone du contact" value="555"
                    #contactPhone="ngModel" id="contactPhone" name='contactPhone' required (ngModel)="contactPhone" />
             <p [hidden]="contactPhone.valid || contactPhone.untouched " class="requred-field ">Champs requis</p>
-            <!--=======================-->
         </div>
         <div class="input-wrapper">
-
+            <p [hidden]="contactEmail.invalid" class="requred-field color-valid">Email du contact</p>
             <input type="email" class="form-control" placeholder="Email du contact*"
                    #contactEmail="ngModel" id="contactEmail" name='contactEmail' required email (ngModel)="contactEmail" />
             <p [hidden]="contactEmail.valid || contactEmail.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="spin">
             <p>Nombre limite de salariés</p>
-            <span>
+            <span (click)='increaseEmployees()'>
                 <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
-              </span>
-            <input value="0" #employeesLimit id="employeesLimit" name='employeesLimit' required (ngModel)="employeesLimit" />
-            <span>
+            </span>
+            <input type='number' #employeesLimit id="employeesLimit" name='employeesLimit' required (ngModel)="employeesLimit" />
+            <span (click)='decreaseEmployees()'>
                 <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
-              </span>
+            </span>
         </div>
-        <div class="button-wrapper">
-            <button class="form-button red-button annuler-button">Annuler</button>
-            <button type="submit" [disabled]="loading" [disabled]="contactPhone.invalid" class="form-button green-button creer-button"
+        <div class="button-wrapper"> <!--[disabled]="loading"-->
+            <button type="button" class="form-button red-button annuler-button"
+                    (click)='gotoAdminClientForm()'>Annuler</button>
+            <button type="submit"  [disabled]="!admin_newClientForm.form.valid"  class="form-button green-button creer-button"
                     (click)="submitNewClientFunction()">Créer</button>
             <br>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
