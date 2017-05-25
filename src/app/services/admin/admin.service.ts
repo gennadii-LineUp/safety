@@ -12,6 +12,14 @@ export class AdminService {
         this.token = localStorage.token;
     }
 
+    homeData(): Observable<any> {
+        console.log('==admin service started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.get(UrlParams.adminHome, useTolkin);
+
+    }
+
 
     addNewClient(newClient: any): Observable<any> {
         console.log('==admin service started==');

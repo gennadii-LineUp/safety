@@ -34,6 +34,19 @@ export class BackendService {
     }
 
 
+    public get(url: string,
+               token: boolean = false,
+               contentType: string = CONTENT_TYPE.JSON_TYPE): Observable<any> {
+        let headers: Headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        return this.http.get(url, {headers: headers})
+            .map((res: Response) => <Object[]>res.json());
+            // .map(this.extractData)
+            // .catch(this.handleError);
+    }
+
+
     // public post(url: string,
     //             body: any,
     //             token: boolean = false,
@@ -57,14 +70,6 @@ export class BackendService {
     // }
 
 
-  public get(url: string, addToken = false, contentType: string = CONTENT_TYPE.JSON): Observable<any> {
-    let headers = new Headers({ 'Content-Type': contentType }),
-        options = new RequestOptions({ headers: headers });
-
-    return this.http.get(url, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
 
   public delete(url: string, id: string, addToken: boolean = false, contentType: string = CONTENT_TYPE.JSON): Observable<any> {
     let headers = new Headers({ 'Content-Type': contentType, 'OrganizationId': id }),

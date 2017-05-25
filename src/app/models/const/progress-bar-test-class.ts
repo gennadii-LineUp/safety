@@ -1,12 +1,9 @@
 export class ProgressBarTESTclass {
-    id : number;
     name : string;
     value : number;
 
-    constructor(id : number, name : string, value : number) {
-        this.id = id;
+    constructor(name : string, value : number) {
         this.name = name;
         this.value = value;
     }
-
 }

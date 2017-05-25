@@ -9,23 +9,23 @@ export class ProgressBarFillService{
         return Promise.resolve(ProgressBarTESTvalues);
     }
 
-    getDataById(id: number): Promise<ProgressBarTESTclass> {
-        return this.get()
-            .then(ProgressBarTESTvalues => ProgressBarTESTvalues.find(category => category.id === id));
-    }
-
-    add(id: number, name: string, value: number) {
-        ProgressBarTESTvalues.push(new ProgressBarTESTclass(id, name, value));
-    }
-
-
-    delete(data: ProgressBarTESTclass) {
-        //HERO.splice(HERO.findIndex(hero)), 1);
-        for (let i=0; i<ProgressBarTESTvalues.length; i++) {
-            if (ProgressBarTESTvalues[i]===data) {
-                ProgressBarTESTvalues.splice(i, 1);
-            }
-        }
-    }
+    // getDataById(id: number): Promise<ProgressBarTESTclass> {
+    //     return this.get()
+    //         .then(ProgressBarTESTvalues => ProgressBarTESTvalues.find(category => category.id === id));
+    // }
+    //
+    // add(id: number, name: string, value: number) {
+    //     ProgressBarTESTvalues.push(new ProgressBarTESTclass(id, name, value));
+    // }
+    //
+    //
+    // delete(data: ProgressBarTESTclass) {
+    //     //HERO.splice(HERO.findIndex(hero)), 1);
+    //     for (let i=0; i<ProgressBarTESTvalues.length; i++) {
+    //         if (ProgressBarTESTvalues[i]===data) {
+    //             ProgressBarTESTvalues.splice(i, 1);
+    //         }
+    //     }
+    // }
 
 }

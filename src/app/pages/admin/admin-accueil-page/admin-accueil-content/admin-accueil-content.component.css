@@ -1,6 +1,6 @@
 div.circle-wrapper{
     display: inline-block;
-    margin: 10px;
+    margin: 10px 40px 10px 40px;
 }
 
 .main-content-header-block {
@@ -16,4 +16,18 @@ div.circle-wrapper{
 }
 h1{
     width: 100%;
+}
+
+/* Media Query */
+/*@media screen and (max-width: 1060px) {*/
+    /*!*.solution-wrapper > div.solution > div:nth-of-type(2)*!*/
+    /*div.circle-wrapper{*/
+        /*margin: 10px 0.5% 10px 0.5% ;*/
+    /*}*/
+/*}*/
+@media screen and (max-width: 700px) {
+    /*.solution-wrapper > div.solution > div:nth-of-type(2)*/
+    div.circle-wrapper{
+        margin: 10px 2% 10px 2%;
+    }
 }

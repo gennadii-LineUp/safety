@@ -8,4 +8,9 @@ export class UrlParams {
         return `http://sfapi:8000/app_dev.php/admin/clients`;
     }
 
+    public static get adminHome(): string {
+        return `http://sfapi:8000/app_dev.php/admin/home`;
+    }
+
 }
+
