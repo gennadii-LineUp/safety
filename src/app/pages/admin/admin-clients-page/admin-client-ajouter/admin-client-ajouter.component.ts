@@ -13,8 +13,10 @@ import {ErrorMessageHandlerService} from '../../../../services/error/error-messa
     providers: [AdminService, ErrorMessageHandlerService ]
 })
 export class AdminClientAjouterComponent implements OnInit {
-    loading = false;
-    error = '';
+    loading: boolean = false;
+    errorCreating: string = '';
+    successCreating: string = '';
+
     billingAddressIsDifferent:boolean = true;
     spins = document.getElementsByClassName("spin");
 
@@ -28,10 +30,15 @@ export class AdminClientAjouterComponent implements OnInit {
     ngOnInit() {
     }
 
-    private cancellError() {
+    private cancellErrorMessage() {
         this.loading = false;
-        this.error = '';
+        this.errorCreating = '';
     }
+    private cancellSuccessMessage() {
+        this.loading = false;
+        this.successCreating = '';
+    }
+
 
     // submitNewClientFunction(email: string,
     //                         company: string,
@@ -50,7 +57,8 @@ export class AdminClientAjouterComponent implements OnInit {
     //                         contactEmail: string,
     //                         employeesLimit: number)
     submitNewClientFunction(newClientForm: NgForm) {
-        this.cancellError();
+        this.cancellErrorMessage();
+        this.cancellSuccessMessage();
         this.loading = true;
 
         let newClient = new Client(newClientForm.value.email,
@@ -76,31 +84,27 @@ export class AdminClientAjouterComponent implements OnInit {
         this.adminService.addNewClient(newClient)
             .subscribe(result => {
                 if (result) {
-                    // localStorage.setItem('role', result.roles);
-                    // localStorage.setItem('token', result.token);
+                    this.loading = false;
                     console.log('======result====OK======');
                     console.log(result);
-                    // if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
-                    // if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']);}
-                    this.loading = false;
+                    this.successCreating = "Well done! You've created a new client.";
+
                 }
             }, (err) => {
                 let error = (JSON.parse(err._body)).errors;
-
                 console.log('====error=============');
                 console.log(error);
 
                 if (Object.keys(error).length > 0) {
-                    this.error = this.errorMessageHandlerService.errorHandler(error);
+                    this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
                 }
-
                 this.loading = false;
-                console.log('====error====end=========');
             });
     }
 
     public gotoAdminClientForm() {
-        this.cancellError();
+        this.cancellErrorMessage();
+        this.cancellSuccessMessage();
         this.router.navigate(['/admin/client']);
     }
 

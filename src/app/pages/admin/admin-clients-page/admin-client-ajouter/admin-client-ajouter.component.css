@@ -11,8 +11,56 @@ p.color-valid {color: #3ba890}
     padding-left: 12px;
 }
 
-/*==== error message ====*/
+/*==== error message, success message ====*/
 div.alert-danger {
     color: #000;
 }
-/*=end=== error message ====*/
+div.alert-success {
+    height: 60px;
+    width: 100%;
+    padding-left: 23px;
+    padding-top: 19px;
+    border-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #71dac0;
+    color: black;
+    border-color: #3ba890;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    z-index: 1000;
+}
+
+@media (max-width: 1599px) {
+    .alert-danger, .alert-success {
+        height: auto;
+        top: 0px;
+    }
+}
+@media (max-width: 1199px) {
+    .alert-danger, .alert-success {
+        height: auto;
+        top: 0px;
+    }
+}
+@media (max-width: 991px){
+    .alert-danger, .alert-success {
+        height: auto;
+        top: 0px;
+    }
+}
+@media (max-width: 767px){
+    .alert-danger, .alert-success {
+        height: auto;
+        top: 0px;
+    }
+}
+@media (max-width: 575px){
+    .alert-danger, .alert-success {
+        height: auto;
+        top: 0px;
+    }
+}
+/*=end=== error message, success message ====*/
+
