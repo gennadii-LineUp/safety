@@ -10,3 +10,9 @@ p.color-valid {color: #3ba890}
 .spin input {
     padding-left: 12px;
 }
+
+/*==== error message ====*/
+div.alert-danger {
+    color: #000;
+}
+/*=end=== error message ====*/

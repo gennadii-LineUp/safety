@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { NgForm} from '@angular/forms';
 import { Client } from '../../../../models/const/client-class';
-import {BackendService} from '../../../../services/backend/backend.service';
 import {AdminService} from '../../../../services/admin/admin.service';
+import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
 
 
 @Component({
   selector: 'admin-client-ajouter',
   templateUrl: './admin-client-ajouter.component.html',
   styleUrls: ['./admin-client-ajouter.component.css'],
-    providers: [AdminService ]
+    providers: [AdminService, ErrorMessageHandlerService ]
 })
 export class AdminClientAjouterComponent implements OnInit {
     loading = false;
@@ -22,7 +22,8 @@ export class AdminClientAjouterComponent implements OnInit {
 
 
     constructor(private adminService: AdminService,
-                private router: Router) {}
+                private router: Router,
+                private errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit() {
     }
@@ -49,6 +50,7 @@ export class AdminClientAjouterComponent implements OnInit {
     //                         contactEmail: string,
     //                         employeesLimit: number)
     submitNewClientFunction(newClientForm: NgForm) {
+        this.cancellError();
         this.loading = true;
 
         let newClient = new Client(newClientForm.value.email,
@@ -76,22 +78,29 @@ export class AdminClientAjouterComponent implements OnInit {
                 if (result) {
                     // localStorage.setItem('role', result.roles);
                     // localStorage.setItem('token', result.token);
-                    console.log('======result==========');
+                    console.log('======result====OK======');
                     console.log(result);
                     // if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
                     // if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']);}
                     this.loading = false;
                 }
             }, (err) => {
-                this.error = JSON.parse(err._body.errors);
+                let error = (JSON.parse(err._body)).errors;
+
+                console.log('====error=============');
+                console.log(error);
+
+                if (Object.keys(error).length > 0) {
+                    this.error = this.errorMessageHandlerService.errorHandler(error);
+                }
+
                 this.loading = false;
-                console.log(JSON.parse(err._body.errors));
+                console.log('====error====end=========');
             });
-
-
     }
 
     public gotoAdminClientForm() {
+        this.cancellError();
         this.router.navigate(['/admin/client']);
     }
 
