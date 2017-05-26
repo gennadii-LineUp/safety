@@ -1,8 +1,12 @@
 /*==== error message ====*/
 div.alert-danger {
-    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    font-size: 14px;
+    background-color: #f32938;
+    border-color: #f32938;
 }
-/*=end=== errorCreating message ====*/
+/*=end=== error message ====*/
 /*==== main background ====*/
 .background {
     width: 100%;

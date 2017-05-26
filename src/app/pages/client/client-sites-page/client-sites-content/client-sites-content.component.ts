@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-sites-content.component.css']
 })
 export class ClientSitesContentComponent implements OnInit {
+    loading: boolean = false;
+    errorSalaries: string = 'error';
+    //successCreating: string = '';
 
   constructor() { }
 
@@ -30,5 +33,18 @@ export class ClientSitesContentComponent implements OnInit {
             }
         }
     }
+
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorSalaries = '';
+    }
+    private cancellSuccessMessage() {
+        this.loading = false;
+        //this.successCreating = '';
+    }
+
+    // this.cancellErrorMessage();
+    // this.cancellSuccessMessage();
+    // this.loading = true;
 
 }

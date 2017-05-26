@@ -13,7 +13,9 @@ p.color-valid {color: #3ba890}
 
 /*==== error message, success message ====*/
 div.alert-danger {
-    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    font-size: 14px;
 }
 div.alert-success {
     height: 60px;
@@ -29,6 +31,8 @@ div.alert-success {
     position: absolute;
     top: 0px;
     left: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
     z-index: 1000;
 }
 
