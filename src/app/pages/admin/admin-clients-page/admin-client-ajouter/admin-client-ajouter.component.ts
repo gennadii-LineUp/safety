@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { NgForm} from '@angular/forms';
-import { Client } from '../../../../models/const/client-class';
+import { ClientClass } from '../../../../models/const/client-class';
 import {AdminService} from '../../../../services/admin/admin.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
 
@@ -20,7 +20,7 @@ export class AdminClientAjouterComponent implements OnInit {
     billingAddressIsDifferent:boolean = true;
     spins = document.getElementsByClassName("spin");
 
-    client: Client[] = [];
+    client: ClientClass[] = [];
 
 
     constructor(private adminService: AdminService,
@@ -61,7 +61,7 @@ export class AdminClientAjouterComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        let newClient = new Client(newClientForm.value.email,
+        let newClient = new ClientClass(newClientForm.value.email,
                                     newClientForm.value.company,
                                     newClientForm.value.address,
                                     newClientForm.value.postalCode,

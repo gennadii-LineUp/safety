@@ -36,35 +36,35 @@ div.alert-success {
     z-index: 1000;
 }
 
-@media (max-width: 1599px) {
-    .alert-danger, .alert-success {
-        height: auto;
-        top: 0px;
-    }
-}
-@media (max-width: 1199px) {
-    .alert-danger, .alert-success {
-        height: auto;
-        top: 0px;
-    }
-}
-@media (max-width: 991px){
-    .alert-danger, .alert-success {
-        height: auto;
-        top: 0px;
-    }
-}
-@media (max-width: 767px){
-    .alert-danger, .alert-success {
-        height: auto;
-        top: 0px;
-    }
-}
-@media (max-width: 575px){
-    .alert-danger, .alert-success {
-        height: auto;
-        top: 0px;
-    }
-}
+/*@media (max-width: 1599px) {*/
+    /*.alert-danger, .alert-success {*/
+        /*height: auto;*/
+        /*top: 0px;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 1199px) {*/
+    /*.alert-danger, .alert-success {*/
+        /*height: auto;*/
+        /*top: 0px;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 991px){*/
+    /*.alert-danger, .alert-success {*/
+        /*height: auto;*/
+        /*top: 0px;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 767px){*/
+    /*.alert-danger, .alert-success {*/
+        /*height: auto;*/
+        /*top: 0px;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 575px){*/
+    /*.alert-danger, .alert-success {*/
+        /*height: auto;*/
+        /*top: 0px;*/
+    /*}*/
+/*}*/
 /*=end=== error message, success message ====*/
 

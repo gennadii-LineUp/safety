@@ -9,11 +9,11 @@ export class ClientGuard implements CanActivate {
     canActivate() {
 
         if (localStorage.role === 'ROLE_CLIENT') {
-            // logged as Client
+            // logged as ClientClass
             return true;
         }
 
-        // not logged in as Client, so redirect to login page
+        // not logged in as ClientClass, so redirect to login page
         //this.router.navigate(['/login']);
         return false;
 
