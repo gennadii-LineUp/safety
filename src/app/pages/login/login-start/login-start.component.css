@@ -1,11 +1,11 @@
 /*==== error message ====*/
-div.alert-danger {
-    font-family: 'Open Sans', sans-serif;
-    color: #fff;
-    font-size: 14px;
-    background-color: #f32938;
-    border-color: #f32938;
-}
+/*div.alert-danger {*/
+    /*font-family: 'Open Sans', sans-serif;*/
+    /*color: #fff;*/
+    /*font-size: 14px;*/
+    /*background-color: #f32938;*/
+    /*border-color: #f32938;*/
+/*}*/
 /*=end=== error message ====*/
 /*==== main background ====*/
 .background {
@@ -75,6 +75,7 @@ form{
 }
 .form-group {
     display: inline-block;
+    position: relative;
     margin: 0px;
 }
 .form-control {

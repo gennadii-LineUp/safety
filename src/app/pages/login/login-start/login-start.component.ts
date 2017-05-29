@@ -28,6 +28,7 @@ export class LoginStartComponent implements OnInit {
 
     login(userEmail:string, password: string) {
         //   this.loginService.login('admin@example.com', 'admin');
+        this.cancellError();
 
         this.loading = true;
         this.loginService.login(userEmail, password)

@@ -15,26 +15,16 @@
             </div>
 
             <div class="main">
-                <form #loginForm="ngForm" (submit)="login(email.value, password.value)" (click)='cancellError()'>
+                <form #loginForm="ngForm" (submit)="login(email.value, password.value)" >
                     <div class="form-group">
-                        <input type="email"
-                               #email
-                               name="email"
-                               id='email'
-                               required
-                               placeholder="Email"
-                               class="form-control"
-                               ngModel>
+                        <input type="email"  class="form-control"  placeholder="Email"
+                               #email="ngModel"  name="email"    id='email'
+                               required email  ngModel>
                     </div>
                     <div class="form-group">
-                        <input type="password"
-                               #password
-                               name="password"
-                               id='password'
-                               required
-                               class="form-control"
-                               placeholder="Mot de passe"
-                               ngModel>
+                        <input type="password" class="form-control" placeholder="Mot de passe"
+                               #password="ngModel"  name="password"  id='password'
+                               required ngModel>
                     </div>
                     <p [routerLink]="['/login/rappeler-le-mot-de-passe']">Mot de passe oublié ?</p>
                     <div class="button-wrapper">

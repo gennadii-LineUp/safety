@@ -10,6 +10,9 @@ import {AdminService} from '../../../../services/admin/admin.service';
     providers: [AdminService, ProgressBarFillService],
 })
 export class AdminAccueilContentComponent implements OnInit {
+    loading: boolean = true;
+    errorLoad: string = '';
+
     progressBarValues = [];
 
     constructor(private adminService: AdminService,
@@ -25,7 +28,7 @@ export class AdminAccueilContentComponent implements OnInit {
         this.adminService.homeData()
             .subscribe(result => {
                 if (result) {
-                    // this.loading = false;
+                    this.loading = false;
                     this.progressBarValues = [
                         {name: 'clients', value: 0},
                         {name: 'sites', value: 0},
@@ -42,6 +45,7 @@ export class AdminAccueilContentComponent implements OnInit {
             }, (err) => {
                // let error = (JSON.parse(err._body)).errors;
                 console.log('====error=============');
+                this.errorLoad = err;
                 console.log(err);
 
                 //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
@@ -50,5 +54,9 @@ export class AdminAccueilContentComponent implements OnInit {
 
     }
 
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorLoad = '';
+    }
 
 }
