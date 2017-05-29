@@ -18,13 +18,11 @@
                 <form #loginForm="ngForm" (submit)="login(email.value, password.value)" >
                     <div class="form-group">
                         <input type="email"  class="form-control"  placeholder="Email"
-                               #email="ngModel"  name="email"    id='email'
-                               required email  ngModel>
+                               #email="ngModel"  name="email"   id='email'  ngModel> <!--required email-->
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Mot de passe"
-                               #password="ngModel"  name="password"  id='password'
-                               required ngModel>
+                               #password="ngModel"  name="password"  id='password'  ngModel> <!--required -->
                     </div>
                     <p [routerLink]="['/login/rappeler-le-mot-de-passe']">Mot de passe oublié ?</p>
                     <div class="button-wrapper">

@@ -1,8 +1,16 @@
-<header class="main-header">
+<header class="main-header" >
+    <img *ngIf="loading" style='position: absolute; left:49%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;' >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p><span>{{errorLoad}}</span></p>
+    </div>
     <h1>Clients</h1>
 </header>
 
-<div class="main-content">
+<div class="main-content" *ngIf='loaded'>
     <div class="search-panel clearfix">
         <button (click)="gotoNewClientForm()" class="add-an-item-button" ></button>
         <div class="search-wrapper">
@@ -13,93 +21,41 @@
     <div class="table-wrapper">
         <table class="table-default clients-table">
             <thead>
-            <tr>
-                <th><button class="single-sort-button"></button>Entreprise</th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Sites</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Employés</span>
-                </th>
-                <th>
-                    <span>Action</span>
-                </th>
-            </tr>
+                <tr>
+                    <th><button class="single-sort-button"></button>Entreprise</th>
+                    <th>
+                        <button class="double-sort-button">
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <span>Sites</span>
+                    </th>
+                    <th>
+                        <button class="double-sort-button">
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <span>Employés</span>
+                    </th>
+                    <th>
+                        <span>Action</span>
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Nom</td>
-                <td>1</td>
-                <td>2/10</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>MMMNom de l’entreprise, maximum 45 caractères...</td>
-                <td>77 777</td>
-                <td>88 888/99 999</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom de l’entreprise</td>
-                <td>10</td>
-                <td>32/100</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>MMMNom de l’entreprise, maximum 45 caractères...</td>
-                <td>99 999</td>
-                <td>888/99 999</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>5</td>
-                <td>2/10</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>MMMNom de l’entreprise, maximum 45 caractères...</td>
-                <td>99 999</td>
-                <td>88 888/99 999</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom de l’entreprise</td>
-                <td>2</td>
-                <td>2/10</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>MMMNom de l’entreprise, maximum 45 caractères...</td>
-                <td>799 999</td>
-                <td>888/99 999</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>25</td>
-                <td>2/10</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>MMMNom de l’entreprise, maximum 45 caractères...</td>
-                <td>7 799 999</td>
-                <td>88 888/99 999</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
+                <tr *ngFor="let client of clients">
+                    <td>{{client.company}}</td>
+                    <td>{{client.sites}}</td>
+                    <td>{{client.employees}}</td>
+                    <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                </tr>
             </tbody>
         </table>
     </div>
+
+
     <nav aria-label="Page navigation" class="pagination-wrapper">
-        <ul class="pagination">
+        <ul class="pagination" (click)='gotoAnotherPage($event)'>
             <li>
                 <a href="#" aria-label="Previous" class="prev-link">
                   <span aria-hidden="true">
@@ -107,12 +63,15 @@
                   </span>
                 </a>
             </li>
-            <li class="active"><a href="javascript:void(0);">1</a></li>
-            <li><a href="javascript:void(0);">2</a></li>
-            <li><a href="javascript:void(0);">3</a></li>
-            <li><a href="javascript:void(0);">...</a></li>
-            <li><a href="javascript:void(0);">998</a></li>
-            <li><a href="javascript:void(0);">999</a></li>
+            <!--<li class="active"><a href="javascript:void(0);">1</a></li>-->
+            <li *ngIf='firstPage'><a href="javascript:void(0);">{{firstPage}}</a></li>
+            <li *ngIf='secondPage'><a href="javascript:void(0);">{{secondPage}}</a></li>
+            <li *ngIf='thirdPage'><a href="javascript:void(0);">{{thirdPage}}</a></li>
+            <li *ngIf='forthPage'><a href="javascript:void(0);">{{forthPage}}</a></li>
+            <li *ngIf='fifthPage'><a href="javascript:void(0);">{{fifthPage}}</a></li>
+            <li *ngIf='hiddenPages'><a href="javascript:void(0);">...</a></li>
+            <li *ngIf='lastButOnePage'><a href="javascript:void(0);">{{lastButOnePage}}</a></li>
+            <li *ngIf='lastPage'><a href="javascript:void(0);">{{lastPage}}</a></li>
             <li>
                 <a href="javascript:void(0);" aria-label="Next" class="next-link">
                   <span aria-hidden="true">
@@ -123,3 +82,4 @@
         </ul>
     </nav>
 </div>
+

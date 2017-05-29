@@ -4,7 +4,7 @@ export class UrlParams {
     return `http://sfapi:8000/app_dev.php/login`;
     }
 
-    public static get adminCreateNewClient(): string {
+    public static get adminClients(): string {
         return `http://sfapi:8000/app_dev.php/admin/clients`;
     }
 
@@ -15,6 +15,7 @@ export class UrlParams {
     public static get clientProfilData(): string {
         return `http://sfapi:8000/app_dev.php/client/profile`;
     }
+
 
 
 }

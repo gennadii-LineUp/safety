@@ -13,7 +13,7 @@ export class AdminService {
     }
 
     homeData(): Observable<any> {
-        console.log('==admin service started==');
+        console.log('==admin service:_homeData started==');
         let useTolkin:boolean = true;
 
         return this.backendService.get(UrlParams.adminHome, useTolkin);
@@ -21,11 +21,20 @@ export class AdminService {
     }
 
 
-    addNewClient(newClient: any): Observable<any> {
-        console.log('==admin service started==');
+    clientList(): Observable<any> {
+        console.log('==admin service:_clientList started==');
         let useTolkin:boolean = true;
 
-        return this.backendService.post(UrlParams.adminCreateNewClient, JSON.stringify(newClient), useTolkin);
+        return this.backendService.get(UrlParams.adminClients, useTolkin);
+
+    }
+
+
+    addNewClient(newClient: any): Observable<any> {
+        console.log('==admin service:_addNewClient started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.post(UrlParams.adminClients, JSON.stringify(newClient), useTolkin);
 
     }
 
