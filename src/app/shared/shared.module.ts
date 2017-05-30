@@ -18,6 +18,7 @@ import { SpinnerComponent } from './ang-material/spinner/spinner.component';
 import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-delete.component';
 import {BackendService} from '../services/backend/backend.service';
 import {LoginService} from '../services/login/login.service';
+import {PaginationComponent} from 'app/shared/pagination/pagination.component';
 
 // import {ModalModule} from "ng2-modal";
 
@@ -43,8 +44,8 @@ import {LoginService} from '../services/login/login.service';
 
         ButtonTestComponent,  // ang-material
         InputTestComponent, SpinnerComponent,    // ang-material
-        NavbarForDeleteComponent,   //моя верстка, удалить потом
-
+        NavbarForDeleteComponent,    //моя верстка, удалить потом
+        PaginationComponent,
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -56,7 +57,8 @@ import {LoginService} from '../services/login/login.service';
 
         ButtonTestComponent,  // ang-material
         InputTestComponent, SpinnerComponent,    // ang-material
-        NavbarForDeleteComponent,   //моя верстка, удалить потом
+        NavbarForDeleteComponent,    //моя верстка, удалить потом
+        PaginationComponent,
 
         // ModalModule
     ],

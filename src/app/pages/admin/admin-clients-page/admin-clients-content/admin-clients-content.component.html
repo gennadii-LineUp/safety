@@ -54,10 +54,49 @@
     </div>
 
 
+    <!--&lt;!&ndash; items being paged &ndash;&gt;-->
+    <!--<div *ngFor="let item of pagedItems">{{item.name}}</div>-->
+
+    <!-- pager -->
     <nav aria-label="Page navigation" class="pagination-wrapper">
-        <ul class="pagination" (click)='gotoAnotherPage($event)'>
-            <li>
-                <a href="#" aria-label="Previous" class="prev-link">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="getClientList(pager.currentPage - 1)">
+                  <span aria-hidden="true">
+                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a href="javascript:void(0);" aria-label="Previous" class="prev-link" (click)="getClientList(1)">1</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="getClientList(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="getClientList(pager.totalPages)">{{pager.totalPages}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a href="javascript:void(0);" aria-label="Next" class="next-link" (click)="getClientList(pager.currentPage + 1)">
+                  <span aria-hidden="true">
+                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <img *ngIf="loading" style='position: absolute; left: 49%' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="getClientList(page)">{{page}}</a>
+    </li>
+   <!--////////////(click)='gotoAnotherPage($event)'-->
+    <nav aria-label="Page navigation" class="pagination-wrapper">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination" >
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="getClientList(pager.currentPage - 1)" href="#" aria-label="Previous" class="prev-link">
                   <span aria-hidden="true">
                     <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
@@ -72,8 +111,8 @@
             <li *ngIf='hiddenPages'><a href="javascript:void(0);">...</a></li>
             <li *ngIf='lastButOnePage'><a href="javascript:void(0);">{{lastButOnePage}}</a></li>
             <li *ngIf='lastPage'><a href="javascript:void(0);">{{lastPage}}</a></li>
-            <li>
-                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a href="javascript:void(0);" aria-label="Next" class="next-link" (click)="getClientList(pager.currentPage + 1)">
                   <span aria-hidden="true">
                     <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
@@ -81,5 +120,37 @@
             </li>
         </ul>
     </nav>
+    <br>
+    <img *ngIf="loading" style='position: absolute; left: 49%' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+
+    <!--<nav aria-label="Page navigation" class="pagination-wrapper">-->
+        <!--<ul class="pagination" (click)='gotoAnotherPage($event)'>-->
+            <!--<li>-->
+                <!--<a href="#" aria-label="Previous" class="prev-link">-->
+                  <!--<span aria-hidden="true">-->
+                    <!--<img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">-->
+                  <!--</span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--&lt;!&ndash;<li class="active"><a href="javascript:void(0);">1</a></li>&ndash;&gt;-->
+            <!--<li *ngIf='firstPage'><a href="javascript:void(0);">{{firstPage}}</a></li>-->
+            <!--<li *ngIf='secondPage'><a href="javascript:void(0);">{{secondPage}}</a></li>-->
+            <!--<li *ngIf='thirdPage'><a href="javascript:void(0);">{{thirdPage}}</a></li>-->
+            <!--<li *ngIf='forthPage'><a href="javascript:void(0);">{{forthPage}}</a></li>-->
+            <!--<li *ngIf='fifthPage'><a href="javascript:void(0);">{{fifthPage}}</a></li>-->
+            <!--<li *ngIf='hiddenPages'><a href="javascript:void(0);">...</a></li>-->
+            <!--<li *ngIf='lastButOnePage'><a href="javascript:void(0);">{{lastButOnePage}}</a></li>-->
+            <!--<li *ngIf='lastPage'><a href="javascript:void(0);">{{lastPage}}</a></li>-->
+            <!--<li>-->
+                <!--<a href="javascript:void(0);" aria-label="Next" class="next-link">-->
+                  <!--<span aria-hidden="true">-->
+                    <!--<img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">-->
+                  <!--</span>-->
+                <!--</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</nav>-->
+
 </div>
 

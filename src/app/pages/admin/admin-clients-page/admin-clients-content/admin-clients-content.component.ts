@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router}    from '@angular/router';
 import {AdminService} from '../../../../services/admin/admin.service';
+import {PaginationService} from '../../../../services/pagination/pagination.service';
 
 @Component({
   selector: 'admin-clients-content',
   templateUrl: './admin-clients-content.component.html',
   styleUrls: ['./admin-clients-content.component.css'],
-    providers: [AdminService]
+    providers: [AdminService, PaginationService]
 })
 export class AdminClientsContentComponent implements OnInit {
     loading: boolean = true;
@@ -17,6 +18,9 @@ export class AdminClientsContentComponent implements OnInit {
     errorUpdate: string = '';
 
     clients = [];
+    // pager object
+    pager: any = {};
+
 
     currentPage: number = 0;
     firstPage: number = 0;
@@ -32,51 +36,48 @@ export class AdminClientsContentComponent implements OnInit {
     totalItems: number = 0;
 
   constructor(private adminService: AdminService,
+              private paginationService: PaginationService,
               private router: Router) { }
 
     ngOnInit() {
         this.tableMobileViewInit();
-        this.getClientList();
+        this.getClientList(1);
 
     }
 
-    getClientList(): void {
-        this.adminService.clientList()
+    getClientList(page): void {
+        this.loading = true;
+        this.adminService.clientList(page)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
 
                     console.log('======result============');
-                    let clients = result.items;
-                    this.clients = clients;
+                    console.log(result);
+                    this.clients = result.items;
+                    this.totalItems = +result.pagination.totalCount;
+
 
                     let pagination = result.pagination;
-                    console.log(pagination);
-
-                    this.numItemsPerPage = +pagination.numItemsPerPage;
                     this.totalItems = +pagination.totalCount;
-                    let totalPages = +pagination.pageCount; //Math.ceil(this.totalItems / this.numItemsPerPage);
-                   // console.log(totalPages + ' total pages' + typeof +totalPages);
+                    let totalPages = +pagination.pageCount;
                     let visiblePages = pagination.pagesInRange.length;
-                  //  console.log(visiblePages + ' visible pages' + typeof +visiblePages);
-
+                    this.currentPage = +pagination.current;
                     this.firstPage = +pagination.pagesInRange[0];
                     this.secondPage = +pagination.pagesInRange[1];
                     this.thirdPage = +pagination.pagesInRange[2];
                     this.forthPage = +pagination.pagesInRange[3];
                     this.fifthPage = +pagination.pagesInRange[4];
                     this.hiddenPages = (totalPages + 1) > visiblePages;
-
-                    // if (totalPages = 4) { //(visiblePages+2)) {
-                    //     this.lastPage = totalPages;
-                    // }
                     if (totalPages > 5) {
                         console.log('yes');
                         this.lastButOnePage = totalPages-1;
                         this.lastPage = totalPages;
                     }
 
-
+/////////start//////////////////////
+                    this.setPage(page);
+/////////end/////////////////////////////////
                     this.loaded = true;
                     setTimeout(() => {
                         this.tableMobileViewInit();
@@ -93,10 +94,24 @@ export class AdminClientsContentComponent implements OnInit {
                 //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
             });
     }
+/////////start//////////////////////
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+
+        // get pager object from service
+        this.pager = this.paginationService.getPager(this.totalItems, page);
+
+        // get current page of items
+     //   this.pagedItems = this.clients;
+    }
+/////////end/////////////////////////////////
+
 
     gotoAnotherPage(event:any) {
-      console.dir(event.target.text);
-        console.log( typeof +event.target.text);
+      console.dir(+event.target.text);
+
     }
 
     gotoNewClientForm() {

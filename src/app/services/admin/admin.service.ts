@@ -21,11 +21,20 @@ export class AdminService {
     }
 
 
-    clientList(): Observable<any> {
+    // clientList(): Observable<any> {
+    //     console.log('==admin service:_clientList started==');
+    //     let useTolkin:boolean = true;
+    //
+    //     return this.backendService.get(UrlParams.adminClients, useTolkin);
+    //
+    // }
+
+    clientList(page): Observable<any> {
         console.log('==admin service:_clientList started==');
         let useTolkin:boolean = true;
+        let query = '?q=&sort=&page=';
 
-        return this.backendService.get(UrlParams.adminClients, useTolkin);
+        return this.backendService.get(UrlParams.adminClients + query + page, useTolkin);
 
     }
 
@@ -46,6 +55,17 @@ export class AdminService {
         localStorage.removeItem('token');
     }
 
+
+    encode(obj) {
+        let newData = '';
+        for (let key in obj) {
+            newData += key;
+            newData += '=' + encodeURI(obj[key]) + '&';
+        }
+        newData = newData.slice(0, -1);
+        console.log(newData);
+        return newData;
+    }
 
 
 
