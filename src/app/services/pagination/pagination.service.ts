@@ -6,21 +6,28 @@ export class PaginationService {
         let totalPages = Math.ceil(totalItems / pageSize);
 
         let startPage: number, endPage: number;
-        if (totalPages <= 10) {
+        let hiddenAtStart: boolean, hiddenAtEnd: boolean;
+        if (totalPages <= 5) { //10
             // less than 10 total pages so show all
             startPage = 1;
             endPage = totalPages;
         } else {
             // more than 10 total pages so calculate start and end pages
-            if (currentPage <= 6) {
-                startPage = 1;
-                endPage = 10;
+            if (currentPage <= 5) {//6
+                startPage = 2;
+                endPage = 5;//10
+                hiddenAtStart = false;
+                hiddenAtEnd = true;
             } else if (currentPage + 4 >= totalPages) {
-                startPage = totalPages - 9;
-                endPage = totalPages;
+                startPage = totalPages - 4;//9
+                endPage = totalPages-1;
+                hiddenAtStart = true;
+                hiddenAtEnd = false;
             } else {
-                startPage = currentPage - 5;
+                startPage = currentPage ;//- 5;
                 endPage = currentPage + 4;
+                hiddenAtStart = true;
+                hiddenAtEnd = true;
             }
         }
 
@@ -41,7 +48,9 @@ export class PaginationService {
             endPage: endPage,
             startIndex: startIndex,
             endIndex: endIndex,
-            pages: pages
+            pages: pages,
+            hiddenAtStart: hiddenAtStart,
+            hiddenAtEnd: hiddenAtEnd
         };
     }
 }
