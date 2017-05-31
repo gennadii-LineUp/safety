@@ -93,14 +93,17 @@ export class AdminClientsContentComponent implements OnInit {
             return;
         }
         this.pager = this.paginationService.getPager(this.totalItems, page);
-        console.log(localStorage);
     }
 
 
     public findClientByNameFunction(name:string, page:any = 1) {
         this.loading = true;
+        let _name = name;
+        if (name === 'lineUp') {
+            _name = localStorage.adminClientsSearch_name;
+        }
 
-        this.adminService.findClientByName(name, page)
+        this.adminService.findClientByName(_name, page)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -117,7 +120,7 @@ export class AdminClientsContentComponent implements OnInit {
                     setTimeout(() => {
                         this.tableMobileViewInit();
                     }, 200);
-                   // localStorage.setItem('adminClientsSearch_name', name);
+                    localStorage.setItem('adminClientsSearch_name', _name);
                    // localStorage.setItem('adminClientsSearch_page', this.currentPage);
                 }
             }, (err) => {
