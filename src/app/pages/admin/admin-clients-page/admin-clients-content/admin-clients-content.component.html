@@ -14,8 +14,10 @@
     <div class="search-panel clearfix">
         <button (click)="gotoNewClientForm()" class="add-an-item-button" ></button>
         <div class="search-wrapper">
-            <button class="search-button" type="button"></button>
-            <input type="text" class="form-control search-input" placeholder="Rechercher">
+            <button class="search-button" type="button" (click)='findClientByNameFunction(findClientByName.value)'></button>
+            <input #findClientByName id="findClientByName" name='findClientByName' type="text"
+                   class="form-control search-input" placeholder="Rechercher"
+                   (keyup.enter)='findClientByNameFunction(findClientByName.value)'>
         </div>
     </div>
     <div class="table-wrapper">

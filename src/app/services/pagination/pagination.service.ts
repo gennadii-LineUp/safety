@@ -12,7 +12,7 @@ export class PaginationService {
             startPage = 1;
             endPage = totalPages;
         } else {
-            // more than 10 total pages so calculate start and end pages
+            // more than 5 total pages so calculate start and end pages
             if (currentPage <= 5) {//6
                 startPage = 2;
                 endPage = 5;//10

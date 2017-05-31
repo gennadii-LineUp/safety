@@ -13,7 +13,7 @@ export class AdminService {
     }
 
     homeData(): Observable<any> {
-        console.log('==admin service:_homeData started==');
+        //console.log('==admin service:_homeData started==');
         let useTolkin:boolean = true;
 
         return this.backendService.get(UrlParams.adminHome, useTolkin);
@@ -30,11 +30,21 @@ export class AdminService {
     // }
 
     clientList(page): Observable<any> {
-        console.log('==admin service:_clientList started==');
+        //console.log('==admin service:_clientList started==');
         let useTolkin:boolean = true;
         let query = '?q=&sort=&page=';
 
         return this.backendService.get(UrlParams.adminClients + query + page, useTolkin);
+
+    }
+
+
+    findClientByName(name): Observable<any> {
+        //console.log('==admin service:_findClientByName started==');
+        let useTolkin:boolean = true;
+        let query = '?q=';
+
+        return this.backendService.get(UrlParams.adminClients + query + name, useTolkin);
 
     }
 
