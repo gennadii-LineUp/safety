@@ -22,8 +22,9 @@ export class AdminClientsContentComponent implements OnInit {
     totalItems: number = 0;
     activePage: number = 1;
     searchName: string = '';
+    currentPage: any;
 
-    searchWrapper = document.getElementsByClassName("search-wrapper");
+    //searchWrapper = document.getElementsByClassName("search-wrapper");
 
 
   constructor(private adminService: AdminService,
@@ -34,8 +35,13 @@ export class AdminClientsContentComponent implements OnInit {
 
     ngOnInit() {
         //this.tableMobileViewInit();
-        this.onInitChecking();
+        this.findClientByNameFunction('');
         console.log(localStorage);
+    }
+
+    ngOnDestroy() {
+        localStorage.removeItem('adminClientsSearch_page');
+        localStorage.removeItem('adminClientsSearch_name');
     }
 
 
@@ -63,6 +69,7 @@ export class AdminClientsContentComponent implements OnInit {
                     console.log(result);
                     this.clients = result.items;
                     this.totalItems = +result.pagination.totalCount;
+                    this.currentPage = +result.pagination.current;
 
                     this.setPage(page);
 
@@ -86,33 +93,32 @@ export class AdminClientsContentComponent implements OnInit {
             return;
         }
         this.pager = this.paginationService.getPager(this.totalItems, page);
-        localStorage.setItem('adminClientsSearch_page', page+'');
         console.log(localStorage);
     }
 
 
-    public findClientByNameFunction(name:string, page?:number) {
+    public findClientByNameFunction(name:string, page:any = 1) {
         this.loading = true;
 
-        this.adminService.findClientByName(name)
+        this.adminService.findClientByName(name, page)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
 
                     console.log(result);
                     this.clients = result.items;
-                    console.dir( this.clients);
                     this.totalItems = +result.pagination.totalCount;
-                    console.log('this.totalItems ' + this.totalItems);
+                    console.log('ITEMS  ' + this.totalItems);
+                    this.currentPage = +result.pagination.current;
 
-                    this.setPage(page);
+                    this.setPage(this.currentPage);
 
                     this.loaded = true;
                     setTimeout(() => {
                         this.tableMobileViewInit();
                     }, 200);
-                    localStorage.setItem('adminClientsSearch_name', name);
-                    console.log(localStorage);
+                   // localStorage.setItem('adminClientsSearch_name', name);
+                   // localStorage.setItem('adminClientsSearch_page', this.currentPage);
                 }
             }, (err) => {
                 this.loading = false;

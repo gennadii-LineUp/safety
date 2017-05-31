@@ -39,12 +39,12 @@ export class AdminService {
     }
 
 
-    findClientByName(name): Observable<any> {
+    findClientByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
         let useTolkin:boolean = true;
-        let query = '?q=';
+        let query = '?q=' + name + '&page=' + page;
 
-        return this.backendService.get(UrlParams.adminClients + query + name, useTolkin);
+        return this.backendService.get(UrlParams.adminClients + query, useTolkin);
 
     }
 
