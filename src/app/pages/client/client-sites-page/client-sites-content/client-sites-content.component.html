@@ -21,22 +21,32 @@
                 </modal-header>
 
                 <modal-content>
-                    <form action="/" class="modal-form">
+                    <form #client_newSitesForm="ngForm" class="modal-form" novalidate
+                          (ngSubmit)="submitNewSitesFunction(client_newSitesForm)"
+                          (click)='cancellSuccessMessage()'>
                         <div class="input-wrapper">
-                            <input class="form-control" id="exampleInputText1" placeholder="Nom*" type="text">
-                            <p class="requred-field hidden">Champs requis</p>
+                            <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
+                            <input class="form-control"  placeholder="Nom*"  type="text"
+                                   #name="ngModel" id="name" name='name' required (ngModel)="name" />
+                            <p [hidden]="name.valid || name.untouched" class="requred-field ">Champs requis</p>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control" id="exampleInputText2" placeholder="Adresse*" type="text">
-                            <p class="requred-field hidden">Champs requis</p>
+                            <p [hidden]="address.invalid" class="requred-field color-valid">Adresse</p>
+                            <input class="form-control"  placeholder="Adresse*"  type="text"
+                                   #address="ngModel" id="address" name='address' required (ngModel)="address" />
+                            <p [hidden]="address.valid || address.untouched" class="requred-field ">Champs requis</p>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control" id="exampleInputText3" placeholder="Code postal*" type="text">
-                            <p class="requred-field hidden">Champs requis</p>
+                            <p [hidden]="postalCode.invalid" class="requred-field color-valid">Code postal</p>
+                            <input class="form-control"  placeholder="Code postal*"  type="text"
+                                   #postalCode="ngModel" id="postalCode" name='postalCode' required (ngModel)="postalCode" />
+                            <p [hidden]="postalCode.valid || postalCode.untouched" class="requred-field ">Champs requis</p>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control" id="exampleInputText4" placeholder="Ville*" type="text">
-                            <p class="requred-field hidden">Champs requis</p>
+                            <p [hidden]="city.invalid" class="requred-field color-valid">Ville</p>
+                            <input class="form-control"  placeholder="Ville*" type="text"
+                                   #city="ngModel" id="city" name='city' required (ngModel)="city" />
+                            <p [hidden]="city.valid || city.untouched" class="requred-field ">Champs requis</p>
                         </div>
                         <div class="input-wrapper">
                             <div class="image-upload">
@@ -48,8 +58,10 @@
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control" id="exampleInputEmail1" placeholder="Email(s) de notification du site*" type="email">
-                            <p class="requred-field hidden">Champs requis</p>
+                            <p [hidden]="notificationEmails.invalid" class="requred-field color-valid">Email(s) de notification du site</p>
+                            <input class="form-control"  placeholder="Email(s) de notification du site*" type="email"
+                                   #notificationEmails="ngModel" id="notificationEmails" name='notificationEmails' required email (ngModel)="notificationEmails" />
+                            <p [hidden]="notificationEmails.valid || notificationEmails.untouched" class="requred-field ">Champs requis</p>
                         </div>
                         <div class="table-wrapper">
                             <table class="table-default ajouter-un-site-table">
@@ -70,7 +82,9 @@
                                     <td>
                                         <div class="control-group">
                                             <label class="control control--checkbox">
-                                                <input type="checkbox" checked="checked"/>
+                                                <input type="checkbox" checked="checked"
+                                                       #cacesSiege="ngModel" id="cacesSiege"
+                                                       name='cacesSiege' (ngModel)="cacesSiege" />
                                                 <span class="control__indicator"></span>
                                             </label>
                                         </div>
@@ -78,7 +92,9 @@
                                     <td>
                                         <div class="control-group">
                                             <label class="control control--checkbox">
-                                                <input type="checkbox" checked="checked"/>
+                                                <input type="checkbox" checked="checked"
+                                                       #cacesSite="ngModel" id="cacesSite"
+                                                       name='cacesSite' (ngModel)="cacesSite" />
                                                 <span class="control__indicator"></span>
                                             </label>
                                         </div>
@@ -89,7 +105,9 @@
                                     <td>
                                         <div class="control-group">
                                             <label class="control control--checkbox">
-                                                <input type="checkbox"/>
+                                                <input type="checkbox"
+                                                       #medicalVisitSiege="ngModel" id="medicalVisitSiege"
+                                                       name='medicalVisitSiege' (ngModel)="medicalVisitSiege" />
                                                 <span class="control__indicator"></span>
                                             </label>
                                         </div>
@@ -97,7 +115,9 @@
                                     <td>
                                         <div class="control-group">
                                             <label class="control control--checkbox">
-                                                <input type="checkbox"/>
+                                                <input type="checkbox"
+                                                       #medicalVisitSite="ngModel" id="medicalVisitSite"
+                                                       name='medicalVisitSite' (ngModel)="medicalVisitSite" />
                                                 <span class="control__indicator"></span>
                                             </label>
                                         </div>
@@ -108,7 +128,9 @@
                                     <td>
                                         <div class="control-group">
                                             <label class="control control--checkbox">
-                                                <input type="checkbox" checked="checked"/>
+                                                <input type="checkbox" checked="checked"
+                                                       #techControlSiege="ngModel" id="techControlSiege"
+                                                       name='techControlSiege' (ngModel)="techControlSiege" />
                                                 <span class="control__indicator"></span>
                                             </label>
                                         </div>
@@ -116,7 +138,9 @@
                                     <td>
                                         <div class="control-group">
                                             <label class="control control--checkbox">
-                                                <input type="checkbox"/>
+                                                <input type="checkbox"
+                                                       #techControlSite="ngModel" id="techControlSite"
+                                                       name='techControlSite' (ngModel)="techControlSite" />
                                                 <span class="control__indicator"></span>
                                             </label>
                                         </div>
@@ -126,14 +150,52 @@
                             </table>
                         </div>
                     </form>
-                </modal-content>
-
-                <modal-footer>
+                    <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}</div>
+                    <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
                     <div class="button-wrapper">
-                        <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
-                                (click)="myModal.close()">Annuler</button>
-                        <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Créer</button>
+                        <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+                                (click)="myModal.close()"  (click)='gotoClientHomeForm()'>Annuler</button>
+                        <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
+                                [disabled]="!client_newSitesForm.form.valid">Créer</button>
+                        <br>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>
+
+                    <button (click)='clickMe(name.value, address.value)'>yes</button>
+
+                </modal-content>
+<!--///////////START/////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                <!--<div class="main-content">  &lt;!&ndash;(submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"&ndash;&gt;-->
+                    <!--&lt;!&ndash;<form #admin_newClientForm="ngForm"  class="creer-un-client-form"  novalidate&ndash;&gt;-->
+                          <!--&lt;!&ndash;(ngSubmit)="submitNewClientFunction(admin_newClientForm)"&ndash;&gt;-->
+                          <!--&lt;!&ndash;(click)='cancellSuccessMessage()'>&ndash;&gt;-->
+                       <!--<div class="control-group">-->
+                            <!--<label class="control control&#45;&#45;checkbox">Adresse de facturation si différente-->
+                                <!--<input type="checkbox" (click)='toggleDifferentBillingAddress($event)'-->
+                                       <!--#billingAddressIfDifferent id="billingAddressIfDifferent" name='billingAddressIfDifferent'-->
+                                       <!--required (ngModel)="billingAddressIfDifferent" />-->
+                                <!--<span class="control__indicator"></span>-->
+                            <!--</label>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;=======================&ndash;&gt;-->
+                        <!--<div class="input-wrapper">-->
+                            <!--<p [hidden]="diffName.invalid" class="requred-field color-valid">Nom</p>-->
+                            <!--<input type="text" class="form-control" placeholder="Nom*" [disabled]='billingAddressIsDifferent'-->
+                                   <!--#diffName="ngModel" id="diffName" name='diffName' required (ngModel)="diffName" />-->
+                            <!--<p [hidden]="diffName.valid || diffName.untouched " class="requred-field ">Champs requis</p>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;=======================&ndash;&gt;-->
+
+<!--/////////////END//////////////////////////////////////////////////////////////////////////////////////////////////////////                -->
+                <modal-footer>
+                    <!--<div class="button-wrapper">-->
+                        <!--<button type="button" class="form-button red-button annuler-button" data-dismiss="modal"-->
+                                <!--(click)="myModal.close()"  (click)='gotoClientHomeForm()'>Annuler</button>-->
+                        <!--<button type="submit" class="form-button green-button creer-button" data-dismiss="modal"-->
+                                <!--[disabled]="!client_newSitesForm.form.valid">Créer</button>-->
+                        <!--<br>-->
+                        <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+                    <!--</div>-->
                 </modal-footer>
             </client-sites-modal>
 

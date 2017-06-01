@@ -72,14 +72,16 @@ const routes: Routes = [
                 { path: 'bibliotheque', component: ClientBibliothequeContentComponent }, //ClientBibliothequePageComponent
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
-    }
-    // { path: 'site/accueil', component: SiteAccueilPageComponent },
-    // { path: 'site/reglages', component: SiteReglagesPageComponent },
-    // { path: 'site/fichiers', component: SiteFichiersPageComponent },
-    // { path: 'site/parc', component: SiteParcPageComponent },
-    // { path: 'site/parc', component: SiteParcPageComponent },
-    // { path: 'site/salaries', component: SiteSalariesPageComponent }
+    },
+    { path: '**', component: LoginStartComponent }
 ];
+// { path: 'site/accueil', component: SiteAccueilPageComponent },
+// { path: 'site/reglages', component: SiteReglagesPageComponent },
+// { path: 'site/fichiers', component: SiteFichiersPageComponent },
+// { path: 'site/parc', component: SiteParcPageComponent },
+// { path: 'site/parc', component: SiteParcPageComponent },
+// { path: 'site/salaries', component: SiteSalariesPageComponent }
+
 
 // const routes: Routes = [
 //     { path: '', component: AppComponent, children: [

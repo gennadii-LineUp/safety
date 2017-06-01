@@ -79,7 +79,6 @@ export class AdminClientAjouterComponent implements OnInit {
                                     newClientForm.value.employeesLimit);
 
         console.dir(newClient);
-        // console.log(this.adminService);
 
         this.adminService.addNewClient(newClient)
             .subscribe(result => {
@@ -112,7 +111,7 @@ export class AdminClientAjouterComponent implements OnInit {
         this.billingAddressIsDifferent = !checkbox.target.checked;
     }
 
-    public increaseEmployees() {
+    public increaseSpinEmployees() {
         for (let i = 0; i < this.spins.length; i++) {
             let spin = this.spins[i];
             let input = spin.getElementsByTagName("input")[0];
@@ -121,7 +120,7 @@ export class AdminClientAjouterComponent implements OnInit {
         }
     }
 
-    public decreaseEmployees() {
+    public decreaseSpinEmployees() {
         for (let i = 0; i < this.spins.length; i++) {
             let spin = this.spins[i];
             let input = spin.getElementsByTagName("input")[0];
@@ -130,7 +129,7 @@ export class AdminClientAjouterComponent implements OnInit {
         }
     }
 
-    public checkForNegativeNumber() {
+    public checkSpinForNegativeNumber() {
         for (let i = 0; i < this.spins.length; i++) {
             let spin = this.spins[i];
             let input = spin.getElementsByTagName("input")[0];
