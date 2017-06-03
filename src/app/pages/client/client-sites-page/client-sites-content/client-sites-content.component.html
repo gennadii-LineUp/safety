@@ -21,9 +21,9 @@
                 </modal-header>
 
                 <modal-content>
-                    <form #client_newSitesForm="ngForm" class="modal-form" novalidate
-                          (ngSubmit)="submitNewSitesFunction(client_newSitesForm)"
-                          (click)='cancellSuccessMessage()'>
+                    <form #client_newSitesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()'>
+                          <!--(ngSubmit)="submitNewSitesFunction(client_newSitesForm)"-->
+
                         <div class="input-wrapper">
                             <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
                             <input class="form-control"  placeholder="Nom*"  type="text"
@@ -60,7 +60,7 @@
                         <div class="input-wrapper">
                             <p [hidden]="notificationEmails.invalid" class="requred-field color-valid">Email(s) de notification du site</p>
                             <input class="form-control"  placeholder="Email(s) de notification du site*" type="email"
-                                   #notificationEmails="ngModel" id="notificationEmails" name='notificationEmails' required email (ngModel)="notificationEmails" />
+                                   #notificationEmails="ngModel" id="notificationEmails" name='notificationEmails' required   (ngModel)="notificationEmails" /><!-- required email -->
                             <p [hidden]="notificationEmails.valid || notificationEmails.untouched" class="requred-field ">Champs requis</p>
                         </div>
                         <div class="table-wrapper">
@@ -156,6 +156,12 @@
                         <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                                 (click)="myModal.close()"  (click)='gotoClientHomeForm()'>Annuler</button>
                         <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
+                                (click)='submitForm(name.value,  address.value,
+                                                    postalCode.value,  city.value,
+                                                    notificationEmails.value, cacesSiege.status,
+                                                    cacesSite.status,  medicalVisitSiege.status,
+                                                    medicalVisitSite.status, techControlSiege.status,
+                                                    techControlSite.status)'
                                 [disabled]="!client_newSitesForm.form.valid">Créer</button>
                         <br>
                         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

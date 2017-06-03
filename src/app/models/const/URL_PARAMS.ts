@@ -12,6 +12,10 @@ export class UrlParams {
         return `http://sfapi:8000/app_dev.php/admin/home`;
     }
 
+    public static get clientSites(): string {
+        return `http://sfapi:8000/app_dev.php/client/sites`;
+    }
+
     public static get clientProfilData(): string {
         return `http://sfapi:8000/app_dev.php/client/profile`;
     }

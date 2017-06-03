@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {BackendService} from '../../../services/backend/backend.service';
 import {LoginService} from '../../../services/login/login.service';
 
 @Component({
   selector: 'login-start',
   templateUrl: './login-start.component.html',
-  styleUrls: ['./login-start.component.css']
+  styleUrls: ['./login-start.component.css'],
+    providers: [LoginService]
 })
 export class LoginStartComponent implements OnInit {
     loading = false;
     error = '';
 
-    constructor(private backendService: BackendService,
-                private loginService: LoginService,
+    constructor(private loginService: LoginService,
                 private router: Router) { }
 
     ngOnInit() {
