@@ -2,12 +2,13 @@ import { Component, OnInit} from '@angular/core';
 import { Router}    from '@angular/router';
 import {AdminService} from '../../../../services/admin/admin.service';
 import {PaginationService} from '../../../../services/pagination/pagination.service';
+import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
 
 @Component({
   selector: 'admin-clients-content',
   templateUrl: './admin-clients-content.component.html',
   styleUrls: ['./admin-clients-content.component.css'],
-    providers: [AdminService, PaginationService]
+    providers: [AdminService, ErrorMessageHandlerService, PaginationService]
 })
 export class AdminClientsContentComponent implements OnInit {
     loading: boolean = true;
@@ -28,6 +29,7 @@ export class AdminClientsContentComponent implements OnInit {
 
 
   constructor(private adminService: AdminService,
+              private errorMessageHandlerService: ErrorMessageHandlerService,
               private paginationService: PaginationService,
               private router: Router) { }
 
@@ -126,6 +128,12 @@ export class AdminClientsContentComponent implements OnInit {
             }, (err) => {
                 this.loading = false;
                 console.log('====error=============');
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
                 this.errorLoad = err;
                 console.log(err);
             });

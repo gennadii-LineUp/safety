@@ -13,18 +13,14 @@ export class LoginService {
                 private router: Router) {
         //var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = localStorage.token;
-        console.log(this.token);
     }
 
 
   login(user: string, password: string): Observable<any> {
     this.logout();
-
     let usernamePassword = btoa(user+':'+password);
-    console.log('====');
 
     return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword);
-
   }
 
 

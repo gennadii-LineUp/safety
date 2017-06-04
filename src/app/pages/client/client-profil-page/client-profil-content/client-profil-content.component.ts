@@ -69,6 +69,12 @@ export class ClientProfilContentComponent implements OnInit {
             }, (err) => {
                 console.log('====error=============');
                 this.loading = false;
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
                 //let error = (JSON.parse(err._body)).errors;
                 console.log(err);
                 this.errorLoad = err;//this.errorMessageHandlerService.errorHandler(err);

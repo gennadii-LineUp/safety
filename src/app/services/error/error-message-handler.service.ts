@@ -41,9 +41,9 @@ export class ErrorMessageHandlerService {
                     for (let i in errorObject[key]) {
                         let _status = errorObject[key][i];
                         this.message += _key
-                            +' - '
+                            +' - "'
                             + i
-                            +': '
+                            +'": '
                             + _status[0].toLowerCase()
                             + _status.substring(1).slice(0,-1)
                             + ';  ';

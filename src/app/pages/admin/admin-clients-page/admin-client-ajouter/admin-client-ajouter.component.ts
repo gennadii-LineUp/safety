@@ -90,10 +90,15 @@ export class AdminClientAjouterComponent implements OnInit {
 
                 }
             }, (err) => {
-                let error = (JSON.parse(err._body)).errors;
                 console.log('====error=============');
-                console.log(error);
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorCreating = errorStatusKnown;
+                    return;
+                }
 
+                let error = (JSON.parse(err._body)).errors;
+                console.log(error);
                 if (Object.keys(error).length > 0) {
                     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
                 }
