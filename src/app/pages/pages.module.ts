@@ -10,7 +10,6 @@ import { AdminReglagesPageComponent } from './admin/admin-reglages-page/admin-re
 import { AdminClientsPageComponent } from './admin/admin-clients-page/admin-clients-page.component';
 import { AdminBibliothequePageComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-page.component';
 import { AdminAccueilContentComponent } from './admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
-import { AdminClientsContentComponent } from './admin/admin-clients-page/admin-clients-content/admin-clients-content.component';
 import { ClientSitesPageComponent } from './client/client-sites-page/client-sites-page.component';
 import { ClientSitesContentComponent } from './client/client-sites-page/client-sites-content/client-sites-content.component';
 import { ClientSitesModalComponent, ModalHeader, ModalContent, ModalFooter } from './client/client-sites-page/client-sites-modal/client-sites-modal.component';
@@ -50,7 +49,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         NotFoundPageComponent,
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,
-        AdminClientsPageComponent,        AdminClientsContentComponent,     AdminClientAjouterComponent,
+        AdminClientsPageComponent,        AdminClientAjouterComponent,
         AdminBibliothequePageComponent,   AdminBibliothequeModalComponent,
         ClientSitesPageComponent,         ClientSitesContentComponent,        ClientSitesModalComponent,
         ClientGroupesPageComponent,       ClientGroupesModalComponent,
@@ -78,7 +77,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         NotFoundPageComponent,
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,
-        AdminClientsPageComponent,        AdminClientsContentComponent,     AdminClientAjouterComponent,
+        AdminClientsPageComponent,        AdminClientAjouterComponent,
         AdminBibliothequePageComponent,   AdminBibliothequeModalComponent,
         ClientSitesPageComponent,         ClientSitesContentComponent,        ClientSitesModalComponent,
         ClientGroupesPageComponent,       ClientGroupesModalComponent,

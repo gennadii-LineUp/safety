@@ -13,7 +13,6 @@ import {ClientGuard} from '../guards/client-guard.service';
 // import {ClientRoutingModule} from '../pages/client/client-routing.module';
 // import {InnerPagesComponent} from '../pages/inner-pages/inner-pages/inner-pages.component';
 import {AdminAccueilContentComponent} from '../pages/admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
-import {AdminClientsContentComponent} from '../pages/admin/admin-clients-page/admin-clients-content/admin-clients-content.component';
 import {ClientSitesContentComponent} from '../pages/client/client-sites-page/client-sites-content/client-sites-content.component';
 // import {SiteRoutingModule} from '../pages/site/site-routing.module';
 import {ClientProfilContentComponent} from 'app/pages/client/client-profil-page/client-profil-content/client-profil-content.component';
@@ -23,6 +22,7 @@ import {AdminBibliothequePageComponent} from '../pages/admin/admin-bibliotheque-
 import {ClientGroupesPageComponent} from '../pages/client/client-groupes-page/client-groupes-page.component';
 import {ClientSalariesPageComponent} from '../pages/client/client-salaries-page/client-salaries-page.component';
 import {ClientBibliothequePageComponent} from '../pages/client/client-bibliotheque-page/client-bibliotheque-page.component';
+import {AdminClientsPageComponent} from '../pages/admin/admin-clients-page/admin-clients-page.component';
 
 
 // const routes: Routes = [
@@ -54,22 +54,20 @@ const routes: Routes = [
     { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
         children: [
                 { path: 'accueil', component: AdminAccueilContentComponent }, //AdminAccueilPageComponent
-                { path: 'reglages', component: AdminReglagesPageComponent }, //
-                { path: 'client', component: AdminClientsContentComponent},  //AdminClientsPageComponent
-                   // children: [
+                { path: 'reglages', component: AdminReglagesPageComponent },
+                { path: 'client', component: AdminClientsPageComponent},
                 { path: 'client/ajouter-un-client', component: AdminClientAjouterComponent },
-                    //]},
-                { path: 'bibliotheque', component: AdminBibliothequePageComponent }, //
+                { path: 'bibliotheque', component: AdminBibliothequePageComponent },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
     { path: 'client', component: ClientComponent, canActivate: [AuthGuard, ClientGuard],
         children: [
                 { path: 'accueil', component: ClientSitesContentComponent  }, //ClientSitesPageComponent
-                { path: 'groupes', component: ClientGroupesPageComponent }, //
-                { path: 'salaries', component: ClientSalariesPageComponent }, //
+                { path: 'groupes', component: ClientGroupesPageComponent },
+                { path: 'salaries', component: ClientSalariesPageComponent },
                 { path: 'profil', component: ClientProfilContentComponent }, //ClientProfilPageComponent
-                { path: 'bibliotheque', component: ClientBibliothequePageComponent }, //
+                { path: 'bibliotheque', component: ClientBibliothequePageComponent },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
