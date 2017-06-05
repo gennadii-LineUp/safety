@@ -1,31 +1,11 @@
-
-html {
-    height: 100%;
-    overflow-x: hidden;
+admin-bibliotheque-modal h2 {
+    margin-top: 2px;
 }
 
-body, .main-wrapper {
-    max-width: 1600px;
-    min-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+admin-bibliotheque-modal .modal-form textarea {
+    margin: 0px 0 18px 0;
 }
 
-
-
-@media (min-width: 992px) {
-    body, .main-wrapper {
-        display: flex;
-        align-items: stretch;
-        min-height: 100vh;
-    }
-    body::after, .main-wrapper::after{
-        content: '';
-        height: 100vh;
-        width: 0;
-        overflow: hidden;
-        visibility: hidden;
-        float: left;
-    }
+admin-bibliotheque-modal .modal-content .button-wrapper button {
+    margin-left: 16px;
 }

@@ -1,42 +1,165 @@
-<!--<div class="main-wrapper">-->
-
-    <!--<navbar-admin></navbar-admin>-->
-
-    <!--<main>-->
-        <!--<article>-->
-            <admin-bibliotheque-content></admin-bibliotheque-content>
-        <!--</article>-->
-    <!--</main>-->
-
-<!--</div>-->
-
-<!--</div>-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- Latest compiled and minified JavaScript -->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+<header class="main-header">
+    <h1>Bibliothèque</h1>
+</header>
+<div class="main-content">
+    <div class="search-panel clearfix">
+        <!--<button class="add-an-item-button" data-toggle="modal" data-target=".bs-example-modal-sm"></button>-->
 
 
+        <!--<div class="row">-->
+        <button class="add-an-item-button" (click)="myModal.open()"></button>
 
-<!--==================== КИРИЛЛ ====================-->
-<!--<div id="main-container">-->
+        <admin-bibliotheque-modal #myModal>
+            <modal-header>
+                <h2>Ajouter un lien</h2>
+            </modal-header>
 
-    <!--<div class="hidden-sm hidden-md hidden-lg" id="mobile-header">-->
-        <!--<navbar-admin-mobile></navbar-admin-mobile>-->
-    <!--</div>-->
+            <modal-content>
+                <form action="/" class="modal-form">
+                    <div class="input-wrapper">
+                        <input class="form-control" id="exampleInputText1" placeholder="Nom*" type="text">
+                        <p class="requred-field hidden">Champs requis</p>
+                    </div>
+                    <textarea placeholder="Description"></textarea>
+                    <div class="input-wrapper">
+                        <input class="form-control" id="exampleInputText2" placeholder="Lien*" type="text">
+                        <p class="requred-field hidden">Champs requis</p>
+                    </div>
+                </form>
+            </modal-content>
+
+            <modal-footer>
+                <div class="button-wrapper">
+                    <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
+                            (click)="myModal.close()">Annuler</button>
+                    <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Créer</button>
+                </div>
+            </modal-footer>
+        </admin-bibliotheque-modal>
+
+        <!--</div>-->
 
 
-    <!--<div id="main-sidebar" class="hidden-xs">-->
-        <!--<navbar-admin></navbar-admin>-->
-    <!--</div>-->
+
+        <div class="search-wrapper">
+            <button class="search-button" type="button"></button>
+            <input type="text" class="form-control search-input" placeholder="Rechercher">
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-default library-table">
+            <thead>
+            <tr>
+                <th><button class="single-sort-button"></button>Nom</th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Lien</span>
+                </th>
+                <th>
+                    <span>Action</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Lien 1</td>
+                <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom de l’entreprise, maximum 40 caractères...</td>
+                <td><a href="javascript:void(0);">https://www.lienquiesttroplong-max-40-let...</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Lien 1</td>
+                <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom de l’entreprise, maximum 40 caractères...</td>
+                <td><a href="javascript:void(0);">https://www.lienquiesttroplong-max-40-let...</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Lien 1</td>
+                <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom de l’entreprise, maximum 40 caractères...</td>
+                <td><a href="javascript:void(0);">https://www.lienquiesttroplong-max-40-let...</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Lien 1</td>
+                <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom de l’entreprise, maximum 40 caractères...</td>
+                <td><a href="javascript:void(0);">https://www.lienquiesttroplong-max-40-let...</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Lien 1</td>
+                <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom de l’entreprise, maximum 40 caractères...</td>
+                <td><a href="javascript:void(0);">https://www.lienquiesttroplong-max-40-let...</a></td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation" class="pagination-wrapper">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous" class="prev-link">
+                  <span aria-hidden="true">
+                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+            <li class="active"><a href="javascript:void(0);">1</a></li>
+            <li><a href="javascript:void(0);">2</a></li>
+            <li><a href="javascript:void(0);">3</a></li>
+            <li><a href="javascript:void(0);">...</a></li>
+            <li><a href="javascript:void(0);">998</a></li>
+            <li><a href="javascript:void(0);">999</a></li>
+            <li>
+                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+                  <span aria-hidden="true">
+                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 
-    <!--<div id="main-content">-->
-        <!--<h2>-->
-            <!--admin-bibliotheque-page works!-->
-        <!--</h2>-->
-    <!--</div>-->
-
-
-<!--</div>-->
+<script>
+    (function () {
+        var headertext = [],
+            headers = document.querySelectorAll("th"),
+            tablerows = document.querySelectorAll("th"),
+            tablebody = document.querySelector("tbody");
+        if (document.querySelector("table")) {
+            for(var i = 0; i < headers.length; i++) {
+                var current = headers[i];
+                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
+            }
+            for (var i = 0, row; row = tablebody.rows[i]; i++) {
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    col.setAttribute("data-th", headertext[j]);
+                }
+            }
+        }
+    } ());
+</script>
