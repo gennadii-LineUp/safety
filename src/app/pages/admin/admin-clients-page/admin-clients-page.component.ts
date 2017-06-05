@@ -83,6 +83,13 @@ export class AdminClientsPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
+
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
                 // let error = (JSON.parse(err._body)).errors;
                 console.log('====error=============');
                 this.errorLoad = err;

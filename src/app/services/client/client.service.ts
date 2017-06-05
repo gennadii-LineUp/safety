@@ -28,6 +28,24 @@ export class ClientService {
         return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite), useTolkin);
     }
 
+    groupList(page): Observable<any> {
+        console.log('==client service:_groupList started==');
+        let useTolkin:boolean = true;
+        let query = '?q=&sort=&page=';
+
+        return this.backendService.get(UrlParams.clientGroupes + query + page, useTolkin);
+
+    }
+
+    findGroupeByName(name: string, page: any): Observable<any> {
+        //console.log('==admin service:_findClientByName started==');
+        let useTolkin:boolean = true;
+        let query = '?q=' + name + '&page=' + page;
+
+        return this.backendService.get(UrlParams.clientGroupes + query, useTolkin);
+
+    }
+
     addNewGroupe(newGroupe: any): Observable<any> {
         console.log('==client service:_addNewGroupe started==');
         let useTolkin:boolean = true;

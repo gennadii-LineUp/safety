@@ -76,56 +76,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Nom du groupe 1</td>
-                <td>Admin</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du groupe peut être vraiment très long, jusqu’à 65 lettres...</td>
-                <td>-</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du groupe 1</td>
-                <td>Admin</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du groupe peut être vraiment très long, jusqu’à 65 lettres...</td>
-                <td>-</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du groupe 1</td>
-                <td>Admin</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du groupe peut être vraiment très long, jusqu’à 65 lettres...</td>
-                <td>-</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du groupe 1</td>
-                <td>Admin</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du groupe peut être vraiment très long, jusqu’à 65 lettres...</td>
-                <td>-</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du groupe 1</td>
-                <td>Admin</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du groupe peut être vraiment très long, jusqu’à 65 lettres...</td>
-                <td>-</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
+                <tr *ngFor="let groupe of groupes">
+                    <td>{{groupe.name}}</td>
+                    <td>{{groupe.name}}</td>
+                    <!--<td>{{groupe.admin_access}}</td>-->
+                    <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -134,7 +90,7 @@
             <li>
                 <a href="#" aria-label="Previous" class="prev-link">
                   <span aria-hidden="true">
-                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
@@ -147,7 +103,7 @@
             <li>
                 <a href="javascript:void(0);" aria-label="Next" class="next-link">
                   <span aria-hidden="true">
-                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>

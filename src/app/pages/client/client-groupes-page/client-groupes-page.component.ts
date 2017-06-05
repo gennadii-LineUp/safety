@@ -4,29 +4,148 @@ import { NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {GroupeClass} from '../../../models/const/groupe-class';
+import {PaginationService} from '../../../services/pagination/pagination.service';
 
 @Component({
   selector: 'app-client-groupes-page',
   templateUrl: './client-groupes-page.component.html',
   styleUrls: ['./client-groupes-page.component.css'],
-    providers: [ClientService, ErrorMessageHandlerService]
+    providers: [ClientService, ErrorMessageHandlerService, PaginationService]
 })
 export class ClientGroupesPageComponent implements OnInit {
     loading: boolean = false;
+    loaded: boolean = false;
     errorSalaries: string = 'error';
     errorCreating: string = '';
     successCreating: string = '';
 
-    groupe: GroupeClass[] = [];
+    groupes: GroupeClass[] = [];
+    pager: any = {};
+
+    errorLoad: string = '';
+    totalItems: number = 0;
+    activePage: number = 1;
+    searchName: string = '';
+    currentPage: any;
+
 
     constructor(private clientService: ClientService,
                 private router: Router,
+                private paginationService: PaginationService,
                 private errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit() {
-        this.tableMobileViewInit();
+        this.findGroupByNameFunction('');
+        console.log(localStorage);
     }
 
+    ngOnDestroy() {
+        localStorage.removeItem('clientGroupSearch_page');
+        localStorage.removeItem('clientGroupSearch_name');
+    }
+
+
+    public onInitChecking() {
+        this.searchName = localStorage.clientGroupSearch_name;
+        this.activePage = +localStorage.clientGroupSearch_page;
+
+        if (this.searchName && this.activePage) {
+            console.log('== from local storage ==');
+            this.findGroupByNameFunction(this.searchName, this.activePage + 1);
+        } else {
+            this.getGroupList(1);
+        }
+        console.log('====' + this.searchName);
+    }
+
+
+    getGroupList(page): void {
+        console.log('=========getGroupList============')
+        this.loading = true;
+        this.clientService.groupList(page)
+            .subscribe(result => {
+                if (result) {
+                    this.loading = false;
+
+                    console.log(result);
+                  //  this.groupes = result.items;
+                  //  this.totalItems = +result.pagination.totalCount;
+                   // this.currentPage = +result.pagination.current;
+
+                    this.setPage(page);
+
+                    this.loaded = true;
+                    setTimeout(() => {
+                        this.tableMobileViewInit();
+                    }, 200);
+                }
+            }, (err) => {
+                this.loading = false;
+
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorCreating = errorStatusKnown;
+                    return;
+                }
+
+                // let error = (JSON.parse(err._body)).errors;
+                console.log('====error=============');
+                this.errorLoad = err;
+                console.log(err);
+                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+            });
+    }
+
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+        this.pager = this.paginationService.getPager(this.totalItems, page);
+    }
+
+
+    public findGroupByNameFunction(name:string, page:any = 1) {
+        this.loading = true;
+        let _name = name;
+        if (name === 'lineUp') {
+            _name = localStorage.clientGroupSearch_name;
+        }
+
+        this.clientService.findGroupeByName(_name, page)
+            .subscribe(result => {
+                if (result) {
+                    this.loading = false;
+                    console.log(result);
+
+                    this.groupes = result; // = result.items;
+                    this.totalItems = +result.length; //= +result.pagination.totalCount;
+                    console.log('ITEMS  ' + this.totalItems);
+                  //  this.currentPage = +result.pagination.current; //= +result.pagination.current;
+
+                  //  this.setPage(this.currentPage);
+
+                    this.loaded = true;
+                    setTimeout(() => {
+                        this.tableMobileViewInit();
+                    }, 200);
+                    localStorage.setItem('clientGroupSearch_name', _name);
+                    // localStorage.setItem('clientGroupSearch_page', this.currentPage);
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log('====error=============');
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
+                this.errorLoad = err;
+                console.log(err);
+            });
+    }
+
+    
     public submitForm(name: string,
                       adminAccess: boolean = false) {
 
@@ -68,6 +187,7 @@ export class ClientGroupesPageComponent implements OnInit {
             });
     }
 
+
     private cancellErrorMessage() {
         this.loading = false;
         this.errorSalaries = '';
@@ -77,15 +197,12 @@ export class ClientGroupesPageComponent implements OnInit {
         this.loading = false;
         this.successCreating = '';
     }
-
     private gotoClientGroupesForm() {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.router.navigate(['/client/groupes']);
 
     }
-
-
     public tableMobileViewInit() {
         let headertext = [],
             headers = document.querySelectorAll("th"),
