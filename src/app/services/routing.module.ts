@@ -13,7 +13,6 @@ import {ClientGuard} from '../guards/client-guard.service';
 // import {ClientRoutingModule} from '../pages/client/client-routing.module';
 // import {InnerPagesComponent} from '../pages/inner-pages/inner-pages/inner-pages.component';
 import {AdminAccueilContentComponent} from '../pages/admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
-import {ClientSitesContentComponent} from '../pages/client/client-sites-page/client-sites-content/client-sites-content.component';
 // import {SiteRoutingModule} from '../pages/site/site-routing.module';
 import {ClientProfilContentComponent} from 'app/pages/client/client-profil-page/client-profil-content/client-profil-content.component';
 import {AdminClientAjouterComponent} from '../pages/admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
@@ -23,6 +22,7 @@ import {ClientGroupesPageComponent} from '../pages/client/client-groupes-page/cl
 import {ClientSalariesPageComponent} from '../pages/client/client-salaries-page/client-salaries-page.component';
 import {ClientBibliothequePageComponent} from '../pages/client/client-bibliotheque-page/client-bibliotheque-page.component';
 import {AdminClientsPageComponent} from '../pages/admin/admin-clients-page/admin-clients-page.component';
+import {ClientSitesPageComponent} from '../pages/client/client-sites-page/client-sites-page.component';
 
 
 // const routes: Routes = [
@@ -63,7 +63,7 @@ const routes: Routes = [
     },
     { path: 'client', component: ClientComponent, canActivate: [AuthGuard, ClientGuard],
         children: [
-                { path: 'accueil', component: ClientSitesContentComponent  }, //ClientSitesPageComponent
+                { path: 'accueil', component: ClientSitesPageComponent  },
                 { path: 'groupes', component: ClientGroupesPageComponent },
                 { path: 'salaries', component: ClientSalariesPageComponent },
                 { path: 'profil', component: ClientProfilContentComponent }, //ClientProfilPageComponent

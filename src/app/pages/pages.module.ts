@@ -11,7 +11,6 @@ import { AdminClientsPageComponent } from './admin/admin-clients-page/admin-clie
 import { AdminBibliothequePageComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-page.component';
 import { AdminAccueilContentComponent } from './admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
 import { ClientSitesPageComponent } from './client/client-sites-page/client-sites-page.component';
-import { ClientSitesContentComponent } from './client/client-sites-page/client-sites-content/client-sites-content.component';
 import { ClientSitesModalComponent, ModalHeader, ModalContent, ModalFooter } from './client/client-sites-page/client-sites-modal/client-sites-modal.component';
 import { ClientGroupesPageComponent } from './client/client-groupes-page/client-groupes-page.component';
 import { ClientGroupesModalComponent } from './client/client-groupes-page/client-groupes-modal/client-groupes-modal.component';
@@ -51,7 +50,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         AdminReglagesPageComponent,
         AdminClientsPageComponent,        AdminClientAjouterComponent,
         AdminBibliothequePageComponent,   AdminBibliothequeModalComponent,
-        ClientSitesPageComponent,         ClientSitesContentComponent,        ClientSitesModalComponent,
+        ClientSitesPageComponent,         ClientSitesModalComponent,
         ClientGroupesPageComponent,       ClientGroupesModalComponent,
         ClientSalariesPageComponent,
         ClientProfilPageComponent,        ClientProfilContentComponent,
@@ -79,7 +78,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         AdminReglagesPageComponent,
         AdminClientsPageComponent,        AdminClientAjouterComponent,
         AdminBibliothequePageComponent,   AdminBibliothequeModalComponent,
-        ClientSitesPageComponent,         ClientSitesContentComponent,        ClientSitesModalComponent,
+        ClientSitesPageComponent,         ClientSitesModalComponent,
         ClientGroupesPageComponent,       ClientGroupesModalComponent,
         ClientSalariesPageComponent,
         ClientProfilPageComponent,        ClientProfilContentComponent,

@@ -5,17 +5,16 @@ import {ClientComponent} from 'app/pages/client/client.component';
  import {ClientBibliothequePageComponent} from './client-bibliotheque-page/client-bibliotheque-page.component';
  import {ClientSitesPageComponent} from './client-sites-page/client-sites-page.component';
  import {ClientGuard} from '../../guards/client-guard.service';
- import {ClientSitesContentComponent} from './client-sites-page/client-sites-content/client-sites-content.component';
  import {ClientProfilContentComponent} from './client-profil-page/client-profil-content/client-profil-content.component';
 
 export const ClientRoutingModule = {
     path: 'client', component: ClientComponent, canActivate: [ ClientGuard],
         children: [
-            { path: 'accueil', component: ClientSitesContentComponent  }, //ClientSitesPageComponent
-            { path: 'groupes', component: ClientGroupesPageComponent }, //
-            { path: 'salaries', component: ClientSalariesPageComponent }, //
+            { path: 'accueil', component: ClientSitesPageComponent  },
+            { path: 'groupes', component: ClientGroupesPageComponent },
+            { path: 'salaries', component: ClientSalariesPageComponent },
             { path: 'profil', component: ClientProfilContentComponent }, //ClientProfilPageComponent
-            { path: 'bibliotheque', component: ClientBibliothequePageComponent }, //
+            { path: 'bibliotheque', component: ClientBibliothequePageComponent },
             { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
 };

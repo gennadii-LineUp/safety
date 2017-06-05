@@ -1,0 +1,29 @@
+h2 {
+    margin-top: 1px;
+}
+
+.ajouter-un-site-table th:first-of-type, .ajouter-un-site-table td:first-of-type {
+    width: 80.25%;
+}
+input-wrapper{
+    position: relative;
+}
+/*==== error message ====*/
+header.main-header {
+    position: relative;
+}
+.alert-danger {
+    height: auto;
+    top: -20px;
+}
+.alert-danger .close {
+    padding: 10px 10px 10px 10px;
+}
+/*=end=== error message ====*/
+
+
+/*==== modal ====*/
+modal-content p.requred-field {
+    top: 37px;
+}
+/*=end=== modal ====*/
