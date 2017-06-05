@@ -150,7 +150,11 @@
                         </table>
                     </div>
                 </form>
-                <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}</div>
+                <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
                 <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
             </modal-content>
 

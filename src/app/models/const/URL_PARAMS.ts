@@ -16,6 +16,10 @@ export class UrlParams {
         return `http://sfapi:8000/app_dev.php/client/sites`;
     }
 
+    public static get clientGroupes(): string {
+        return `http://sfapi:8000/app_dev.php/client/employees-groups`;
+    }
+
     public static get clientProfilData(): string {
         return `http://sfapi:8000/app_dev.php/client/profile`;
     }

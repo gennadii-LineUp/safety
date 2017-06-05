@@ -12,25 +12,42 @@
             </modal-header>
 
             <modal-content>
-                <form action="/" class="modal-form">
+                <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()'>
+                    <!--(ngSubmit)="submitNewSitesFunction(client_newGroupesForm)"-->
+
                     <div class="input-wrapper">
-                        <input class="form-control" id="exampleInputEmail1" placeholder="Nom*" type="text">
-                        <p class="requred-field hidden">Champs requis</p>
+                        <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
+                        <input class="form-control"  placeholder="Nom*" type="text"
+                               #name="ngModel" id="name" name='name' required (ngModel)="name" />
+                        <p [hidden]="name.valid || name.untouched" class="requred-field ">Champs requis</p>
                     </div>
                     <div class="control-group">
                         <label class="control control--checkbox">Accès Admin (entreprise + sites)
-                            <input type="checkbox"/>
+                            <input type="checkbox" checked="checked"
+                                   #adminAccess="ngModel" id="adminAccess"
+                                   name='adminAccess' (ngModel)="adminAccess" />
                             <span class="control__indicator"></span>
                         </label>
                     </div>
                 </form>
+                <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
             </modal-content>
 
             <modal-footer>
                 <div class="button-wrapper">
-                    <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
-                            (click)="myModal.close()">Annuler</button>
-                    <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Créer</button>
+                    <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+                            (click)="myModal.close()"  (click)='gotoClientGroupesForm()'>Annuler</button>
+                    <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
+                            (click)='submitForm(name.value,
+                                                adminAccess.status)'
+                            [disabled]="!client_newGroupesForm.form.valid">Créer</button>
+                    <br>
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </div>
             </modal-footer>
         </client-groupes-modal>

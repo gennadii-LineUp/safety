@@ -28,6 +28,13 @@ export class ClientService {
         return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite), useTolkin);
     }
 
+    addNewGroupe(newGroupe: any): Observable<any> {
+        console.log('==client service:_addNewGroupe started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.post(UrlParams.clientGroupes, JSON.stringify(newGroupe), useTolkin);
+    }
+
 
     encode(obj) {
         let newData = '';
