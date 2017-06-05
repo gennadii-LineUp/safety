@@ -9,3 +9,21 @@ client-groupes-modal .modal-content .button-wrapper {
 client-groupes-modal .groupe-de-salaries-modal .control {
     padding-left: 34px;
 }
+
+
+modal-content div.input-wrapper{
+    position: relative;
+}
+
+/*==== error message ====*/
+header.main-header {
+    position: relative;
+}
+.alert-danger {
+    height: auto;
+    top: -20px;
+}
+.alert-danger .close {
+    padding: 10px 10px 10px 10px;
+}
+/*=end=== error message ====*/

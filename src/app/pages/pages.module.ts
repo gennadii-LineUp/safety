@@ -16,7 +16,6 @@ import { ClientGroupesPageComponent } from './client/client-groupes-page/client-
 import { ClientGroupesModalComponent } from './client/client-groupes-page/client-groupes-modal/client-groupes-modal.component';
 import { ClientSalariesPageComponent } from './client/client-salaries-page/client-salaries-page.component';
 import { ClientProfilPageComponent } from './client/client-profil-page/client-profil-page.component';
-import { ClientProfilContentComponent } from './client/client-profil-page/client-profil-content/client-profil-content.component';
 import { ClientBibliothequePageComponent } from './client/client-bibliotheque-page/client-bibliotheque-page.component';
 import { SiteAccueilPageComponent } from './site/site-accueil-page/site-accueil-page.component';
 import { SiteReglagesPageComponent } from './site/site-reglages-page/site-reglages-page.component';
@@ -53,7 +52,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         ClientSitesPageComponent,         ClientSitesModalComponent,
         ClientGroupesPageComponent,       ClientGroupesModalComponent,
         ClientSalariesPageComponent,
-        ClientProfilPageComponent,        ClientProfilContentComponent,
+        ClientProfilPageComponent,
         ClientBibliothequePageComponent,
         SiteAccueilPageComponent,
         SiteReglagesPageComponent,        SiteReglagesModalComponent,
@@ -81,7 +80,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         ClientSitesPageComponent,         ClientSitesModalComponent,
         ClientGroupesPageComponent,       ClientGroupesModalComponent,
         ClientSalariesPageComponent,
-        ClientProfilPageComponent,        ClientProfilContentComponent,
+        ClientProfilPageComponent,
         ClientBibliothequePageComponent,
         SiteAccueilPageComponent,
         SiteReglagesPageComponent,        SiteReglagesModalComponent,

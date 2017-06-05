@@ -5,7 +5,6 @@ import {ClientComponent} from 'app/pages/client/client.component';
  import {ClientBibliothequePageComponent} from './client-bibliotheque-page/client-bibliotheque-page.component';
  import {ClientSitesPageComponent} from './client-sites-page/client-sites-page.component';
  import {ClientGuard} from '../../guards/client-guard.service';
- import {ClientProfilContentComponent} from './client-profil-page/client-profil-content/client-profil-content.component';
 
 export const ClientRoutingModule = {
     path: 'client', component: ClientComponent, canActivate: [ ClientGuard],
@@ -13,7 +12,7 @@ export const ClientRoutingModule = {
             { path: 'accueil', component: ClientSitesPageComponent  },
             { path: 'groupes', component: ClientGroupesPageComponent },
             { path: 'salaries', component: ClientSalariesPageComponent },
-            { path: 'profil', component: ClientProfilContentComponent }, //ClientProfilPageComponent
+            { path: 'profil', component: ClientProfilPageComponent },
             { path: 'bibliotheque', component: ClientBibliothequePageComponent },
             { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]

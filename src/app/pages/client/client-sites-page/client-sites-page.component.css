@@ -5,9 +5,10 @@ h2 {
 .ajouter-un-site-table th:first-of-type, .ajouter-un-site-table td:first-of-type {
     width: 80.25%;
 }
-input-wrapper{
+modal-content div.input-wrapper{
     position: relative;
 }
+
 /*==== error message ====*/
 header.main-header {
     position: relative;
@@ -20,10 +21,3 @@ header.main-header {
     padding: 10px 10px 10px 10px;
 }
 /*=end=== error message ====*/
-
-
-/*==== modal ====*/
-modal-content p.requred-field {
-    top: 37px;
-}
-/*=end=== modal ====*/

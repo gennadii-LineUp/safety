@@ -2,6 +2,10 @@
 p.color-valid {
     color: #3ba890
 }
+.requred-field {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 10px !important;
+}
 input.form-control.ng-invalid {
     border: 1px solid #f32938;
 }
@@ -9,7 +13,6 @@ button.green-button[disabled] {
     background-color: #d3d3d3;
     color: #808080
 }
-
 /*=end=== form validation ====*/
 
 /*==== error message ====*/
@@ -56,14 +59,17 @@ ul.pagination li[disabled]{
 ul.pagination li:nth-child(1) {
     background-color: green !important;
 }
-
 ul.pagination  {
     user-select: none;
 }
-
 button.green-button[disabled] {
     background-color: #d3d3d3;
     color: #808080
 }
-
 /*=end=== pagination ====*/
+
+/*==== modal ====*/
+modal-content p.requred-field {
+    top: 42px;
+}
+/*=end=== modal ====*/

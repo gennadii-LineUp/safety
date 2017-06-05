@@ -152,6 +152,9 @@
                 </form>
                 <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}</div>
                 <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
+            </modal-content>
+
+            <modal-footer>
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                             (click)="myModal.close()"  (click)='gotoClientHomeForm()'>Annuler</button>
@@ -166,42 +169,6 @@
                     <br>
                     <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </div>
-
-                <button (click)='clickMe(name.value, address.value)'>yes</button>
-
-            </modal-content>
-            <!--///////////START/////////////////////////////////////////////////////////////////////////////////////////////////////-->
-            <!--<div class="main-content">  &lt;!&ndash;(submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"&ndash;&gt;-->
-            <!--&lt;!&ndash;<form #admin_newClientForm="ngForm"  class="creer-un-client-form"  novalidate&ndash;&gt;-->
-            <!--&lt;!&ndash;(ngSubmit)="submitNewClientFunction(admin_newClientForm)"&ndash;&gt;-->
-            <!--&lt;!&ndash;(click)='cancellSuccessMessage()'>&ndash;&gt;-->
-            <!--<div class="control-group">-->
-            <!--<label class="control control&#45;&#45;checkbox">Adresse de facturation si différente-->
-            <!--<input type="checkbox" (click)='toggleDifferentBillingAddress($event)'-->
-            <!--#billingAddressIfDifferent id="billingAddressIfDifferent" name='billingAddressIfDifferent'-->
-            <!--required (ngModel)="billingAddressIfDifferent" />-->
-            <!--<span class="control__indicator"></span>-->
-            <!--</label>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;=======================&ndash;&gt;-->
-            <!--<div class="input-wrapper">-->
-            <!--<p [hidden]="diffName.invalid" class="requred-field color-valid">Nom</p>-->
-            <!--<input type="text" class="form-control" placeholder="Nom*" [disabled]='billingAddressIsDifferent'-->
-            <!--#diffName="ngModel" id="diffName" name='diffName' required (ngModel)="diffName" />-->
-            <!--<p [hidden]="diffName.valid || diffName.untouched " class="requred-field ">Champs requis</p>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;=======================&ndash;&gt;-->
-
-            <!--/////////////END//////////////////////////////////////////////////////////////////////////////////////////////////////////                -->
-            <modal-footer>
-                <!--<div class="button-wrapper">-->
-                <!--<button type="button" class="form-button red-button annuler-button" data-dismiss="modal"-->
-                <!--(click)="myModal.close()"  (click)='gotoClientHomeForm()'>Annuler</button>-->
-                <!--<button type="submit" class="form-button green-button creer-button" data-dismiss="modal"-->
-                <!--[disabled]="!client_newSitesForm.form.valid">Créer</button>-->
-                <!--<br>-->
-                <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
-                <!--</div>-->
             </modal-footer>
         </client-sites-modal>
 

@@ -14,7 +14,6 @@ import {ClientGuard} from '../guards/client-guard.service';
 // import {InnerPagesComponent} from '../pages/inner-pages/inner-pages/inner-pages.component';
 import {AdminAccueilContentComponent} from '../pages/admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
 // import {SiteRoutingModule} from '../pages/site/site-routing.module';
-import {ClientProfilContentComponent} from 'app/pages/client/client-profil-page/client-profil-content/client-profil-content.component';
 import {AdminClientAjouterComponent} from '../pages/admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 import {AdminReglagesPageComponent} from 'app/pages/admin/admin-reglages-page/admin-reglages-page.component';
 import {AdminBibliothequePageComponent} from '../pages/admin/admin-bibliotheque-page/admin-bibliotheque-page.component';
@@ -23,6 +22,7 @@ import {ClientSalariesPageComponent} from '../pages/client/client-salaries-page/
 import {ClientBibliothequePageComponent} from '../pages/client/client-bibliotheque-page/client-bibliotheque-page.component';
 import {AdminClientsPageComponent} from '../pages/admin/admin-clients-page/admin-clients-page.component';
 import {ClientSitesPageComponent} from '../pages/client/client-sites-page/client-sites-page.component';
+import {ClientProfilPageComponent} from '../pages/client/client-profil-page/client-profil-page.component';
 
 
 // const routes: Routes = [
@@ -66,7 +66,7 @@ const routes: Routes = [
                 { path: 'accueil', component: ClientSitesPageComponent  },
                 { path: 'groupes', component: ClientGroupesPageComponent },
                 { path: 'salaries', component: ClientSalariesPageComponent },
-                { path: 'profil', component: ClientProfilContentComponent }, //ClientProfilPageComponent
+                { path: 'profil', component: ClientProfilPageComponent },
                 { path: 'bibliotheque', component: ClientBibliothequePageComponent },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
