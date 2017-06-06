@@ -60,32 +60,32 @@
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">
-                <a class="prev-link" (click)="findClientByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
+                <a class="prev-link" (click)="findGroupByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
-            <li  [ngClass]="{active:pager.currentPage === 1}">
-                <a href="javascript:void(0);"  (click)="findClientByNameFunction('lineUp', 1)" >1</a>
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
+                <a href="javascript:void(0);"  (click)="findGroupByNameFunction('lineUp', 1)" >1</a>
             </li>
             <li *ngIf="pager.hiddenAtStart">
-                <a (click)="findClientByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+                <a (click)="findGroupByNameFunction('lineUp', pager.startPage-1)"  >...</a>
             </li>
 
             <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="findClientByNameFunction('lineUp', page)">{{page}}</a>
+                <a (click)="findGroupByNameFunction('lineUp', page)">{{page}}</a>
             </li>
 
             <li *ngIf="pager.hiddenAtEnd">
-                <a (click)="findClientByNameFunction('lineUp', pager.endPage+1)" >...</a>
+                <a (click)="findGroupByNameFunction('lineUp', pager.endPage+1)" >...</a>
             </li>
-            <li [ngClass]="{active:pager.currentPage === pager.totalPages}">
-                <a (click)="findClientByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
+                <a (click)="findGroupByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
             </li>
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
-                   (click)="findClientByNameFunction('lineUp', pager.currentPage + 1)">
+                   (click)="findGroupByNameFunction('lineUp', pager.currentPage + 1)">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
@@ -93,6 +93,7 @@
             </li>
         </ul>
     </nav>
+
     <br>
     <img *ngIf="loading" style='position: absolute; left: 49%; bottom: 2%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 

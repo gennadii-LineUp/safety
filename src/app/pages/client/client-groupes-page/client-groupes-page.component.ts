@@ -53,48 +53,48 @@ export class ClientGroupesPageComponent implements OnInit {
             console.log('== from local storage ==');
             this.findGroupByNameFunction(this.searchName, this.activePage + 1);
         } else {
-            this.getGroupList(1);
+            this.findGroupByNameFunction('');//this.getGroupList(1);
         }
         console.log('====' + this.searchName);
     }
 
 
-    getGroupList(page): void {
-        console.log('=========getGroupList============')
-        this.loading = true;
-        this.clientService.groupList(page)
-            .subscribe(result => {
-                if (result) {
-                    this.loading = false;
-
-                    console.log(result);
-                  //  this.groupes = result.items;
-                  //  this.totalItems = +result.pagination.totalCount;
-                   // this.currentPage = +result.pagination.current;
-
-                    this.setPage(page);
-
-                    this.loaded = true;
-                    setTimeout(() => {
-                        this.tableMobileViewInit();
-                    }, 200);
-                }
-            }, (err) => {
-                this.loading = false;
-
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorCreating = errorStatusKnown;
-                    return;
-                }
-
-                // let error = (JSON.parse(err._body)).errors;
-                console.log('====error=============');
-                this.errorLoad = err;
-                console.log(err);
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-            });
-    }
+    // getGroupList(page): void {
+    //     console.log('=========getGroupList============')
+    //     this.loading = true;
+    //     this.clientService.groupList(page)
+    //         .subscribe(result => {
+    //             if (result) {
+    //                 this.loading = false;
+    //
+    //                 console.log(result);
+    //               //  this.groupes = result.items;
+    //               //  this.totalItems = +result.pagination.totalCount;
+    //                // this.currentPage = +result.pagination.current;
+    //
+    //                 this.setPage(page);
+    //
+    //                 this.loaded = true;
+    //                 setTimeout(() => {
+    //                     this.tableMobileViewInit();
+    //                 }, 200);
+    //             }
+    //         }, (err) => {
+    //             this.loading = false;
+    //
+    //             let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+    //             if (errorStatusKnown) {
+    //                 this.errorCreating = errorStatusKnown;
+    //                 return;
+    //             }
+    //
+    //             // let error = (JSON.parse(err._body)).errors;
+    //             console.log('====error=============');
+    //             this.errorLoad = err;
+    //             console.log(err);
+    //             //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+    //         });
+    // }
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -117,19 +117,18 @@ export class ClientGroupesPageComponent implements OnInit {
                     this.loading = false;
                     console.log(result);
 
-                    this.groupes = result; // = result.items;
-                    this.totalItems = +result.length; //= +result.pagination.totalCount;
+                    this.groupes = result.items;
+                    this.totalItems = +result.pagination.totalCount;
                     console.log('ITEMS  ' + this.totalItems);
-                  //  this.currentPage = +result.pagination.current; //= +result.pagination.current;
+                    this.currentPage = +result.pagination.current;
 
-                  //  this.setPage(this.currentPage);
+                    this.setPage(this.currentPage);
 
                     this.loaded = true;
                     setTimeout(() => {
                         this.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('clientGroupSearch_name', _name);
-                    // localStorage.setItem('clientGroupSearch_page', this.currentPage);
                 }
             }, (err) => {
                 this.loading = false;
