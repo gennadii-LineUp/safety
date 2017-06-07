@@ -19,6 +19,7 @@ import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-
 import {BackendService} from '../services/backend/backend.service';
 import {LoginService} from '../services/login/login.service';
 import { ModalStandartComponent } from './modal-standart/modal-standart.component';
+import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
 
 // import {ModalModule} from "ng2-modal";
 
@@ -46,6 +47,7 @@ import { ModalStandartComponent } from './modal-standart/modal-standart.componen
         InputTestComponent, SpinnerComponent,    // ang-material
         NavbarForDeleteComponent,     //моя верстка, удалить потом
         ModalStandartComponent,
+        AdminAccessPipe
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -59,6 +61,7 @@ import { ModalStandartComponent } from './modal-standart/modal-standart.componen
         InputTestComponent, SpinnerComponent,    // ang-material
         NavbarForDeleteComponent,    //моя верстка, удалить потом
         ModalStandartComponent,
+        AdminAccessPipe
         // ModalModule
     ],
     providers: [

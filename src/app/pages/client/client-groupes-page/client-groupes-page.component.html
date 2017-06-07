@@ -91,7 +91,7 @@
             <tbody>
                 <tr *ngFor="let groupe of groupes">
                     <td>{{groupe.name}}</td>
-                    <td>{{groupe.access}}</td>
+                    <td>{{groupe.access | adminAccess }}</td>
                     <!--<td>{{groupe.admin_access}}</td>-->
                     <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
                 </tr>
