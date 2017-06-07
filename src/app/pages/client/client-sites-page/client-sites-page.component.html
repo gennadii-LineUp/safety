@@ -16,11 +16,11 @@
         <button class="add-an-item-button" (click)="myModal.open()"></button>
 
         <client-sites-modal #myModal>
-            <modal-header>
+            <modal-header-CS>
                 <h2>Ajouter un site</h2>
-            </modal-header>
+            </modal-header-CS>
 
-            <modal-content>
+            <modal-content-CS>
                 <form #client_newSitesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()'>
                     <!--(ngSubmit)="submitForm(client_newSitesForm)"-->
                      <div class="input-wrapper">
@@ -155,9 +155,9 @@
                     </button>
                 </div>
                 <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
-            </modal-content>
+            </modal-content-CS>
 
-            <modal-footer>
+            <modal-footer-CS>
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                             (click)="myModal.close()"  (click)='gotoClientHomeForm()'>Annuler</button>
@@ -173,7 +173,7 @@
                     <br>
                     <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </div>
-            </modal-footer>
+            </modal-footer-CS>
         </client-sites-modal>
 
 

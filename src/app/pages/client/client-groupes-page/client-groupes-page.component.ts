@@ -196,7 +196,7 @@ export class ClientGroupesPageComponent implements OnInit {
         this.errorSalaries = '';
         this.errorCreating = '';
     }
-    private cancellSuccessMessage() {
+    public cancellSuccessMessage() {
         this.loading = false;
         this.successCreating = '';
     }

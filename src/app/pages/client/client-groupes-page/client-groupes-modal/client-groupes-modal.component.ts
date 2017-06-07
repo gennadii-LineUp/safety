@@ -2,24 +2,24 @@ import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@
 
 
 @Component({
-    selector: "modal-header",
+    selector: "modal-header-CG",
     template: `<ng-content></ng-content>`
 })
-export class ModalHeader {}
+export class ModalHeaderCG {}
 
 
 @Component({
-    selector: "modal-content",
+    selector: "modal-content-CG",
     template: `<ng-content></ng-content>`
 })
-export class ModalContent {}
+export class ModalContentCG {}
 
 
 @Component({
-    selector: "modal-footer",
+    selector: "modal-footer-CG",
     template: `<ng-content></ng-content>`
 })
-export class ModalFooter {}
+export class ModalFooterCG {}
 
 
 @Component({

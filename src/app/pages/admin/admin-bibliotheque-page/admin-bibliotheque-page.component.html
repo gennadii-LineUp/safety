@@ -10,11 +10,11 @@
         <button class="add-an-item-button" (click)="myModal.open()"></button>
 
         <admin-bibliotheque-modal #myModal>
-            <modal-header>
+            <modal-header-AB>
                 <h2>Ajouter un lien</h2>
-            </modal-header>
+            </modal-header-AB>
 
-            <modal-content>
+            <modal-content-AB>
                 <form action="/" class="modal-form">
                     <div class="input-wrapper">
                         <input class="form-control" id="exampleInputText1" placeholder="Nom*" type="text">
@@ -26,15 +26,15 @@
                         <p class="requred-field hidden">Champs requis</p>
                     </div>
                 </form>
-            </modal-content>
+            </modal-content-AB>
 
-            <modal-footer>
+            <modal-footer-AB>
                 <div class="button-wrapper">
                     <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
                             (click)="myModal.close()">Annuler</button>
                     <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Créer</button>
                 </div>
-            </modal-footer>
+            </modal-footer-AB>
         </admin-bibliotheque-modal>
 
         <!--</div>-->

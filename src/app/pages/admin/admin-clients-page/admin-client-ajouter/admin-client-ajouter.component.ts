@@ -34,7 +34,7 @@ export class AdminClientAjouterComponent implements OnInit {
         this.loading = false;
         this.errorCreating = '';
     }
-    private cancellSuccessMessage() {
+    public cancellSuccessMessage() {
         this.loading = false;
         this.successCreating = '';
     }

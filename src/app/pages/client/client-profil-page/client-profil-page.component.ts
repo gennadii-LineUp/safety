@@ -108,7 +108,7 @@ export class ClientProfilPageComponent implements OnInit {
         this.errorUpdate = '';
         this.errorLoad = '';
     }
-    private cancellSuccessMessage() {
+    public cancellSuccessMessage() {
         this.updating = false;
         //this.successCreating = '';
     }

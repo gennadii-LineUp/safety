@@ -18,7 +18,7 @@ import { SpinnerComponent } from './ang-material/spinner/spinner.component';
 import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-delete.component';
 import {BackendService} from '../services/backend/backend.service';
 import {LoginService} from '../services/login/login.service';
-import { ModalStandartComponent } from './modal-standart/modal-standart.component';
+import { ModalStandartComponent, ModalHeader, ModalContent, ModalFooter } from './modal-standart/modal-standart.component';
 import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
 
 // import {ModalModule} from "ng2-modal";
@@ -46,7 +46,7 @@ import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
         ButtonTestComponent,  // ang-material
         InputTestComponent, SpinnerComponent,    // ang-material
         NavbarForDeleteComponent,     //моя верстка, удалить потом
-        ModalStandartComponent,
+        ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe
     ],
     exports: [
@@ -60,7 +60,7 @@ import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
         ButtonTestComponent,  // ang-material
         InputTestComponent, SpinnerComponent,    // ang-material
         NavbarForDeleteComponent,    //моя верстка, удалить потом
-        ModalStandartComponent,
+        ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe
         // ModalModule
     ],

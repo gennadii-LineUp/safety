@@ -11,9 +11,9 @@ import { AdminClientsPageComponent } from './admin/admin-clients-page/admin-clie
 import { AdminBibliothequePageComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-page.component';
 import { AdminAccueilContentComponent } from './admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
 import { ClientSitesPageComponent } from './client/client-sites-page/client-sites-page.component';
-import { ClientSitesModalComponent, ModalHeader, ModalContent, ModalFooter } from './client/client-sites-page/client-sites-modal/client-sites-modal.component';
+import { ClientSitesModalComponent, ModalHeaderCS, ModalContentCS, ModalFooterCS } from './client/client-sites-page/client-sites-modal/client-sites-modal.component';
 import { ClientGroupesPageComponent } from './client/client-groupes-page/client-groupes-page.component';
-import { ClientGroupesModalComponent } from './client/client-groupes-page/client-groupes-modal/client-groupes-modal.component';
+import { ClientGroupesModalComponent, ModalHeaderCG, ModalContentCG, ModalFooterCG } from './client/client-groupes-page/client-groupes-modal/client-groupes-modal.component';
 import { ClientSalariesPageComponent } from './client/client-salaries-page/client-salaries-page.component';
 import { ClientProfilPageComponent } from './client/client-profil-page/client-profil-page.component';
 import { ClientBibliothequePageComponent } from './client/client-bibliotheque-page/client-bibliotheque-page.component';
@@ -30,7 +30,7 @@ import { SiteSalariesPageComponent } from './site/site-salaries-page/site-salari
 import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
 import { LoginStartComponent } from './login/login-start/login-start.component';
 import { RappelerLeMotDePasseComponent } from './login/login-rappeler/login-rappeler.component';
-import { AdminBibliothequeModalComponent } from './admin/admin-bibliotheque-page/admin-bibliotheque-modal/admin-bibliotheque-modal.component';
+import { AdminBibliothequeModalComponent, ModalHeaderAB, ModalContentAB, ModalFooterAB } from './admin/admin-bibliotheque-page/admin-bibliotheque-modal/admin-bibliotheque-modal.component';
 import { AdminComponent } from './admin/admin.component';
 import { ClientComponent } from './client/client.component';
 import { SiteComponent } from './site/site.component';
@@ -48,9 +48,9 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,
         AdminClientsPageComponent,        AdminClientAjouterComponent,
-        AdminBibliothequePageComponent,   AdminBibliothequeModalComponent,
-        ClientSitesPageComponent,         ClientSitesModalComponent,
-        ClientGroupesPageComponent,       ClientGroupesModalComponent,
+        AdminBibliothequePageComponent,   AdminBibliothequeModalComponent, ModalHeaderAB, ModalContentAB, ModalFooterAB,
+        ClientSitesPageComponent,         ClientSitesModalComponent, ModalHeaderCS, ModalContentCS, ModalFooterCS,
+        ClientGroupesPageComponent,       ClientGroupesModalComponent,ModalHeaderCG, ModalContentCG, ModalFooterCG,
         ClientSalariesPageComponent,
         ClientProfilPageComponent,
         ClientBibliothequePageComponent,
@@ -63,11 +63,11 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         LoginStartComponent,
         RappelerLeMotDePasseComponent,
 
-        ModalHeader, ModalContent, ModalFooter,
+        //ModalHeader, ModalContent, ModalFooter,
         AdminComponent,
         ClientComponent,
         SiteComponent,
-        InnerPagesComponent
+        InnerPagesComponent,
 
     ],
     exports: [
@@ -76,9 +76,9 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         AdminAccueilPageComponent,        AdminAccueilContentComponent,
         AdminReglagesPageComponent,
         AdminClientsPageComponent,        AdminClientAjouterComponent,
-        AdminBibliothequePageComponent,   AdminBibliothequeModalComponent,
-        ClientSitesPageComponent,         ClientSitesModalComponent,
-        ClientGroupesPageComponent,       ClientGroupesModalComponent,
+        AdminBibliothequePageComponent,   AdminBibliothequeModalComponent, ModalHeaderAB, ModalContentAB, ModalFooterAB,
+        ClientSitesPageComponent,         ClientSitesModalComponent, ModalHeaderCS, ModalContentCS, ModalFooterCS,
+        ClientGroupesPageComponent,       ClientGroupesModalComponent,ModalHeaderCG, ModalContentCG, ModalFooterCG,
         ClientSalariesPageComponent,
         ClientProfilPageComponent,
         ClientBibliothequePageComponent,
@@ -91,11 +91,11 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         LoginStartComponent,
         RappelerLeMotDePasseComponent,
 
-        ModalHeader, ModalContent, ModalFooter,
+        //ModalHeader, ModalContent, ModalFooter,
         AdminComponent,
         ClientComponent,
         SiteComponent,
-        InnerPagesComponent
+        InnerPagesComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]

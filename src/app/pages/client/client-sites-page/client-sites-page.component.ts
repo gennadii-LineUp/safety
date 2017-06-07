@@ -135,12 +135,12 @@ export class ClientSitesPageComponent implements OnInit {
         this.errorSalaries = '';
         this.errorCreating = '';
     }
-    private cancellSuccessMessage() {
+    public cancellSuccessMessage() {
         this.loading = false;
         this.successCreating = '';
     }
 
-    private gotoClientHomeForm() {
+    public gotoClientHomeForm() {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.router.navigate(['/client/accueil']);
