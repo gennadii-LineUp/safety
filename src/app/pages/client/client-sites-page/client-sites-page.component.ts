@@ -28,16 +28,33 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
     public submitForm(name: string, address: string, postalCode: string, city: string, notificationEmails: string,
-                      cacesSiege: boolean = false,
-                      cacesSite: boolean = false,
-                      medicalVisitSiege: boolean = false,
-                      medicalVisitSite: boolean = false,
-                      techControlSiege: boolean = false,
-                      techControlSite: boolean = false) {
+                      cacesSiege: boolean,
+                      cacesSite: boolean,
+                      medicalVisitSiege: boolean,
+                      medicalVisitSite: boolean,
+                      techControlSiege: boolean,
+                      techControlSite: boolean) {
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
+
+        // let booleanValues = {
+        //     cacesSiege: cacesSiege,
+        //     cacesSite: cacesSite,
+        //     medicalVisitSiege: medicalVisitSiege,
+        //     medicalVisitSite: medicalVisitSite,
+        //     techControlSiege: techControlSiege,
+        //     techControlSite: techControlSite
+        // };
+        // for (let key in booleanValues)  {
+        //     if (!booleanValues[key]) {
+        //         booleanValues[key] = false;
+        //     } else {
+        //         continue;
+        //     }
+        // }
+
 
         let newSite = new SiteClass(name,
             address,

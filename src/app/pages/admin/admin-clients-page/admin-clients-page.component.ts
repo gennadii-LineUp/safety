@@ -56,47 +56,47 @@ export class AdminClientsPageComponent implements OnInit {
             console.log('== from local storage ==');
             this.findClientByNameFunction(this.searchName, this.activePage + 1);
         } else {
-            this.getClientList(1);
+            this.findClientByNameFunction('');
         }
         console.log('====' + this.searchName);
     }
 
 
-    getClientList(page): void {
-        this.loading = true;
-        this.adminService.clientList(page)
-            .subscribe(result => {
-                if (result) {
-                    this.loading = false;
-
-                    console.log(result);
-                    this.clients = result.items;
-                    this.totalItems = +result.pagination.totalCount;
-                    this.currentPage = +result.pagination.current;
-
-                    this.setPage(page);
-
-                    this.loaded = true;
-                    setTimeout(() => {
-                        this.tableMobileViewInit();
-                    }, 200);
-                }
-            }, (err) => {
-                this.loading = false;
-
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
-
-                // let error = (JSON.parse(err._body)).errors;
-                console.log('====error=============');
-                this.errorLoad = err;
-                console.log(err);
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-            });
-    }
+    // getClientList(page): void {
+    //     this.loading = true;
+    //     this.adminService.clientList(page)
+    //         .subscribe(result => {
+    //             if (result) {
+    //                 this.loading = false;
+    //
+    //                 console.log(result);
+    //                 this.clients = result.items;
+    //                 this.totalItems = +result.pagination.totalCount;
+    //                 this.currentPage = +result.pagination.current;
+    //
+    //                 this.setPage(page);
+    //
+    //                 this.loaded = true;
+    //                 setTimeout(() => {
+    //                     this.tableMobileViewInit();
+    //                 }, 200);
+    //             }
+    //         }, (err) => {
+    //             this.loading = false;
+    //
+    //             let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+    //             if (errorStatusKnown) {
+    //                 this.errorLoad = errorStatusKnown;
+    //                 return;
+    //             }
+    //
+    //             // let error = (JSON.parse(err._body)).errors;
+    //             console.log('====error=============');
+    //             this.errorLoad = err;
+    //             console.log(err);
+    //             //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+    //         });
+    // }
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {

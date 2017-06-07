@@ -146,7 +146,7 @@ export class ClientGroupesPageComponent implements OnInit {
 
     
     public submitForm(name: string,
-                      adminAccess: boolean = false) {
+                      adminAccess: boolean) {
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();

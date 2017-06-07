@@ -21,8 +21,8 @@ export class SiteClass{
                 cacesSite: boolean,
                 medicalVisitSiege: boolean,
                 medicalVisitSite: boolean,
-                techControlSiege: boolean,
-                techControlSite: boolean) {
+                techControlSiege: boolean = false,
+                techControlSite: boolean = false) {
 
         this.name = name;
         this.address = address;

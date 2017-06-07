@@ -40,33 +40,24 @@ export class AdminClientAjouterComponent implements OnInit {
     }
 
 
-    // submitNewClientFunction(email: string,
-    //                         company: string,
-    //                         address: string,
-    //                         postalCode: string,
-    //                         city: string,
-    //                         billingAddressIfDifferent: boolean,
-    //                         diffName: string,
-    //                         diffAddress: string,
-    //                         diffPostalCode: string,
-    //                         diffCity: string,
-    //                         phone: number,
-    //                         numberSiret: number,
-    //                         contactName: string,
-    //                         contactPhone: number,
-    //                         contactEmail: string,
-    //                         employeesLimit: number)
     submitNewClientFunction(newClientForm: NgForm) {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
+
+        let _billingAddressIfDifferent:boolean;
+        if (!newClientForm.value.billingAddressIfDifferent) {
+            _billingAddressIfDifferent = false;
+        } else {
+            _billingAddressIfDifferent = newClientForm.value.billingAddressIfDifferent;
+        }
 
         let newClient = new ClientClass(newClientForm.value.email,
                                     newClientForm.value.company,
                                     newClientForm.value.address,
                                     newClientForm.value.postalCode,
                                     newClientForm.value.city,
-                                    newClientForm.value.billingAddressIfDifferent,
+                                    _billingAddressIfDifferent,
                                     newClientForm.value.diffName,
                                     newClientForm.value.diffAddress,
                                     newClientForm.value.diffPostalCode,

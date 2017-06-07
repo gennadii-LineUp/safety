@@ -60,32 +60,32 @@
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">
-                <a class="prev-link" (click)="findGroupByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
+                <a class="prev-link" (click)="findClientByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
-                <a href="javascript:void(0);"  (click)="findGroupByNameFunction('lineUp', 1)" >1</a>
+                <a href="javascript:void(0);"  (click)="findClientByNameFunction('lineUp', 1)" >1</a>
             </li>
             <li *ngIf="pager.hiddenAtStart">
-                <a (click)="findGroupByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+                <a (click)="findClientByNameFunction('lineUp', pager.startPage-1)"  >...</a>
             </li>
 
             <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="findGroupByNameFunction('lineUp', page)">{{page}}</a>
+                <a (click)="findClientByNameFunction('lineUp', page)">{{page}}</a>
             </li>
 
             <li *ngIf="pager.hiddenAtEnd">
-                <a (click)="findGroupByNameFunction('lineUp', pager.endPage+1)" >...</a>
+                <a (click)="findClientByNameFunction('lineUp', pager.endPage+1)" >...</a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
-                <a (click)="findGroupByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+                <a (click)="findClientByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
             </li>
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
-                   (click)="findGroupByNameFunction('lineUp', pager.currentPage + 1)">
+                   (click)="findClientByNameFunction('lineUp', pager.currentPage + 1)">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
