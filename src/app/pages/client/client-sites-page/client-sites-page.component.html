@@ -81,7 +81,7 @@
                                 <td>
                                     <div class="control-group">
                                         <label class="control control--checkbox">
-                                            <input type="checkbox" checked="checked"
+                                            <input type="checkbox" checked="checked" (change)='cacesSiegeClicked($event)'
                                                    #cacesSiege="ngModel" id="cacesSiege"
                                                    name='cacesSiege' (ngModel)="cacesSiege" />
                                             <span class="control__indicator"></span>
@@ -91,7 +91,7 @@
                                 <td>
                                     <div class="control-group">
                                         <label class="control control--checkbox">
-                                            <input type="checkbox" checked="checked"
+                                            <input type="checkbox" checked="checked" (change)='cacesSiteClicked($event)'
                                                    #cacesSite="ngModel" id="cacesSite"
                                                    name='cacesSite' (ngModel)="cacesSite" />
                                             <span class="control__indicator"></span>
@@ -104,7 +104,7 @@
                                 <td>
                                     <div class="control-group">
                                         <label class="control control--checkbox">
-                                            <input type="checkbox"
+                                            <input type="checkbox" (change)='medicalVisitSiegeClicked($event)'
                                                    #medicalVisitSiege="ngModel" id="medicalVisitSiege"
                                                    name='medicalVisitSiege' (ngModel)="medicalVisitSiege" />
                                             <span class="control__indicator"></span>
@@ -114,7 +114,7 @@
                                 <td>
                                     <div class="control-group">
                                         <label class="control control--checkbox">
-                                            <input type="checkbox"
+                                            <input type="checkbox" (change)='medicalVisitSiteClicked($event)'
                                                    #medicalVisitSite="ngModel" id="medicalVisitSite"
                                                    name='medicalVisitSite' (ngModel)="medicalVisitSite" />
                                             <span class="control__indicator"></span>
@@ -127,7 +127,7 @@
                                 <td>
                                     <div class="control-group">
                                         <label class="control control--checkbox">
-                                            <input type="checkbox" checked="checked"
+                                            <input type="checkbox" checked="checked" (change)='techControlSiegeClicked($event)'
                                                    #techControlSiege="ngModel" id="techControlSiege"
                                                    name='techControlSiege' (ngModel)="techControlSiege" />
                                             <span class="control__indicator"></span>
@@ -137,7 +137,7 @@
                                 <td>
                                     <div class="control-group">
                                         <label class="control control--checkbox">
-                                            <input type="checkbox"
+                                            <input type="checkbox" (change)='techControlSiteClicked($event)'
                                                    #techControlSite="ngModel" id="techControlSite"
                                                    name='techControlSite' (ngModel)="techControlSite" />
                                             <span class="control__indicator"></span>

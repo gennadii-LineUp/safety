@@ -28,6 +28,7 @@ export class ClientGroupesPageComponent implements OnInit {
     searchName: string = '';
     currentPage: any;
 
+    _adminAccess: boolean = false;
 
     constructor(private clientService: ClientService,
                 private router: Router,
@@ -152,7 +153,7 @@ export class ClientGroupesPageComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        let newGroupe = new GroupeClass(name, adminAccess);
+        let newGroupe = new GroupeClass(name, this._adminAccess);
 
         console.dir(newGroupe);
 
@@ -186,6 +187,9 @@ export class ClientGroupesPageComponent implements OnInit {
             });
     }
 
+    public adminAccessClicked(e:any) {
+        this._adminAccess = e.target.checked;
+    }
 
     private cancellErrorMessage() {
         this.loading = false;
@@ -200,7 +204,7 @@ export class ClientGroupesPageComponent implements OnInit {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.router.navigate(['/client/groupes']);
-
+        this.ngOnInit();
     }
     public tableMobileViewInit() {
         let headertext = [],

@@ -20,8 +20,8 @@
             </modal-header>
 
             <modal-content>
-                <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()'>
-                    <!--(ngSubmit)="submitNewSitesFunction(client_newGroupesForm)"-->
+                <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()' >
+                    <!--(ngSubmit)="submitForm(client_newGroupesForm)"-->
 
                     <div class="input-wrapper">
                         <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
@@ -35,7 +35,7 @@
                         <label class="control control--checkbox">Accès Admin (entreprise + sites)
                             <input type="checkbox" checked="checked"
                                    #adminAccess="ngModel" id="adminAccess"
-                                   name='adminAccess' (ngModel)="adminAccess" />
+                                   name='adminAccess' (ngModel)="adminAccess" (change)='adminAccessClicked($event)'/>
                             <span class="control__indicator"></span>
                         </label>
                     </div>
@@ -46,19 +46,21 @@
                     </button>
                 </div>
                 <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
-            </modal-content>
 
-            <modal-footer>
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                             (click)="myModal.close()"  (click)='gotoClientGroupesForm()'>Annuler</button>
                     <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
                             (click)='submitForm(name.value,
-                                                adminAccess.status)'
+                                                adminAccess.checked)'
                             [disabled]="!client_newGroupesForm.form.valid">Créer</button>
                     <br>
                     <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </div>
+
+            </modal-content>
+
+            <modal-footer>
             </modal-footer>
         </client-groupes-modal>
 
@@ -68,10 +70,6 @@
                    class="form-control search-input" placeholder="Rechercher"
                    (keyup.enter)='findGroupByNameFunction(findGroupByName.value, 1)'>
         </div>
-        <!--<div class="search-wrapper">-->
-            <!--<button class="search-button" type="button"></button>-->
-            <!--<input type="text" class="form-control search-input" placeholder="Rechercher">-->
-        <!--</div>-->
     </div>
     <div class="table-wrapper">
         <table class="table-default groupe-de-salaries-table">
@@ -141,28 +139,4 @@
     <img *ngIf="loading" style='position: absolute; left: 49%; bottom: 2%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
 
-    <!--<nav aria-label="Page navigation" class="pagination-wrapper">-->
-        <!--<ul class="pagination">-->
-            <!--<li>-->
-                <!--<a href="#" aria-label="Previous" class="prev-link">-->
-                  <!--<span aria-hidden="true">-->
-                    <!--<img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">-->
-                  <!--</span>-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li class="active"><a href="javascript:void(0);">1</a></li>-->
-            <!--<li><a href="javascript:void(0);">2</a></li>-->
-            <!--<li><a href="javascript:void(0);">3</a></li>-->
-            <!--<li><a href="javascript:void(0);">...</a></li>-->
-            <!--<li><a href="javascript:void(0);">998</a></li>-->
-            <!--<li><a href="javascript:void(0);">999</a></li>-->
-            <!--<li>-->
-                <!--<a href="javascript:void(0);" aria-label="Next" class="next-link">-->
-                  <!--<span aria-hidden="true">-->
-                    <!--<img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">-->
-                  <!--</span>-->
-                <!--</a>-->
-            <!--</li>-->
-        <!--</ul>-->
-    <!--</nav>-->
 </div>
