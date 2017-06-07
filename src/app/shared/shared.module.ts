@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import 'hammerjs';
+// import 'hammerjs';
 import {AppRoutingModule} from '../services/routing.module';
 import { LeftMenuComponent } from './left-menu-gena/left-menu.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
@@ -10,11 +10,11 @@ import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.compone
 import { NavbarClientComponent } from './navbar/navbar-client/navbar-client.component';
 import { ContentComponent } from './content/content.component';
 import { NavbarAdminMobileComponent } from './navbar/navbar-admin-mobile/navbar-admin-mobile.component';
-import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MdButtonModule, MdInputModule, MdProgressSpinnerModule} from '@angular/material';
-import {ButtonTestComponent} from './ang-material/button-test/button-test.component';
-import {InputTestComponent} from './ang-material/input-test/input-test.component';
-import { SpinnerComponent } from './ang-material/spinner/spinner.component';
+//import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
+//import {MdButtonModule, MdInputModule, MdProgressSpinnerModule} from '@angular/material';
+//import {ButtonTestComponent} from './ang-material/button-test/button-test.component';
+//import {InputTestComponent} from './ang-material/input-test/input-test.component';
+//import { SpinnerComponent } from './ang-material/spinner/spinner.component';
 import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-delete.component';
 import {BackendService} from '../services/backend/backend.service';
 import {LoginService} from '../services/login/login.service';
@@ -28,11 +28,11 @@ import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
     imports: [
         CommonModule, BrowserModule, FormsModule, AppRoutingModule,
 
-        BrowserAnimationsModule, // ang-material
-        NoopAnimationsModule,  // ang-material
-        MdInputModule,   // ang-material
-        MdButtonModule,  // ang-material
-        MdProgressSpinnerModule,  // ang-material
+      //  BrowserAnimationsModule, // ang-material
+     //   NoopAnimationsModule,  // ang-material
+     //   MdInputModule,   // ang-material
+     //   MdButtonModule,  // ang-material
+     //   MdProgressSpinnerModule,  // ang-material
         // ModalModule
     ],
     declarations: [
@@ -43,8 +43,8 @@ import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
         NavbarClientComponent,
         ContentComponent,
 
-        ButtonTestComponent,  // ang-material
-        InputTestComponent, SpinnerComponent,    // ang-material
+      //  ButtonTestComponent,  // ang-material
+     //   InputTestComponent, SpinnerComponent,    // ang-material
         NavbarForDeleteComponent,     //моя верстка, удалить потом
         ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe
@@ -57,8 +57,8 @@ import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
         NavbarClientComponent,
         ContentComponent,
 
-        ButtonTestComponent,  // ang-material
-        InputTestComponent, SpinnerComponent,    // ang-material
+      //  ButtonTestComponent,  // ang-material
+      //  InputTestComponent, SpinnerComponent,    // ang-material
         NavbarForDeleteComponent,    //моя верстка, удалить потом
         ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe
