@@ -23,6 +23,12 @@ import {ClientBibliothequePageComponent} from '../pages/client/client-bibliotheq
 import {AdminClientsPageComponent} from '../pages/admin/admin-clients-page/admin-clients-page.component';
 import {ClientSitesPageComponent} from '../pages/client/client-sites-page/client-sites-page.component';
 import {ClientProfilPageComponent} from '../pages/client/client-profil-page/client-profil-page.component';
+import {SiteComponent} from '../pages/site/site.component';
+import {SiteAccueilPageComponent} from 'app/pages/site/site-accueil-page/site-accueil-page.component';
+import {SiteReglagesPageComponent} from '../pages/site/site-reglages-page/site-reglages-page.component';
+import {SiteFichiersPageComponent} from '../pages/site/site-fichiers-page/site-fichiers-page.component';
+import {SiteParcPageComponent} from '../pages/site/site-parc-page/site-parc-page.component';
+import {SiteSalariesPageComponent} from '../pages/site/site-salaries-page/site-salaries-page.component';
 
 
 // const routes: Routes = [
@@ -71,14 +77,18 @@ const routes: Routes = [
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
-    { path: '**', component: LoginStartComponent }
+    { path: 'site', component: SiteComponent, //canActivate: [AuthGuard, ClientGuard],
+        children: [
+                { path: 'accueil', component: SiteAccueilPageComponent },
+                { path: 'reglages', component: SiteReglagesPageComponent },
+                { path: 'fichiers', component: SiteFichiersPageComponent },
+                { path: 'parc', component: SiteParcPageComponent },
+                { path: 'salaries', component: SiteSalariesPageComponent },
+                { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+        ]
+    },
+            { path: '**', component: LoginStartComponent }
 ];
-// { path: 'site/accueil', component: SiteAccueilPageComponent },
-// { path: 'site/reglages', component: SiteReglagesPageComponent },
-// { path: 'site/fichiers', component: SiteFichiersPageComponent },
-// { path: 'site/parc', component: SiteParcPageComponent },
-// { path: 'site/parc', component: SiteParcPageComponent },
-// { path: 'site/salaries', component: SiteSalariesPageComponent }
 
 
 // const routes: Routes = [
