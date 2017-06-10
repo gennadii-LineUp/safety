@@ -1,3 +1,277 @@
-<p>
-  site-reglages-page works!
-</p>
+<header class="main-header">
+    <h1>Réglages</h1>
+</header>
+<div class="main-content">
+    <form action="/" class="settings-form">
+        <div class="settings-form-left-content-part">
+            <h2>Site</h2>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText1" placeholder="Nom*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText2" placeholder="Adresse*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText3" placeholder="Code postal*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText4" placeholder="Ville*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+        </div>
+        <div class="settings-form-right-content-part">
+            <h2>Personne qui autorise</h2>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText5" placeholder="Nom du signataire*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText6" placeholder="Prénom du signataire*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="signature-upload">
+                <label for="file-input1">Ajouter signature
+                    <span></span>
+                </label>
+                <input id="file-input1" type="file">
+            </div>
+            <div class="tampon-upload">
+                <label for="file-input2">Ajouter tampon
+                    <span></span>
+                </label>
+                <input id="file-input2" type="file">
+            </div>
+        </div>
+        <div class="main-image-editor-wrapper">
+            <h2>Image d’accueil</h2>
+            <img  class="img-preview img-responsive" src="../../../../assets/img/site-img-min.jpg" alt="site-img-min">
+            <div class="image-upload">
+                <label for="file-input3">
+                    <span></span>
+                </label>
+                <input id="file-input3" type="file">
+            </div>
+        </div>
+        <div class="form-divider clearfix" style="margin-bottom: 20px;"></div>
+        <h2 class="pull-left">Responsable(s) du site</h2>
+        <button class="add-an-item-button" (click)="myModal.open()"></button>
+<!--modal-->
+        <!--<div class="modal fade bs-example-modal-sm fichiers-modal" >-->
+        <!--<div class="modal-dialog modal-sm" role="document">-->
+        <!--<div class="modal-content">-->
+        <site-reglages-modal #myModal tabindex="-1">
+            <modal-header-SRM>
+                <h2>Ajouter un ou des responsable(s) de site</h2>
+            </modal-header-SRM>
+
+            <modal-content-SRM>
+                <form action="/" class="modal-form">
+                    <div class="input-wrapper">
+                        <input class="form-control" id="exampleInputText7" placeholder="Nom*" type="text">
+                        <button>
+                            <span></span>
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table-default ajouter-responsables-table">
+                            <thead>
+                            <tr>
+                                <th><button class="single-sort-button"></button>Nom du salarié</th>
+                                <th>
+                                    <button class="single-sort-button"></button>
+                                    <span>n° Sécu</span>
+                                </th>
+                                <th>
+                                    <span>Accès Parc Machine</span>
+                                </th>
+                                <th>
+                                    <span>Accès Tout</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Nom du salarié 1</td>
+                                <td>201010100011133</td>
+                                <td>
+                                    <div class="radio">
+                                        <input id="radio-11" name="radio1" type="radio" checked>
+                                        <label for="radio-11" class="radio-label"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radio">
+                                        <input id="radio-12" name="radio1" type="radio">
+                                        <label  for="radio-12" class="radio-label"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nom du salarié 2</td>
+                                <td>201010100011133</td>
+                                <td>
+                                    <div class="radio">
+                                        <input id="radio-21" name="radio2" type="radio">
+                                        <label for="radio-21" class="radio-label"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radio">
+                                        <input id="radio-22" name="radio2" type="radio" checked>
+                                        <label  for="radio-22" class="radio-label"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nom du salarié 3</td>
+                                <td>201010100011133</td>
+                                <td>
+                                    <div class="radio">
+                                        <input id="radio-31" name="radio3" type="radio">
+                                        <label for="radio-31" class="radio-label"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radio">
+                                        <input id="radio-32" name="radio3" type="radio" checked>
+                                        <label  for="radio-32" class="radio-label"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="button-wrapper">
+                        <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
+                                (click)="myModal.close()">Annuler</button>
+                        <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Ajouter</button>
+                    </div>
+                </form>
+            </modal-content-SRM>
+
+            <modal-footer-SRM>
+            </modal-footer-SRM>
+        </site-reglages-modal>
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--modal-->
+        <table class="table-default responsable-du-site-table">
+            <thead>
+            <tr>
+                <th><button class="single-sort-button"></button>Nom du salarié</th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Accès</span>
+                </th>
+                <th>
+                    <span>Action</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Nom du groupe 1</td>
+                <td>Tout</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Le nom du groupe peut être vraiment très long, jusqu’à 65 lettres...</td>
+                <td>Parc Machine</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="form-divider clearfix"></div>
+        <h2>Notifications par email</h2>
+        <div class="input-wrapper">
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email(s) de notification du site">
+        </div>
+        <div class="table-wrapper">
+            <table class="table-default notifications-table">
+                <thead>
+                <tr>
+                    <th><button class="single-sort-button"></button>Règle de notification</th>
+                    <th>
+                        <span>Siège</span>
+                    </th>
+                    <th>
+                        <span>Site</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Caces</td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control control--checkbox">
+                                <input type="checkbox" checked="checked"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control control--checkbox">
+                                <input type="checkbox" checked="checked"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Visite médicale</td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control control--checkbox">
+                                <input type="checkbox"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control control--checkbox">
+                                <input type="checkbox"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Contrôle technique et VGP</td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control control--checkbox">
+                                <input type="checkbox" checked="checked"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control control--checkbox">
+                                <input type="checkbox"/>
+                                <span class="control__indicator"></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="button-wrapper">
+            <button type="submit" class="form-button red-button annuler-button">Annuler</button>
+            <button type="submit" class="form-button green-button sauvegarder-button">Sauvegarder</button>
+        </div>
+    </form>
+</div>
+

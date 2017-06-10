@@ -1,3 +1,24 @@
-<p>
-  site-parc-modal-machine works!
-</p>
+<div class="modal fade bs-example-modal-sm"
+     tabindex="-1"
+     role="dialog"
+     #modalRoot
+     (keydown.esc)="closeOnEscape ? close() : 0"
+     [ngClass]="{ in: isOpened, fade: isOpened }"
+     [ngStyle]="{ display: isOpened ? 'block' : 'none' }"
+     (click)="closeOnOutsideClick ? close() : 0">
+    <div class="modal-dialog modal-sm" role="document" (click)="preventClosing($event)">
+        <div class="modal-content" tabindex="0" *ngIf="isOpened">
+
+            <div class="modal-header">
+                <ng-content select="modal-header-SPMM"></ng-content>
+            </div>
+            <div class="modal-body">
+                <ng-content select="modal-content-SPMM"></ng-content>
+            </div>
+            <div class="modal-footer">
+                <ng-content select="modal-footer-SPMM"></ng-content>
+            </div>
+
+        </div>
+    </div>
+</div>

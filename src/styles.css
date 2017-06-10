@@ -70,10 +70,11 @@ h1 {
     left: 50%;
     top: 48%;
     transform:translate(-50%, -48%);
+    width: 100%;   /* new */
 }
 
 .main-content {
-    min-height: 140px;
+    /*min-height: 140px;*/
     position: relative;
     min-height: calc(100% - 160px);
     background: #fff;
@@ -108,10 +109,13 @@ h2 {
     background-color: #71dac0;
     color: #000;
 }
-
 .annuler-button,
 .creer-button,
-.sauvegarder-button {
+.sauvegarder-button,
+.ajouter-button,
+.telecharger-button,
+.enregistrer-button,
+.ok-button {
     font-family: 'Righteous', cursive;
     font-size: 16px;
     width: 84px;
@@ -120,6 +124,32 @@ h2 {
 
 .sauvegarder-button {
     width: 119px;
+}
+
+.telecharger-button {
+    background: #3ba890;
+    width: 138px;
+    color: #fff;
+}
+
+.enregistrer-button {
+    width: 131px;
+}
+
+.modifier-button {
+    width: 139px;
+}
+
+.ok-button {
+    width: 131px;
+    background-color: #69e9cd;
+    text-transform: uppercase;
+}
+
+.navigation-back-button {
+    background: url(/assets/img/navigation-arrow.png) no-repeat;
+    min-width: 24px !important;
+    height: 42px;
 }
 
 .input-wrapper {
@@ -137,10 +167,23 @@ h2 {
 }
 
 .form-divider {
-    max-width: 360px;
+    width: 100%;
     margin-bottom: 23px;
     height: 1px;
     background-color: #8d8d8d;
+    float: left;
+}
+
+.form-subheader {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+
+.form-subheader.form-subheader-type {
+    text-align: left !important;
+    margin-bottom: 15px !important;
 }
 
 /* CHECKBOX */
@@ -169,7 +212,7 @@ h2 {
     left: 2px;
     height: 19px;
     width: 19px;
-    background: #e6e6e6;
+    /*background: #e6e6e6;*/
     border: 2px solid #3ba890;
 }
 
@@ -220,6 +263,63 @@ h2 {
     border-color: #7b7b7b;
 }
 
+.modal .control {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 19px;
+    padding-left: 37px;
+    padding-top: 4px;
+}
+
+/* RADIOBUTTON */
+
+.radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.radio input[type="radio"] + .radio-label {
+    padding-left: 0;
+}
+
+.radio input[type="radio"] + .radio-label:before {
+    content: '';
+    background: #fff;
+    border-radius: 100%;
+    border: 1px solid #007863;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    top: 4px;
+    left: 1px;
+    position: relative;
+    margin-right: 1em;
+    vertical-align: top;
+    cursor: pointer;
+    text-align: center;
+    -webkit-transition: all 250ms ease;
+    transition: all 250ms ease;
+}
+.radio input[type="radio"]:checked + .radio-label:before {
+    background-color: #007863;
+    box-shadow: inset 0 0 0 2px #fff;
+    top: 4px;
+    left: 1px;
+}
+.radio input[type="radio"]:focus + .radio-label:before {
+    outline: none;
+    border-color: #007863;
+}
+.radio input[type="radio"]:disabled + .radio-label:before {
+    box-shadow: inset 0 0 0 4px #fff;
+    border-color: #8d8d8d;
+    background: #8d8d8d;
+}
+.radio input[type="radio"] + .radio-label:empty:before {
+    margin-right: 0;
+}
+
 /* NUMBER INPUT */
 
 .spin {
@@ -259,7 +359,81 @@ h2 {
     text-align: center;
     border: 1px solid #bdbdbd;
 }
+/* DROPDOWN MENU */
 
+.dropdown, .dropdown-menu {
+    width: 483px;
+    padding: 0;
+    border: none;
+}
+
+.nav-pills > li.active > a {
+    width: 483px;
+    height: 42px;
+    background-color: #fff !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #8d8d8d !important;
+    position: relative;
+    border: 1px solid #bdbdbd !important;
+    border-radius: 0;
+    text-align: left;
+}
+
+.dropdown.active .caret {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 42px;
+    height: 41px;
+    background: url("/assets/img/dropdown-caret.png") no-repeat;
+    border: none;
+    border-radius: 0;
+}
+
+.dropdown-menu > li {
+    margin-top: -1px;
+}
+
+.dropdown-menu > li > a {
+    padding: 10px 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #8d8d8d !important;
+    border: 1px solid #bdbdbd !important;
+}
+
+/* DATEPICKER */
+
+.calendar-wrapper {
+    margin-top: -4px;
+    width: 484px;
+}
+
+.calendar-wrapper p.form-subheader {
+    margin-bottom: 28px;
+}
+
+.calendar-wrapper p {
+    float: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+.datepicker-default {
+    float: right;
+    width:175px;
+    height:44px;
+    border: 1px solid #bdbdbd;
+    border-right: none;
+    background: url(/assets/img/calendar-img.png) no-repeat;
+    background-position: 100%;
+    padding-left: 26px;
+    margin-right: 0;
+    position: relative;
+    top:-10px;
+}
 /* SEARCH */
 
 .search-panel {
@@ -424,24 +598,24 @@ h2 {
 
 .table-default th,
 .table-default td {
-    padding-left: 10px !important;
-    position: relative !important;
+    padding-left: 10px;
+    position: relative;
 }
 
 .table-default td {
-    padding-right: 24px !important;
-    text-align: right !important;
-    color: #000 !important;
+    padding-right: 24px;
+    text-align: right;
+    color: #000;
 }
 
 .table-default th:first-of-type {
-    padding-left: 47px !important;
+    padding-left: 47px;
 }
 
 .table-default td:first-of-type {
-    padding-left: 24px !important;
-    padding-right: 0 !important;
-    text-align: left !important;
+    padding-left: 24px;
+    padding-right: 0;
+    text-align: left;
 }
 
 .table-default th:nth-of-type(n+1) {
@@ -486,16 +660,20 @@ h2 {
 
 .pagination a:focus,
 .pagination a:hover {
-    background: #3ba890 !important;
-    border: 1px solid #3ba890 !important;
-    color: #fff !important;
+    background: #efefef !important;
+    border: 1px solid #bdbdbd !important;
+    color: #8d8d8d !important;
     transition:.4s;
 }
 
 .pagination .prev-link,
-.pagination .next-link {
-    background: #3ba890;
-    border: 1px solid #3ba890;
+.pagination .next-link,
+.pagination .prev-link:focus,
+.pagination .next-link:focus,
+.pagination .prev-link:hover,
+.pagination .next-link:hover {
+    background: #3ba890 !important;
+    border: 1px solid #3ba890 !important;
     position: relative;
 }
 
@@ -511,23 +689,32 @@ h2 {
 
 /* MODAL */
 
+.modal {
+    text-align: center;
+}
+
+.modal-open,
+.modal-open .modal {
+    padding-right: 0 !important;
+}
+
 .modal-dialog {
-    width: 411px;
-    height: 454px;
+    width: auto;
+    display: inline-block;
 }
 
 .modal-sm .modal-content {
-    width: 100%;
-    height: 100%;
     border-radius: 0;
     box-shadow: none;
     padding-left: 23px;
     padding-right: 23px;
     padding-top: 18px;
+    padding-bottom: 24px;
 }
 
 .modal-content h2 {
     font-size: 30px;
+    text-align: left;
 }
 
 .modal-form .form-control,
@@ -558,17 +745,28 @@ h2 {
 .modal-content .button-wrapper {
     text-align: right;
     padding-right: 1px;
+    overflow: auto;
 }
 
 .modal-content .button-wrapper button {
     margin-left: 18px;
 }
+/* LIBRARY MODAL */
+
+.library-modal .modal-content {
+    min-width: 411px;
+    max-width: 411px;
+}
+
+.library-modal .button-wrapper {
+    padding-top: 3px;
+}
 
 /* AJOUTER UN SITE MODAL */
 
-.ajouter-un-site-modal .modal-dialog {
-    width: 882px;
-    height: 585px;
+.ajouter-un-site-modal .modal-content {
+    min-width: 882px;
+    max-width: 882px;
 }
 
 .ajouter-un-site-modal .input-wrapper {
@@ -582,19 +780,349 @@ h2 {
     margin-right: 0;
 }
 
-/* AJOUTER UN SITE MODAL */
+/* GROUPE DE SALARIES MODAL */
 
-.groupe-de-salaries-modal .modal-dialog {
-    width: 454px;
-    height: 252px;
+.groupe-de-salaries-modal .modal-content{
+    min-width: 454px;
+    max-width: 454px;
 }
-
 
 .groupe-de-salaries-modal .control {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     padding-left: 35px;
-    letter-spacing: -.45px;
+    letter-spacing: -.05px;
+    text-align: left;
+}
+
+.groupe-de-salaries-modal .button-wrapper {
+    padding-top: 5px;
+}
+
+
+
+
+/* PARC MACHINE MODAL */
+
+.parc-machine-modal .modal-content {
+    padding: 0;
+    padding-left: 22px;
+    padding-top: 19px;
+    padding-right: 23px;
+}
+
+.parc-machine-modal .modal-form {
+    overflow: auto;
+}
+
+.parc-machine-modal h2 {
+    margin-bottom: 15px;
+}
+
+.parc-machine-modal .form-subheader {
+    margin-bottom: 19px;
+    text-align: left;
+}
+
+.parc-machine-modal .tab-content {
+    overflow: auto;
+}
+
+.parc-machine-modal .tab-pane {
+    display: none;
+}
+
+.parc-machine-modal .tab-pane.active {
+    display: block;
+}
+
+.parc-machine-modal a:hover,
+.parc-machine-modal a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+#type-machine a,
+#type-vehicule a,
+#type-engin a,
+#category-chariot-elevateur-r389 a,
+#category-grue-mobile-r383 a {
+    min-width: 84px;
+    min-height: 42px;
+    line-height: 42px;
+    margin-bottom: 24px;
+    text-align: center;
+    display: block;
+}
+
+#type-machine a.pull-left {
+    margin-left: 2px;
+}
+
+#type-machine a.pull-right {
+    margin-right: 33px;
+}
+
+#type-vehicule .form-subheader,
+#type-engin .form-subheader {
+    padding-left: 68px;
+}
+
+#type-vehicule a:not(.navigation-back-button) {
+    width: 160px;
+    margin-left: 52px;
+}
+
+#remorque .calendar-wrapper {
+    width: 407px;
+    margin-bottom: 23px;
+}
+
+#remorque h2 {
+    margin-bottom: 20px;
+}
+
+#remorque .form-subheader {
+    margin-bottom: 29px;
+}
+
+#type-engin a:not(.navigation-back-button) {
+    width: 280px;
+    margin-left: 3px;
+}
+
+#category-chariot-elevateur-r389 {
+    text-align: center;
+}
+
+#category-chariot-elevateur-r389 .form-subheader,
+#category-grue-mobile-r383 .form-subheader {
+    text-align: center;
+}
+
+#category-grue-mobile-r383 .form-subheader:first-of-type {
+    margin-bottom: 15px;
+}
+
+#category-grue-mobile-r383 .form-subheader.form-subheader-type {
+    margin-bottom: 19px !important;
+}
+
+#category-grue-mobile-r383 .form-subheader.form-subheader-type:last-of-type {
+    margin-bottom: 15px !important;
+}
+
+#category-grue-mobile-r383 a:not(.navigation-back-button) {
+    width: 400px;
+    margin-left: auto;margin-right: auto;
+}
+
+#category-chariot-elevateur-r389 a:not(.navigation-back-button) {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#category-chariot-elevateur-r389-details .telecharger-button {
+    margin-left: 2px;
+}
+
+#category-grue-mobile-r383-details .autres-fichiers-wrapper {
+    margin-bottom: 0;
+}
+
+.calendar-wrapper button {
+    margin-top: -3px;
+}
+
+.autres-fichiers-wrapper {
+    padding-top: 21px;
+    margin-bottom: 23px;
+}
+
+.autres-fichiers-wrapper button {
+    margin-top: 24px;
+}
+
+.button-file-input-wrapper label {
+    width: 138px !important;
+}
+
+.button-file-input-wrapper span {
+    background: #3ba890 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 0;
+    color: #fff;
+    font-family: 'Righteous', cursive;
+    font-size: 16px;
+    line-height: 42px;
+}
+
+.button-file-input-wrapper + button {
+    height: 42px;
+    margin-bottom: 25px;
+}
+
+.autres-fichiers-wrapper .image-upload label span {
+    background: url(/assets/img/minus-icon-white.png) no-repeat center;
+}
+
+.navigation-back-button {
+    float: left;
+    margin-bottom: 25px !important;
+    margin-left: 2px;
+}
+
+.equipment-wrapper {
+    padding-top: 20px;
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+.equipment-wrapper .radio {
+    margin-top: 15px;
+    margin-bottom: 19px;
+}
+
+.equipment-wrapper .radio input[type="radio"] + .radio-label::before {
+    margin-right: 25px;
+}
+
+.engine-detailed-info,
+.verification-generale-periodique {
+    min-width: 346px;
+    float: left;
+}
+
+.qr-code-wrapper,
+.immat-n-parc {
+    min-width: 139px;
+    float: left;
+}
+
+.engine-detailed-info,
+.qr-code-wrapper {
+    min-height: 139px;
+}
+
+.immat-n-parc .form-subheader {
+    text-align: center;
+}
+
+.qr-code-wrapper img {
+    margin-top: -3px;
+}
+
+.engine-detailed-info .form-subheader {
+    margin-bottom: 12px;
+}
+
+.engine-detailed-info p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+    margin-bottom: -3px;
+}
+
+.engine-detailed-info p span {
+    font-weight: bold;
+}
+
+/* ATTESTATION HABILITATION MODAL */
+
+.attestation-habilitation-modal .input-wrapper {
+    margin-bottom: 35px;
+}
+
+.attestation-habilitation-modal .calendar-wrapper {
+    margin-bottom: 25px !important;
+}
+
+.attestation-habilitation-modal .calendar-wrapper + .calendar-wrapper {
+    margin-bottom: 10px !important;
+}
+
+.attestation-habilitation-modal .form-subheader {
+    text-align: left;
+    margin-bottom: 19px;
+}
+
+.attestation-habilitation-modal .autres-fichiers-wrapper {
+    padding-top: 0;
+}
+
+.attestation-habilitation-modal .autres-fichiers-wrapper .image-upload label span {
+    background: url(/assets/img/plus-icon-white.png) no-repeat center;
+}
+
+/* AUTORISATION DE CONDUITE MODAL */
+
+.autorisation-de-conduite-modal h2 {
+    margin-bottom: 15px;
+}
+
+.autorisation-de-conduite-modal .form-subheader {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.autorisation-de-conduite-modal #dropdown-tabs {
+    margin-bottom: 24px;
+}
+
+.autorisation-de-conduite-modal .button-wrapper {
+    margin-top: -4px;
+}
+
+.autorisation-de-conduite-modal .ok-button {
+    margin-bottom: 20px;
+}
+
+.autorisation-de-conduite-modal .control-group .form-subheader {
+    margin-bottom: 20px;
+}
+
+.autorisation-de-conduite-modal .control {
+    text-align: left;
+    padding-top: 0px;
+    padding-left: 44px;
+    margin-bottom: 21px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: normal;
+}
+
+.autorisation-de-conduite-modal .control__indicator {
+    top: 0;
+    left: 1px;
+}
+
+.autorisation-de-conduite-modal .control-group {
+    margin-bottom: 26px;
+}
+
+.autorisation-de-conduite-modal .annuler-button {
+    width: 131px;
+}
+
+.autorisation-de-conduite-modal .vehicle-type {
+    font-family: 'Open Sans', sans-serif;
+    color: #000;
+    text-align: left;
+    margin-top: -7px;
+    margin-bottom: 21px;
+}
+
+.autorisation-de-conduite-modal .radio {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.autorisation-de-conduite-modal .radio input[type="radio"] + .radio-label::before {
+    margin-right: 25px;
 }
 
 /* ALERT WINDOW */
@@ -636,7 +1164,9 @@ h2 {
 
 /* FILE INPUT */
 
-.image-upload {
+.image-upload,
+.signature-upload,
+.tampon-upload {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     color: #8d8d8d;
@@ -645,6 +1175,16 @@ h2 {
     padding-left: 11px;
     padding-top: 8px;
     position: relative;
+}
+
+.signature-upload,
+.tampon-upload {
+    border: 1px solid #3ba890;
+    margin-bottom: 23px;
+}
+
+.image-upload p {
+    text-align: left;
 }
 
 .image-upload label {
@@ -656,6 +1196,20 @@ h2 {
     top: -1px;
 }
 
+.signature-upload label,
+.tampon-upload label {
+    background: #3ba890;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+    color: #fff;
+    padding-top: 9px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
 .image-upload label:hover {
     cursor: pointer;
 }
@@ -665,6 +1219,18 @@ h2 {
     width: 100%;
     height: 100%;
     display: block;
+}
+
+.signature-upload label span,
+.tampon-upload label span {
+    background: url(/assets/img/plus-icon-white.png) no-repeat center;
+    background-position: 55% 40%;
+    width: 42px;
+    height: 42px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .image-upload > input
@@ -727,6 +1293,7 @@ h2 {
 
 .creer-un-client-form {
     padding-top: 8px;
+    max-width: 361px;
 }
 
 .creer-un-client-form .form-control {
@@ -874,27 +1441,42 @@ h2 {
 }
 
 /* AJOUTER UN SITE TABLE */
+/* RESPONSABLE DU SITE TABLE */
+
+.responsable-du-site-table {
+    margin-bottom: 24px;
+}
+
+.responsable-du-site-table + .form-divider {
+    margin-bottom: 20px;
+}
 
 .groupe-de-salaries-table th:first-of-type,
-.groupe-de-salaries-table td:first-of-type {
+.groupe-de-salaries-table td:first-of-type,
+.responsable-du-site-table th:first-of-type,
+.responsable-du-site-table td:first-of-type {
     width: 57.2%;
 }
 
 .groupe-de-salaries-table th:nth-of-type(2),
-.groupe-de-salaries-table td:nth-of-type(2) {
+.groupe-de-salaries-table td:nth-of-type(2),
+.responsable-du-site-table th:nth-of-type(2),
+.responsable-du-site-table td:nth-of-type(2) {
     width: 22.65%;
 }
 
-.groupe-de-salaries-table td:nth-of-type(2) {
+.groupe-de-salaries-table td:nth-of-type(2),
+.responsable-du-site-table td:nth-of-type(2) {
     text-align: left;
     padding-left: 22px;
 }
 
 .groupe-de-salaries-table th:nth-of-type(3),
-.groupe-de-salaries-table td:nth-of-type(3) {
+.groupe-de-salaries-table td:nth-of-type(3),
+.responsable-du-site-table th:nth-of-type(3),
+.responsable-du-site-table td:nth-of-type(3) {
     width: 20.15%;
 }
-
 /* SALARIES TABLE */
 
 .salaries-table th:first-of-type,
@@ -966,6 +1548,248 @@ h2 {
     width: 14.45%;
 }
 
+/* SALARIES SITE TABLE */
+
+.salaries-site-table td {
+    padding-right: 5px;
+}
+
+.salaries-site-table th:first-of-type,
+.salaries-site-table td:first-of-type {
+    width: 15.9%;
+}
+
+.salaries-site-table th:nth-of-type(2),
+.salaries-site-table td:nth-of-type(2) {
+    width: 15.8%;
+}
+
+.salaries-site-table td:nth-of-type(2) {
+    text-align: left;
+    padding-left: 23px;
+}
+
+.salaries-site-table th:nth-of-type(3),
+.salaries-site-table td:nth-of-type(3) {
+    width: 16.1%;
+}
+
+.salaries-site-table th:nth-of-type(4),
+.salaries-site-table td:nth-of-type(4) {
+    width: 17.2%;
+}
+
+.salaries-site-table td:nth-of-type(3),
+.salaries-site-table td:nth-of-type(4),
+.salaries-site-table td:nth-of-type(5) {
+    text-align: left;
+    padding-left: 39px;
+}
+
+.salaries-site-table th:nth-of-type(5),
+.salaries-site-table td:nth-of-type(5) {
+    width: 9.25%;
+}
+
+.salaries-site-table th:nth-of-type(6),
+.salaries-site-table td:nth-of-type(6) {
+    width:11.25%;
+}
+
+.salaries-site-table td:nth-of-type(6) {
+    text-align: left;
+    padding-left: 23px;
+}
+
+.salaries-site-table th:nth-of-type(7),
+.salaries-site-table td:nth-of-type(7) {
+    width:14.5%;
+}
+
+
+/* NOTOFICATIONS DU SITE TABLE */
+
+.notifications-table th:first-of-type,
+.notifications-table td:first-of-type {
+    width: 80.9%;
+}
+
+.notifications-table th:nth-of-type(2),
+.notifications-table td:nth-of-type(2) {
+    width: 10.25%;
+}
+
+.notifications-table th:nth-of-type(2) {
+    padding-left: 22px;
+}
+
+.notifications-table td:nth-of-type(2) {
+    padding-left: 30px;
+}
+
+.notifications-table th:nth-of-type(3),
+.notifications-table td:nth-of-type(3) {
+    width: 8.85%;
+}
+
+.notifications-table td:nth-of-type(3) {
+    padding-left: 25px;
+}
+
+/* AJOUTER RESPONSABLES TABLE */
+
+.ajouter-responsables-de-site-modal .table-wrapper {
+    padding-top: 2px;
+}
+
+.ajouter-responsables-table {
+    margin-bottom: 25px;
+}
+
+.ajouter-responsables-table th:first-of-type,
+.ajouter-responsables-table td:first-of-type {
+    width: 42.7%;
+}
+
+.ajouter-responsables-table th:nth-of-type(2),
+.ajouter-responsables-table td:nth-of-type(2) {
+    width: 20.1%;
+}
+
+.ajouter-responsables-table th:nth-of-type(3),
+.ajouter-responsables-table td:nth-of-type(3) {
+    width: 22.35%;
+    padding-left: 23px;
+}
+
+.ajouter-responsables-table th:nth-of-type(4),
+.ajouter-responsables-table td:nth-of-type(4) {
+    width: 14.85%;
+}
+
+.ajouter-responsables-table td:nth-of-type(3),
+.ajouter-responsables-table td:nth-of-type(4) {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
+
+/* FICHIERS TABLE */
+
+.fichiers-table th:first-of-type,
+.fichiers-table td:first-of-type {
+    width: 55%;
+}
+
+.fichiers-table th:nth-of-type(2),
+.fichiers-table td:nth-of-type(2) {
+    width: 24.75%;
+    text-align: left;
+}
+
+.fichiers-table td:nth-of-type(2) {
+    padding-left: 40px;
+}
+
+.fichiers-table th:nth-of-type(3),
+.fichiers-table td:nth-of-type(3) {
+    width: 25.25%;
+}
+
+/* PARC MACHINE TABLE */
+
+.parc-machine-table td {
+    padding-right: 5px;
+}
+
+.parc-machine-table th:first-of-type,
+.parc-machine-table td:first-of-type {
+    width: 17.2%;
+}
+
+.parc-machine-table th:nth-of-type(2),
+.parc-machine-table td:nth-of-type(2),
+.parc-machine-table th:nth-of-type(3),
+.parc-machine-table td:nth-of-type(3) {
+    width: 17.1%;
+    text-align: left;
+}
+
+.parc-machine-table th:nth-of-type(3),
+.parc-machine-table td:nth-of-type(3) {
+    width: 17.1%;
+    text-align: left;
+}
+
+.parc-machine-table th:nth-of-type(4),
+.parc-machine-table td:nth-of-type(4) {
+    width: 17.05%;
+    text-align: left;
+}
+
+.parc-machine-table th:nth-of-type(5),
+.parc-machine-table td:nth-of-type(5) {
+    width: 17.05%;
+    text-align: left;
+}
+
+.parc-machine-table th:nth-of-type(6),
+.parc-machine-table td:nth-of-type(6) {
+    width: 14.5%;
+}
+
+.parc-machine-table td:nth-of-type(2),
+.parc-machine-table td:nth-of-type(3),
+.parc-machine-table td:nth-of-type(4),
+.parc-machine-table td:nth-of-type(5) {
+    padding-left: 39px;
+}
+
+/* ATTESTATIONS DE FORMATION TABLE */
+
+.attestations-de-formation-table {
+    margin-top: -2px;
+    margin-bottom: 24px;
+}
+
+.attestations-de-formation-table th:first-of-type,
+.attestations-de-formation-table td:first-of-type {
+    width: 33.6%;
+}
+
+.attestations-de-formation-table  th:nth-of-type(2),
+.attestations-de-formation-table  td:nth-of-type(2) {
+    width: 23.1%;
+    text-align: left;
+}
+
+.attestations-de-formation-table  th:nth-of-type(3),
+.attestations-de-formation-table  td:nth-of-type(3) {
+    width: 23.15%;
+    text-align: left;
+}
+
+.attestations-de-formation-table  td:nth-of-type(2),
+.attestations-de-formation-table  td:nth-of-type(3) {
+    padding-left: 23px;
+}
+
+/* ATTESTATIONS DE CONDUITE TABLE */
+
+.attestations-de-conduite-table {
+    margin-top: -2px;
+}
+
+.attestations-de-conduite-table th:first-of-type,
+.attestations-de-conduite-table td:first-of-type {
+    width: 80%;
+}
+
+.attestations-de-conduite-table th:last-of-type,
+.attestations-de-conduite-table td:last-of-type {
+    width: 20%;
+}
+
 /* LIBRARY PAGE */
 
 .library-item {
@@ -994,10 +1818,6 @@ h2 {
     font-size: 14px;
     text-decoration: underline;
     color: #3ba890;
-}
-
-.library-modal .button-wrapper {
-    padding-top: 3px;
 }
 
 /* PROFIL */
@@ -1033,20 +1853,13 @@ h2 {
     float: left;
 }
 
-.profil-form .form-control {
+.profil-form .form-control,
+.settings-form .form-control,
+.mon-profil-form .form-control {
     font-family: 'Open Sans', sans-serif;
     width: 404px !important;
     height: 42px !important;
     border-radius: 0;
-}
-
-.profil-form .form-divider {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 23px;
-    height: 1px;
-    background-color: #8d8d8d;
-    float: left;
 }
 
 .profil-form .button-wrapper .control {
@@ -1085,16 +1898,375 @@ h2 {
     margin-left: 24px;
 }
 
-/* SALARIES PAGE */
+/* SALARIES PAGE, SALARIES SITE PAGE */
 
-.salaries-page {
+.salaries-page,
+.salaries-site-page {
     max-width: 1200px;
 }
 
+/* SITE REGLAGES PAGE */
+
+.settings-form {
+    overflow: auto;
+    padding-top: 4px;
+}
+
+.settings-form .input-wrapper {
+    width: 100%;
+}
+
+.settings-form-left-content-part,
+.settings-form-right-content-part {
+    float: left;
+    width: calc(50% - 12px);
+}
+
+.settings-form-right-content-part {
+    width: calc(50% - 12px);
+    margin-left: 24px;
+}
+
+.main-image-editor-wrapper {
+    float: left;
+    position: relative;
+    top: -1px;
+    left: -1px;
+    margin-bottom: 23px;
+}
+
+.main-image-editor-wrapper h2 {
+    font-size: 16px;
+}
+
+.settings-form .img-preview {
+    max-height: 107px;
+    float: left;
+    margin-right: 23px;
+}
+
+.settings-form .image-upload {
+    width: 179px;
+    height: 107px !important;
+    border-color: transparent;
+    float: left;
+}
+
+.settings-form .image-upload label {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    top: 0;
+}
+
+.settings-form .image-upload label span {
+    background: url(/assets/img/changer-image-img.png) no-repeat center;
+}
+
+.settings-form .button-wrapper {
+    float: right;
+    padding-top: 22px;
+}
+
+.settings-form .button-wrapper .annuler-button {
+    margin-right: 20px;
+}
+
+/* SALARIES SITE PAGE */
+
+.salaries-site-page .main-content {
+    padding-top: 22px;
+}
+
+/* CACES PAGE */
+
+.caces-page .main-content {
+    overflow: hidden;
+}
+
+.caces-img-wrapper {
+    position: relative;
+    max-width: 832px;
+}
+
+.caces-img-wrapper img + img {
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* VISITE MEDICALE PAGE */
+
+.visite-medicale-page h2 {
+    margin-bottom:15px;
+}
+
+/* ATTESTATIONS DE FORMATION PAGE */
+
+.attestations-de-formation-page .main-content {
+    padding-top: 23px;
+}
+
+/* MON PROFIL PAGE */
+
+.mon-profil-page .main-content {
+    overflow: hidden;
+}
+
+.mon-profil-detailed-info,
+.mon-profil-fields {
+    float: left;
+}
+
+.mon-profil-detailed-info {
+    margin-right: 25px;
+}
+
+.mon-profil-form > p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin-bottom: 17px;
+    letter-spacing: -.15px;
+}
+
+.mon-profil-image-wrapper {
+    float: left;
+    margin-right: 45px;
+}
+
+.mon-profil-form .image-upload {
+    width: 179px;
+    height: 107px !important;
+    border-color: transparent;
+    float: left;
+}
+
+.mon-profil-form .image-upload label {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    top: 0;
+}
+
+.mon-profil-form .image-upload label span {
+    background: url(/assets/img/changer-image-img.png) no-repeat center;
+}
+
+.mon-profil-detailed-info .detailed-info-wrapper {
+    padding-top: 21px;
+}
+
+.mon-profil-detailed-info .detailed-info-wrapper p {
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    margin-bottom: -3px;
+}
+
+.mon-profil-form .button-wrapper {
+    text-align: right;
+    padding-top: 1px;
+}
+
+.mon-profil-form .sauvegarder-button {
+    margin-left: 20px;
+}
+
+/* CRÉATION D’UN SALARIÉ */
+
+.creation-salarie-page .one-column-input-wrapper:nth-of-type(2n) {
+    width: calc(50% - 12px);
+    margin-left: 12px;
+}
+
+.creation-salarie-page .form-divider + .one-column-input-wrapper {
+    margin-left: 0;
+    width: 50%;
+}
+
+.creation-salarie-page .form-divider + .one-column-input-wrapper + .one-column-input-wrapper {
+    padding-left: 12px;
+    width: 50%;
+}
+
+.creation-salarie-page .form-divider ~ .one-column-input-wrapper .calendar-wrapper {
+    margin-top: 13px;
+}
+
+.creation-salarie-page .form-divider + .one-column-input-wrapper + .one-column-input-wrapper .calendar-wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.creation-salarie-page .calendar-wrapper {
+    width: calc(100% - 12px);
+    padding-top: 13px;
+    margin-bottom: 11px;
+}
+
+.creation-salarie-page .image-upload {
+    height: 107px! important;
+    margin-top: 5px;
+    margin-left: 0;
+    margin-bottom: 15px;
+    padding-left: 24px;
+    position: relative;
+    top: -8px;
+}
+
+.creation-salarie-page .form-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.creation-salarie-page .form-subheader {
+    font-family: 'Righteous', cursive;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.creation-salarie-page .calendar-wrapper p {
+    padding-top: 0;
+    padding-left: 12px;
+}
+
+.creation-salarie-page .image-upload label span {
+    background: url(/assets/img/ajouter-un-img-img.png) no-repeat center;
+    height: 107px! important;
+    width: 179px !important;
+}
+
+.creation-salarie-page .button-wrapper .control {
+    font-family: 'Open Sans', sans-serif;
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.creation-salarie-page .radio-btn-inline {
+    padding-top: 12px;
+}
+
+.creation-salarie-page .radio-btn-inline .radio{
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 23px;
+}
+
+.creation-salarie-page .radio-btn-inline .radio input[type="radio"] + .radio-label::before {
+    margin-right: 24px;
+}
+
+.creation-salarie-page .radio-btn-inline ~ .calendar-wrapper .datepicker-default {
+    margin-right: 75px;
+}
+
+.creation-salarie-page .button-wrapper {
+    width: 100%;
+    text-align: right;
+}
+
+.creation-salarie-page .button-wrapper button {
+    float: none;
+    margin-left: 20px;
+}
+
+.creation-salarie-page .profile-img-wrapper {
+    margin-top: 19px;
+    margin-bottom: 24px;
+}
+
+.creation-salarie-page .modifier-button {
+    width: 119px;
+    height: 42px;
+    margin-bottom: 24px;
+}
+
+.creation-salarie-page .form-divider {
+    margin-bottom: 15px;
+}
+
+.creation-salarie-page .ajouter-image .form-label {
+    width: 79px;
+    float: left;
+}
+
+.creation-salarie-page .ajouter-image .image-upload {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    color: #8d8d8d;
+    width: calc(100% - 79px);
+    height: 42px !important;
+    border: 1px solid #bdbdbd;
+    padding-left: 11px;
+    padding-top: 8px;
+    position: relative;
+    float: left;
+}
+
+.creation-salarie-page .ajouter-image .image-upload p {
+    text-align: left;
+}
+
+.creation-salarie-page .ajouter-image .image-upload label {
+    width: 42px;
+    height: 42px;
+    background: #3ba890;
+    position: absolute;
+    right: -1px;
+    top: -1px;
+}
+
+.creation-salarie-page .ajouter-image .image-upload label span {
+    background: url(/assets/img/plus-icon-white.png) no-repeat center;
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+.creation-salarie-page .search-panel p {
+    padding-top: 2px;
+    letter-spacing: -.5px;
+    font-family: 'Righteous', cursive;
+}
+
+.creation-salarie-page .profil-form .button-wrapper button {
+    margin-top: 22px;
+}
+
+.creation-salarie-page-1 .form-subheader {
+    margin-bottom: 21px;
+}
+
+.creation-salarie-page-1 .button-wrapper {
+    padding-top: 43px;
+}
 /* MOBILE */
 
 @media (max-width: 1599px) {
-    .profil-form .form-control {
+    .sidebar {
+    }
+    main {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    article {
+        max-width: 100%;
+    }
+    .main-content {
+        padding: 15px;
+    }
+    .sidebar-nav .li-lg {
+        height: 56px;
+    }
+    .salaries-page,
+    .salaries-site-page {
+        max-width: 100%;
+    }
+    .profil-form .form-control,
+    .settings-form .form-control {
         width: 100% !important;
     }
     .profil-form .one-column-input-wrapper .input-wrapper {
@@ -1117,9 +2289,52 @@ h2 {
         float: left;
         margin-left: 13px;
     }
+    .mon-profil-form {
+        max-width: 832px;
+    }
+    .mon-profil-image-wrapper {
+        margin-right: 0;
+    }
+    .mon-profil-detailed-info,
+    .mon-profil-fields {
+        width: 50%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .mon-profil-fields {
+        float: right;
+        text-align: right;
+    }
+    .mon-profil-form .form-control {
+        width: 100% !important;
+    }
     .alert-danger {
         position: relative;
     }
+    .caces-img-wrapper img {
+        min-width: 100%;
+    }
+    td .control__indicator {
+        left: calc(50% - 10px) !important;
+    }
+    .creation-salarie-page .one-column-input-wrapper .input-wrapper,
+    .creation-salarie-page .calendar-wrapper {
+        width: 100%;
+    }
+    .creation-salarie-page .radio-btn-inline ~ .calendar-wrapper .datepicker-default {
+        margin-right: 0px;
+    }
+    .creation-salarie-page-1 .profil-form .button-wrapper .annuler-button {
+        margin-left: 0;
+    }
+
+    #type-machine a.pull-left {
+        margin-left: 0px;
+    }
+    #type-engin a:not(.navigation-back-button) {
+        margin-left: 0px;
+    }
+
 }
 
 @media (max-width: 1199px) {
@@ -1128,11 +2343,11 @@ h2 {
     }
     .alert-danger {
         height: auto;
-        top: 0px;
+        /*top: 0px;*/
     }
-    td .control__indicator {
-        left: calc(50% - 10px) !important;
-    }
+    /*td .control__indicator {*/
+        /*left: calc(50% - 10px) !important;*/
+    /*}*/
 }
 
 @media (max-width: 991px) {
@@ -1163,9 +2378,6 @@ h2 {
     main {
         padding: 0px;
     }
-    .main-content {
-        padding: 15px;
-    }
     .search-panel p,
     .search-wrapper {
         width: calc(100% - 50px);
@@ -1193,19 +2405,80 @@ h2 {
     .add-an-item-button {
         top: 5px;
     }
+
     .modal-dialog {
-        width: calc(100% - 20px) !important;
-        height: auto !important;
+        display: block;
+        margin: 30px 15px;
+    }
+    .modal-content {
+        min-width: 100% !important;
     }
     .modal-content {
         padding: 20px;
     }
+    .creer-un-client-form,
     .form-control,
     .creer-un-client-form .form-control,
     .form-divider,
     .creer-un-client-form .button-wrapper {
         width: 100% !important;
         max-width: 100% !important;
+    }
+    .alert-danger {
+        top: 0px;
+    }
+    .parc-machine-modal h2,
+    .parc-machine-modal .form-subheader {
+        text-align: center;
+        padding-left: 0 !important;
+    }
+
+    .parc-machine-modal .tab-pane  {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .calendar-wrapper,
+    .parc-machine-modal a:not(.navigation-back-button) {
+        width: 100% !important;
+    }
+
+    #type-machine a.pull-right {
+        margin-right: 0;
+    }
+
+    .calendar-wrapper p {
+        width: 100%;
+        text-align: left;
+    }
+
+    .datepicker-default {
+        float: left;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    #type-machine a, #type-engin a, #category-chariot-elevateur-r389 a, #category-grue-mobile-r383 a {
+        line-height: inherit;
+        padding: 10px;
+        height: auto;
+    }
+    #type-vehicule a:not(.navigation-back-button) {
+        margin-left: 0;
+    }
+    .engine-detailed-info,
+    .qr-code-wrapper,
+    .verification-generale-periodique,
+    .immat-n-parc {
+        min-width: 100%;
+        min-height: 1px;
+        margin-bottom: 15px;
+    }
+
+    .verification-generale-periodique button,
+    .immat-n-parc button {
+        float: none !important;
     }
 }
 
@@ -1216,11 +2489,21 @@ h2 {
         transform: translate(-50%, -50%);
         width: 100%;
     }
-    .sidebar-nav li {
+    .sidebar-nav li,
+    .sidebar-nav .li-lg {
         height: 42px;
     }
     .sidebar-nav a {
         font-size: 18px;
+    }
+
+    .mon-profil-detailed-info,
+    .mon-profil-fields {
+        width: 100%;
+    }
+
+    .mon-profil-detailed-info {
+        margin-bottom: 23px;
     }
 }
 
@@ -1231,9 +2514,6 @@ h2 {
 @media (max-width: 575px) {
     .main-content {
         padding: 15px;
-    }
-    .annuler-sauvegarder-button-wrapper {
-        width: 100%;
     }
     .pagination li a {
         padding: 6px 0;
@@ -1246,28 +2526,88 @@ h2 {
         margin-bottom: 20px;
     }
     .ajouter-un-site-table th,
-    .ajouter-un-site-table td {
+    .ajouter-un-site-table td,
+    .notifications-table th,
+    .notifications-table td,
+    .attestations-de-conduite-table th,
+    .attestations-de-conduite-table td {
         width: 33.33333333% !important;
+    }
+    .ajouter-responsables-table th,
+    .ajouter-responsables-table td {
+        width: 25% !important;
     }
     .profil-form .input-wrapper,
     .profil-form .one-column-input-wrapper,
     .profil-form .button-wrapper,
-    .profil-form .one-column-input-wrapper .input-wrapper {
-        width: 100%;
+    .profil-form .one-column-input-wrapper .input-wrapper,
+    .settings-form-left-content-part,
+    .settings-form-right-content-part {
+        width: 100% !important;
     }
     .profil-form .button-wrapper .control {
         padding-left: 0;
     }
     .profil-form .image-upload,
-    .profil-form .button-wrapper .annuler-button {
+    .profil-form .button-wrapper .annuler-button,
+    .settings-form-right-content-part {
         margin-left: 0;
     }
     .profil-form .image-upload label {
         right: 1px;
     }
+    .settings-form .img-preview {
+        max-height: 100%;
+        margin-bottom: 20px;
+    }
+    .creation-salarie-page .one-column-input-wrapper:nth-of-type(2n) {
+        width: 100%;
+        margin-left: 0;
+    }
+    .creation-salarie-page .calendar-wrapper p,
+    .creation-salarie-page .form-divider + .one-column-input-wrapper + .one-column-input-wrapper,
+    .creation-salarie-page .form-label {
+        padding-left: 0;
+    }
+    /* responsive fix for images in IE */
+    _:-ms-lang(x), .img-responsive {
+        width:100%;
+        max-width:100%;
+    }
 }
 
 /* MOBILE TABLES */
+@media screen and (max-width: 1599px) {
+    .single-sort-button, .double-sort-button {
+        bottom: 0;
+        top: auto;
+        left: calc(50% - 11px) !important;
+        background-position: center;
+    }
+    .single-sort-button {
+        bottom: 7px;
+    }
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    table th,
+    table td {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        text-align: center !important;
+    }
+    table th {
+        padding-top: 10px;
+        padding-bottom: 30px;
+    }
+    table td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
 @media screen and (max-width: 1199px) {
     .single-sort-button, .double-sort-button {
         bottom: 0px;
@@ -1300,10 +2640,10 @@ h2 {
 }
 
 @media screen and (max-width: 767px) {
-    table:not(.ajouter-un-site-table) thead {
+    table:not(.ajouter-un-site-table):not(.notifications-table):not(.ajouter-responsables-table):not(.ui-datepicker-calendar):not(.attestations-de-conduite-table) thead {
         display: none;
     }
-    table:not(.ajouter-un-site-table) tbody td {
+    table:not(.ajouter-un-site-table):not(.notifications-table):not(.ajouter-responsables-table):not(.ui-datepicker-calendar):not(.attestations-de-conduite-table) tbody td {
         display: block;
         width: 100% !important;
         text-align: left !important;
@@ -1311,14 +2651,18 @@ h2 {
         border-right: 1px solid transparent !important;
         line-height: 56px;
     }
-    table:not(.ajouter-un-site-table) tbody tr td:first-child {
+    table:not(.ajouter-un-site-table):not(.notifications-table):not(.ajouter-responsables-table):not(.ui-datepicker-calendar):not(.attestations-de-conduite-table) tbody tr td:first-child {
         background: #3ba890;
         color: #fff;
     }
-    table:not(.ajouter-un-site-table) tbody td:before {
+    table:not(.ajouter-un-site-table):not(.notifications-table):not(.ajouter-responsables-table):not(.ui-datepicker-calendar):not(.attestations-de-conduite-table) tbody td:before {
         content: attr(data-th);
         font-weight: bold;
         display: inline-block;
         min-width: 120px;
+    }
+
+    .fichiers-table tbody td:before {
+        min-width: 150px !important;
     }
 }

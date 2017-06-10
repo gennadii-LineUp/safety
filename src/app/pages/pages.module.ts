@@ -19,13 +19,13 @@ import { ClientProfilPageComponent } from './client/client-profil-page/client-pr
 import { ClientBibliothequePageComponent } from './client/client-bibliotheque-page/client-bibliotheque-page.component';
 import { SiteAccueilPageComponent } from './site/site-accueil-page/site-accueil-page.component';
 import { SiteReglagesPageComponent } from './site/site-reglages-page/site-reglages-page.component';
-import { SiteReglagesModalComponent } from './site/site-reglages-page/site-reglages-modal/site-reglages-modal.component';
+import { SiteReglagesModalComponent, ModalHeaderSRM, ModalContentSRM, ModalFooterSRM } from './site/site-reglages-page/site-reglages-modal/site-reglages-modal.component';
 import { SiteFichiersPageComponent } from './site/site-fichiers-page/site-fichiers-page.component';
-import { SiteFichiersModalComponent } from './site/site-fichiers-page/site-fichiers-modal/site-fichiers-modal.component';
+import { SiteFichiersModalComponent, ModalHeaderSF, ModalContentSF, ModalFooterSF } from './site/site-fichiers-page/site-fichiers-modal/site-fichiers-modal.component';
 import { SiteParcPageComponent } from './site/site-parc-page/site-parc-page.component';
-import { SiteParcModalMachineComponent } from './site/site-parc-page/site-parc-modal-machine/site-parc-modal-machine.component';
-import { SiteParcModalEnginComponent } from './site/site-parc-page/site-parc-modal-engin/site-parc-modal-engin.component';
-import { SiteParcModalDetailsComponent } from './site/site-parc-page/site-parc-modal-details/site-parc-modal-details.component';
+import { SiteParcModalMachineComponent, ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM } from './site/site-parc-page/site-parc-modal-machine/site-parc-modal-machine.component';
+import { SiteParcModalEnginComponent, ModalHeaderSPME, ModalContentSPME, ModalFooterSPME } from './site/site-parc-page/site-parc-modal-engin/site-parc-modal-engin.component';
+import { SiteParcModalDetailsComponent, ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD } from './site/site-parc-page/site-parc-modal-details/site-parc-modal-details.component';
 import { SiteSalariesPageComponent } from './site/site-salaries-page/site-salaries-page.component';
 import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
 import { LoginStartComponent } from './login/login-start/login-start.component';
@@ -55,10 +55,12 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         ClientProfilPageComponent,
         ClientBibliothequePageComponent,
         SiteAccueilPageComponent,
-        SiteReglagesPageComponent,        SiteReglagesModalComponent,
-        SiteFichiersPageComponent,        SiteFichiersModalComponent,
+        SiteReglagesPageComponent,        SiteReglagesModalComponent,ModalHeaderSRM, ModalContentSRM, ModalFooterSRM,
+        SiteFichiersPageComponent,        SiteFichiersModalComponent, ModalHeaderSF, ModalContentSF, ModalFooterSF,
         SiteParcPageComponent,
-        SiteParcModalMachineComponent,    SiteParcModalEnginComponent,        SiteParcModalDetailsComponent,
+        SiteParcModalMachineComponent,    ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM,
+        SiteParcModalEnginComponent,      ModalHeaderSPME, ModalContentSPME, ModalFooterSPME,
+        SiteParcModalDetailsComponent,    ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD,
         SiteSalariesPageComponent,        SiteSalariesCreationComponent,
         LoginStartComponent,
         RappelerLeMotDePasseComponent,
@@ -83,10 +85,12 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         ClientProfilPageComponent,
         ClientBibliothequePageComponent,
         SiteAccueilPageComponent,
-        SiteReglagesPageComponent,        SiteReglagesModalComponent,
-        SiteFichiersPageComponent,        SiteFichiersModalComponent,
+        SiteReglagesPageComponent,        SiteReglagesModalComponent,ModalHeaderSRM, ModalContentSRM, ModalFooterSRM,
+        SiteFichiersPageComponent,        SiteFichiersModalComponent,ModalHeaderSF, ModalContentSF, ModalFooterSF,
         SiteParcPageComponent,
-        SiteParcModalMachineComponent,    SiteParcModalEnginComponent,        SiteParcModalDetailsComponent,
+        SiteParcModalMachineComponent,    ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM,
+        SiteParcModalEnginComponent, ModalHeaderSPME, ModalContentSPME, ModalFooterSPME,
+        SiteParcModalDetailsComponent,    ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD,
         SiteSalariesPageComponent,        SiteSalariesCreationComponent,
         LoginStartComponent,
         RappelerLeMotDePasseComponent,

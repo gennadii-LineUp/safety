@@ -1,3 +1,165 @@
-<p>
-  site-fichiers-page works!
-</p>
+<header class="main-header">
+    <h1>Fichiers</h1>
+</header>
+<div class="main-content" style="padding-top: 22px;">
+    <div class="search-panel clearfix">
+        <button class="add-an-item-button" (click)="myModal.open()"></button>
+
+        <!--<div class="modal fade bs-example-modal-sm fichiers-modal" >-->
+            <!--<div class="modal-dialog modal-sm" role="document">-->
+                <!--<div class="modal-content">-->
+                    <site-fichiers-modal #myModal style='min-width: 454px; max-width: 454px;' tabindex="-1">
+                        <modal-header-SF>
+                            <h2>Ajouter un fichier</h2>
+                        </modal-header-SF>
+
+                        <modal-content-SF>
+                            <form action="/" class="modal-form">
+                                <div class="input-wrapper">
+                                    <input class="form-control" id="exampleInputEmail1" placeholder="Nom*" type="text">
+                                    <p class="requred-field hidden">Champs requis</p>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="image-upload">
+                                        <p>Image du site</p>
+                                        <label for="file-input">
+                                            <span></span>
+                                        </label>
+                                        <input id="file-input" type="file"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <p class="form-subheader">Groupe(s) d’employés*</p><br><br>
+                                    <label class="control control--checkbox">Admin
+                                        <input type="checkbox"/>
+                                        <span class="control__indicator"></span>
+                                    </label>
+                                    <label class="control control--checkbox">Cariste
+                                        <input type="checkbox"/>
+                                        <span class="control__indicator"></span>
+                                    </label>
+                                    <label class="control control--checkbox">RH
+                                        <input type="checkbox"/>
+                                        <span class="control__indicator"></span>
+                                    </label>
+                                </div>
+                            </form>
+                            <div class="button-wrapper">
+                                <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
+                                        (click)="myModal.close()">Annuler</button>
+                                <button type="submit" class="form-button green-button ajouter-button" data-dismiss="modal">Ajouter</button>
+                            </div>
+
+                        </modal-content-SF>
+
+                        <modal-footer-SF>
+                        </modal-footer-SF>
+                    </site-fichiers-modal>
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+
+        <div class="search-wrapper">
+            <button class="search-button" type="button"></button>
+            <input type="text" class="form-control search-input" placeholder="Rechercher">
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-default fichiers-table">
+            <thead>
+            <tr>
+                <th><button class="single-sort-button"></button>Nom du fichier</th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Groupe d’employés</span>
+                </th>
+                <th>
+                    <span>Action</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Nom du fichier 1</td>
+                <td>Groupe 1</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
+                <td>Nom du groupe 2</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom du fichier 1</td>
+                <td>Groupe 1</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
+                <td>Nom du groupe 2</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom du fichier 1</td>
+                <td>Groupe 1</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
+                <td>Nom du groupe 2</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom du fichier 1</td>
+                <td>Groupe 1</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
+                <td>Nom du groupe 2</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom du fichier 1</td>
+                <td>Groupe 1</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
+                <td>Nom du groupe 2</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation" class="pagination-wrapper">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous" class="prev-link">
+                  <span aria-hidden="true">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+            <li class="active"><a href="javascript:void(0);">1</a></li>
+            <li><a href="javascript:void(0);">2</a></li>
+            <li><a href="javascript:void(0);">3</a></li>
+            <li><a href="javascript:void(0);">...</a></li>
+            <li><a href="javascript:void(0);">998</a></li>
+            <li><a href="javascript:void(0);">999</a></li>
+            <li>
+                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+                  <span aria-hidden="true">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

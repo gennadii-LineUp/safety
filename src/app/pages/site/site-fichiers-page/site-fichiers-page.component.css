@@ -1,0 +1,20 @@
+
+/* FICHIERS MODAL */
+site-fichiers-modal .modal-content {
+    min-width: 454px;
+    max-width: 454px;
+}
+
+site-fichiers-modal .form-subheader,
+site-fichiers-modal .control {
+    text-align: left;
+}
+
+site-fichiers-modal .button-wrapper {
+    text-align: left;
+    padding-top: 4px;
+}
+
+site-fichiers-modal .annuler-button {
+    margin-left: 1px !important;
+}

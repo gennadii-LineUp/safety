@@ -4,9 +4,14 @@ html {
     overflow-x: hidden;
 }
 
+/* IE viewport fix */
+@-ms-viewport{
+    width:auto!important;
+}
+
 body, .main-wrapper {
     max-width: 1600px;
-    min-width: 320px;
+    /*min-width: 320px;*/
     margin-left: auto;
     margin-right: auto;
     position: relative;
