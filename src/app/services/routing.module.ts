@@ -81,6 +81,8 @@ const routes: Routes = [
         children: [
                 { path: 'accueil', component: SiteAccueilPageComponent },
                 { path: 'reglages', component: SiteReglagesPageComponent },
+                    // children: [
+                // { path: 'admin', component: ClientSitesPageComponent, canActivate: [AuthGuard, AdminGuard] },
                 { path: 'fichiers', component: SiteFichiersPageComponent },
                 { path: 'parc', component: SiteParcPageComponent },
                 { path: 'salaries', component: SiteSalariesPageComponent },

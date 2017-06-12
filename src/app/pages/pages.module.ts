@@ -36,6 +36,7 @@ import { ClientComponent } from './client/client.component';
 import { SiteComponent } from './site/site.component';
 import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.component';
 import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
+import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/responsable.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         ClientComponent,
         SiteComponent,
         InnerPagesComponent,
+        ResponsableSiteComponent,
 
     ],
     exports: [
@@ -100,6 +102,7 @@ import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-cl
         ClientComponent,
         SiteComponent,
         InnerPagesComponent,
+        ResponsableSiteComponent,
     ],
     providers: [],
     bootstrap: [AppComponent]
