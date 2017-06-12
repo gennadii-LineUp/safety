@@ -29,6 +29,8 @@ import {SiteReglagesPageComponent} from '../pages/site/site-reglages-page/site-r
 import {SiteFichiersPageComponent} from '../pages/site/site-fichiers-page/site-fichiers-page.component';
 import {SiteParcPageComponent} from '../pages/site/site-parc-page/site-parc-page.component';
 import {SiteSalariesPageComponent} from '../pages/site/site-salaries-page/site-salaries-page.component';
+import {SiteSalariesCreationComponent} from 'app/pages/site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
+import {SiteSalariesCreationEtap2Component} from '../pages/site/site-salaries-page/site-salaries-creation-etap2/site-salaries-creation-etap2.component';
 
 
 // const routes: Routes = [
@@ -81,15 +83,15 @@ const routes: Routes = [
         children: [
                 { path: 'accueil', component: SiteAccueilPageComponent },
                 { path: 'reglages', component: SiteReglagesPageComponent },
-                    // children: [
-                // { path: 'admin', component: ClientSitesPageComponent, canActivate: [AuthGuard, AdminGuard] },
                 { path: 'fichiers', component: SiteFichiersPageComponent },
                 { path: 'parc', component: SiteParcPageComponent },
                 { path: 'salaries', component: SiteSalariesPageComponent },
+                { path: 'salaries/ajouter-un-salaries-etap1', component: SiteSalariesCreationComponent },
+                { path: 'salaries/ajouter-un-salaries-etap2', component: SiteSalariesCreationEtap2Component },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
-            { path: '**', component: LoginStartComponent }
+    { path: '**', component: LoginStartComponent }
 ];
 
 

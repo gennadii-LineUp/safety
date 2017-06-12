@@ -1,3 +1,75 @@
-<p>
-  site-salaries-creation works!
-</p>
+<header class="main-header">
+    <h1>Création d’un salarié</h1>
+</header>
+<div class="main-content" style="padding-top: 12px; position: relative;">
+    <form action="/" class="profil-form">
+        <h2>Etape 1</h2>
+        <div class="one-column-input-wrapper">
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText1" placeholder="Nom*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText2" placeholder="Prenom*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+        </div>
+        <div class="one-column-input-wrapper">
+            <div class="input-wrapper">
+                <input type="email" class="form-control" id="exampleInputText3" placeholder="Email">
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" id="exampleInputText4" placeholder="Poste">
+            </div>
+        </div>
+        <div class="one-column-input-wrapper">
+            <div class="calendar-wrapper clearfix">
+                <p class="form-label">Date de naissance*</p>
+                <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" />
+                <div class="clearfix"></div>
+            </div>
+            <div class="input-wrapper" style="margin-bottom: 15px;">
+                <input type="text" class="form-control" id="exampleInputText5" placeholder="N° sécu*">
+                <p class="requred-field hidden">Champs requis</p>
+            </div>
+            <div class="clearfix"></div>
+            <p class="form-subheader">Photo</p>
+            <div class="image-upload ajouter-image">
+                <label for="file-input">
+                    <span></span>
+                </label>
+                <input id="file-input" type="file">
+            </div>
+        </div>
+        <div class="one-column-input-wrapper">
+            <div>
+                <p class="form-label" >Période de validité*</p>
+                <div class="radio-btn-inline">
+                    <div class="radio">
+                        <input id="radio-11" name="radio1" checked="checked" type="radio">
+                        <label for="radio-11" class="radio-label">Indéterminée</label>
+                    </div>
+                    <div class="radio">
+                        <input id="radio-12" name="radio1" checked="" type="radio">
+                        <label for="radio-12" class="radio-label">Déterminée</label>
+                    </div>
+                </div>
+                <div class="calendar-wrapper clearfix">
+                    <p>Date de début*</p>
+                    <input type="text" name="selected_date" id="datepicker2" class="datepicker-default" />
+                </div>
+                <div class="calendar-wrapper clearfix">
+                    <p>Date de fin*</p>
+                    <input type="text" name="selected_date" id="datepicker3" class="datepicker-default" />
+                </div>
+                <div class="button-wrapper">
+                    <button type="submit" class="form-button red-button annuler-button">Annuler</button>
+                    <button type="submit" class="form-button green-button sauvegarder-button"
+                            (click)="gotoEtap2Form()">Sauvegarder</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+

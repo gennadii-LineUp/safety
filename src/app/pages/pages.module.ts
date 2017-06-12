@@ -37,6 +37,7 @@ import { SiteComponent } from './site/site.component';
 import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.component';
 import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/responsable.component';
+import { SiteSalariesCreationEtap2Component } from './site/site-salaries-page/site-salaries-creation-etap2/site-salaries-creation-etap2.component';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/
         SiteParcModalMachineComponent,    ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM,
         SiteParcModalEnginComponent,      ModalHeaderSPME, ModalContentSPME, ModalFooterSPME,
         SiteParcModalDetailsComponent,    ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD,
-        SiteSalariesPageComponent,        SiteSalariesCreationComponent,
+        SiteSalariesPageComponent,        SiteSalariesCreationComponent, SiteSalariesCreationEtap2Component,
         LoginStartComponent,
         RappelerLeMotDePasseComponent,
 
@@ -72,6 +73,7 @@ import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/
         SiteComponent,
         InnerPagesComponent,
         ResponsableSiteComponent,
+
 
     ],
     exports: [
@@ -93,7 +95,7 @@ import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/
         SiteParcModalMachineComponent,    ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM,
         SiteParcModalEnginComponent, ModalHeaderSPME, ModalContentSPME, ModalFooterSPME,
         SiteParcModalDetailsComponent,    ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD,
-        SiteSalariesPageComponent,        SiteSalariesCreationComponent,
+        SiteSalariesPageComponent,        SiteSalariesCreationComponent, SiteSalariesCreationEtap2Component,
         LoginStartComponent,
         RappelerLeMotDePasseComponent,
 
@@ -103,6 +105,7 @@ import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/
         SiteComponent,
         InnerPagesComponent,
         ResponsableSiteComponent,
+
     ],
     providers: [],
     bootstrap: [AppComponent]

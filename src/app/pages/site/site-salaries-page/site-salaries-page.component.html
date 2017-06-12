@@ -1,3 +1,175 @@
-<p>
-  site-salaries-page works!
-</p>
+<header class="main-header">
+    <h1>Salariés</h1>
+</header>
+<div class="main-content">
+    <div class="search-panel clearfix">
+        <button class="add-an-item-button" (click)="gotoNewSalariesForm()"></button>
+        <div class="search-wrapper">
+            <button class="search-button" type="button"></button>
+            <input type="text" class="form-control search-input" placeholder="Rechercher">
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table-default salaries-site-table">
+            <thead>
+            <tr>
+                <th><button class="single-sort-button"></button>Nom</th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Prénom</span>
+                </th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>N° sécu</span>
+                </th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Groupe</span>
+                </th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Accès</span>
+                </th>
+                <th>
+                    <button class="double-sort-button">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <span>Validité</span>
+                </th>
+                <th>
+                    <span>Action</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>201010122233344</td>
+                <td>Nom du groupe</td>
+                <td>Admin</td>
+                <td>Indéterminé</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom 20 lettres max...</td>
+                <td>Prén 20 lettres max...</td>
+                <td>102020233344455</td>
+                <td>NGr 20 lettres max...</td>
+                <td>-</td>
+                <td>00/00/0000</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>201010122233344</td>
+                <td>Nom du groupe</td>
+                <td>Admin</td>
+                <td>Indéterminé</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom 20 lettres max...</td>
+                <td>Prén 20 lettres max...</td>
+                <td>102020233344455</td>
+                <td>NGr 20 lettres max...</td>
+                <td>-</td>
+                <td>00/00/0000</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>201010122233344</td>
+                <td>Nom du groupe</td>
+                <td>Admin</td>
+                <td>Indéterminé</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom 20 lettres max...</td>
+                <td>Prén 20 lettres max...</td>
+                <td>102020233344455</td>
+                <td>NGr 20 lettres max...</td>
+                <td>-</td>
+                <td>00/00/0000</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>201010122233344</td>
+                <td>Nom du groupe</td>
+                <td>Admin</td>
+                <td>Indéterminé</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom 20 lettres max...</td>
+                <td>Prén 20 lettres max...</td>
+                <td>102020233344455</td>
+                <td>NGr 20 lettres max...</td>
+                <td>-</td>
+                <td>00/00/0000</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom</td>
+                <td>Prénom</td>
+                <td>201010122233344</td>
+                <td>Nom du groupe</td>
+                <td>Admin</td>
+                <td>Indéterminé</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            <tr>
+                <td>Nom 20 lettres max...</td>
+                <td>Prén 20 lettres max...</td>
+                <td>102020233344455</td>
+                <td>NGr 20 lettres max...</td>
+                <td>-</td>
+                <td>00/00/0000</td>
+                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation" class="pagination-wrapper">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous" class="prev-link">
+                  <span aria-hidden="true">
+                    <img src="img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+                </a>
+            </li>
+            <li class="active"><a href="javascript:void(0);">1</a></li>
+            <li><a href="javascript:void(0);">2</a></li>
+            <li><a href="javascript:void(0);">3</a></li>
+            <li><a href="javascript:void(0);">...</a></li>
+            <li><a href="javascript:void(0);">998</a></li>
+            <li><a href="javascript:void(0);">999</a></li>
+            <li>
+                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+                  <span aria-hidden="true">
+                    <img src="img/pagination-arrow.png" alt="pagination-arrow">                    
+                  </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

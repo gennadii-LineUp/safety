@@ -1,0 +1,176 @@
+.datepicker-default {
+    float: right;
+    width: 175px;
+    height: 44px;
+    border: 1px solid #bdbdbd;
+    border-right: none;
+    background: url(../../../../../assets/img/calendar-img.png) no-repeat;
+    background-position: 100%;
+    padding-left: 26px;
+    margin-right: 0;
+    position: relative;
+    top: -10px;
+}
+.radio-btn-inline {
+    padding-top: 12px;
+}
+.radio-btn-inline .radio {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 23px;
+}
+.radio {
+    position: relative;
+    margin-top: 10px;
+}
+.radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    margin-left: -20px;
+}
+
+.form-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin: 0 0 10px;
+    color: #000;
+}
+/*.form-label {*/
+    /*float: left;*/
+/*}*/
+.image-upload label span {
+    background: url(../../../../../assets/img/ajouter-un-img-img.png) no-repeat center;
+    height: 107px! important;
+    width: 179px !important;
+}
+.form-subheader {
+    margin-bottom: 21px;
+    font-family: 'Righteous', cursive;
+    font-size: 16px;
+    padding-top: 5px;
+    font-weight: bold;
+    color: #000;
+}
+.one-column-input-wrapper:nth-of-type(2n) {
+    width: calc(50% - 12px);
+    margin-left: 12px;
+}
+
+.one-column-input-wrapper, .button-wrapper {
+    width: 50%;
+    float: left;
+}
+
+
+/*!*.calendar-wrapper {*!*/
+/*!*margin-top: 9px;*!*/
+/*!*padding: 0 13px 10px 0;*!*/
+/*!*!*width: 484px;*!*!*/
+/*!*}*!*/
+
+.calendar-wrapper p.form-subheader {
+    margin-bottom: 28px;
+}
+
+.calendar-wrapper p {
+    float: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+.calendar-wrapper button {
+    margin-top: -3px;
+}
+.form-divider ~ .one-column-input-wrapper .calendar-wrapper {
+    margin-top: 13px;
+}
+.form-divider + .one-column-input-wrapper + .one-column-input-wrapper .calendar-wrapper {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.calendar-wrapper {
+    padding-top: 13px;
+    margin-bottom: 11px;
+    margin-top: -4px;
+    width: calc(100% - 12px) !important;
+}
+
+.calendar-wrapper p {
+    padding-top: 0;
+    padding-left: 12px;
+}
+
+
+
+/*.radio-btn-inline ~ .calendar-wrapper .datepicker-default {*/
+/*margin-right: 75px;*/
+/*}*/
+
+.button-wrapper {
+    padding-top: 43px;
+    width: 100%;
+    text-align: right;
+    float: left;
+}
+.button-wrapper button {
+    margin-top: 22px;
+}
+
+.sauvegarder-button {
+    width: 119px;
+}
+
+@media (max-width: 1599px) {
+    .one-column-input-wrapper .input-wrapper,
+    .calendar-wrapper {
+        width: 100%;
+    }
+    .radio-btn-inline ~ .calendar-wrapper .datepicker-default {
+        margin-right: -10px;
+    }
+    .datepicker-default {
+        margin-right: -10px;
+    }
+
+    .profil-form .button-wrapper {
+        max-width: 240px;
+    }
+    .button-wrapper .annuler-button {
+        margin-left: 0;
+        float: left;
+    }
+
+}
+
+@media (max-width: 991px) {
+    .calendar-wrapper,
+    .parc-machine-modal a:not(.navigation-back-button) {
+        width: 100% !important;
+    }
+    .calendar-wrapper p {
+        width: 100%;
+        text-align: left;
+    }
+    .datepicker-default {
+        float: left;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 575px) {
+    .calendar-wrapper p,
+    .form-divider + .one-column-input-wrapper + .one-column-input-wrapper,
+    .form-label {
+        padding-left: 0;
+    }
+    .one-column-input-wrapper:nth-of-type(2n) {
+        margin-left: 0;
+    }
+}
+
+
+

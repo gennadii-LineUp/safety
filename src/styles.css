@@ -407,7 +407,7 @@ h2 {
 
 .calendar-wrapper {
     margin-top: -4px;
-    width: 484px;
+    /*width: 484px;*/
 }
 
 .calendar-wrapper p.form-subheader {
@@ -2100,7 +2100,7 @@ h2 {
 }
 
 .creation-salarie-page .calendar-wrapper {
-    width: calc(100% - 12px);
+    width: calc(100% - 12px) !important;
     padding-top: 13px;
     margin-bottom: 11px;
 }
