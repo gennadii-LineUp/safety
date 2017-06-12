@@ -18,3 +18,8 @@ site-fichiers-modal .button-wrapper {
 site-fichiers-modal .annuler-button {
     margin-left: 1px !important;
 }
+
+modal-header-SF h2{
+    width: 406px;
+    padding-top: 1px;
+}
