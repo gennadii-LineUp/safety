@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./login-rappeler.component.css']
 })
 export class RappelerLeMotDePasseComponent implements OnInit {
+    loading: boolean = false;
+    errorLoad: string = '';
 
   constructor(private router: Router) { }
 
@@ -17,5 +19,10 @@ export class RappelerLeMotDePasseComponent implements OnInit {
       console.log("EnvoyerEmailFunction");
       this.router.navigate(['/login']);
   }
+
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorLoad = '';
+    }
 
 }

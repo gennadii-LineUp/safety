@@ -69,7 +69,7 @@ export class AdminClientAjouterComponent implements OnInit {
                                     newClientForm.value.contactEmail,
                                     newClientForm.value.employeesLimit);
 
-        console.dir(newClient);
+        //console.dir(newClient);
 
         this.adminService.addNewClient(newClient)
             .subscribe(result => {
@@ -131,7 +131,7 @@ export class AdminClientAjouterComponent implements OnInit {
             let input = spin.getElementsByTagName("input")[0];
 
            // if (+input.value < 0)    input.value = '0';
-            input.value = Math.max(0, +input.value) + '';
+            input.value = Math.max(1, +input.value) + '';
         }
     }
 

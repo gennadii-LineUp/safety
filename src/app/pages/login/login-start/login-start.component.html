@@ -6,7 +6,13 @@
     </div>
 
     <div class="wrapper">
-        <div *ngIf="error" style='position: absolute;' class="alert alert-danger">{{error}}</div>
+        <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;'>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+                <span aria-hidden="true"></span>
+            </button>
+            <p>SAFETY: <span>{{errorLoad}}</span></p>
+        </div>
+
         <div class="login-block">
             <div class="caption">
                 <div>Safetyfirst</div>

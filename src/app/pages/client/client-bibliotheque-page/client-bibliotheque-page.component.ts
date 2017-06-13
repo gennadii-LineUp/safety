@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-bibliotheque-page.component.css']
 })
 export class ClientBibliothequePageComponent implements OnInit {
+    loading: boolean = true;
+    errorLoad: string = '';
 
   constructor() { }
 
   ngOnInit() {
   }
+
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorLoad = '';
+    }
 
 }

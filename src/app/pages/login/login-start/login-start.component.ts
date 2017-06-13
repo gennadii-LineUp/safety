@@ -1,33 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../../../services/login/login.service';
+import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 
 @Component({
   selector: 'login-start',
   templateUrl: './login-start.component.html',
   styleUrls: ['./login-start.component.css'],
-    providers: [LoginService]
+    providers: [LoginService, ErrorMessageHandlerService]
 })
 export class LoginStartComponent implements OnInit {
-    loading = false;
-    error = '';
+    loading: boolean = false;
+    errorLoad: string = '';
 
     constructor(private loginService: LoginService,
+                private errorMessageHandlerService: ErrorMessageHandlerService,
                 private router: Router) { }
 
     ngOnInit() {
         console.log(localStorage);
-
-    }
-
-    private cancellError() {
-        this.loading = false;
-        this.error = '';
     }
 
     login(userEmail:string, password: string) {
-        //   this.loginService.login('admin@example.com', 'admin');
-        this.cancellError();
+        this.cancellErrorMessage();
 
         this.loading = true;
         this.loginService.login(userEmail, password)
@@ -41,15 +36,22 @@ export class LoginStartComponent implements OnInit {
                         this.loading = false;
                 }
             }, (err) => {
-                this.error = 'Username or password is incorrect';
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 this.loading = false;
-                //console.log(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
+                this.errorLoad = 'Username or password is incorrect';
             });
 
     }
 
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorLoad = '';
+    }
 
-    //admin@example.com
-    //admin
 
 }

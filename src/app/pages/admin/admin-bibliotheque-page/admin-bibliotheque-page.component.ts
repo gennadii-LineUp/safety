@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-bibliotheque-page.component.css']
 })
 export class AdminBibliothequePageComponent implements OnInit {
+    loading: boolean = true;
+    errorLoad: string = '';
 
   constructor() { }
 
@@ -30,4 +32,11 @@ export class AdminBibliothequePageComponent implements OnInit {
             }
         }
     }
+
+
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorLoad = '';
+    }
+
 }

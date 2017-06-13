@@ -14,6 +14,11 @@ export class AdminAccueilContentComponent implements OnInit {
     loading: boolean = true;
     errorLoad: string = '';
 
+    private cancellErrorMessage() {
+        this.loading = false;
+        this.errorLoad = '';
+    }
+
     progressBarValues = [];
 
     constructor(private adminService: AdminService,
@@ -62,9 +67,5 @@ export class AdminAccueilContentComponent implements OnInit {
 
     }
 
-    private cancellErrorMessage() {
-        this.loading = false;
-        this.errorLoad = '';
-    }
 
 }
