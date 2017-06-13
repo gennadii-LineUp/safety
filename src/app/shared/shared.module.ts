@@ -9,7 +9,6 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.component';
 import { NavbarClientComponent } from './navbar/navbar-client/navbar-client.component';
 import { ContentComponent } from './content/content.component';
-import { NavbarAdminMobileComponent } from './navbar/navbar-admin-mobile/navbar-admin-mobile.component';
 //import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 //import {MdButtonModule, MdInputModule, MdProgressSpinnerModule} from '@angular/material';
 //import {ButtonTestComponent} from './ang-material/button-test/button-test.component';
@@ -40,7 +39,6 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
         LeftMenuComponent,  //моя верстка, удалить потом
         ProgressBarComponent,
         NavbarAdminComponent,
-        NavbarAdminMobileComponent,
         NavbarClientComponent,
         ContentComponent,
 
@@ -55,7 +53,6 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
         LeftMenuComponent,  //моя верстка, удалить потом
         ProgressBarComponent,
         NavbarAdminComponent,
-        NavbarAdminMobileComponent,
         NavbarClientComponent,
         ContentComponent,
 

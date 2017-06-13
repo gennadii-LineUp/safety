@@ -1,0 +1,171 @@
+.profil-form .input-wrapper {
+    float: left;
+    margin-right: 23px;
+    margin-bottom: 23px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.profil-form .input-wrapper:nth-of-type(2n) {
+    margin-right: 0;
+}
+.radio-label{
+    font-family: 'Open Sans',sans-serif;
+    font-size: 14px;
+    padding-left: 1px;
+    padding-top: 1px;
+}
+.radio-btn-inline {
+    padding-top: 2px;
+}
+.radio-btn-inline .radio {
+    /*display: inline-block;*/
+    margin-right: 15px;
+    margin-bottom: 18px;
+}
+.radio input[type="radio"] + .radio-label:before {
+    top: 3px;
+    margin-right: 1.6em;
+}
+.radio {
+    position: relative;
+    margin-top: 0px;
+}
+.radio input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    /*margin-left: -20px;*/
+}
+
+
+.datepicker-default {
+    top: 0px;
+    margin-right: 12px;
+}
+p.form-subheader {
+    font-family: 'Righteous', cursive !important;
+    font-size: 16px !important;
+    padding-top: 4px;
+}
+button {
+    font-family: 'Righteous', OpenSans-Regular;
+    font-size: 16px;
+}
+.one-column-input-wrapper p.form-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.modifier-button {
+    width: 119px !important;
+    height: 42px !important;
+    margin-bottom: 23px !important;
+}
+
+div.profile-img-wrapper {
+    margin-top: 19px !important;
+    margin-bottom: 15px !important;
+}
+
+.form-divider {
+    margin-bottom: 16px;
+}
+
+.form-subheader {
+    font-family: 'Righteous', cursive;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.form-divider + .one-column-input-wrapper + .one-column-input-wrapper .calendar-wrapper {
+    margin-top: 13px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.calendar-wrapper p {
+    padding-top: 0;
+    padding-left: 12px;
+}
+
+.calendar-wrapper {
+    padding-top: 5px !important;
+    margin-bottom: 21px !important;
+}
+.image-upload {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    color: #8d8d8d;
+    height: 42px !important;
+    width: 250px !important;
+    border: 1px solid #bdbdbd;
+    padding-left: 11px;
+    padding-top: 8px;
+    position: relative;
+    display: inline-block;
+}
+.image-upload p {
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin-bottom: 0;
+    float: left;
+    letter-spacing: -.15px;
+}
+
+.image-upload label {
+    width: 42px;
+    height: 42px;
+    background: #3ba890;
+    position: absolute;
+    right: -1px;
+    top: -1px;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.image-upload > input {
+    display: none;
+}
+.image-upload label span {
+    background: url(../../../../../assets/img/plus-icon-white.png) no-repeat center;
+    background-position: 55% 40%;
+    width: 42px;
+    height: 42px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+@media (max-width: 1599px) {
+    .calendar-wrapper{
+        width: 100%;
+    }
+}
+
+@media (max-width: 1599px) {
+    .calendar-wrapper .datepicker-default {
+        margin-right: 12px;
+    }
+    .datepicker-default {
+        margin-right: 12px;
+    }
+}
+
+@media (max-width: 991px) {
+    .datepicker-default {
+        float: left;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+

@@ -1,7 +1,7 @@
 <header class="main-header">
     <h1>Création d’un salarié</h1>
 </header>
-<div class="main-content" style="padding-top: 12px;">
+<div class="main-content" style="padding-top: 12px;" #createSalary2>
     <form action="/" class="profil-form">
         <h2>Etape 2</h2>
         <div class="one-column-input-wrapper">
@@ -24,7 +24,10 @@
         </div>
         <div class="one-column-input-wrapper">
             <div class="calendar-wrapper clearfix">
-                <p class="form-label">Date de naissance*</p>
+                <p class="form-label" style="font-family:'Open Sans',sans-serif;
+                                            font-size:14px;
+                                            padding-left:10px;
+                                            padding-top:10px;">Date de naissance*</p>
                 <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" />
                 <div class="clearfix"></div>
             </div>
@@ -35,39 +38,69 @@
             <div class="clearfix"></div>
             <p class="form-subheader">Photo</p>
             <div class="profile-img-wrapper">
-                <img src="img/progile_image.jpg" alt="progile_image">
+                <img src="../../../../../assets/img/progile_image.jpg" alt="progile_image">
             </div>
+
+            <p class="form-subheader">Groupe de salariés</p>
+            <div class="radio-btn-inline">
+                <div class="radio">
+                    <input id="radio-11" name="radio1" checked="" type="radio">
+                    <label for="radio-11" class="radio-label">Groupe 1</label>
+                </div>
+                <div class="radio">
+                    <input id="radio-12" name="radio1" checked="checked" type="radio">
+                    <label for="radio-12" class="radio-label">Groupe 2</label>
+                </div>
+            </div>
+
             <button class="form-button green-button modifier-button" data-dismiss="modal">Modifier</button>
         </div>
         <div class="one-column-input-wrapper">
             <div>
-                <p class="form-label">Période de validité : indéterminée</p>
+                <p class="form-label" style="font-family:'Open Sans',sans-serif;
+                                            font-size:14px;
+                                            padding-left:10px;
+                                            padding-top:10px;">Période de validité : indéterminée</p>
             </div>
         </div>
         <div class="form-divider clearfix"></div>
         <div class="one-column-input-wrapper">
             <p class="form-subheader">Visite médicale</p>
-            <div class="calendar-wrapper clearfix">
-                <p>Date*</p>
+            <div class="calendar-wrapper clearfix" style='padding-top: 9px !important;' >
+                <p class="form-label" style="font-family:'Open Sans',sans-serif;
+                                            font-size:14px;
+                                            padding-left:10px;
+                                            padding-top:10px;">Date*</p>
                 <input type="text" name="selected_date" id="datepicker2" class="datepicker-default" />
             </div>
         </div>
-        <div class="one-column-input-wrapper">
-            <p class="form-subheader">Caces</p>
-            <div class="calendar-wrapper clearfix">
-                <p>Date*</p>
+        <div class="form-divider clearfix" style='margin-bottom: 6px;'></div>
+        <div class="one-column-input-wrapper"  style='padding-top: 12px !important;'>
+            <p class="form-subheader">CACES</p>
+            <div class="calendar-wrapper clearfix" style='margin-top: 2px !important;'>
+                <p class="form-label" style="font-family:'Open Sans',sans-serif;
+                                            font-size:14px;
+                                            padding-left:10px;
+                                            padding-top:10px;">Date*</p>
                 <input type="text" name="selected_date" id="datepicker3" class="datepicker-default" />
             </div>
-            <div class="ajouter-image">
-                <p class="form-label">Fishier *</p>
-                <div class="image-upload">
+
+            <p class="form-label" style='display: inline-block;
+                                            width: auto;
+                                            float: left;'>Fishier *</p>
+            <div class="input-wrapper" style='display: inline-block;
+                                            width: auto;
+                                            float: right;
+                                            margin-right: 12px;'>
+                <div class="image-upload"  style='display: inline-block !important;'>
                     <p>fichier1.jpg</p>
-                    <label for="file-input1">
+                    <label for="file-input">
                         <span></span>
                     </label>
-                    <input id="file-input1" type="file">
+                    <input id="file-input" type="file" class="datepicker-default"/>
                 </div>
             </div>
+
         </div>
         <div class="form-divider clearfix"></div>
         <div class="search-panel clearfix">

@@ -103,12 +103,6 @@
     padding-left: 12px;
 }
 
-
-
-/*.radio-btn-inline ~ .calendar-wrapper .datepicker-default {*/
-/*margin-right: 75px;*/
-/*}*/
-
 .button-wrapper {
     padding-top: 43px;
     width: 100%;
@@ -146,8 +140,7 @@
 }
 
 @media (max-width: 991px) {
-    .calendar-wrapper,
-    .parc-machine-modal a:not(.navigation-back-button) {
+    .calendar-wrapper{
         width: 100% !important;
     }
     .calendar-wrapper p {
