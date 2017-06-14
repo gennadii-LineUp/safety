@@ -1035,99 +1035,99 @@ h2 {
     font-weight: bold;
 }
 
-/* ATTESTATION HABILITATION MODAL */
+/*!* ATTESTATION HABILITATION MODAL *!*/
 
-.attestation-habilitation-modal .input-wrapper {
-    margin-bottom: 35px;
-}
+/*.attestation-habilitation-modal .input-wrapper {*/
+    /*margin-bottom: 35px;*/
+/*}*/
 
-.attestation-habilitation-modal .calendar-wrapper {
-    margin-bottom: 25px !important;
-}
+/*.attestation-habilitation-modal .calendar-wrapper {*/
+    /*margin-bottom: 25px !important;*/
+/*}*/
 
-.attestation-habilitation-modal .calendar-wrapper + .calendar-wrapper {
-    margin-bottom: 10px !important;
-}
+/*.attestation-habilitation-modal .calendar-wrapper + .calendar-wrapper {*/
+    /*margin-bottom: 10px !important;*/
+/*}*/
 
-.attestation-habilitation-modal .form-subheader {
-    text-align: left;
-    margin-bottom: 19px;
-}
+/*.attestation-habilitation-modal .form-subheader {*/
+    /*text-align: left;*/
+    /*margin-bottom: 19px;*/
+/*}*/
 
-.attestation-habilitation-modal .autres-fichiers-wrapper {
-    padding-top: 0;
-}
+/*.attestation-habilitation-modal .autres-fichiers-wrapper {*/
+    /*padding-top: 0;*/
+/*}*/
 
-.attestation-habilitation-modal .autres-fichiers-wrapper .image-upload label span {
-    background: url(/assets/img/plus-icon-white.png) no-repeat center;
-}
+/*.attestation-habilitation-modal .autres-fichiers-wrapper .image-upload label span {*/
+    /*background: url(/assets/img/plus-icon-white.png) no-repeat center;*/
+/*}*/
 
-/* AUTORISATION DE CONDUITE MODAL */
+/*!* AUTORISATION DE CONDUITE MODAL *!*/
 
-.autorisation-de-conduite-modal h2 {
-    margin-bottom: 15px;
-}
+/*.autorisation-de-conduite-modal h2 {*/
+    /*margin-bottom: 15px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .form-subheader {
-    text-align: left;
-    margin-bottom: 20px;
-}
+/*.autorisation-de-conduite-modal .form-subheader {*/
+    /*text-align: left;*/
+    /*margin-bottom: 20px;*/
+/*}*/
 
-.autorisation-de-conduite-modal #dropdown-tabs {
-    margin-bottom: 24px;
-}
+/*.autorisation-de-conduite-modal #dropdown-tabs {*/
+    /*margin-bottom: 24px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .button-wrapper {
-    margin-top: -4px;
-}
+/*.autorisation-de-conduite-modal .button-wrapper {*/
+    /*margin-top: -4px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .ok-button {
-    margin-bottom: 20px;
-}
+/*.autorisation-de-conduite-modal .ok-button {*/
+    /*margin-bottom: 20px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .control-group .form-subheader {
-    margin-bottom: 20px;
-}
+/*.autorisation-de-conduite-modal .control-group .form-subheader {*/
+    /*margin-bottom: 20px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .control {
-    text-align: left;
-    padding-top: 0px;
-    padding-left: 44px;
-    margin-bottom: 21px;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: normal;
-}
+/*.autorisation-de-conduite-modal .control {*/
+    /*text-align: left;*/
+    /*padding-top: 0px;*/
+    /*padding-left: 44px;*/
+    /*margin-bottom: 21px;*/
+    /*font-size: 14px;*/
+    /*font-weight: 400;*/
+    /*letter-spacing: normal;*/
+/*}*/
 
-.autorisation-de-conduite-modal .control__indicator {
-    top: 0;
-    left: 1px;
-}
+/*.autorisation-de-conduite-modal .control__indicator {*/
+    /*top: 0;*/
+    /*left: 1px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .control-group {
-    margin-bottom: 26px;
-}
+/*.autorisation-de-conduite-modal .control-group {*/
+    /*margin-bottom: 26px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .annuler-button {
-    width: 131px;
-}
+/*.autorisation-de-conduite-modal .annuler-button {*/
+    /*width: 131px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .vehicle-type {
-    font-family: 'Open Sans', sans-serif;
-    color: #000;
-    text-align: left;
-    margin-top: -7px;
-    margin-bottom: 21px;
-}
+/*.autorisation-de-conduite-modal .vehicle-type {*/
+    /*font-family: 'Open Sans', sans-serif;*/
+    /*color: #000;*/
+    /*text-align: left;*/
+    /*margin-top: -7px;*/
+    /*margin-bottom: 21px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .radio {
-    text-align: left;
-    margin-bottom: 25px;
-}
+/*.autorisation-de-conduite-modal .radio {*/
+    /*text-align: left;*/
+    /*margin-bottom: 25px;*/
+/*}*/
 
-.autorisation-de-conduite-modal .radio input[type="radio"] + .radio-label::before {
-    margin-right: 25px;
-}
+/*.autorisation-de-conduite-modal .radio input[type="radio"] + .radio-label::before {*/
+    /*margin-right: 25px;*/
+/*}*/
 
 /* ALERT WINDOW */
 

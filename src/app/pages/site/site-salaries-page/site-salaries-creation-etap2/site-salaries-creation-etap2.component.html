@@ -105,7 +105,57 @@
         <div class="form-divider clearfix" style='margin: -1px 0 15px 0;'></div>
         <div class="search-panel clearfix">
             <p><span>Attestations / Habilitations</span></p>
-            <button  type="button" class="add-an-item-button" data-toggle="modal" data-target=".attestation-habilitation-modal"></button>
+
+            <button type="button" class="add-an-item-button" (click)="attestModal.open()"></button>
+
+            <modal-attest #attestModal style='min-width: 454px; max-width: 454px;' tabindex="-1" class='attestation-habilitation-modal'>
+                <modal-header-SSAtt>
+                    <h2>Attestation de formation</h2>
+                </modal-header-SSAtt>
+
+                <modal-content-SSAtt>
+                    <form action="/" class="modal-form">
+                        <div class="input-wrapper">
+                            <input class="form-control" id="exampleInputText6" placeholder="Nom*" type="text">
+                            <p class="requred-field hidden">Champs requis</p>
+                        </div>
+                        <div class="calendar-wrapper clearfix">
+                            <div class="clearfix"></div>
+                            <p>Date de délivrance*</p>
+                            <input type="text" name="selected_date" id="datepicker4" class="datepicker-default" />
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="calendar-wrapper clearfix">
+                            <div class="clearfix"></div>
+                            <p>Date d’expiration*</p>
+                            <input type="text" name="selected_date" id="datepicker5" class="datepicker-default" />
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="autres-fichiers-wrapper clearfix">
+                            <p class="form-subheader">Fichier</p>
+                            <div class="image-upload">
+                                <p>Parcourir...</p>
+                                <label for="file-input2">
+                                    <span></span>
+                                </label>
+                                <input id="file-input2" type="file">
+                            </div>
+                        </div>
+                    </form>
+                </modal-content-SSAtt>
+
+                <modal-footer-SSAtt>
+                    <div class="button-wrapper">
+                        <button type="submit"
+                                class="form-button green-button enregistrer-button pull-right"
+                                data-dismiss="modal"
+                                (click)="attestModal.close()">Enregistrer</button>
+                    </div>
+                </modal-footer-SSAtt>
+            </modal-attest>
+
+
+
         </div>
         <div class="table-wrapper">
             <table class="table-default attestations-de-formation-table">
@@ -150,7 +200,168 @@
         <div class="form-divider clearfix"></div>
         <div class="search-panel clearfix">
             <p><span>Autorisations de conduite</span></p>
-            <button  type="button" class="add-an-item-button" data-toggle="modal" data-target=".autorisation-de-conduite-modal"></button>
+            <button type="button" class="add-an-item-button" (click)="autorModal.open()"></button>
+
+            <modal-autor #autorModal style='min-width: 454px; max-width: 454px;' tabindex="-1" class='autorisation-de-conduite-modal'>
+                <modal-header-SSAut>
+                    <h2>Autorisation de conduite</h2>
+                </modal-header-SSAut>
+
+                <modal-content-SSAut>
+
+                    <form action="/" class="modal-form">
+                        <p class="form-subheader">Type</p>
+
+                        <!--<select #typeDeConduite >-->
+                            <!--<option>Chariots élévateurs R.389</option>-->
+                            <!--<option>Grues mobiles R.383m</option>-->
+                        <!--</select>-->
+
+                        <div>
+                            <select name="role"
+                                    [(ngModel)]="bbb"
+                                    (change)="ShowType(bbb)">
+                                <option *ngFor="let type of Type" [value]="type.value">
+                                    {{type.display}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <!--<select #heroFromSelect class="form-control"-->
+                                <!--[(ngModel)]="aaaaa"-->
+                                <!--(change)="DefineHeroToDelete(aaaaa)">-->
+
+                            <!--<option *ngFor="let hero of heroes" [ngValue]="hero">-->
+                                <!--<span class="bold"> {{hero.name | uppercase}}</span>, id: {{hero.id}}-->
+                            <!--</option>-->
+                        <!--</select>-->
+
+
+                        <div class="tabbable">
+                            <!--<ul class="nav nav-tabs nav-pills" id="dropdown-tabs">-->
+                                <!--<li class="dropdown active">-->
+                                    <!--<span href="#" class="dropdown-toggle" data-toggle="dropdown">Chariots élévateurs R.389 <span class="caret"></span></span>-->
+                                    <!--<ul class="dropdown-menu" role="menu">-->
+                                        <!--<li><a href="#tab3" data-toggle="tab">Chariots élévateurs R.389</a>-->
+                                        <!--</li>-->
+                                        <!--<li><a href="#tab4" data-toggle="tab">Grues mobiles R.383m</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <button class="form-button green-button ok-button pull-right">Ok</button>
+                            <div class="clearfix"></div>
+                            <div class="tab-content">
+
+                                <!--<div  class="tab-pane active" id="tab3">-->
+                                    <div *ngIf='chariotsElevateurs' class="control-group">
+                                        <p class="form-subheader">Chariots élévateurs R.389</p>
+                                        <br><br><br>
+                                        <label class="control control--checkbox">Catégorie 1 : transpalette à conducteur porté
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Catégorie 2 : tracteur ou porteur cap. max. 6t
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Catégorie 3 : porte-à-faux cap. max. 6t
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Catégorie 4 : porte-à-faux cap. + 6t
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Catégorie 5 : mât rétractable
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Catégorie 6 : conduite hors production
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Complément de formation engins spéciaux (5+)
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                    </div>
+                                <!--</div>-->
+
+                                <!--<div class="tab-pane" id="tab4">-->
+                                    <div *ngIf='gruesMobiles' class="control-group">
+                                        <p class="form-subheader">Grues mobiles R.383m</p>
+                                        <br><br><br>
+                                        <p class="vehicle-type">Type 1 : Routier</p>
+                                        <br><br><br>
+                                        <label class="control control--checkbox">Automotrice immatriculée
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Automotrice non immatriculée
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Sur porteur automoteur
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Tractée
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <p class="vehicle-type">Type 2 : Non routier</p>
+                                        <br><br><br>
+                                        <label class="control control--checkbox">Sur chenilles
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Sur bandage ou rail
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <label class="control control--checkbox">Sur ponton
+                                            <input type="checkbox">
+                                            <span class="control__indicator"></span>
+                                        </label>
+                                        <p class="vehicle-type">Equipement</p>
+                                        <br><br><br>
+                                        <div class="radio">
+                                            <input id="radio-101" name="radio1" checked="checked" type="radio">
+                                            <label for="radio-101" class="radio-label">A - Treillis</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input id="radio-102" name="radio1" checked="" type="radio">
+                                            <label for="radio-102" class="radio-label">B - Télescopique avec fléchette</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input id="radio-13" name="radio1" checked="" type="radio">
+                                            <label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input id="radio-14" name="radio1" checked="" type="radio">
+                                            <label for="radio-14" class="radio-label">C - Spécial</label>
+                                        </div>
+                                    </div>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </form>
+                </modal-content-SSAut>
+
+                <modal-footer-SSAut>
+                    <div class="button-wrapper">
+                        <button type="submit" class="form-button red-button annuler-button"
+                                data-dismiss="modal"
+                                (click)="autorModal.close()">Annuler</button>
+                        <button type="submit" class="form-button green-button enregistrer-button pull-right"
+                                data-dismiss="modal">Enregistrer</button>
+                    </div>
+                </modal-footer-SSAut>
+            </modal-autor>
+
+
+
         </div>
         <div class="table-wrapper">
             <table class="table-default attestations-de-conduite-table">
@@ -181,4 +392,3 @@
         </div>
     </form>
 </div>
-

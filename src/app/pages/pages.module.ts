@@ -38,6 +38,8 @@ import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.compone
 import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/responsable.component';
 import { SiteSalariesCreationEtap2Component } from './site/site-salaries-page/site-salaries-creation-etap2/site-salaries-creation-etap2.component';
+import { SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt } from './site/site-salaries-page/site-salaries-creation-etap2/modal-attest/modal-attest.component';
+import { SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut } from './site/site-salaries-page/site-salaries-creation-etap2/modal-autor/modal-autor.component';
 
 
 @NgModule({
@@ -73,6 +75,8 @@ import { SiteSalariesCreationEtap2Component } from './site/site-salaries-page/si
         SiteComponent,
         InnerPagesComponent,
         ResponsableSiteComponent,
+        SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
+        SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
 
 
     ],
@@ -105,6 +109,8 @@ import { SiteSalariesCreationEtap2Component } from './site/site-salaries-page/si
         SiteComponent,
         InnerPagesComponent,
         ResponsableSiteComponent,
+        SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
+        SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
 
     ],
     providers: [],

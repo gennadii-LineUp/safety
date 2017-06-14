@@ -11,6 +11,13 @@ declare var $:any;
     providers: [SiteService, ErrorMessageHandlerService]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit {
+    chariotsElevateurs: boolean = true;
+    gruesMobiles: boolean = false;
+
+    Type = [
+        { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
+        { value: 'gruesMobiles', display: 'Grues mobiles R.383m' }
+    ];
 
     constructor(private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
@@ -27,6 +34,17 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                 $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker( "option", "dateFormat", $(this).val() );
             });
         });
+    }
+
+    public ShowType(userChoice:string) {
+        if (userChoice === "gruesMobiles") {
+            this.chariotsElevateurs = false;
+            this.gruesMobiles = true;
+        } else {
+            this.gruesMobiles = false;
+            this.chariotsElevateurs = true;
+        }
+        console.log(userChoice);
 
     }
 
