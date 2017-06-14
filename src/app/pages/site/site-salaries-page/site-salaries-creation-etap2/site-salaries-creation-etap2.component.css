@@ -43,6 +43,7 @@
 .datepicker-default {
     top: 0px;
     margin-right: 12px;
+    height:42px;
 }
 p.form-subheader {
     font-family: 'Righteous', cursive !important;
@@ -144,6 +145,9 @@ label {
     position: absolute;
     right: 0;
     top: 0;
+}
+.search-panel p {
+    margin-top: 3px;
 }
 
 @media (max-width: 1599px) {

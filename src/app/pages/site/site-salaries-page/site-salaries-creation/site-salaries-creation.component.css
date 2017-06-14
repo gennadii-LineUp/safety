@@ -106,11 +106,14 @@
 .button-wrapper {
     padding-top: 43px;
     width: 100%;
-    text-align: right;
+    text-align: right !important;
     float: left;
 }
 .button-wrapper button {
     margin-top: 22px;
+    float: none !important;
+    margin-left: 20px;
+
 }
 
 .sauvegarder-button {
@@ -130,11 +133,11 @@
     }
 
     .profil-form .button-wrapper {
-        max-width: 240px;
+        width: 100% !important;
+        /*float: right !important;*/
     }
     .button-wrapper .annuler-button {
         margin-left: 0;
-        float: left;
     }
 
 }

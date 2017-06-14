@@ -521,22 +521,26 @@ h2 {
     display: inline-block;
     background: url(/assets/img/order-icon.png) no-repeat;
     border: none;
-    position: absolute;
+    padding: 2px 5px;
+    padding-bottom: 1px;
+    margin: 0 8px;
+    /*position: absolute;*/
     left: 24px;
-    top: 25px;
+    bottom: 25px;
 }
 
 .double-sort-button {
     width: 22px;
-    height: 26px;
+    height: 16px;
     display: inline-block;
     border: none;
     background: transparent;
     background: url(/assets/img/order-icon-double.png) no-repeat;
-    margin-right: 11px;
-    position: absolute;
+    padding: 2px 5px;
+    margin: 0 8px;
+    /*position: absolute;*/
     left: 24px;
-    top: 17px;
+    bottom: 25px;
 }
 
 .double-sort-button span {
@@ -598,28 +602,28 @@ h2 {
 
 .table-default th,
 .table-default td {
-    padding-left: 10px;
+    /*padding-left: 10px;*/
     position: relative;
 }
 
 .table-default td {
-    padding-right: 24px;
-    text-align: right;
+    padding-left: 24px;
+    text-align: left;
     color: #000;
 }
 
 .table-default th:first-of-type {
-    padding-left: 47px;
+    /*padding-left: 47px;*/
 }
 
 .table-default td:first-of-type {
-    padding-left: 24px;
+    /*padding-left: 24px;*/
     padding-right: 0;
     text-align: left;
 }
 
 .table-default th:nth-of-type(n+1) {
-    padding-left: 47px;
+    /*padding-left: 47px;*/
 }
 
 .table-default th:last-of-type,
@@ -2334,6 +2338,10 @@ h2 {
     #type-engin a:not(.navigation-back-button) {
         margin-left: 0px;
     }
+    .table-default th:last-of-type,
+    .table-default td:last-of-type {
+        text-align: center;
+    }
 
 }
 
@@ -2579,63 +2587,71 @@ h2 {
 /* MOBILE TABLES */
 @media screen and (max-width: 1599px) {
     .single-sort-button, .double-sort-button {
-        bottom: 0;
+        bottom: 25px;
         top: auto;
-        left: calc(50% - 11px) !important;
+        left: 24px;
         background-position: center;
     }
     .single-sort-button {
-        bottom: 7px;
+        bottom: 25px;
     }
     table {
         width: 100%;
         table-layout: fixed;
     }
-    table th,
-    table td {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-        text-align: center !important;
+    table th {
+        padding-left: 5px;
+        padding-right: 5px;
     }
     table th {
-        padding-top: 10px;
-        padding-bottom: 30px;
+        height: 56px;
+        text-align: center !important;
+        /*padding-top: 10px;*/
+        /*padding-bottom: 25px;*/
     }
     table td {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        text-align: left !important;
+    }
+    table td:last-of-type {
+        text-align: center !important;
     }
 }
 
 @media screen and (max-width: 1199px) {
     .single-sort-button, .double-sort-button {
-        bottom: 0px;
+        bottom: 25px;
         top: auto;
-        left: calc(50% - 11px) !important;
+        left: 24px;
         background-position: center;
     }
     .single-sort-button {
-        bottom: 7px;
+        bottom: 25px;
     }
     table {
         width: 100%;
         table-layout: fixed;
     }
-    table th,
-    table td {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-        text-align: center !important;
+    table th {
+        padding-left: 5px;
+        padding-right: 5px;
     }
     table th {
-        padding-top: 10px;
-        padding-bottom: 30px;
+        height: 56px;
+        text-align: center !important;
+        /*padding-top: 10px;*/
+        /*padding-bottom: 25px;*/
     }
     table td {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        text-align: left !important;
+    }
+    table td:last-of-type {
+        text-align: center !important;
     }
 }
 
@@ -2660,6 +2676,10 @@ h2 {
         font-weight: bold;
         display: inline-block;
         min-width: 120px;
+    }
+    table th,
+    table td {
+        text-align: center !important;
     }
 
     .fichiers-table tbody td:before {
