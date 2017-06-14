@@ -1,0 +1,255 @@
+a {
+    text-decoration: none;
+}
+#type-machine a, #type-vehicule a, #type-engin a, #category-chariot-elevateur-r389 a, #category-grue-mobile-r383 a {
+    min-width: 84px;
+    min-height: 42px;
+    line-height: 42px;
+    margin-bottom: 24px;
+    text-align: center;
+    display: block;
+}
+.green-button {
+    background-color: #71dac0;
+    color: #000;
+}
+.form-button {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    height: 32px;
+}
+a:hover, a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* PARC MACHINE MODAL */
+
+.parc-machine-modal .modal-content {
+    padding: 0;
+    padding-left: 22px;
+    padding-top: 19px;
+    padding-right: 23px;
+}
+
+.parc-machine-modal .modal-form {
+    overflow: auto;
+}
+
+.parc-machine-modal h2 {
+    margin-bottom: 15px;
+}
+
+.parc-machine-modal .form-subheader {
+    margin-bottom: 19px;
+    text-align: left;
+}
+
+.parc-machine-modal .tab-content {
+    overflow: auto;
+}
+
+.parc-machine-modal .tab-pane {
+    display: none;
+}
+
+.parc-machine-modal .tab-pane.active {
+    display: block;
+}
+
+.parc-machine-modal a:hover,
+.parc-machine-modal a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+#type-machine a,
+#type-vehicule a,
+#type-engin a,
+#category-chariot-elevateur-r389 a,
+#category-grue-mobile-r383 a {
+    min-width: 84px;
+    min-height: 42px;
+    line-height: 42px;
+    margin-bottom: 24px;
+    text-align: center;
+    display: block;
+}
+
+#type-machine a.pull-left {
+    margin-left: 2px;
+}
+
+#type-machine a.pull-right {
+    margin-right: 33px;
+}
+
+#type-vehicule .form-subheader,
+#type-engin .form-subheader {
+    padding-left: 68px;
+}
+
+#type-vehicule a:not(.navigation-back-button) {
+    width: 160px;
+    margin-left: 52px;
+}
+
+#remorque .calendar-wrapper {
+    width: 407px;
+    margin-bottom: 23px;
+}
+
+#remorque h2 {
+    margin-bottom: 20px;
+}
+
+#remorque .form-subheader {
+    margin-bottom: 29px;
+}
+
+#type-engin a:not(.navigation-back-button) {
+    width: 280px;
+    margin-left: 3px;
+}
+
+#category-chariot-elevateur-r389 {
+    text-align: center;
+}
+
+#category-chariot-elevateur-r389 .form-subheader,
+#category-grue-mobile-r383 .form-subheader {
+    text-align: center;
+}
+
+#category-grue-mobile-r383 .form-subheader:first-of-type {
+    margin-bottom: 15px;
+}
+
+#category-grue-mobile-r383 .form-subheader.form-subheader-type {
+    margin-bottom: 19px !important;
+}
+
+#category-grue-mobile-r383 .form-subheader.form-subheader-type:last-of-type {
+    margin-bottom: 15px !important;
+}
+
+#category-grue-mobile-r383 a:not(.navigation-back-button) {
+    width: 400px;
+    margin-left: auto;margin-right: auto;
+}
+
+#category-chariot-elevateur-r389 a:not(.navigation-back-button) {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#category-chariot-elevateur-r389-details .telecharger-button {
+    margin-left: 2px;
+}
+
+#category-grue-mobile-r383-details .autres-fichiers-wrapper {
+    margin-bottom: 0;
+}
+
+.calendar-wrapper button {
+    margin-top: -3px;
+}
+
+.autres-fichiers-wrapper {
+    padding-top: 21px;
+    margin-bottom: 23px;
+}
+
+.autres-fichiers-wrapper button {
+    margin-top: 24px;
+}
+
+.button-file-input-wrapper label {
+    width: 138px !important;
+}
+
+.button-file-input-wrapper span {
+    background: #3ba890 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 0;
+    color: #fff;
+    font-family: 'Righteous', cursive;
+    font-size: 16px;
+    line-height: 42px;
+}
+
+.button-file-input-wrapper + button {
+    height: 42px;
+    margin-bottom: 25px;
+}
+
+.autres-fichiers-wrapper .image-upload label span {
+    background: url(/assets/img/minus-icon-white.png) no-repeat center;
+}
+
+.navigation-back-button {
+    float: left;
+    margin-bottom: 25px !important;
+    margin-left: 2px;
+}
+
+.equipment-wrapper {
+    padding-top: 20px;
+    text-align: left;
+    margin-bottom: 3px;
+}
+
+.equipment-wrapper .radio {
+    margin-top: 15px;
+    margin-bottom: 19px;
+}
+
+.equipment-wrapper .radio input[type="radio"] + .radio-label::before {
+    margin-right: 25px;
+}
+
+.engine-detailed-info,
+.verification-generale-periodique {
+    min-width: 346px;
+    float: left;
+}
+
+.qr-code-wrapper,
+.immat-n-parc {
+    min-width: 139px;
+    float: left;
+}
+
+.engine-detailed-info,
+.qr-code-wrapper {
+    min-height: 139px;
+}
+
+.immat-n-parc .form-subheader {
+    text-align: center;
+}
+
+.qr-code-wrapper img {
+    margin-top: -3px;
+}
+
+.engine-detailed-info .form-subheader {
+    margin-bottom: 12px;
+}
+
+.engine-detailed-info p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+    margin-bottom: -3px;
+}
+
+.engine-detailed-info p span {
+    font-weight: bold;
+}

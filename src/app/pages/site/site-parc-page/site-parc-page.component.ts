@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var $:any;
 
 @Component({
   selector: 'site-parc-page',
@@ -9,7 +10,20 @@ export class SiteParcPageComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.datepickerRun();
+    }
+
+
+    datepickerRun() {
+        //Datepicker Popups calender to Choose date
+        $(function(){
+            $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
+            //Pass the user selected date format
+            $( "#format" ).change(function() {
+                $( "#datepicker1, #datepicker2" ).datepicker( "option", "dateFormat", $(this).val() );
+            });
+        });
+    }
 
 }
