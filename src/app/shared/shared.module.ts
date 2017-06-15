@@ -47,7 +47,7 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
         NavbarForDeleteComponent,     //моя верстка, удалить потом
         ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe,
-        NavbarSiteComponent
+        NavbarSiteComponent,
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -61,8 +61,8 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
         NavbarForDeleteComponent,    //моя верстка, удалить потом
         ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe,
-        NavbarSiteComponent
-        // ModalModule
+        NavbarSiteComponent,
+
     ],
     providers: [
         BackendService,

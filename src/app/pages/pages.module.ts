@@ -40,6 +40,15 @@ import { ResponsableSiteComponent } from './site/site-reglages-page/responsable/
 import { SiteSalariesCreationEtap2Component } from './site/site-salaries-page/site-salaries-creation-etap2/site-salaries-creation-etap2.component';
 import { SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt } from './site/site-salaries-page/site-salaries-creation-etap2/modal-attest/modal-attest.component';
 import { SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut } from './site/site-salaries-page/site-salaries-creation-etap2/modal-autor/modal-autor.component';
+import { SalarieProfilComponent } from './salarie/salarie-profil/salarie-profil.component';
+import { SalarieFichiersComponent } from './salarie/salarie-fichiers/salarie-fichiers.component';
+import { SalarieFichesMachinesComponent } from './salarie/salarie-fiches-machines/salarie-fiches-machines.component';
+import { SalarieVisiteMedicComponent } from './salarie/salarie-visite-medic/salarie-visite-medic.component';
+import { SalarieCacesComponent } from './salarie/salarie-caces/salarie-caces.component';
+import { SalarieAttestationsComponent } from './salarie/salarie-attestations/salarie-attestations.component';
+import { SalarieAutorisComponent } from './salarie/salarie-autoris/salarie-autoris.component';
+import { SalarieFichesModalComponent } from './salarie/salarie-fiches-machines/salarie-fiches-modal/salarie-fiches-modal.component';
+import {SalarieComponent} from './salarie/salarie.component';
 
 
 @NgModule({
@@ -77,6 +86,9 @@ import { SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalCo
         ResponsableSiteComponent,
         SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
         SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
+        SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
+        SalarieFichesMachinesComponent, SalarieFichesModalComponent,
+        SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
 
 
     ],
@@ -111,6 +123,9 @@ import { SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalCo
         ResponsableSiteComponent,
         SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
         SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
+        SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
+        SalarieFichesMachinesComponent, SalarieFichesModalComponent,
+        SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
 
     ],
     providers: [],

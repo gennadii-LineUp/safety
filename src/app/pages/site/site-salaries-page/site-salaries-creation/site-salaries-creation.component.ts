@@ -34,7 +34,7 @@ export class SiteSalariesCreationComponent implements OnInit {
     }
 
     gotoEtap2Form() {
-        this.router.navigate(['/site/salaries/ajouter-un-salaries-etap2']);
+        this.router.navigate(['/site/salarie/ajouter-un-salarie-etap2']);
     }
 
 }

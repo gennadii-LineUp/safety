@@ -49,7 +49,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
     gotoSalariesPage() {
-        this.router.navigate(['/site/salaries']);
+        this.router.navigate(['/site/salarie']);
     }
 
     public tableMobileViewInit() {

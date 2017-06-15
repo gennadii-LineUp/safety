@@ -122,3 +122,8 @@ modal-content p.requred-field {
     top: 42px;
 }
 /*=end=== modal ====*/
+
+.sidebar-nav li.divider:hover {
+    background: inherit !important;
+    transition: none !important;
+}

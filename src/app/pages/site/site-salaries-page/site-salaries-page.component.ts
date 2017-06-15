@@ -22,7 +22,7 @@ export class SiteSalariesPageComponent implements OnInit {
   }
 
     gotoNewSalariesForm() {
-        this.router.navigate(['/site/salaries/ajouter-un-salaries-etap1']);
+        this.router.navigate(['/site/salarie/ajouter-un-salarie-etap1']);
     }
 
     public tableMobileViewInit() {

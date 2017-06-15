@@ -41,6 +41,47 @@
                     Salariés
                 </a>
             </li>
+            <li routerLinkActive="active" [routerLink]="['/sfsalarie/profil']">
+                <a href="javascript:void(0);">
+                    Mon profil
+                </a>
+            </li>
+            <li  >
+                <a href="javascript:void(0);">
+                    Mon compte formation
+                </a>
+            </li>
+            <li routerLinkActive="active" [routerLink]="['/sfsalarie/fichiers']">
+                <a href="javascript:void(0);">
+                    Fichiers
+                </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/fiches-machines']">
+                <a href="javascript:void(0);">
+                    Fiches Machines
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/visite-medicale']">
+                <a href="javascript:void(0);">
+                    Visite médicale
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/caces']">
+                <a href="javascript:void(0);">
+                    Caces
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/attestations']">
+                <a href="javascript:void(0);">
+                    Attestations formation
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/autorisations-conduite']">
+                <a href="javascript:void(0);">
+                    Autorisations conduite
+                </a>
+            </li>
 
             <li *ngIf='showLogin' class="back-to-admin-link" [routerLink]="['/login']">
                 <a href="javascript:void(0);">

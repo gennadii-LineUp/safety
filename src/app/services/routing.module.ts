@@ -31,6 +31,14 @@ import {SiteParcPageComponent} from '../pages/site/site-parc-page/site-parc-page
 import {SiteSalariesPageComponent} from '../pages/site/site-salaries-page/site-salaries-page.component';
 import {SiteSalariesCreationComponent} from 'app/pages/site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
 import {SiteSalariesCreationEtap2Component} from '../pages/site/site-salaries-page/site-salaries-creation-etap2/site-salaries-creation-etap2.component';
+import {SalarieComponent} from '../pages/salarie/salarie.component';
+import {SalarieProfilComponent} from '../pages/salarie/salarie-profil/salarie-profil.component';
+import {SalarieFichiersComponent} from '../pages/salarie/salarie-fichiers/salarie-fichiers.component';
+import {SalarieFichesMachinesComponent} from '../pages/salarie/salarie-fiches-machines/salarie-fiches-machines.component';
+import {SalarieVisiteMedicComponent} from '../pages/salarie/salarie-visite-medic/salarie-visite-medic.component';
+import {SalarieCacesComponent} from '../pages/salarie/salarie-caces/salarie-caces.component';
+import {SalarieAutorisComponent} from '../pages/salarie/salarie-autoris/salarie-autoris.component';
+import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestations/salarie-attestations.component';
 
 
 // const routes: Routes = [
@@ -43,7 +51,7 @@ import {SiteSalariesCreationEtap2Component} from '../pages/site/site-salaries-pa
 //     { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
 //     { path: 'client/accueil', component: ClientSitesPageComponent },
 //     { path: 'client/groupes', component: ClientGroupesPageComponent },
-//     { path: 'client/salaries', component: ClientSalariesPageComponent },
+//     { path: 'client/salarie', component: ClientSalariesPageComponent },
 //     { path: 'client/profil', component: ClientProfilPageComponent },
 //     { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
 //     { path: 'site/accueil', component: SiteAccueilPageComponent },
@@ -51,7 +59,7 @@ import {SiteSalariesCreationEtap2Component} from '../pages/site/site-salaries-pa
 //     { path: 'site/fichiers', component: SiteFichiersPageComponent },
 //     { path: 'site/parc', component: SiteParcPageComponent },
 //     { path: 'site/parc', component: SiteParcPageComponent },
-//     { path: 'site/salaries', component: SiteSalariesPageComponent }
+//     { path: 'site/salarie', component: SiteSalariesPageComponent }
 // ];
 
 
@@ -73,7 +81,7 @@ const routes: Routes = [
         children: [
                 { path: 'accueil', component: ClientSitesPageComponent  },
                 { path: 'groupes', component: ClientGroupesPageComponent },
-                { path: 'salaries', component: ClientSalariesPageComponent },
+                { path: 'salarie', component: ClientSalariesPageComponent },
                 { path: 'profil', component: ClientProfilPageComponent },
                 { path: 'bibliotheque', component: ClientBibliothequePageComponent },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
@@ -86,9 +94,21 @@ const routes: Routes = [
                 { path: 'fichiers', component: SiteFichiersPageComponent },
                 { path: 'parc', component: SiteParcPageComponent },
                 { path: 'salaries', component: SiteSalariesPageComponent },
-                { path: 'salaries/ajouter-un-salaries-etap1', component: SiteSalariesCreationComponent },
-                { path: 'salaries/ajouter-un-salaries-etap2', component: SiteSalariesCreationEtap2Component },
+                { path: 'salarie/ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent },
+                { path: 'salarie/ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+        ]
+    },
+    { path: 'sfsalarie', component: SalarieComponent, //canActivate: [AuthGuard, ClientGuard],
+        children: [
+            { path: 'profil', component: SalarieProfilComponent },
+            { path: 'fichiers', component: SalarieFichiersComponent },
+            { path: 'fiches-machines', component: SalarieFichesMachinesComponent },
+            { path: 'visite-medicale', component: SalarieVisiteMedicComponent },
+            { path: 'caces', component: SalarieCacesComponent },
+            { path: 'attestations', component: SalarieAttestationsComponent },
+            { path: 'autorisations-conduite', component: SalarieAutorisComponent },
+            { path: '', redirectTo: 'profil', pathMatch: 'full' }
         ]
     },
     { path: '**', component: SiteComponent }
