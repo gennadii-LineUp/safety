@@ -21,27 +21,7 @@ header.main-header {
     padding: 10px 10px 10px 10px;
 }
 /*=end=== error message ====*/
-/*==== fixing ====*/
-/*.requred-field {*/
-    /*position: absolute;*/
-    /*bottom: -2px;*/
-    /*left: 0;*/
-/*}*/
 
-/*.search-panel p {*/
-    /*margin-bottom: 10px;*/
-/*}*/
-
-/*.modal {*/
-    /*text-align: inherit;*/
-/*}*/
-
-/*@media (max-width: 991px) {*/
-    /*.search-panel p {*/
-        /*margin-bottom: 9px;*/
-    /*}*/
-/*}*/
-/*=end=== fixing ====*/
 
 .requred-field {
     font-family: 'Open Sans', sans-serif !important;
@@ -57,13 +37,11 @@ p.color-valid {
 @media (max-width: 991px) {
     .search-panel p, .search-wrapper {
         width: auto;
-        /* bottom: 4px; */
         float: none;
     }
 
     .search-panel p {
         margin-bottom: 0;
-        /*float: left;*/
         letter-spacing: -.15px;
     }
 }
