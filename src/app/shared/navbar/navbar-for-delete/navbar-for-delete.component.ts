@@ -14,7 +14,6 @@ export class NavbarForDeleteComponent implements OnInit {
 
   private clearLS() {
       localStorage.clear();
-      console.log(localStorage);
     }
 
 }

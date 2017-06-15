@@ -37,7 +37,6 @@ export class ClientGroupesPageComponent implements OnInit {
 
     ngOnInit() {
         this.findGroupByNameFunction('');
-        console.log(localStorage);
     }
 
     ngOnDestroy() {
@@ -51,51 +50,13 @@ export class ClientGroupesPageComponent implements OnInit {
         this.activePage = +localStorage.clientGroupSearch_page;
 
         if (this.searchName && this.activePage) {
-            console.log('== from local storage ==');
-            this.findGroupByNameFunction(this.searchName, this.activePage + 1);
+             this.findGroupByNameFunction(this.searchName, this.activePage + 1);
         } else {
             this.findGroupByNameFunction('');//this.getGroupList(1);
         }
-        console.log('====' + this.searchName);
     }
 
 
-    // getGroupList(page): void {
-    //     console.log('=========getGroupList============')
-    //     this.loading = true;
-    //     this.clientService.groupList(page)
-    //         .subscribe(result => {
-    //             if (result) {
-    //                 this.loading = false;
-    //
-    //                 console.log(result);
-    //               //  this.groupes = result.items;
-    //               //  this.totalItems = +result.pagination.totalCount;
-    //                // this.currentPage = +result.pagination.current;
-    //
-    //                 this.setPage(page);
-    //
-    //                 this.loaded = true;
-    //                 setTimeout(() => {
-    //                     this.tableMobileViewInit();
-    //                 }, 200);
-    //             }
-    //         }, (err) => {
-    //             this.loading = false;
-    //
-    //             let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-    //             if (errorStatusKnown) {
-    //                 this.errorCreating = errorStatusKnown;
-    //                 return;
-    //             }
-    //
-    //             // let error = (JSON.parse(err._body)).errors;
-    //             console.log('====error=============');
-    //             this.errorLoad = err;
-    //             console.log(err);
-    //             //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-    //         });
-    // }
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -116,11 +77,9 @@ export class ClientGroupesPageComponent implements OnInit {
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log(result);
 
                     this.groupes = result.items;
                     this.totalItems = +result.pagination.totalCount;
-                    console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
                     this.setPage(this.currentPage);
@@ -133,7 +92,6 @@ export class ClientGroupesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
-                console.log('====error=============');
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;
@@ -141,7 +99,6 @@ export class ClientGroupesPageComponent implements OnInit {
                 }
 
                 this.errorLoad = err;
-                console.log(err);
             });
     }
 
@@ -155,21 +112,16 @@ export class ClientGroupesPageComponent implements OnInit {
 
         let newGroupe = new GroupeClass(name, this._adminAccess);
 
-        console.dir(newGroupe);
 
         this.clientService.addNewGroupe(newGroupe)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log('======result====OK======');
-                    console.log(result);
                     this.successCreating = "Well done! You've created a new group.";
 
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.loading = false;
-                console.log(err);
 
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
@@ -178,8 +130,6 @@ export class ClientGroupesPageComponent implements OnInit {
                 }
 
                 let error = (JSON.parse(err._body)).errors;
-                //console.log(error);
-                //console.log(Object.keys(error).length);
 
                 if (Object.keys(error).length > 0) {
                     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);

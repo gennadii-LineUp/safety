@@ -14,7 +14,6 @@ export class ClientService {
 
 
     getClientProfilData(): Observable<any> {
-        console.log('==client service started==');
         let useTolkin:boolean = false;
 
         return this.backendService.get(UrlParams.clientProfilData, useTolkin);
@@ -22,14 +21,12 @@ export class ClientService {
 
 
     addNewSite(newSite: any): Observable<any> {
-        console.log('==client service:_addNewSite started==');
-        let useTolkin:boolean = true;
+         let useTolkin:boolean = true;
 
         return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite), useTolkin);
     }
 
     groupList(page): Observable<any> {
-        console.log('==client service:_groupList started==');
         let useTolkin:boolean = true;
         let query = '?q=&sort=&page=';
 
@@ -38,7 +35,6 @@ export class ClientService {
     }
 
     findGroupeByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
         let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
 
@@ -47,7 +43,6 @@ export class ClientService {
     }
 
     addNewGroupe(newGroupe: any): Observable<any> {
-        console.log('==client service:_addNewGroupe started==');
         let useTolkin:boolean = true;
 
         return this.backendService.post(UrlParams.clientGroupes, JSON.stringify(newGroupe), useTolkin);
@@ -61,13 +56,11 @@ export class ClientService {
             newData += '=' + encodeURI(obj[key]) + '&';
         }
         newData = newData.slice(0, -1);
-        console.log(newData);
         return newData;
     }
 
 
     logout(): void {
-        // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('role');
         localStorage.removeItem('token');

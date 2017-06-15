@@ -44,7 +44,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
             this.gruesMobiles = false;
             this.chariotsElevateurs = true;
         }
-        console.log(userChoice);
 
     }
 

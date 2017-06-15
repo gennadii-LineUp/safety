@@ -99,43 +99,9 @@ export class BackendService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
     return Promise.reject(errMsg);
   }
 
-  // public get(query: string): Observable<{}> {
-  //   let
-  //     headers: Headers = new Headers();
-  //
-  //   // this.addToken(headers);
-  //
-  //   return this.http.get(query, {headers: headers})
-  //     .cache()
-  //     .map((res: Response) => <Object[]>res.json())
-  //     .catch((err: Response) => console.log(err);
-  // }
-
-  // public put(query: string, body: any, contentType: string = CONTENT_TYPE.TEXT_TYPE): Observable<{}> {
-  //   let
-  //     headers: Headers = new Headers();
-  //
-  //   this.composeHeaders(headers, contentType);
-  //
-  //   return this.http.put(query, body, {headers: headers})
-  //     .map((res: Response) => <Object[]>res.json())
-  //     .catch((err: Response) => this.errorHandler.handleError(err));
-  // }
-
-
-  //
-  // public delete(query: string): Observable<any> {
-  //   let headers: Headers = new Headers();
-  //   this.addToken(headers);
-  //
-  //   return this.http.delete(query, {headers: headers})
-  //     // .catch((err: Response) => this.errorHandler.handleError(err));
-  // }
-  //
 
   private composeHeaders (headers: Headers, type: string): void {
     let content: string = type.toUpperCase();

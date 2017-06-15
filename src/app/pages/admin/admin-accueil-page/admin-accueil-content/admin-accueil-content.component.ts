@@ -42,16 +42,15 @@ export class AdminAccueilContentComponent implements OnInit {
                         {name: 'employees', value: 0}
                     ];
 
-                    console.log('======result============');
-                   // console.log(typeof result);
-                    console.log(result);
+
+
                     this.progressBarValues[0].value = result.clients;
                     this.progressBarValues[1].value = result.sites;
                     this.progressBarValues[2].value = result.employees;
                 }
             }, (err) => {
-               // let error = (JSON.parse(err._body)).errors;
-                console.log('====error=============');
+
+
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;
@@ -59,11 +58,7 @@ export class AdminAccueilContentComponent implements OnInit {
                 }
 
                 this.errorLoad = err;
-                console.log(err);
-
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                // this.loading = false;
-            });
+             });
 
     }
 

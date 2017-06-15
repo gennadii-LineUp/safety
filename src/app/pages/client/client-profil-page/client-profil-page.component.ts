@@ -37,9 +37,7 @@ export class ClientProfilPageComponent implements OnInit {
         this.clientService.getClientProfilData()
             .subscribe(result => {
                 if (result) {
-                    console.log('======result============');
-                    this.loading = false;
-                    console.dir(result);
+                     this.loading = false;
 
                     let currentClient = new ClientClass(result.email,
                         result.company,
@@ -59,15 +57,10 @@ export class ClientProfilPageComponent implements OnInit {
                         result.employeesLimit);
 
                     this.client = currentClient;
-                    console.dir(this.client);
 
 
-                    // this.progressBarValues[0].value = result.clients;
-                    // this.progressBarValues[1].value = result.sites;
-                    // this.progressBarValues[2].value = result.employees;
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.loading = false;
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
@@ -75,8 +68,6 @@ export class ClientProfilPageComponent implements OnInit {
                     return;
                 }
 
-                //let error = (JSON.parse(err._body)).errors;
-                console.log(err);
                 this.errorLoad = err;//this.errorMessageHandlerService.errorHandler(err);
 
             });
@@ -110,12 +101,10 @@ export class ClientProfilPageComponent implements OnInit {
     }
     public cancellSuccessMessage() {
         this.updating = false;
-        //this.successCreating = '';
     }
 
     public submitNewProfilClientFunction() {
         this.cancellErrorMessage();
-        console.log('submit');
         this.updating = true;
     }
 

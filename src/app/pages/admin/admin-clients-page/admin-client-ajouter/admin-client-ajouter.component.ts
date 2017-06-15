@@ -69,19 +69,15 @@ export class AdminClientAjouterComponent implements OnInit {
                                     newClientForm.value.contactEmail,
                                     newClientForm.value.employeesLimit);
 
-        //console.dir(newClient);
 
         this.adminService.addNewClient(newClient)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log('======result====OK======');
-                    console.log(result);
                     this.successCreating = "Well done! You've created a new client.";
 
                 }
             }, (err) => {
-                console.log('====error=============');
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
                     this.errorCreating = errorStatusKnown;
@@ -89,8 +85,7 @@ export class AdminClientAjouterComponent implements OnInit {
                 }
 
                 let error = (JSON.parse(err._body)).errors;
-                console.log(error);
-                if (Object.keys(error).length > 0) {
+                 if (Object.keys(error).length > 0) {
                     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
                 }
                 this.loading = false;

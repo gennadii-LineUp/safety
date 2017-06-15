@@ -13,7 +13,6 @@ export class AdminService {
     }
 
     homeData(): Observable<any> {
-        //console.log('==admin service:_homeData started==');
         let useTolkin:boolean = true;
 
         return this.backendService.get(UrlParams.adminHome, useTolkin);
@@ -21,16 +20,8 @@ export class AdminService {
     }
 
 
-    // clientList(): Observable<any> {
-    //     console.log('==admin service:_clientList started==');
-    //     let useTolkin:boolean = true;
-    //
-    //     return this.backendService.get(UrlParams.adminClients, useTolkin);
-    //
-    // }
 
     clientList(page): Observable<any> {
-        //console.log('==admin service:_clientList started==');
         let useTolkin:boolean = true;
         let query = '?q=&sort=&page=';
 
@@ -40,7 +31,6 @@ export class AdminService {
 
 
     findClientByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
         let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
 
@@ -50,7 +40,6 @@ export class AdminService {
 
 
     addNewClient(newClient: any): Observable<any> {
-        console.log('==admin service:_addNewClient started==');
         let useTolkin:boolean = true;
 
         return this.backendService.post(UrlParams.adminClients, JSON.stringify(newClient), useTolkin);
@@ -59,25 +48,10 @@ export class AdminService {
 
 
     logout(): void {
-        // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('role');
         localStorage.removeItem('token');
     }
 
 
-    encode(obj) {
-        let newData = '';
-        for (let key in obj) {
-            newData += key;
-            newData += '=' + encodeURI(obj[key]) + '&';
-        }
-        newData = newData.slice(0, -1);
-        console.log(newData);
-        return newData;
-    }
-
-
-
-
-}
+ }

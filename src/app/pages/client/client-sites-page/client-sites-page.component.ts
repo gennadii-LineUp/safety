@@ -59,21 +59,16 @@ export class ClientSitesPageComponent implements OnInit {
             this._techControlSiege,
             this._techControlSite);
 
-        console.dir(newSite);
 
         this.clientService.addNewSite(newSite)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log('======result====OK======');
-                    console.log(result);
                     this.successCreating = "Well done! You've created a new client.";
 
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.loading = false;
-                console.log(err);
 
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
@@ -82,8 +77,6 @@ export class ClientSitesPageComponent implements OnInit {
                 }
 
                 let error = (JSON.parse(err._body)).errors;
-                //console.log(error);
-                //console.log(Object.keys(error).length);
 
                 if (Object.keys(error).length > 0) {
                     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);

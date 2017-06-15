@@ -36,7 +36,6 @@ export class AdminClientsPageComponent implements OnInit {
 
     ngOnInit() {
         this.findClientByNameFunction('');
-        console.log(localStorage);
     }
 
     ngOnDestroy() {
@@ -50,12 +49,12 @@ export class AdminClientsPageComponent implements OnInit {
         this.activePage = +localStorage.adminClientsSearch_page;
 
         if (this.searchName && this.activePage) {
-            console.log('== from local storage ==');
+
             this.findClientByNameFunction(this.searchName, this.activePage + 1);
         } else {
             this.findClientByNameFunction('');
         }
-        console.log('====' + this.searchName);
+
     }
 
 
@@ -79,10 +78,10 @@ export class AdminClientsPageComponent implements OnInit {
                 if (result) {
                     this.loading = false;
 
-                    console.log(result);
+
                     this.clients = result.items;
                     this.totalItems = +result.pagination.totalCount;
-                    console.log('ITEMS  ' + this.totalItems);
+
                     this.currentPage = +result.pagination.current;
 
                     this.setPage(this.currentPage);
@@ -92,11 +91,11 @@ export class AdminClientsPageComponent implements OnInit {
                         this.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('adminClientsSearch_name', _name);
-                    // localStorage.setItem('adminClientsSearch_page', this.currentPage);
+
                 }
             }, (err) => {
                 this.loading = false;
-                console.log('====error=============');
+
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;
@@ -104,7 +103,7 @@ export class AdminClientsPageComponent implements OnInit {
                 }
 
                 this.errorLoad = err;
-                console.log(err);
+
             });
     }
 

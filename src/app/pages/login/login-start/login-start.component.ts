@@ -18,7 +18,6 @@ export class LoginStartComponent implements OnInit {
                 private router: Router) { }
 
     ngOnInit() {
-        console.log(localStorage);
     }
 
     login(userEmail:string, password: string) {
@@ -30,8 +29,7 @@ export class LoginStartComponent implements OnInit {
                 if (result.token) {
                         localStorage.setItem('role', result.roles);
                         localStorage.setItem('token', result.token);
-                        console.log('true, ' + localStorage.role);
-                        if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
+                         if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
                         if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']);}
                         this.loading = false;
                 }
