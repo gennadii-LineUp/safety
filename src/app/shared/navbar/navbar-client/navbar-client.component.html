@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-    <navbar-for-delete></navbar-for-delete>
+    <!--<navbar-for-delete></navbar-for-delete>-->
 
     <div class="brand-wrapper">
         <a class="brand" href="javascript:void(0);">
@@ -39,6 +39,17 @@
             <li routerLinkActive="active" [routerLink]="['/client/bibliotheque']">
                 <a href="javascript:void(0);">
                     Bibliothèque
+                </a>
+            </li>
+
+            <li class="back-to-admin-link" [routerLink]="['/site/accueil']">
+                <a href="javascript:void(0);">
+                    &lt; Retour au site
+                </a>
+            </li>
+            <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['/site/accueil']">
+                <a href="javascript:void(0);">
+                    &lt; Logout
                 </a>
             </li>
         </ul>

@@ -13,4 +13,9 @@ export class NavbarAdminComponent implements OnInit {
   }
 
 
+  public logoutFunction() {
+      localStorage.clear();
+  }
+    
+
 }

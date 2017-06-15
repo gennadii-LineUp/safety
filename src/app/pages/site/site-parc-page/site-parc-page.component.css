@@ -189,7 +189,7 @@ a:hover, a:focus {
 }
 
 .autres-fichiers-wrapper .image-upload label span {
-    background: url(/assets/img/minus-icon-white.png) no-repeat center;
+    background: url(../../../../assets/img/minus-icon-white.png) no-repeat center;
 }
 
 .navigation-back-button {

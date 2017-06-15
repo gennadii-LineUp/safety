@@ -22,17 +22,15 @@ export class SiteReglagesPageComponent implements OnInit {
        //console.log(this.canActivate());
   }
 
-    public canActivate() {
-
-        if (localStorage.getItem('token')) {
-            // logged in so return true
-            return true;
-        }
-
-        // not logged in so redirect to login page
-        //this.router.navigate(['/login']);
-        return false;
-
-    }
+    // public canActivate() {
+    //     if (localStorage.getItem('token')) {
+    //         // logged in so return true
+    //         return true;
+    //     }
+    //
+    //     // not logged in so redirect to login page
+    //     //this.router.navigate(['/login']);
+    //     return false;
+    // }
 
 }

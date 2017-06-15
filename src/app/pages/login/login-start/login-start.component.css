@@ -93,10 +93,20 @@ form p{
     font-family: OpenSans-Regular, sans-serif;
     font-weight: 400;
     font-size: 12px;
-    cursor: pointer;
     text-decoration: underline;
     color: #000000;
     margin-top: 12px;
+}
+form p span{
+    /*font-family: OpenSans-Regular, sans-serif;*/
+    /*font-weight: 400;*/
+    /*font-size: 12px;*/
+    cursor: pointer;
+    padding: 0 10px;
+    user-select: none;
+    /*text-decoration: underline;*/
+    /*color: #000000;*/
+    /*margin-top: 12px;*/
 }
 .connexion-button {
     background-color: #3ba890;

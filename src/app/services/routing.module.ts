@@ -56,7 +56,7 @@ import {SiteSalariesCreationEtap2Component} from '../pages/site/site-salaries-pa
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'site', pathMatch: 'full' },
     { path: 'login', component: LoginStartComponent },
     { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
     { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
@@ -91,7 +91,7 @@ const routes: Routes = [
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
-    { path: '**', component: LoginStartComponent }
+    { path: '**', component: SiteComponent }
 ];
 
 

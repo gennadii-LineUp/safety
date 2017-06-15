@@ -1,4 +1,4 @@
-<navbar-for-delete></navbar-for-delete>
+<!--<navbar-for-delete></navbar-for-delete>-->
 
 <div class="background">
     <div class='image-wrapper'>
@@ -30,7 +30,11 @@
                         <input type="password" class="form-control" placeholder="Mot de passe"
                                #password="ngModel"  name="password"  id='password'  ngModel> <!--required -->
                     </div>
-                    <p [routerLink]="['/login/rappeler-le-mot-de-passe']">Mot de passe oublié ?</p>
+                    <p>
+                        <span [routerLink]="['/login/rappeler-le-mot-de-passe']">
+                            Mot de passe oublié ?
+                        </span>
+                    </p>
                     <div class="button-wrapper">
                         <button type="submit" [disabled]="loading" class="form-button connexion-button">Connexion</button>
                         <br>
@@ -46,19 +50,19 @@
                 <div>Découvrez nos solutions !</div>
                 <br>
                 <div class="solution-wrapper">
-                    <div class="solution">
+                    <div class="solution" [routerLink]="['/site/accueil']">
                         <div class="image-wrapper">
                             <img src="../../../../assets/img/sigma_b.png" alt="PRO">
                         </div>
                         <div>PRO</div>
                     </div>
-                    <div class="solution">
+                    <div class="solution" [routerLink]="['/site/accueil']">
                         <div class="image-wrapper">
                             <img src="../../../../assets/img/sigma_w.png" alt="SAFE">
                         </div>
                         <div>SAFE</div>
                     </div>
-                    <div class="solution">
+                    <div class="solution" [routerLink]="['/site/accueil']">
                         <div class="image-wrapper">
                             <img src="../../../../assets/img/sigma_w.png" alt="DATA">
                         </div>

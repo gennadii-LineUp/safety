@@ -1,6 +1,6 @@
-<div class="sidebar">
+<div class="sidebar"  (click)='verifyUserRole()'>
 
-    <navbar-for-delete></navbar-for-delete>
+    <!--<navbar-for-delete></navbar-for-delete>-->
 
     <div class="brand-wrapper">
         <a class="brand" href="javascript:void(0);">
@@ -41,7 +41,18 @@
                     Salariés
                 </a>
             </li>
-            <li class="back-to-admin-link" [routerLink]="['/admin/accueil']">
+
+            <li *ngIf='showLogin' class="back-to-admin-link" [routerLink]="['/login']">
+                <a href="javascript:void(0);">
+                    &lt; Retour à login
+                </a>
+            </li>
+            <li *ngIf='showClientData' class="back-to-admin-link" [routerLink]="['/client/accueil']">
+                <a href="javascript:void(0);">
+                    &lt; Retour au client
+                </a>
+            </li>
+            <li *ngIf='showAdminData' class="back-to-admin-link" [routerLink]="['/admin/accueil']">
                 <a href="javascript:void(0);">
                     &lt; Retour à l’admin
                 </a>

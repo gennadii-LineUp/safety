@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-    <navbar-for-delete></navbar-for-delete>
+    <!--<navbar-for-delete></navbar-for-delete>-->
 
     <div class="brand-wrapper">
         <a class="brand" href="javascript:void(0);">
@@ -36,63 +36,17 @@
                     Bibliothèque
                 </a>
             </li>
+
+            <li class="back-to-admin-link" [routerLink]="['/site/accueil']">
+                <a href="javascript:void(0);">
+                    &lt; Retour au site
+                </a>
+            </li>
+            <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['/site/accueil']">
+                <a href="javascript:void(0);">
+                    &lt; Logout
+                </a>
+            </li>
         </ul>
     </nav>
 </div>
-
-
-
-<!--OLD-->
-<!--<div class="sidebar">-->
-    <!--<div class="brand-wrapper">-->
-        <!--<a class="brand" href="javascript:void(0);">-->
-            <!--<img src="../../../assets/img/main-logo.png" alt="main-logo">-->
-            <!--<p>Online</p>-->
-        <!--</a>-->
-    <!--</div>-->
-    <!--<nav class="sidebar-nav">-->
-        <!--<ul class="list-unstyled">-->
-            <!--<li routerLinkActive="active" [routerLink]="['/admin/accueil']">-->
-                <!--<a href="javascript:void(0);">-->
-                    <!--Accueil-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li routerLinkActive="active" [routerLink]="['/admin/reglages']">-->
-                <!--<a href="javascript:void(0);">-->
-                    <!--Réglages-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li routerLinkActive="active" [routerLink]="['/admin/client']">-->
-                <!--<a href="javascript:void(0);">-->
-                    <!--Clients-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li routerLinkActive="active" [routerLink]="['/admin/bibliotheque']">-->
-                <!--<a href="javascript:void(0);">-->
-                    <!--Bibliothèque-->
-                <!--</a>-->
-            <!--</li>-->
-        <!--</ul>-->
-    <!--</nav>-->
-<!--</div>-->
-
-
-
-
-
-<!--==================== КИРИЛЛ ====================-->
-<!--<nav class="navbar  main-navigation">-->
-    <!--<div class="navbar-header">-->
-        <!--<a href="#" class="navbar-brand">-->
-            <!--<img src="../../../assets/img/logo.png" alt="Safety" class="img-responsive" id="logo" />-->
-        <!--</a>-->
-    <!--</div>-->
-    <!--<ul class="nav navbar-nav">-->
-        <!--<li class="nav-link-block" routerLinkActive="active-page-link-block">
-        <a class="nav-link" href="#" routerLinkActive="active-page-link" [routerLink]="['/admin/accueil']">Accueil</a></li>-->
-        <!--&lt;!&ndash;<li class="nav-link-block active-page-link-block"><a class="nav-link active-page-link" href="">Réglages</a></li>&ndash;&gt;-->
-        <!--<li class="nav-link-block" routerLinkActive="active-page-link-block"><a class="nav-link" href="#" routerLinkActive="active-page-link" [routerLink]="['/admin/reglages']">Réglages</a></li>-->
-        <!--<li class="nav-link-block" routerLinkActive="active-page-link-block"><a class="nav-link" href="#" routerLinkActive="active-page-link" [routerLink]="['/admin/client']">Clients</a></li>-->
-        <!--<li class="nav-link-block" routerLinkActive="active-page-link-block"><a class="nav-link" href="#" routerLinkActive="active-page-link" [routerLink]="['/admin/bibliotheque']">Bibliothèque</a></li>-->
-    <!--</ul>-->
-<!--</nav>-->
