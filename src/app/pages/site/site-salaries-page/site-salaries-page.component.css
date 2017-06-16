@@ -1,0 +1,4 @@
+.salaries-site-table td:nth-of-type(3), .salaries-site-table td:nth-of-type(4), .salaries-site-table td:nth-of-type(5) {
+    text-align: left;
+    padding-left: 24px;
+}

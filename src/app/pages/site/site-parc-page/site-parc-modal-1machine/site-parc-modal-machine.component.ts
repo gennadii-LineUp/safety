@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+declare var $:any;
 
 @Component({
     selector: "modal-header-SPMM",
@@ -12,7 +12,22 @@ export class ModalHeaderSPMM {}
     selector: "modal-content-SPMM",
     template: `<ng-content></ng-content>`
 })
-export class ModalContentSPMM {}
+export class ModalContentSPMM implements OnInit {
+    ngOnInit() {
+        this.datepickerRun();
+    }
+
+    datepickerRun() {
+        //Datepicker Popups calender to Choose date
+        $(function(){
+            $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
+            //Pass the user selected date format
+            $( "#format" ).change(function() {
+                $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "dateFormat", $(this).val() );
+            });
+        });
+    }
+}
 
 
 @Component({
@@ -27,7 +42,7 @@ export class ModalFooterSPMM {}
     templateUrl: './site-parc-modal-machine.component.html',
     styleUrls: ['./site-parc-modal-machine.component.css']
 })
-export class SiteParcModalMachineComponent  {
+export class SiteParcModalMachineComponent  implements OnInit {
     @Input()
     public modalClass: string;
 
@@ -75,6 +90,20 @@ export class SiteParcModalMachineComponent  {
         this.createBackDrop();
     }
 
+    ngOnInit() {
+        this.datepickerRun();
+    }
+
+    datepickerRun() {
+        //Datepicker Popups calender to Choose date
+        $(function(){
+            $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
+            //Pass the user selected date format
+            $( "#format" ).change(function() {
+                $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "dateFormat", $(this).val() );
+            });
+        });
+    }
 
     ngOnDestroy() {
         document.body.className = document.body.className.replace(/modal-open\b/, "");

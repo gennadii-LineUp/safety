@@ -21,10 +21,6 @@ export class SiteSalariesPageComponent implements OnInit {
       this.tableMobileViewInit();
   }
 
-    gotoNewSalariesForm() {
-        this.router.navigate(['/site/salarie/ajouter-un-salarie-etap1']);
-    }
-
     public tableMobileViewInit() {
         let headertext = [],
             headers = document.querySelectorAll("th"),
@@ -41,6 +37,10 @@ export class SiteSalariesPageComponent implements OnInit {
                 }
             }
         }
+    }
+
+    gotoNewSalariesForm() {
+        this.router.navigate(['/site/salarie/ajouter-un-salarie-etap1']);
     }
 
 

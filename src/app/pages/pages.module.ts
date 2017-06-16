@@ -47,7 +47,7 @@ import { SalarieVisiteMedicComponent } from './salarie/salarie-visite-medic/sala
 import { SalarieCacesComponent } from './salarie/salarie-caces/salarie-caces.component';
 import { SalarieAttestationsComponent } from './salarie/salarie-attestations/salarie-attestations.component';
 import { SalarieAutorisComponent } from './salarie/salarie-autoris/salarie-autoris.component';
-import { SalarieFichesModalComponent } from './salarie/salarie-fiches-machines/salarie-fiches-modal/salarie-fiches-modal.component';
+import { SalarieFichesModalComponent, ModalHeaderSSF, ModalContentSSF, ModalFooterSSF } from './salarie/salarie-fiches-machines/salarie-fiches-modal/salarie-fiches-modal.component';
 import {SalarieComponent} from './salarie/salarie.component';
 
 
@@ -87,7 +87,7 @@ import {SalarieComponent} from './salarie/salarie.component';
         SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
         SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
         SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
-        SalarieFichesMachinesComponent, SalarieFichesModalComponent,
+        SalarieFichesMachinesComponent, SalarieFichesModalComponent,ModalHeaderSSF, ModalContentSSF, ModalFooterSSF,
         SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
 
 
@@ -124,7 +124,7 @@ import {SalarieComponent} from './salarie/salarie.component';
         SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
         SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
         SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
-        SalarieFichesMachinesComponent, SalarieFichesModalComponent,
+        SalarieFichesMachinesComponent, SalarieFichesModalComponent,ModalHeaderSSF, ModalContentSSF, ModalFooterSSF,
         SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
 
     ],

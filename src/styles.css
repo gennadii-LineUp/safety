@@ -517,13 +517,13 @@ h2 {
 
 .single-sort-button {
     width: 22px;
-    height: 12px;
+    height: 7px;
     display: inline-block;
     background: url(/assets/img/order-icon.png) no-repeat;
     border: none;
     padding: 2px 5px;
     padding-bottom: 1px;
-    margin: 0 8px;
+    margin: 0 8px 0 0;
     /*position: absolute;*/
     left: 24px;
     bottom: 25px;
@@ -537,7 +537,7 @@ h2 {
     background: transparent;
     background: url(/assets/img/order-icon-double.png) no-repeat;
     padding: 2px 5px;
-    margin: 0 8px;
+    margin: 0 8px 0 0;
     /*position: absolute;*/
     left: 24px;
     bottom: 25px;
@@ -608,6 +608,7 @@ h2 {
 
 .table-default td {
     padding-left: 24px;
+    padding-right: 20px;
     text-align: left;
     color: #000;
 }
@@ -618,7 +619,7 @@ h2 {
 
 .table-default td:first-of-type {
     /*padding-left: 24px;*/
-    padding-right: 0;
+    padding-right: 20px;
     text-align: left;
 }
 
@@ -1229,7 +1230,7 @@ h2 {
 /* SALARIES SITE TABLE */
 
 .salaries-site-table td {
-    padding-right: 5px;
+    padding-right: 10px;
 }
 
 .salaries-site-table th:first-of-type,
@@ -1261,7 +1262,7 @@ h2 {
 .salaries-site-table td:nth-of-type(4),
 .salaries-site-table td:nth-of-type(5) {
     text-align: left;
-    padding-left: 39px;
+    padding-left: 20px;
 }
 
 .salaries-site-table th:nth-of-type(5),
@@ -1276,7 +1277,7 @@ h2 {
 
 .salaries-site-table td:nth-of-type(6) {
     text-align: left;
-    padding-left: 23px;
+    padding-left: 20px;
 }
 
 .salaries-site-table th:nth-of-type(7),
@@ -1423,33 +1424,61 @@ h2 {
     padding-left: 39px;
 }
 
-/* ATTESTATIONS DE FORMATION TABLE */
+/* ATTESTATIONS DE FORMATION PAGE */
 
-.attestations-de-formation-table {
-    margin-top: -2px;
-    margin-bottom: 24px;
+.main-content {
+    padding-top: 23px;
+}
+.attestations-de-formation-table th:nth-of-type(1),
+.attestations-de-formation-table td:nth-of-type(1) {
+    width: 88%;
+    text-align: left !important;
+    padding-left: 23px !important;
+}
+.attestations-de-formation-table td:nth-of-type(1) {
+    padding-right: 8px;
 }
 
-.attestations-de-formation-table th:first-of-type,
-.attestations-de-formation-table td:first-of-type {
-    width: 33.6%;
+.attestations-de-formation-table th:nth-of-type(2),
+.attestations-de-formation-table td:nth-of-type(2) {
+    width: 12%;
 }
-
-.attestations-de-formation-table  th:nth-of-type(2),
-.attestations-de-formation-table  td:nth-of-type(2) {
-    width: 23.1%;
+.attestations-de-formation-table td:nth-of-type(2) {
     text-align: left;
+    padding-right: 20px;
+}
+.attestations-de-formation-table th:nth-of-type(2) {
+    text-align: center;
 }
 
-.attestations-de-formation-table  th:nth-of-type(3),
-.attestations-de-formation-table  td:nth-of-type(3) {
-    width: 23.15%;
+/* FICHES MACHINES PAGE */
+
+.main-content {
+    padding-top: 23px;
+}
+.fiches-machines-table th:nth-of-type(1),
+.fiches-machines-table td:nth-of-type(1),
+.fiches-machines-table th:nth-of-type(2),
+.fiches-machines-table td:nth-of-type(2){
+    width: 44%;
+    text-align: left !important;
+    padding-left: 23px !important;
+}
+.fiches-machines-table td:nth-of-type(1),
+.fiches-machines-table td:nth-of-type(2){
+    padding-right: 8px;
+}
+
+.fiches-machines-table th:nth-of-type(3),
+.fiches-machines-table td:nth-of-type(3) {
+    width: 12%;
+}
+.fiches-machines-table td:nth-of-type(3) {
     text-align: left;
+    padding-right: 20px;
 }
-
-.attestations-de-formation-table  td:nth-of-type(2),
-.attestations-de-formation-table  td:nth-of-type(3) {
-    padding-left: 23px;
+.fiches-machines-table th:nth-of-type(3) {
+    text-align: center;
 }
 
 /* ATTESTATIONS DE CONDUITE TABLE */
@@ -1680,11 +1709,6 @@ h2 {
     margin-bottom:15px;
 }
 
-/* ATTESTATIONS DE FORMATION PAGE */
-
-.attestations-de-formation-page .main-content {
-    padding-top: 23px;
-}
 
 /* MON PROFIL PAGE */
 

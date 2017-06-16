@@ -1,0 +1,31 @@
+
+
+
+/*.table-default td:first-of-type {*/
+    /*padding-right: 20px;*/
+    /*text-align: left;*/
+/*}*/
+
+/*.table-default th:nth-of-type(n+1) {*/
+/*}*/
+
+/*.table-default th:last-of-type,*/
+/*.table-default td:last-of-type {*/
+    /*border-right: none;*/
+    /*text-align: center;*/
+    /*padding-right: 12px;*/
+/*}*/
+
+/*.attestations-de-formation-table td:nth-of-type(3) {*/
+    /*text-align: left;*/
+    /*padding-left: 24px;*/
+/*}*/
+
+/*@media (max-width: 1599px) {*/
+    /*.table-default th:last-of-type,*/
+    /*.table-default td:last-of-type {*/
+        /*text-align: center;*/
+    /*}*/
+
+/*}*/
+
