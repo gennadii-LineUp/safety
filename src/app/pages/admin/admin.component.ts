@@ -25,13 +25,13 @@ export class AdminComponent implements OnInit {
     ngOnInit(): void {
 
         /* MOBILE MENU */
-            $('#nav-icon1').click(function(){
+            $('#nav-icon1').click(() =>{
                 $(this).toggleClass('open');
             });
-            $('#nav-icon1').click(function() {
+            $('#nav-icon1').click(() => {
                 $('.sidebar-nav').slideToggle(400);
             });
-            $(window).resize(function(){
+            $(window).resize(() =>{
                 var windowWidth = window.innerWidth;
                 if (windowWidth > 991) {
                     $(".sidebar-nav").slideDown();

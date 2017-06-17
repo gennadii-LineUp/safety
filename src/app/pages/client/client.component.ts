@@ -12,13 +12,13 @@ export class ClientComponent implements OnInit {
 
     ngOnInit(): void {
         /* MOBILE MENU */
-        $('#nav-icon1').click(function(){
+        $('#nav-icon1').click(() =>{
             $(this).toggleClass('open');
         });
-        $('#nav-icon1').click(function() {
+        $('#nav-icon1').click(() => {
             $('.sidebar-nav').slideToggle(400);
         });
-        $(window).resize(function(){
+        $(window).resize(() =>{
             var windowWidth = window.innerWidth;
             if (windowWidth > 991) {
                 $(".sidebar-nav").slideDown();
@@ -32,13 +32,13 @@ export class ClientComponent implements OnInit {
     }
 
     // public mobileMenuClickable() {
-    //     jQuery('#nav-icon1').click(function () {
+    //     jQuery('#nav-icon1').click(() => {
     //         jQuery(this).toggleClass('open');
     //     });
-    //     jQuery('#nav-icon1').click(function () {
+    //     jQuery('#nav-icon1').click(() => {
     //         jQuery('.sidebar-nav').slideToggle(400);
     //     });
-    //     jQuery(window).resize(function () {
+    //     jQuery(window).resize(() => {
     //         let windowWidth = window.innerWidth;
     //         if (windowWidth > 991) {
     //             jQuery(".sidebar-nav").slideDown();
