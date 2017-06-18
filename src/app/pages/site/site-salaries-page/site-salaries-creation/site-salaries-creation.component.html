@@ -1,36 +1,59 @@
 <header class="main-header">
+    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;' >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p>SAFETY: <span>{{errorLoad}}</span></p>
+    </div>
+
     <h1>Création d’un salarié</h1>
 </header>
 <div class="main-content" style="padding-top: 12px; position: relative;">
-    <form action="/" class="profil-form">
+
+    <form #site_newEmployee1Form="ngForm"  novalidate  class="profil-form" (click)='cancellSuccessMessage()'
+              (ngSubmit)="submitForm(site_newEmployee1Form)">
         <h2>Etape 1</h2>
         <div class="one-column-input-wrapper">
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText1" placeholder="Nom*">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
+                <input type="text" class="form-control"  placeholder="Nom*"
+                       #name="ngModel" id="name" name='name' required (ngModel)="name" />
+                <p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText2" placeholder="Prenom*">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="surname.invalid" class="requred-field color-valid">Prenom*</p>
+                <input type="text" class="form-control" placeholder="Prenom*"
+                       #surname="ngModel" id="surname" name='surname' required (ngModel)="surname" />
+                <p [hidden]="surname.valid || surname.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
         <div class="one-column-input-wrapper">
             <div class="input-wrapper">
-                <input type="email" class="form-control" id="exampleInputText3" placeholder="Email">
+                <p [hidden]="email.invalid" class="requred-field color-valid">Email</p>
+                <input type="email" class="form-control"  placeholder="Email"
+                       #email="ngModel" id="email" name='email' required email (ngModel)="email" />
+                <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText4" placeholder="Poste">
+                <p [hidden]="post.invalid" class="requred-field color-valid">Poste</p>
+                <input type="text" class="form-control"  placeholder="Poste"
+                       #post="ngModel" id="post" name='post' required (ngModel)="post" />
+                <p [hidden]="post.valid || post.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
         <div class="one-column-input-wrapper">
             <div class="calendar-wrapper clearfix">
                 <p class="form-label">Date de naissance*</p>
-                <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" />
-                <div class="clearfix"></div>
+                <input type="text" class="datepicker-default"
+                       #birthDate id='birthDate' name='birthDate' />
+                <!--<p [hidden]=" birthDate.untouched " class="requred-field ">Champs requis</p>-->
+                <div class="clearfix"></div>  <!--#birthDate="ngModel"  (ngModel)="birthDate"-->
             </div>
             <div class="input-wrapper" style="margin-bottom: 15px;">
-                <input type="text" class="form-control" id="exampleInputText5" placeholder="N° sécu*">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="numSecu.invalid" class="requred-field color-valid">N° sécu*</p>
+                <input type="text" class="form-control"  placeholder="N° sécu*"
+                       #numSecu="ngModel" id="numSecu" name='numSecu' required (ngModel)="numSecu" />
+                <p [hidden]="numSecu.valid || numSecu.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="clearfix"></div>
             <p class="form-subheader">Photo</p>
@@ -40,32 +63,61 @@
                 </label>
                 <input id="file-input" type="file">
             </div>
+            <div class="clearfix"></div>
+
+            <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0;'>Groupe de salariés</p>
+            <img *ngIf="loading" style='position: absolute; left:49%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <div class="radio-btn-inline">
+                <div class="radio" style='display: block;'>
+                    <input checked="" type="radio"
+                           #employeeGroup="ngModel" id="employeeGroup" name='employeeGroup'  (ngModel)="employeeGroup" />
+                    <label for="employeeGroup" class="radio-label">Groupe 1</label>
+                </div>
+                <div class="radio" style='display: block;'>
+                    <input checked="checked" type="radio"
+                           id="radio-12" name='radio-12'   /> <!-- #radio-12="ngModel"  required (ngModel)="radio-12"-->
+                    <label for="radio-12" class="radio-label">Groupe 2</label>
+                </div>
+            </div>
+
         </div>
         <div class="one-column-input-wrapper">
             <div>
                 <p class="form-label" >Période de validité*</p>
                 <div class="radio-btn-inline">
                     <div class="radio">
-                        <input id="radio-11" name="radio1" checked="checked" type="radio">
-                        <label for="radio-11" class="radio-label">Indéterminée</label>
+                        <input checked="checked" type="radio"
+                               #validityPeriod="ngModel" id="validityPeriod" name='validityPeriod'  (ngModel)="validityPeriod" />
+                        <label for="validityPeriod" class="radio-label">Indéterminée</label>
                     </div>
                     <div class="radio">
-                        <input id="radio-12" name="radio1" checked="" type="radio">
-                        <label for="radio-12" class="radio-label">Déterminée</label>
+                        <input checked="" type="radio"
+                               id="company" name='company'  /> <!--#company="ngModel"  required (ngModel)="company"-->
+                        <label for="company" class="radio-label">Déterminée</label>
                     </div>
                 </div>
                 <div class="calendar-wrapper clearfix">
                     <p>Date de début*</p>
-                    <input type="text" name="selected_date" id="datepicker2" class="datepicker-default" />
+                    <input type="text" class="datepicker-default"
+                           #startDate id="startDate" name='startDate' />
+                    <!--<p [hidden]="startDate.untouched " class="requred-field ">Champs requis</p>-->
                 </div>
                 <div class="calendar-wrapper clearfix">
                     <p>Date de fin*</p>
-                    <input type="text" name="selected_date" id="datepicker3" class="datepicker-default" />
+                    <input type="text" class="datepicker-default"
+                           #endDate  id="endDate" name='endDate' />
+                    <!--<p [hidden]="endDate.untouched " class="requred-field ">Champs requis</p>-->
                 </div>
+
                 <div class="button-wrapper">
-                    <button type="submit" class="form-button red-button annuler-button">Annuler</button>
+                    <button type="button" class="form-button red-button annuler-button"
+                            (click)='gotoSiteSalariesPage()'>Annuler</button>
                     <button type="submit" class="form-button green-button sauvegarder-button"
-                            (click)="gotoEtap2Form()">Sauvegarder</button>
+                            [disabled]="!site_newEmployee1Form.form.valid">Sauvegarder</button>
+
+                    <!--<div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}</div>-->
+                    <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
+
                 </div>
 
             </div>

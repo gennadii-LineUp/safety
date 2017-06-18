@@ -37,7 +37,6 @@ export class ClientGroupesPageComponent implements OnInit {
 
     ngOnInit() {
         this.findGroupByNameFunction('');
-        console.log(localStorage);
     }
 
     ngOnDestroy() {
@@ -59,43 +58,6 @@ export class ClientGroupesPageComponent implements OnInit {
         console.log('====' + this.searchName);
     }
 
-
-    // getGroupList(page): void {
-    //     console.log('=========getGroupList============')
-    //     this.loading = true;
-    //     this.clientService.groupList(page)
-    //         .subscribe(result => {
-    //             if (result) {
-    //                 this.loading = false;
-    //
-    //                 console.log(result);
-    //               //  this.groupes = result.items;
-    //               //  this.totalItems = +result.pagination.totalCount;
-    //                // this.currentPage = +result.pagination.current;
-    //
-    //                 this.setPage(page);
-    //
-    //                 this.loaded = true;
-    //                 setTimeout(() => {
-    //                     this.tableMobileViewInit();
-    //                 }, 200);
-    //             }
-    //         }, (err) => {
-    //             this.loading = false;
-    //
-    //             let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-    //             if (errorStatusKnown) {
-    //                 this.errorCreating = errorStatusKnown;
-    //                 return;
-    //             }
-    //
-    //             // let error = (JSON.parse(err._body)).errors;
-    //             console.log('====error=============');
-    //             this.errorLoad = err;
-    //             console.log(err);
-    //             //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-    //         });
-    // }
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -206,6 +168,7 @@ export class ClientGroupesPageComponent implements OnInit {
         this.router.navigate(['/client/groupes']);
         this.ngOnInit();
     }
+
     public tableMobileViewInit() {
         let headertext = [],
             headers = document.querySelectorAll("th"),

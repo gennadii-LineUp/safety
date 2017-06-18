@@ -124,6 +124,7 @@ export class SiteParcModalMachineComponent  { //extends SiteParcPageComponent
 
     public datepickerRun() {
         $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
+        $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "changeYear", true );
 
         $( "#format" ).change(() => {
             $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "dateFormat", $(this).val() );
