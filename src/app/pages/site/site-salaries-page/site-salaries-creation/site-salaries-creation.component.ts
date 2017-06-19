@@ -28,7 +28,7 @@ export class SiteSalariesCreationComponent implements OnInit {
     ];
 
     public employeeGroupes = []; // example: [{ access:false, id:269, name:"group 11" }]
-
+    employees = new EmployeesClass('','','','','','',this.periodeDeValidite[0].booleanValue,'','',0);
     //employees: EmployeesClass[] = [];
 
 
@@ -38,7 +38,7 @@ export class SiteSalariesCreationComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit() {
-      //  this.getEmployeeGroupes();
+        this.getEmployeeGroupes();
         this.datepickerRun();
     }
 
@@ -48,7 +48,7 @@ export class SiteSalariesCreationComponent implements OnInit {
                 if (result) {
                     this.cancellErrorMessage();
                     this.employeeGroupes = result.items;
-                    this.employees.validityPeriod = this.periodeDeValidite[0].booleanValue;
+                    // this.employees.validityPeriod = this.periodeDeValidite[0].booleanValue;
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -67,7 +67,6 @@ export class SiteSalariesCreationComponent implements OnInit {
                 }
             });
     }
-    employees = new EmployeesClass('','','','','','',this.periodeDeValidite[0].booleanValue,'','',0);
 
 
     @ViewChild('birthDate')  birthDate: ElementRef;
@@ -93,10 +92,10 @@ export class SiteSalariesCreationComponent implements OnInit {
                                                 newEmployeesForm.value.post,
                                                 datepicker_birthDate,
                                                 newEmployeesForm.value.numSecu,
-                                                true,//newEmployeesForm.value.validityPeriod,
+                                                newEmployeesForm.value.validityPeriod,
                                                 datepicker_startDate,
                                                 datepicker_endDate,
-                                                270);   //newEmployeesForm.value.employeeGroup
+                                                newEmployeesForm.value.employeeGroup);
 
         console.dir(newEmployee);
         console.log(typeof newEmployeesForm.value.validityPeriod + ', ' + newEmployeesForm.value.validityPeriod);
@@ -120,11 +119,11 @@ export class SiteSalariesCreationComponent implements OnInit {
                     return;
                 }
 
-               // let error = (JSON.parse(err._body)).errors;
+               let error = (JSON.parse(err._body)).errors;
 
-                // if (Object.keys(error).length > 0) {
-                //     this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
-                // }
+                if (Object.keys(error).length > 0) {
+                    this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
+                }
             });
     }
 

@@ -19,6 +19,7 @@ export class ErrorMessageHandlerService {
 
     public checkErrorStatus(err: any):any {
         if (err.status === 401) return "please relogin!";
+        if (err.status === 403) return "wrong UrlParams, ask Alexander";
         if (err.status === 500) return "problems with connection to server... verify your internet!";
         if (err.status === 0) return "problems with connection to server... verify your internet!";
         return false;
