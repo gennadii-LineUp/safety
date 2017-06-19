@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { Router}    from '@angular/router';
+import {ClientService} from '../../../../services/client/client.service';
 import {ErrorMessageHandlerService} from 'app/services/error/error-message-handler.service';
 import {SiteService} from '../../../../services/site/site.service';
 import {EmployeesClass} from 'app/models/const/employees-class';
@@ -10,10 +11,11 @@ declare var $:any;
   selector: 'site-salaries-creation',
   templateUrl: './site-salaries-creation.component.html',
   styleUrls: ['./site-salaries-creation.component.css'],
-    providers: [SiteService, ErrorMessageHandlerService]
+    providers: [ClientService, SiteService, ErrorMessageHandlerService]
 })
 export class SiteSalariesCreationComponent implements OnInit {
     loading: boolean = false;
+    loadingGroupes: boolean = true;
     loaded: boolean = false;
     errorCreating: string = '';
     successCreating: string = '';
@@ -25,40 +27,56 @@ export class SiteSalariesCreationComponent implements OnInit {
         { value: 'determinee',   booleanValue: true,  display: 'Déterminée' }
     ];
 
+    public employeeGroupes = []; // example: [{ access:false, id:269, name:"group 11" }]
+
     //employees: EmployeesClass[] = [];
-    employees = new EmployeesClass('','','','','','',this.periodeDeValidite[0].booleanValue,'','',0);
 
 
-    constructor(private siteService: SiteService,
+    constructor(private clientService: ClientService,
+                private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private router: Router) {}
 
     ngOnInit() {
+        this.getEmployeeGroupes();
         this.datepickerRun();
     }
 
-    // name: string,
-    // surname: string,
-    // email: string,
-    // post: string,
-    // birthDate: string,
-    // numSecu: string,
-    // validityPeriod: boolean = true,
-    // startDate: string,
-    // endDate: string,
-    // employeeGroup: number = 16
+    public getEmployeeGroupes() {
+        this.clientService.getGroupList(1)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellErrorMessage();
+                    this.employeeGroupes = result.items;
+                    this.employees.validityPeriod = this.periodeDeValidite[0].booleanValue;
+                }
+            }, (err) => {
+                console.log('====error=============');
+                this.cancellErrorMessage();
+                console.log(err);
+
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
+                let error = (JSON.parse(err._body)).errors;
+                if (Object.keys(error).length > 0) {
+                    this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
+                }
+            });
+    }
+    employees = new EmployeesClass('','','','','','',this.periodeDeValidite[0].booleanValue,'','',0);
 
 
     @ViewChild('birthDate')  birthDate: ElementRef;
-
     public getDatepicker() {
-
         let dd = window.document.getElementsByClassName('datepicker-default')['0'].value;
         console.log(typeof dd + ' getElementsByClassName = ' + dd);
         console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
-        // console.log(typeof data);
-        // console.log(data);
     }
+
 
     public submitForm(newEmployeesForm: NgForm) {
         let datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
@@ -69,7 +87,6 @@ export class SiteSalariesCreationComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-
         let newEmployee = new EmployeesClass(newEmployeesForm.value.name,
                                                 newEmployeesForm.value.surname,
                                                 newEmployeesForm.value.email,
@@ -79,11 +96,9 @@ export class SiteSalariesCreationComponent implements OnInit {
                                                 newEmployeesForm.value.validityPeriod,
                                                 datepicker_startDate,
                                                 datepicker_endDate,
-                                                16);
-
+                                                newEmployeesForm.value.employeeGroup);
 
         console.dir(newEmployee);
-
 
         this.siteService.addNewEmployee(newEmployee)
             .subscribe(result => {
@@ -91,7 +106,7 @@ export class SiteSalariesCreationComponent implements OnInit {
                     this.loading = false;
                     console.log('======result====OK======');
                     console.log(result);
-                    this.successCreating = "Well done! You've created a new employee.";
+                    //this.successCreating = "Well done! You've created a new employee.";
 
                 }
             }, (err) => {
@@ -106,8 +121,6 @@ export class SiteSalariesCreationComponent implements OnInit {
                 }
 
                 let error = (JSON.parse(err._body)).errors;
-                //console.log(error);
-                //console.log(Object.keys(error).length);
 
                 if (Object.keys(error).length > 0) {
                     this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
@@ -148,6 +161,7 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     private cancellErrorMessage() {
         this.loading = false;
+        this.loadingGroupes = false;
         this.errorCreating = '';
         this.errorLoad = '';
     }

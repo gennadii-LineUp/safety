@@ -28,7 +28,7 @@ export class ClientService {
         return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite), useTolkin);
     }
 
-    groupList(page): Observable<any> {
+    getGroupList(page): Observable<any> {
         console.log('==client service:_groupList started==');
         let useTolkin:boolean = true;
         let query = '?q=&sort=&page=';

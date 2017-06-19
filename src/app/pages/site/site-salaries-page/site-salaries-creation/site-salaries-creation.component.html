@@ -66,27 +66,23 @@
             <div class="clearfix"></div>
 
             <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0;'>Groupe de salariés</p>
-            <img *ngIf="loading" style='position: absolute; left:49%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <div class="radio-btn-inline">
-                <div class="radio" style='display: block;'>
-                    <input checked="" type="radio"
-                           #employeeGroup="ngModel" id="employeeGroup" name='employeeGroup'  [(ngModel)]="employees.employeeGroup" />
-                    <label for="employeeGroup" class="radio-label">Groupe 1</label>
+            <img *ngIf="loadingGroupes" style='position: absolute; left:8%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                <div *ngIf='!loadingGroupes' class="radio-btn-block">
+                    <div *ngFor="let groupe of employeeGroupes" class="radio" >
+                        <input type="radio"   id={{groupe.id}} name="employeeGroup"
+                               [(ngModel)]="employees.employeeGroup" [value]="groupe.id" >  <!-- checked={{groupe.booleanValue}}-->
+                        <label for={{groupe.id}} class="radio-label">{{groupe.name}}</label>
+                    </div>
                 </div>
-                <div class="radio" style='display: block;'>
-                    <input checked="checked" type="radio"
-                           id="radio-12" name='radio-12'   /> <!-- #radio-12="ngModel"  required [(ngModel)]="employees.radio-12"-->
-                    <label for="radio-12" class="radio-label">Groupe 2</label>
-                </div>
-            </div>
 
         </div>
         <div class="one-column-input-wrapper">
             <div>
 
                 <p class="form-label" >Période de validité*</p>
-                <div class="radio-btn-inline">
-                    <div *ngFor="let periode of periodeDeValidite" class="radio">
+                <div class="radio-btn-inline" >
+                    <div *ngFor="let periode of periodeDeValidite" class="radio" >
                         <input type="radio"  checked={{periode.booleanValue}} id={{periode.value}} name="validityPeriod"
                                [(ngModel)]="employees.validityPeriod" [value]="periode.booleanValue" >
                         <label for={{periode.value}} class="radio-label">{{periode.display}}</label>

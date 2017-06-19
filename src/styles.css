@@ -1847,7 +1847,8 @@ h2 {
     font-size: 14px;
 }
 
-.creation-salarie-page .radio-btn-inline {
+.creation-salarie-page .radio-btn-inline,
+.creation-salarie-page .radio-btn-block {
     padding-top: 12px;
 }
 
@@ -1856,12 +1857,19 @@ h2 {
     margin-right: 15px;
     margin-bottom: 23px;
 }
+.creation-salarie-page .radio-btn-block .radio{
+    display: block;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
 
-.creation-salarie-page .radio-btn-inline .radio input[type="radio"] + .radio-label::before {
+.creation-salarie-page .radio-btn-inline .radio input[type="radio"] + .radio-label::before,
+.creation-salarie-page .radio-btn-block .radio input[type="radio"] + .radio-label::before {
     margin-right: 24px;
 }
 
-.creation-salarie-page .radio-btn-inline ~ .calendar-wrapper .datepicker-default {
+.creation-salarie-page .radio-btn-inline ~ .calendar-wrapper .datepicker-default,
+.creation-salarie-page .radio-btn-block ~ .calendar-wrapper .datepicker-default{
     margin-right: 75px;
 }
 
@@ -2023,7 +2031,8 @@ h2 {
     .creation-salarie-page .calendar-wrapper {
         width: 100%;
     }
-    .creation-salarie-page .radio-btn-inline ~ .calendar-wrapper .datepicker-default {
+    .creation-salarie-page .radio-btn-inline ~ .calendar-wrapper .datepicker-default,
+    .creation-salarie-page .radio-btn-block ~ .calendar-wrapper .datepicker-default{
         margin-right: 0px;
     }
     .creation-salarie-page-1 .profil-form .button-wrapper .annuler-button {
