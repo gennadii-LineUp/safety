@@ -86,9 +86,18 @@ export class ErrorMessageHandlerService {
             case 'medicalVisitSite':          key='*Visite médicale - Site*';  break;
             case 'techControlSiege':          key='*Contrôle technique et VGP - Siège*';  break;
             case 'techControlSite':           key='*Contrôle technique et VGP - Site*';  break;
+            case 'post':                      key='*Poste*';  break;
+            case 'birthDate':                 key='*Date de naissance*';  break;
+            case 'numSecu':                   key='*N° sécu*';  break;
+            case 'validityPeriod':            key='*Période de validité*';  break;
+            case 'startDate':                 key='*Date de début*';  break;
+            case 'endDate':                   key='*Date de fin*';  break;
+            case 'employeeGroup':             key='*Groupe de salariés*';  break;
             //case '':         key='';  break;
             default:
                 key;
+
+
         }
         return key;
     }

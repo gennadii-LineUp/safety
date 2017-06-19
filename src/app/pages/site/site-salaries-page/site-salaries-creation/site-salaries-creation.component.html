@@ -17,13 +17,13 @@
             <div class="input-wrapper">
                 <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
                 <input type="text" class="form-control"  placeholder="Nom*"
-                       #name="ngModel" id="name" name='name' required (ngModel)="name" />
+                       #name="ngModel" id="name" name='name' required [(ngModel)]="employees.name" />
                 <p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="surname.invalid" class="requred-field color-valid">Prenom*</p>
                 <input type="text" class="form-control" placeholder="Prenom*"
-                       #surname="ngModel" id="surname" name='surname' required (ngModel)="surname" />
+                       #surname="ngModel" id="surname" name='surname' required [(ngModel)]="employees.surname" />
                 <p [hidden]="surname.valid || surname.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
@@ -31,13 +31,13 @@
             <div class="input-wrapper">
                 <p [hidden]="email.invalid" class="requred-field color-valid">Email</p>
                 <input type="email" class="form-control"  placeholder="Email"
-                       #email="ngModel" id="email" name='email' required email (ngModel)="email" />
+                       #email="ngModel" id="email" name='email' required email [(ngModel)]="employees.email" />
                 <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="post.invalid" class="requred-field color-valid">Poste</p>
                 <input type="text" class="form-control"  placeholder="Poste"
-                       #post="ngModel" id="post" name='post' required (ngModel)="post" />
+                       #post="ngModel" id="post" name='post' required [(ngModel)]="employees.post" />
                 <p [hidden]="post.valid || post.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
@@ -45,14 +45,14 @@
             <div class="calendar-wrapper clearfix">
                 <p class="form-label">Date de naissance*</p>
                 <input type="text" class="datepicker-default"
-                       #birthDate id='birthDate' name='birthDate' />
-                <!--<p [hidden]=" birthDate.untouched " class="requred-field ">Champs requis</p>-->
-                <div class="clearfix"></div>  <!--#birthDate="ngModel"  (ngModel)="birthDate"-->
+                       #birthDate="ngModel" id='birthDate' name='birthDate'  [(ngModel)]="employees.birthDate"/>
+                <p [hidden]=" birthDate.valid || birthDate.untouched " class="requred-field ">Champs requis</p>
+                <div class="clearfix"></div>  <!--#birthDate="ngModel"  [(ngModel)]="employees.birthDate"-->
             </div>
             <div class="input-wrapper" style="margin-bottom: 15px;">
                 <p [hidden]="numSecu.invalid" class="requred-field color-valid">N° sécu*</p>
                 <input type="text" class="form-control"  placeholder="N° sécu*"
-                       #numSecu="ngModel" id="numSecu" name='numSecu' required (ngModel)="numSecu" />
+                       #numSecu="ngModel" id="numSecu" name='numSecu' required [(ngModel)]="employees.numSecu" />
                 <p [hidden]="numSecu.valid || numSecu.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="clearfix"></div>
@@ -70,12 +70,12 @@
             <div class="radio-btn-inline">
                 <div class="radio" style='display: block;'>
                     <input checked="" type="radio"
-                           #employeeGroup="ngModel" id="employeeGroup" name='employeeGroup'  (ngModel)="employeeGroup" />
+                           #employeeGroup="ngModel" id="employeeGroup" name='employeeGroup'  [(ngModel)]="employees.employeeGroup" />
                     <label for="employeeGroup" class="radio-label">Groupe 1</label>
                 </div>
                 <div class="radio" style='display: block;'>
                     <input checked="checked" type="radio"
-                           id="radio-12" name='radio-12'   /> <!-- #radio-12="ngModel"  required (ngModel)="radio-12"-->
+                           id="radio-12" name='radio-12'   /> <!-- #radio-12="ngModel"  required [(ngModel)]="employees.radio-12"-->
                     <label for="radio-12" class="radio-label">Groupe 2</label>
                 </div>
             </div>
@@ -83,19 +83,16 @@
         </div>
         <div class="one-column-input-wrapper">
             <div>
+
                 <p class="form-label" >Période de validité*</p>
                 <div class="radio-btn-inline">
-                    <div class="radio">
-                        <input checked="checked" type="radio"
-                               #validityPeriod="ngModel" id="validityPeriod" name='validityPeriod'  (ngModel)="validityPeriod" />
-                        <label for="validityPeriod" class="radio-label">Indéterminée</label>
-                    </div>
-                    <div class="radio">
-                        <input checked="" type="radio"
-                               id="company" name='company'  /> <!--#company="ngModel"  required (ngModel)="company"-->
-                        <label for="company" class="radio-label">Déterminée</label>
+                    <div *ngFor="let periode of periodeDeValidite" class="radio">
+                        <input type="radio"  checked={{periode.booleanValue}} id={{periode.value}} name="validityPeriod"
+                               [(ngModel)]="employees.validityPeriod" [value]="periode.booleanValue" >
+                        <label for={{periode.value}} class="radio-label">{{periode.display}}</label>
                     </div>
                 </div>
+
                 <div class="calendar-wrapper clearfix">
                     <p>Date de début*</p>
                     <input type="text" class="datepicker-default"

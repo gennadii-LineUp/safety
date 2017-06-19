@@ -18,10 +18,15 @@ export class SiteSalariesCreationComponent implements OnInit {
     errorCreating: string = '';
     successCreating: string = '';
 
-    employees: EmployeesClass[] = [];
-    //employees = new EmployeesClass('','','','','','',true,'','',0);
     errorLoad: string = '';
 
+    public periodeDeValidite = [
+        { value: 'indeterminee', booleanValue: false, display: 'Indéterminée' },
+        { value: 'determinee',   booleanValue: true,  display: 'Déterminée' }
+    ];
+
+    //employees: EmployeesClass[] = [];
+    employees = new EmployeesClass('','','','','','',this.periodeDeValidite[0].booleanValue,'','',0);
 
 
     constructor(private siteService: SiteService,
@@ -71,7 +76,7 @@ export class SiteSalariesCreationComponent implements OnInit {
                                                 newEmployeesForm.value.post,
                                                 datepicker_birthDate,
                                                 newEmployeesForm.value.numSecu,
-                                                true,
+                                                newEmployeesForm.value.validityPeriod,
                                                 datepicker_startDate,
                                                 datepicker_endDate,
                                                 16);
