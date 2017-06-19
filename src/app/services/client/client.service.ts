@@ -20,6 +20,15 @@ export class ClientService {
         return this.backendService.get(UrlParams.clientProfilData, useTolkin);
     }
 
+    findSiteByName(name: string, page: any): Observable<any> {
+        //console.log('==admin service:_findClientByName started==');
+        let useTolkin:boolean = true;
+        let query = '?q=' + name + '&page=' + page;
+
+        return this.backendService.get(UrlParams.clientSites + query, useTolkin);
+
+    }
+
 
     addNewSite(newSite: any): Observable<any> {
         console.log('==client service:_addNewSite started==');

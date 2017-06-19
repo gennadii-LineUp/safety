@@ -1,16 +1,23 @@
-<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-
 <header class="main-header">
+    <img *ngIf="loading" style='position: absolute; left:49%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
     <div *ngIf="errorSalaries" class="alert alert-danger alert-dismissible fade in" role="alert"  style='position: absolute;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
             <span aria-hidden="true"></span>
         </button>
         <p>Votre limite de salariés a été atteinte. Vous utilisez <span>X/X comptes salariés disponibles.</span></p>
     </div>
+    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;'>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p>SAFETY: <span>{{errorLoad}}</span></p>
+    </div>
+
     <h1>Sites</h1>
 </header>
 
-<div class="main-content">
+<div class="main-content"  *ngIf='loaded'>
     <div class="search-panel clearfix">
 
         <button class="add-an-item-button" (click)="myModal.open()"></button>
@@ -176,10 +183,11 @@
             </modal-footer-CS>
         </client-sites-modal>
 
-
         <div class="search-wrapper">
-            <button class="search-button" type="button"></button>
-            <input type="text" class="form-control search-input" placeholder="Rechercher">
+            <button class="search-button" type="button" (click)='findSiteByNameFunction(findSiteByName.value, 1)'></button>
+            <input #findSiteByName id="findSiteByName" name='findSiteByName' type="text"
+                   class="form-control search-input" placeholder="Rechercher"
+                   (keyup.enter)='findSiteByNameFunction(findSiteByName.value)'>
         </div>
     </div>
     <div class="table-wrapper">
@@ -207,86 +215,44 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Nom du site 1</td>
-                <td>15 route de Vienne 69007 Lyon</td>
-                <td>Prénom Nom</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom long, 20 lettres...</td>
-                <td>Adresse est trop longue à 35 lettres...</td>
-                <td>Nom trop long à 20 le...</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du site 1</td>
-                <td>15 route de Vienne 69007 Lyon</td>
-                <td>Prénom Nom</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom long, 20 lettres...</td>
-                <td>Adresse est trop longue à 35 lettres...</td>
-                <td>Nom trop long à 20 le...</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du site 1</td>
-                <td>15 route de Vienne 69007 Lyon</td>
-                <td>Prénom Nom</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom long, 20 lettres...</td>
-                <td>Adresse est trop longue à 35 lettres...</td>
-                <td>Nom trop long à 20 le...</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du site 1</td>
-                <td>15 route de Vienne 69007 Lyon</td>
-                <td>Prénom Nom</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom long, 20 lettres...</td>
-                <td>Adresse est trop longue à 35 lettres...</td>
-                <td>Nom trop long à 20 le...</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du site 1</td>
-                <td>15 route de Vienne 69007 Lyon</td>
-                <td>Prénom Nom</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom long, 20 lettres...</td>
-                <td>Adresse est trop longue à 35 lettres...</td>
-                <td>Nom trop long à 20 le...</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            <tr *ngFor="let site of sites">
+                <td>{{site.name}}</td>
+                <td>{{site.address}}</td>
+                <td>TODO: Prénom Nom</td>
+                <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
             </tr>
             </tbody>
         </table>
     </div>
     <nav aria-label="Page navigation" class="pagination-wrapper">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous" class="prev-link">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li *ngIf="!(pager.currentPage === 1)">
+                <a class="prev-link" (click)="findSiteByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
-            <li class="active"><a href="javascript:void(0);">1</a></li>
-            <li><a href="javascript:void(0);">2</a></li>
-            <li><a href="javascript:void(0);">3</a></li>
-            <li><a href="javascript:void(0);">...</a></li>
-            <li><a href="javascript:void(0);">998</a></li>
-            <li><a href="javascript:void(0);">999</a></li>
-            <li>
-                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
+                <a href="javascript:void(0);"  (click)="findSiteByNameFunction('lineUp', 1)" >1</a>
+            </li>
+            <li *ngIf="pager.hiddenAtStart">
+                <a (click)="findSiteByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+            </li>
+
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="findSiteByNameFunction('lineUp', page)">{{page}}</a>
+            </li>
+
+            <li *ngIf="pager.hiddenAtEnd">
+                <a (click)="findSiteByNameFunction('lineUp', pager.endPage+1)" >...</a>
+            </li>
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
+                <a (click)="findSiteByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+            </li>
+            <li *ngIf="!(pager.currentPage === pager.totalPages)" >
+                <a href="javascript:void(0);" aria-label="Next" class="next-link"
+                   (click)="findSiteByNameFunction('lineUp', pager.currentPage + 1)">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>

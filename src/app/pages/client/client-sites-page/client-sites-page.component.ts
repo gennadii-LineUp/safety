@@ -4,16 +4,19 @@ import { NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {SiteClass} from '../../../models/const/site-class';
+import {PaginationService} from '../../../services/pagination/pagination.service';
 
 @Component({
   selector: 'app-client-sites-page',
   templateUrl: './client-sites-page.component.html',
   styleUrls: ['./client-sites-page.component.css'],
-    providers: [ClientService, ErrorMessageHandlerService]
+    providers: [ClientService, PaginationService, ErrorMessageHandlerService]
 })
 export class ClientSitesPageComponent implements OnInit {
     loading: boolean = false;
-    errorSalaries: string = 'error';
+    loaded: boolean = false;
+    errorLoad: string = '';
+    errorSalaries: string = '';
     errorCreating: string = '';
     successCreating: string = '';
 
@@ -26,12 +29,95 @@ export class ClientSitesPageComponent implements OnInit {
     _techControlSiege: boolean = false;
     _techControlSite: boolean = false;
 
+
+    sites = [];
+    pager: any = {};
+    totalItems: number = 0;
+    activePage: number = 1;
+    searchName: string = '';
+    currentPage: any;
+
+
     constructor(private clientService: ClientService,
                 private router: Router,
+                private paginationService: PaginationService,
                 private errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit() {
+        this.findSiteByNameFunction('');
         this.tableMobileViewInit();
+    }
+
+
+    ngOnDestroy() {
+        localStorage.removeItem('clientSiteSearch_page');
+        localStorage.removeItem('clientSiteSearch_name');
+    }
+
+
+    public onInitChecking() {
+        this.searchName = localStorage.clientSiteSearch_name;
+        this.activePage = +localStorage.clientSiteSearch_page;
+
+        if (this.searchName && this.activePage) {
+            console.log('== from local storage ==');
+            this.findSiteByNameFunction(this.searchName, this.activePage + 1);
+        } else {
+            this.findSiteByNameFunction('');
+        }
+        console.log('====' + this.searchName);
+    }
+
+
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+        this.pager = this.paginationService.getPager(this.totalItems, page);
+    }
+
+
+    public findSiteByNameFunction(name:string, page:any = 1) {
+        this.loading = true;
+        this.cancellErrorMessage();
+
+        let _name = name;
+        if (name === 'lineUp') {
+            _name = localStorage.clientSiteSearch_name;
+        }
+
+        this.clientService.findSiteByName(_name, page)
+            .subscribe(result => {
+                if (result) {
+                    this.loading = false;
+
+                    console.log(result);
+                    this.sites = result.items;  // EXAMPLE:  [{ address:"ff", id:23, name:"ds"} ]
+                    this.totalItems = +result.pagination.totalCount;
+                    console.log('ITEMS  ' + this.totalItems);
+                    this.currentPage = +result.pagination.current;
+
+                    this.setPage(this.currentPage);
+
+                    this.loaded = true;
+                    setTimeout(() => {
+                        this.tableMobileViewInit();
+                    }, 200);
+                    localStorage.setItem('clientSiteSearch_name', _name);
+                    // localStorage.setItem('clientSiteSearch_page', this.currentPage);
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log('====error=============');
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                if (errorStatusKnown) {
+                    this.errorLoad = errorStatusKnown;
+                    return;
+                }
+
+                this.errorLoad = err;
+                console.log(err);
+            });
     }
 
 
@@ -65,6 +151,7 @@ export class ClientSitesPageComponent implements OnInit {
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
+                    this.cancellErrorMessage();
                     console.log('======result====OK======');
                     console.log(result);
                     this.successCreating = "Well done! You've created a new client.";
@@ -82,8 +169,6 @@ export class ClientSitesPageComponent implements OnInit {
                 }
 
                 let error = (JSON.parse(err._body)).errors;
-                //console.log(error);
-                //console.log(Object.keys(error).length);
 
                 if (Object.keys(error).length > 0) {
                     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
@@ -131,7 +216,8 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
     private cancellErrorMessage() {
-        this.loading = false;
+        //this.loading = false;
+        this.errorLoad = '';
         this.errorSalaries = '';
         this.errorCreating = '';
     }
@@ -141,14 +227,12 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
     public gotoClientHomeForm() {
+        this.loading = true;
+        this.ngOnInit();
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.router.navigate(['/client/accueil']);
 
     }
-
-    // this.cancellErrorMessage();
-    // this.cancellSuccessMessage();
-    // this.loading = true;
 
 }

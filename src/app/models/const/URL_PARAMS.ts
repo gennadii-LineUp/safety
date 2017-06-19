@@ -16,8 +16,8 @@ export class UrlParams {
     }
 
     public static get clientSites(): string {
-        return `http://sfapi:8000/app_dev.php/client/sites`;
-      //  return `http://82.117.251.13/api/client/sites`;
+        return `http://sfapi:8000/app_dev.php/sites`;
+      //  return `http://82.117.251.13/api/sites`;
     }
 
     public static get clientGroupes(): string {

@@ -36,7 +36,7 @@ export class AdminClientsPageComponent implements OnInit {
 
     ngOnInit() {
         this.findClientByNameFunction('');
-        console.log(localStorage);
+        //console.log(localStorage);
     }
 
     ngOnDestroy() {
