@@ -29,7 +29,7 @@ export class ClientService {
     }
 
     getGroupList(page): Observable<any> {
-        console.log('==client service:_groupList started==');
+        //console.log('==client service:_groupList started==');
         let useTolkin:boolean = true;
         let query = '?q=&sort=&page=';
 

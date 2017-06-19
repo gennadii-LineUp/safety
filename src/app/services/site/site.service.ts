@@ -41,7 +41,7 @@ export class SiteService {
 
 
     addNewEmployee(newEmployee: any): Observable<any> {
-        console.log('==site service:_addNewEmployee started==');
+        //console.log('==site service:_addNewEmployee started==');
         let useTolkin:boolean = true;
 
         return this.backendService.post(UrlParams.siteNewEmployeeEtap1, JSON.stringify(newEmployee), useTolkin);

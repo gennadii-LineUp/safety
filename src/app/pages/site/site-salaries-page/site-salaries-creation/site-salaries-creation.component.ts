@@ -38,7 +38,7 @@ export class SiteSalariesCreationComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit() {
-        this.getEmployeeGroupes();
+      //  this.getEmployeeGroupes();
         this.datepickerRun();
     }
 
@@ -93,21 +93,21 @@ export class SiteSalariesCreationComponent implements OnInit {
                                                 newEmployeesForm.value.post,
                                                 datepicker_birthDate,
                                                 newEmployeesForm.value.numSecu,
-                                                newEmployeesForm.value.validityPeriod,
+                                                true,//newEmployeesForm.value.validityPeriod,
                                                 datepicker_startDate,
                                                 datepicker_endDate,
-                                                newEmployeesForm.value.employeeGroup);
+                                                270);   //newEmployeesForm.value.employeeGroup
 
         console.dir(newEmployee);
+        console.log(typeof newEmployeesForm.value.validityPeriod + ', ' + newEmployeesForm.value.validityPeriod);
+
 
         this.siteService.addNewEmployee(newEmployee)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log('======result====OK======');
                     console.log(result);
-                    //this.successCreating = "Well done! You've created a new employee.";
-
+                    this.successCreating = "Well done! You've created a new employee.";
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -120,11 +120,11 @@ export class SiteSalariesCreationComponent implements OnInit {
                     return;
                 }
 
-                let error = (JSON.parse(err._body)).errors;
+               // let error = (JSON.parse(err._body)).errors;
 
-                if (Object.keys(error).length > 0) {
-                    this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
-                }
+                // if (Object.keys(error).length > 0) {
+                //     this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
+                // }
             });
     }
 
@@ -136,7 +136,6 @@ export class SiteSalariesCreationComponent implements OnInit {
         }, 1000);
         clearTimeout(timeoutId);
     }
-
 
     highlightActiveMenu() {
         console.log('highlightActiveMenu');
