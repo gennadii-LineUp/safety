@@ -9,10 +9,10 @@ export class ClientClass{
     diffAddress : string;
     diffPostalCode : string;
     diffCity : string;
-    phone : number;
+    phone : string;
     numberSiret : number;
     contactName : string;
-    contactPhone : number;
+    contactPhone : string;
     contactEmail : string;
     employeesLimit : number;
 
@@ -26,10 +26,10 @@ export class ClientClass{
                  diffAddress: string = '',
                  diffPostalCode: string = '',
                  diffCity: string = '',
-                 phone: number,
+                 phone: string,
                  numberSiret: number,
                  contactName: string,
-                 contactPhone: number,
+                 contactPhone: string,
                  contactEmail: string,
                  employeesLimit: number) {
 

@@ -35,4 +35,8 @@ export class NavbarSalariesComponent implements OnInit {
         }
     }
 
+    logoutFunction() {
+        localStorage.clear();
+    }
+
 }

@@ -39,28 +39,7 @@ import {SalarieVisiteMedicComponent} from '../pages/salarie/salarie-visite-medic
 import {SalarieCacesComponent} from '../pages/salarie/salarie-caces/salarie-caces.component';
 import {SalarieAutorisComponent} from '../pages/salarie/salarie-autoris/salarie-autoris.component';
 import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestations/salarie-attestations.component';
-
-
-// const routes: Routes = [
-//     { path: '', redirectTo: 'login', pathMatch: 'full' },
-//     { path: 'login', component: LoginStartComponent },
-//     { path: 'login_', component: RappelerLeMotDePasseComponent },
-//     { path: 'admin/accueil',  component: AdminAccueilPageComponent },
-//     { path: 'admin/reglages',  component: AdminReglagesPageComponent },
-//     { path: 'admin/client', component: AdminClientsPageComponent },
-//     { path: 'admin/bibliotheque', component: AdminBibliothequePageComponent },
-//     { path: 'client/accueil', component: ClientSitesPageComponent },
-//     { path: 'client/groupes', component: ClientGroupesPageComponent },
-//     { path: 'client/salarie', component: ClientSalariesPageComponent },
-//     { path: 'client/profil', component: ClientProfilPageComponent },
-//     { path: 'client/bibliotheque', component: ClientBibliothequePageComponent },
-//     { path: 'site/accueil', component: SiteAccueilPageComponent },
-//     { path: 'site/reglages', component: SiteReglagesPageComponent },
-//     { path: 'site/fichiers', component: SiteFichiersPageComponent },
-//     { path: 'site/parc', component: SiteParcPageComponent },
-//     { path: 'site/parc', component: SiteParcPageComponent },
-//     { path: 'site/salarie', component: SiteSalariesPageComponent }
-// ];
+import {EmployeeNullGuard} from '../guards/employee-null-guard.service';
 
 
 const routes: Routes = [
@@ -99,7 +78,7 @@ const routes: Routes = [
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
-    { path: 'sfsalarie', component: SalarieComponent, //canActivate: [AuthGuard, ClientGuard],
+    { path: 'sfsalarie', component: SalarieComponent, canActivate: [AuthGuard, EmployeeNullGuard],
         children: [
             { path: 'profil', component: SalarieProfilComponent },
             { path: 'fichiers', component: SalarieFichiersComponent },
@@ -153,7 +132,7 @@ const routes: Routes = [
     imports: [ RouterModule.forRoot(routes) ],
     exports: [ RouterModule ],
     providers: [
-        AuthGuard, AdminGuard, ClientGuard
+        AuthGuard, AdminGuard, ClientGuard, EmployeeNullGuard
     ]
 })
 export class AppRoutingModule {}

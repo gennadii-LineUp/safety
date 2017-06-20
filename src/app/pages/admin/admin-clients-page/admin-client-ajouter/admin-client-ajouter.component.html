@@ -73,7 +73,7 @@
         </div>
         <div class="input-wrapper">
             <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone</p>
-            <input type="number" class="form-control" placeholder="Téléphone*"
+            <input type="text" class="form-control" placeholder="Téléphone*"
                    #phone="ngModel" id="phone" name='phone' required (ngModel)="phone" />
             <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
         </div>
@@ -94,7 +94,7 @@
         </div>
         <div class="input-wrapper">
             <p [hidden]="contactPhone.invalid" class="requred-field color-valid">Téléphone du contact</p>
-            <input type='number' class="form-control" placeholder="Téléphone du contact" value="555"
+            <input type='text' class="form-control" placeholder="Téléphone du contact" value="555"
                    #contactPhone="ngModel" id="contactPhone" name='contactPhone' required (ngModel)="contactPhone" />
             <p [hidden]="contactPhone.valid || contactPhone.untouched " class="requred-field ">Champs requis</p>
         </div>

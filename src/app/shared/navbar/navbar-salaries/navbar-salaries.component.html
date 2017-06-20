@@ -58,11 +58,6 @@
                 </a>
             </li>
 
-            <li *ngIf='showLogin' class="back-to-admin-link" [routerLink]="['/login']">
-                <a href="javascript:void(0);">
-                    &lt; Retour à login
-                </a>
-            </li>
             <li *ngIf='showClientData' class="back-to-admin-link" [routerLink]="['/client/accueil']">
                 <a href="javascript:void(0);">
                     &lt; Retour au client
@@ -71,6 +66,11 @@
             <li *ngIf='showAdminData' class="back-to-admin-link" [routerLink]="['/admin/accueil']">
                 <a href="javascript:void(0);">
                     &lt; Retour à l’admin
+                </a>
+            </li>
+            <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['/site/accueil']">
+                <a href="javascript:void(0);">
+                    &lt; Logout
                 </a>
             </li>
         </ul>

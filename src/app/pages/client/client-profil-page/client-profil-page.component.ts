@@ -37,7 +37,6 @@ export class ClientProfilPageComponent implements OnInit {
         this.clientService.getClientProfilData()
             .subscribe(result => {
                 if (result) {
-                    console.log('======result============');
                     this.loading = false;
                     console.dir(result);
 

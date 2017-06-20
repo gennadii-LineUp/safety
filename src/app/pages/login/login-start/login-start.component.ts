@@ -33,6 +33,7 @@ export class LoginStartComponent implements OnInit {
                         console.log('true, ' + localStorage.role);
                         if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
                         if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']);}
+                        if (localStorage.role === 'ROLE_EMPLOYEE') {this.router.navigate(['/sfsalarie']);}
                         this.loading = false;
                 }
             }, (err) => {
