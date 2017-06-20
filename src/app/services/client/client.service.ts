@@ -26,9 +26,15 @@ export class ClientService {
         let query = '?q=' + name + '&page=' + page;
 
         return this.backendService.get(UrlParams.clientSites + query, useTolkin);
-
     }
 
+    findSalarieByName(name: string, page: any): Observable<any> {
+        //console.log('==admin service:_findClientByName started==');
+        let useTolkin:boolean = true;
+        let query = '?q=' + name + '&page=' + page;
+
+        return this.backendService.get(UrlParams.clientEmployees + query, useTolkin);
+    }
 
     addNewSite(newSite: any): Observable<any> {
         console.log('==client service:_addNewSite started==');
@@ -43,7 +49,6 @@ export class ClientService {
         let query = '?q=&sort=&page=';
 
         return this.backendService.get(UrlParams.clientGroupes + query + page, useTolkin);
-
     }
 
     findGroupeByName(name: string, page: any): Observable<any> {
@@ -52,7 +57,6 @@ export class ClientService {
         let query = '?q=' + name + '&page=' + page;
 
         return this.backendService.get(UrlParams.clientGroupes + query, useTolkin);
-
     }
 
     addNewGroupe(newGroupe: any): Observable<any> {

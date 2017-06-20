@@ -20,6 +20,8 @@ import {LoginService} from '../services/login/login.service';
 import { ModalStandartComponent, ModalHeader, ModalContent, ModalFooter } from './modal-standart/modal-standart.component';
 import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
 import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component';
+import { NavbarSalariesComponent } from './navbar/navbar-salaries/navbar-salaries.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 // import {ModalModule} from "ng2-modal";
 
@@ -48,6 +50,8 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
         ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe,
         NavbarSiteComponent,
+        NavbarSalariesComponent,
+        PaginationComponent,
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -62,7 +66,8 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
         ModalStandartComponent, ModalHeader, ModalContent, ModalFooter,
         AdminAccessPipe,
         NavbarSiteComponent,
-
+        NavbarSalariesComponent,
+        PaginationComponent,
     ],
     providers: [
         BackendService,

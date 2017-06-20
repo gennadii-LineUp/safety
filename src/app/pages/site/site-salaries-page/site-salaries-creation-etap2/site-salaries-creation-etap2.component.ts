@@ -11,6 +11,15 @@ declare var $:any;
     providers: [SiteService, ErrorMessageHandlerService]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit {
+    loading: boolean = false;
+    loadingSalarieUsed: boolean = false;
+    loaded: boolean = false;
+    loadedSalarieUsed: boolean = false;
+    errorLoad: string = '';
+    errorSalaries: string = '';
+    errorCreating: string = '';
+    successCreating: string = '';
+
     chariotsElevateurs: boolean = true;
     gruesMobiles: boolean = false;
 

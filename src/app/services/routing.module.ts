@@ -81,7 +81,7 @@ const routes: Routes = [
         children: [
                 { path: 'accueil', component: ClientSitesPageComponent  },
                 { path: 'groupes', component: ClientGroupesPageComponent },
-                { path: 'salarie', component: ClientSalariesPageComponent },
+                { path: 'employees', component: ClientSalariesPageComponent },//salarie
                 { path: 'profil', component: ClientProfilPageComponent },
                 { path: 'bibliotheque', component: ClientBibliothequePageComponent },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }

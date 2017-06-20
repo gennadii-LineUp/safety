@@ -2358,6 +2358,10 @@ h2 {
     table td:last-of-type {
         text-align: center !important;
     }
+    .table-default td:last-of-type {
+        padding-left: 8px;
+        padding-right: 5px;
+    }
 }
 
 @media screen and (max-width: 767px) {

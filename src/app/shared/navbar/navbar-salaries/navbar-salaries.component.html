@@ -16,29 +16,45 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li  routerLinkActive="active" [routerLink]="['/site/accueil']">
+            <li routerLinkActive="active" [routerLink]="['/sfsalarie/profil']">
                 <a href="javascript:void(0);">
-                    Accueil
+                    Mon profil
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site/reglages']">
+            <li  >
                 <a href="javascript:void(0);">
-                    Réglages
+                    Mon compte formation
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site/fichiers']">
+            <li routerLinkActive="active" [routerLink]="['/sfsalarie/fichiers']">
                 <a href="javascript:void(0);">
                     Fichiers
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site/parc']">
+            <li role="separator" class="divider"></li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/fiches-machines']">
                 <a href="javascript:void(0);">
-                    Parc Machines
+                    Fiches Machines
                 </a>
             </li>
-            <li routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site/salaries']">
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/visite-medicale']">
                 <a href="javascript:void(0);">
-                    Salariés
+                    Visite médicale
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/caces']">
+                <a href="javascript:void(0);">
+                    Caces
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/attestations']">
+                <a href="javascript:void(0);">
+                    Attestations / Habilit.
+                </a>
+            </li>
+            <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/autorisations-conduite']">
+                <a href="javascript:void(0);">
+                    Autorisations conduite
                 </a>
             </li>
 

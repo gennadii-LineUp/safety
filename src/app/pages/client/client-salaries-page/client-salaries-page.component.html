@@ -1,16 +1,29 @@
 <header class="main-header">
+    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;'>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p>SAFETY: <span>{{errorLoad}}</span></p>
+    </div>
+
     <h1>Salariés</h1>
+    <img *ngIf="loading" style='position: absolute; left:48%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
 </header>
-<div class="main-content">
+<div class="main-content"  *ngIf='loaded'>
+    <img *ngIf="loading" style='position: absolute; left:49%; bottom:50%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
     <div class="search-panel clearfix">
-        <p>Vous utilisez <span>xx/yy salariés disponibles</span></p>
+        <img *ngIf="loadingSalarieUsed" style='position: absolute; left:20%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <p *ngIf="loadedSalarieUsed">Vous utilisez <span>xx/yy salariés disponibles</span></p>
         <div class="search-wrapper">
-            <button class="search-button" type="button"></button>
-            <input type="text" class="form-control search-input" placeholder="Rechercher">
+            <button class="search-button" type="button" (click)='findSalarieByNameFunction(findSalarieByName.value, 1)'></button>
+            <input #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
+                   class="form-control search-input" placeholder="Rechercher"
+                   (keyup.enter)='findSalarieByNameFunction(findSalarieByName.value)'>
         </div>
     </div>
-    <div class="table-wrapper">
+    <div  class="table-wrapper">
         <table class="table-default salaries-table">
             <thead>
             <tr>
@@ -55,118 +68,60 @@
                 </th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>Nom</td>
-                <td>Prénom</td>
-                <td>201010100000000</td>
-                <td>Nom du site</td>
-                <td>Nom du groupe</td>
-                <td>Indéterminé</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+            <tbody >
+            <tr *ngFor="let salarie of salaries">
+                <td>{{salarie.name}}</td>
+                <td>{{salarie.surname}}</td>
+                <td>{{salarie.numSecu}}</td>
+                <td>{{salarie.siteName}}</td>
+                <td>{{salarie.groupName}}</td>
+                <td>{{salarie.validityPeriod}}</td>
+                <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
             </tr>
-            <tr>
-                <td>Nom max 18 lettres...</td>
-                <td>Nom max 18 lettres...</td>
-                <td>102020299988877</td>
-                <td>Nom site 18 lettres...</td>
-                <td>Nom gpe 18 lettres...</td>
-                <td>00/00/0000</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>Prénom</td>
-                <td>201010100000000</td>
-                <td>Nom du site</td>
-                <td>Nom du groupe</td>
-                <td>Indéterminé</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom max 18 lettres...</td>
-                <td>Nom max 18 lettres...</td>
-                <td>102020299988877</td>
-                <td>Nom site 18 lettres...</td>
-                <td>Nom gpe 18 lettres...</td>
-                <td>00/00/0000</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>Prénom</td>
-                <td>201010100000000</td>
-                <td>Nom du site</td>
-                <td>Nom du groupe</td>
-                <td>Indéterminé</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom max 18 lettres...</td>
-                <td>Nom max 18 lettres...</td>
-                <td>102020299988877</td>
-                <td>Nom site 18 lettres...</td>
-                <td>Nom gpe 18 lettres...</td>
-                <td>00/00/0000</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>Prénom</td>
-                <td>201010100000000</td>
-                <td>Nom du site</td>
-                <td>Nom du groupe</td>
-                <td>Indéterminé</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom max 18 lettres...</td>
-                <td>Nom max 18 lettres...</td>
-                <td>102020299988877</td>
-                <td>Nom site 18 lettres...</td>
-                <td>Nom gpe 18 lettres...</td>
-                <td>00/00/0000</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom</td>
-                <td>Prénom</td>
-                <td>201010100000000</td>
-                <td>Nom du site</td>
-                <td>Nom du groupe</td>
-                <td>Indéterminé</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom max 18 lettres...</td>
-                <td>Nom max 18 lettres...</td>
-                <td>102020299988877</td>
-                <td>Nom site 18 lettres...</td>
-                <td>Nom gpe 18 lettres...</td>
-                <td>00/00/0000</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>                                                                                                                                                                                                                                                                                                       </tbody>
+
+            <!--<tr>-->
+                <!--<td>Nom</td>-->
+                <!--<td>Prénom</td>-->
+                <!--<td>201010100000000</td>-->
+                <!--<td>Nom du site</td>-->
+                <!--<td>Nom du groupe</td>-->
+                <!--<td>Indéterminé</td>-->
+                <!--<td><a href="javascript:void(0);">Gérer / Supprimer</a></td>-->
+            <!--</tr>-->
+                                                                                                                                                                                                                                                                                                </tbody>
         </table>
     </div>
-    <nav aria-label="Page navigation" class="pagination-wrapper">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous" class="prev-link">
+    <nav  aria-label="Page navigation" class="pagination-wrapper">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li *ngIf="!(pager.currentPage === 1)">
+                <a class="prev-link" (click)="findSalarieByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
                   <span aria-hidden="true">
-                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
-            <li class="active"><a href="javascript:void(0);">1</a></li>
-            <li><a href="javascript:void(0);">2</a></li>
-            <li><a href="javascript:void(0);">3</a></li>
-            <li><a href="javascript:void(0);">...</a></li>
-            <li><a href="javascript:void(0);">998</a></li>
-            <li><a href="javascript:void(0);">999</a></li>
-            <li>
-                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
+                <a href="javascript:void(0);"  (click)="findSalarieByNameFunction('lineUp', 1)" >1</a>
+            </li>
+            <li *ngIf="pager.hiddenAtStart">
+                <a (click)="findSalarieByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+            </li>
+
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="findSalarieByNameFunction('lineUp', page)">{{page}}</a>
+            </li>
+
+            <li *ngIf="pager.hiddenAtEnd">
+                <a (click)="findSalarieByNameFunction('lineUp', pager.endPage+1)" >...</a>
+            </li>
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
+                <a (click)="findSalarieByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+            </li>
+            <li *ngIf="!(pager.currentPage === pager.totalPages)" >
+                <a href="javascript:void(0);" aria-label="Next" class="next-link"
+                   (click)="findSalarieByNameFunction('lineUp', pager.currentPage + 1)">
                   <span aria-hidden="true">
-                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>

@@ -104,7 +104,7 @@ export class ClientSitesPageComponent implements OnInit {
                         this.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('clientSiteSearch_name', _name);
-                    // localStorage.setItem('clientSiteSearch_page', this.currentPage);
+                    localStorage.setItem('clientSiteSearch_page', this.currentPage);
                 }
             }, (err) => {
                 this.loading = false;

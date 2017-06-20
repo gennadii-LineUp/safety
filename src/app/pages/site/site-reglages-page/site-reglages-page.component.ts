@@ -10,6 +10,15 @@ import {ErrorMessageHandlerService} from 'app/services/error/error-message-handl
     providers: [AuthGuard, AdminGuard, ErrorMessageHandlerService]
 })
 export class SiteReglagesPageComponent implements OnInit {
+    loading: boolean = false;
+    loadingSalarieUsed: boolean = false;
+    loaded: boolean = false;
+    loadedSalarieUsed: boolean = false;
+    errorLoad: string = '';
+    errorSalaries: string = '';
+    errorCreating: string = '';
+    successCreating: string = '';
+
     showAdminData : boolean = false;
 
     constructor(private authGuard: AuthGuard,

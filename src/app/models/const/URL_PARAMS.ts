@@ -25,6 +25,11 @@ export class UrlParams {
       //  return `http://82.117.251.13/api/client/employees-groups`;
     }
 
+    public static get clientEmployees(): string {
+        return `http://sfapi:8000/app_dev.php/client/employees`;
+        //   return `http://82.117.251.13/api/client/employees`;
+    }
+
     public static get clientProfilData(): string {
         return `http://sfapi:8000/app_dev.php/client/profile`;
        // return `http://82.117.251.13/api/client/profile`;
