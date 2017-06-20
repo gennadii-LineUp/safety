@@ -13,13 +13,13 @@ export class SiteComponent implements OnInit {
     ngOnInit(): void {
 
         /* MOBILE MENU */
-        $('#nav-icon1').click(() =>{
+        $('#nav-icon1').click(function(){
             $(this).toggleClass('open');
         });
-        $('#nav-icon1').click(() => {
+        $('#nav-icon1').click(function(){
             $('.sidebar-nav').slideToggle(400);
         });
-        $(window).resize(() =>{
+        $(window).resize(function(){
             var windowWidth = window.innerWidth;
             if (windowWidth > 991) {
                 $(".sidebar-nav").slideDown();

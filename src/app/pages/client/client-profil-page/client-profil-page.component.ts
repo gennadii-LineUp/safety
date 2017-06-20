@@ -19,7 +19,7 @@ export class ClientProfilPageComponent implements OnInit {
 
     billingAddressIsDifferent: boolean = true;
 
-    client = new ClientClass('','','','','',true,'','','','',0,0,'',0,'',0);
+    client = new ClientClass('','','','','',true,'','','','','',0,'','','',0);
 
     constructor(private router: Router,
                 private clientService: ClientService,
