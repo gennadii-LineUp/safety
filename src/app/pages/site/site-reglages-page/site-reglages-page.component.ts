@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdminGuard} from 'app/guards/admin-guard.service';
 import {AuthGuard } from 'app/guards/auth-guards.service';
 import {ErrorMessageHandlerService} from 'app/services/error/error-message-handler.service';
-import {ActivatedRoute} from '@angular/router';
+import {SiteService} from '../../../services/site/site.service';
 
 @Component({
   selector: 'site-reglages-page',
@@ -23,7 +23,6 @@ export class SiteReglagesPageComponent implements OnInit {
     showAdminData : boolean = false;
 
     id_site: number = 0;
-    private sub: any;
 
 
     constructor(private authGuard: AuthGuard,
@@ -41,24 +40,7 @@ export class SiteReglagesPageComponent implements OnInit {
       }
 
       this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
-      // console.log(this.authGuard.canActivate());
-       //console.log(this.canActivate());
   }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
-
-    // public canActivate() {
-    //     if (localStorage.getItem('token')) {
-    //         // logged in so return true
-    //         return true;
-    //     }
-    //
-    //     // not logged in so redirect to login page
-    //     //this.router.navigate(['/login']);
-    //     return false;
-    // }
 
 }

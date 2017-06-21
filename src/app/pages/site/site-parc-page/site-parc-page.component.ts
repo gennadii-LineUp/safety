@@ -1,5 +1,4 @@
 import { Component, OnInit  } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {SiteService} from '../../../services/site/site.service';
 declare var $:any;
 
@@ -20,7 +19,6 @@ export class SiteParcPageComponent implements OnInit {
     successCreating: string = '';
 
     id_site: number = 0;
-    private sub: any;
 
     constructor(private siteService: SiteService) {}
 
@@ -38,9 +36,6 @@ export class SiteParcPageComponent implements OnInit {
         });
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
 
 
     datepickerRun() {

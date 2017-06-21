@@ -23,7 +23,9 @@ export class SiteComponent implements OnInit {
 
             console.log(this.id_site);
         });
-        this.siteService.setIdSite(this.id_site);
+
+        this.siteService.setLog(this.id_site);
+
         localStorage.setItem('id_site', ''+this.id_site);
         this.tableMobileViewInit();
     }

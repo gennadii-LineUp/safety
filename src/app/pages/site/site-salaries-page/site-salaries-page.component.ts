@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router}    from '@angular/router';
+import { Router}    from '@angular/router';
 import {SiteService} from '../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
@@ -12,21 +12,13 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 })
 export class SiteSalariesPageComponent implements OnInit {
     id_site: number = 0;
-    private sub: any;
 
-    constructor(private route: ActivatedRoute,
-                private siteService: SiteService,
+    constructor(private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private paginationService: PaginationService,
                 private router: Router) { }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id_site = +params['id_site'];
-
-            console.log(this.id_site);
-        });
-
         this.id_site = this.siteService.getIdSite();
         console.log(this.id_site);
 
@@ -36,10 +28,6 @@ export class SiteSalariesPageComponent implements OnInit {
         }
 
         this.tableMobileViewInit();
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
 

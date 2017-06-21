@@ -1,18 +1,33 @@
 import { Injectable } from '@angular/core';
 import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
+
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SiteService {
     public token: string;
     public id_site: number;
 
+    private logged: number;
+    private subject: Subject<number> = new Subject<number>();
 
     constructor(private backendService: BackendService) {
         this.token = localStorage.token;
     }
+
+    setLog(logged: number): void {
+        this.logged = logged;
+        this.subject.next(logged);
+        console.log('logged ' + this.logged);
+    }
+
+    getLogged(): Observable<number> {
+        return this.subject.asObservable();
+    }
+
+
 
 
     public setIdSite(id_site: number) {
