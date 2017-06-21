@@ -17,6 +17,15 @@ button.green-button[disabled] {
     color: #808080
 }
 /*=end=== form validation ====*/
+div.error-message {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 14px !important;
+    color: #f32938;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    font-weight: 500;
+}
 /*==== table carets ====*/
 .single-sort-button {
     display: inline-block;

@@ -16,6 +16,7 @@ declare var $:any;
 export class SiteSalariesCreationComponent implements OnInit {
     loading: boolean = false;
     loadingGroupes: boolean = true;
+    noGroups: boolean = false;
     loaded: boolean = false;
     errorCreating: string = '';
     successCreating: string = '';
@@ -43,17 +44,25 @@ export class SiteSalariesCreationComponent implements OnInit {
     }
 
     public getEmployeeGroupes() {
+        this.noGroups = false;
         this.clientService.getGroupList(1)
             .subscribe(result => {
                 if (result) {
+                    this.noGroups = false;
                     this.cancellErrorMessage();
                     this.employeeGroupes = result.items;
                     // this.employees.validityPeriod = this.periodeDeValidite[0].booleanValue;
                 }
             }, (err) => {
                 console.log('====error=============');
+                this.noGroups = true;
                 this.cancellErrorMessage();
                 console.log(err);
+
+                if (err.status === 403) {
+                    this.errorLoad = "Il n'y a pas de groupes disponibles. Créez-les d'abord ...";
+                    return;
+                }
 
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {

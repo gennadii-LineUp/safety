@@ -75,6 +75,9 @@
                         <label for={{groupe.id}} class="radio-label">{{groupe.name}}</label>
                     </div>
                 </div>
+                <div *ngIf='noGroups' class='error-message'>
+                    Il n'y a pas de groupes disponibles. Créez-les d'abord ...
+                </div>
 
         </div>
         <div class="one-column-input-wrapper">
@@ -106,7 +109,7 @@
                     <button type="button" class="form-button red-button annuler-button"
                             (click)='gotoSiteSalariesPage()'>Annuler</button>
                     <button type="submit" class="form-button green-button sauvegarder-button"
-                            [disabled]="!site_newEmployee1Form.form.valid">Sauvegarder</button>
+                            [disabled]="!(site_newEmployee1Form.form.valid && !noGroups)">Sauvegarder</button>
 
                     <!--<div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}</div>-->
                     <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
