@@ -214,12 +214,22 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let site of sites">
+            <tr *ngFor="let site of sites" >
                 <td>{{site.name}}</td>
                 <td>{{site.address}}</td>
                 <td>TODO: Prénom Nom</td>
-                <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                <td><a href="javascript:void(0);" [routerLink]="['/site', site.id, 'accueil' ]" >Gérer {{site.id}}</a> / <a href="javascript:void(0);">Supprimer</a></td>
             </tr>
+
+            <!--[routerLink]="['/admin/accueil']"-->
+
+            <!--[routerLink]="['site', '' + $site.id ]"-->
+            <!--<select name="theme" [(ngModel)]="user.theme">-->
+                <!--<option *ngFor="let theme of themes" [ngValue]="theme">-->
+                    <!--{{theme.display}}-->
+                <!--</option>-->
+            <!--</select>-->
+
             </tbody>
         </table>
     </div>

@@ -16,27 +16,27 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li  routerLinkActive="active" [routerLink]="['/site/accueil']">
+            <li  routerLinkActive="active" [routerLink]="['/site', id_site, 'accueil']">
                 <a href="javascript:void(0);">
                     Accueil
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site/reglages']">
+            <li routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
                 <a href="javascript:void(0);">
                     Réglages
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site/fichiers']">
+            <li routerLinkActive="active" [routerLink]="['/site', id_site, 'fichiers']">
                 <a href="javascript:void(0);">
                     Fichiers
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site/parc']">
+            <li routerLinkActive="active" [routerLink]="['/site', id_site, 'parc']">
                 <a href="javascript:void(0);">
                     Parc Machines
                 </a>
             </li>
-            <li routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site/salaries']">
+            <li routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site', id_site, 'salaries']">
                 <a href="javascript:void(0);">
                     Salariés
                 </a>

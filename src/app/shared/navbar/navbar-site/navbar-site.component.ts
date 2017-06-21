@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthGuard} from '../../../guards/auth-guards.service';
 import {AdminGuard} from '../../../guards/admin-guard.service';
 import {ClientGuard} from '../../../guards/client-guard.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'navbar-site',
@@ -14,13 +15,29 @@ export class NavbarSiteComponent implements OnInit {
     showClientData : boolean = false;
     showLogin : boolean = false;
 
+    id_site: number = 0;
+    private sub: any;
+
+
     constructor(private authGuard: AuthGuard,
                 private adminGuard: AdminGuard,
-                private clientGuard: ClientGuard){}
+                private clientGuard: ClientGuard,
+                private route: ActivatedRoute){}
 
     ngOnInit() {
         this.verifyUserRole();
+
+        this.sub = this.route.params.subscribe(params => {
+            this.id_site = +params['id_site'];
+
+            console.log(this.id_site);
+        });
     }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
 
     public verifyUserRole() {
         this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();

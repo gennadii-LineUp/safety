@@ -1,10 +1,13 @@
 import { Component, OnInit  } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {SiteService} from '../../../services/site/site.service';
 declare var $:any;
 
 @Component({
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
-  styleUrls: ['./site-parc-page.component.css']
+  styleUrls: ['./site-parc-page.component.css'],
+    providers: [SiteService]
 })
 export class SiteParcPageComponent implements OnInit {
     loading: boolean = false;
@@ -16,14 +19,29 @@ export class SiteParcPageComponent implements OnInit {
     errorCreating: string = '';
     successCreating: string = '';
 
-  constructor() { }
+    id_site: number = 0;
+    private sub: any;
+
+    constructor(private siteService: SiteService) {}
 
     ngOnInit() {
+        this.id_site = this.siteService.getIdSite();
+        console.log(this.id_site);
+
+        if (!this.id_site) {
+            this.id_site = localStorage.id_site;
+            console.log('from LS = '+this.id_site);
+        }
+
         $(document).ready(() => {
             this.datepickerRun();
         });
-
     }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
+    }
+
 
     datepickerRun() {
        // $(() => {

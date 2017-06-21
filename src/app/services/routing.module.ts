@@ -66,7 +66,7 @@ const routes: Routes = [
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]
     },
-    { path: 'site', component: SiteComponent, //canActivate: [AuthGuard, ClientGuard],
+    { path: 'site/:id_site', component: SiteComponent, //canActivate: [AuthGuard, ClientGuard],
         children: [
                 { path: 'accueil', component: SiteAccueilPageComponent },
                 { path: 'reglages', component: SiteReglagesPageComponent },

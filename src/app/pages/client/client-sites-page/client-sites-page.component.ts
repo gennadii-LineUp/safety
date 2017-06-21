@@ -232,7 +232,11 @@ export class ClientSitesPageComponent implements OnInit {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.router.navigate(['/client/accueil']);
-
+    }
+    public gotoSiteHomePage (e:Event) {
+        console.dir(e);
+        console.dir(e.target);
+        console.dir(e.currentTarget);
     }
 
 }

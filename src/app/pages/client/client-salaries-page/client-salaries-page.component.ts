@@ -64,14 +64,18 @@ export class ClientSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loadingSalarieUsed = false;
-                console.log('====error=============');
-                console.log(err);
+                if (err.status === 403) {
+                    this.errorLoad = "Aucun salarié n'a pas été créé";
+                    return;
+                }
+
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;
                     return;
                 }
 
+                console.log(err);
                 this.errorLoad = err;
             });
     }
@@ -129,7 +133,11 @@ export class ClientSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
-                console.log('====error=============');
+                if (err.status === 403) {
+                    this.errorLoad = "Aucun salarié n'a pas été créé";
+                    return;
+                }
+
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;

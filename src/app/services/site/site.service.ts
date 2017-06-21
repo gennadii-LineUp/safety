@@ -2,14 +2,29 @@ import { Injectable } from '@angular/core';
 import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class SiteService {
     public token: string;
+    public id_site: number;
+
 
     constructor(private backendService: BackendService) {
         this.token = localStorage.token;
     }
+
+
+    public setIdSite(id_site: number) {
+        this.id_site = id_site;
+        console.log('setted ' + this.id_site);
+    }
+
+    public getIdSite():number {
+        console.log('getting... ' + this.id_site);
+        return this.id_site;
+    }
+
 
     homeData(): Observable<any> {
         //console.log('==admin service:_homeData started==');
