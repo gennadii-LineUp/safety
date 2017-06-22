@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SiteService} from '../../services/site/site.service';
+import {DataService} from '../../services/DataService.service';
 declare var $:any;
 
 @Component({
@@ -15,24 +16,30 @@ export class SiteComponent implements OnInit {
     private sub: any;
 
     constructor(private route: ActivatedRoute,
-                private siteService: SiteService) {}
+                private siteService: SiteService,
+                private dataService: DataService) {}
 
-    ngOnInit() {
+
+
+    ngOnInit():void {
         this.sub = this.route.params.subscribe(params => {
             this.id_site = +params['id_site'];
-
-            console.log(this.id_site);
         });
-
-        this.siteService.setLog(this.id_site);
+        this.updateData(this.id_site);        // doesn't work
 
         localStorage.setItem('id_site', ''+this.id_site);
+
         this.tableMobileViewInit();
+    }
+
+    updateData(value: number) {        // doesn't work
+        this.dataService.updateData(value);
     }
 
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
+
 
 
     public tableMobileViewInit() {

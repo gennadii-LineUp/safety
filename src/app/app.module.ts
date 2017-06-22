@@ -9,6 +9,7 @@ import {AppComponent} from './pages/index-page/app.component';
 import {AppRoutingModule} from './services/routing.module';
 // import {SharedModule} from "./shared/shared.module";
 import {AlertModule} from 'ngx-bootstrap';
+import {DataService} from './services/DataService.service';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import {AlertModule} from 'ngx-bootstrap';
       PagesModule
   ],
     exports: [ ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [DataService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

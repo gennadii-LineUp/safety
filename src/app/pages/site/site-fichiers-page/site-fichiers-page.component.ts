@@ -21,22 +21,10 @@ export class SiteFichiersPageComponent implements OnInit {
 
     constructor(private siteService: SiteService) {}
 
-    ngOnInit() {
-        console.log('ngOnInit');
-        this.siteService.getLogged().subscribe((id: number) => {
-            console.log('Welcome ', id);
-        });
+    ngOnInit():void {
+        this.id_site = localStorage.id_site;
 
-
-        // this.id_site = this.siteService.getIdSite();
-        // console.log('getterrrrrrr '+this.id_site);
-
-
-
-        // if (!this.id_site) {
-        //     this.id_site = localStorage.id_site;
-        //     console.log('from LS = '+this.id_site);
-        // }
     }
+
 
 }

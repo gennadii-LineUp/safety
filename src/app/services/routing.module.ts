@@ -7,13 +7,7 @@ import {ClientComponent} from '../pages/client/client.component';
 import {AuthGuard} from 'app/guards/auth-guards.service';
 import {AdminGuard} from '../guards/admin-guard.service';
 import {ClientGuard} from '../guards/client-guard.service';
-
-// import {AdminRoutingModule} from '../pages/admin/admin-routing.module';
-// import {AppComponent} from '../pages/index-page/app.component';
-// import {ClientRoutingModule} from '../pages/client/client-routing.module';
-// import {InnerPagesComponent} from '../pages/inner-pages/inner-pages/inner-pages.component';
 import {AdminAccueilContentComponent} from '../pages/admin/admin-accueil-page/admin-accueil-content/admin-accueil-content.component';
-// import {SiteRoutingModule} from '../pages/site/site-routing.module';
 import {AdminClientAjouterComponent} from '../pages/admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 import {AdminReglagesPageComponent} from 'app/pages/admin/admin-reglages-page/admin-reglages-page.component';
 import {AdminBibliothequePageComponent} from '../pages/admin/admin-bibliotheque-page/admin-bibliotheque-page.component';
@@ -40,6 +34,7 @@ import {SalarieCacesComponent} from '../pages/salarie/salarie-caces/salarie-cace
 import {SalarieAutorisComponent} from '../pages/salarie/salarie-autoris/salarie-autoris.component';
 import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestations/salarie-attestations.component';
 import {EmployeeNullGuard} from '../guards/employee-null-guard.service';
+import {DataService} from './DataService.service';
 
 
 const routes: Routes = [
@@ -132,7 +127,7 @@ const routes: Routes = [
     imports: [ RouterModule.forRoot(routes) ],
     exports: [ RouterModule ],
     providers: [
-        AuthGuard, AdminGuard, ClientGuard, EmployeeNullGuard
+        AuthGuard, AdminGuard, ClientGuard, EmployeeNullGuard, DataService
     ]
 })
 export class AppRoutingModule {}

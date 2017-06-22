@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
+import {DataService} from '../../../services/DataService.service';
 
 @Component({
   selector: 'site-accueil-page',
@@ -19,16 +20,19 @@ export class SiteAccueilPageComponent implements OnInit {
 
     id_site: number;
 
-    constructor(private siteService: SiteService) {}
+
+    constructor(private dataService: DataService) {}
 
     ngOnInit() {
-        this.id_site = this.siteService.getIdSite();
-        console.log(this.id_site);
+        this.id_site = localStorage.id_site;
 
-        if (!this.id_site) {
-            this.id_site = localStorage.id_site;
-            console.log('from LS = '+this.id_site);
-        }
+        // this.id_site = this.siteService.getIdSite();       // doesn't work
+
+        //console.log('from component');                      // doesn't work
+        // this.dataService.getData().subscribe(data => {     // doesn't work
+        //     this.id_site = data;
+        // })
+        //console.log(this.id_site);
     }
 
 

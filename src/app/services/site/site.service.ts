@@ -4,28 +4,27 @@ import {UrlParams} from '../../models/const/URL_PARAMS';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SiteService {
     public token: string;
     public id_site: number;
 
-    private logged: number;
+
+
+
+
     private subject: Subject<number> = new Subject<number>();
+
 
     constructor(private backendService: BackendService) {
         this.token = localStorage.token;
     }
 
-    setLog(logged: number): void {
-        this.logged = logged;
-        this.subject.next(logged);
-        console.log('logged ' + this.logged);
-    }
 
-    getLogged(): Observable<number> {
-        return this.subject.asObservable();
-    }
+
+
 
 
 
@@ -34,7 +33,6 @@ export class SiteService {
         this.id_site = id_site;
         console.log('setted ' + this.id_site);
     }
-
     public getIdSite():number {
         console.log('getting... ' + this.id_site);
         return this.id_site;

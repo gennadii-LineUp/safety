@@ -49,6 +49,7 @@ import { SalarieAttestationsComponent } from './salarie/salarie-attestations/sal
 import { SalarieAutorisComponent } from './salarie/salarie-autoris/salarie-autoris.component';
 import { SalarieFichesModalComponent, ModalHeaderSSF, ModalContentSSF, ModalFooterSSF } from './salarie/salarie-fiches-machines/salarie-fiches-modal/salarie-fiches-modal.component';
 import {SalarieComponent} from './salarie/salarie.component';
+import {DataService} from '../services/DataService.service';
 
 
 @NgModule({
@@ -128,7 +129,7 @@ import {SalarieComponent} from './salarie/salarie.component';
         SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
 
     ],
-    providers: [],
+    providers: [DataService],
     bootstrap: [AppComponent]
 
 })

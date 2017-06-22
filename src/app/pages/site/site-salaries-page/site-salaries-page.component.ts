@@ -19,13 +19,7 @@ export class SiteSalariesPageComponent implements OnInit {
                 private router: Router) { }
 
     ngOnInit() {
-        this.id_site = this.siteService.getIdSite();
-        console.log(this.id_site);
-
-        if (!this.id_site) {
-            this.id_site = localStorage.id_site;
-            console.log('from LS = '+this.id_site);
-        }
+        this.id_site = localStorage.id_site;
 
         this.tableMobileViewInit();
     }

@@ -31,13 +31,7 @@ export class SiteReglagesPageComponent implements OnInit {
                 private errorMessageHandlerService: ErrorMessageHandlerService){}
 
   ngOnInit() {
-      this.id_site = this.siteService.getIdSite();
-      console.log(this.id_site);
-
-      if (!this.id_site) {
-          this.id_site = localStorage.id_site;
-          console.log('from LS = '+this.id_site);
-      }
+      this.id_site = localStorage.id_site;
 
       this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
   }
