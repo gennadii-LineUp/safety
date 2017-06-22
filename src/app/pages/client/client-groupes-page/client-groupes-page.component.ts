@@ -14,6 +14,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 })
 export class ClientGroupesPageComponent implements OnInit {
     loading: boolean = false;
+    saving: boolean = false;
     loaded: boolean = false;
     errorSalaries: string = 'error';
     errorCreating: string = '';
@@ -113,7 +114,7 @@ export class ClientGroupesPageComponent implements OnInit {
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
-        this.loading = true;
+        this.saving = true;
 
         let newGroupe = new GroupeClass(name, this._adminAccess);
 
@@ -122,15 +123,14 @@ export class ClientGroupesPageComponent implements OnInit {
         this.clientService.addNewGroupe(newGroupe)
             .subscribe(result => {
                 if (result) {
-                    this.loading = false;
+                    this.saving = false;
                     console.log('======result====OK======');
                     console.log(result);
                     this.successCreating = "Well done! You've created a new group.";
-
                 }
             }, (err) => {
                 console.log('====error=============');
-                this.loading = false;
+                this.saving = false;
                 console.log(err);
 
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -140,8 +140,6 @@ export class ClientGroupesPageComponent implements OnInit {
                 }
 
                 let error = (JSON.parse(err._body)).errors;
-                //console.log(error);
-                //console.log(Object.keys(error).length);
 
                 if (Object.keys(error).length > 0) {
                     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
@@ -155,11 +153,13 @@ export class ClientGroupesPageComponent implements OnInit {
 
     private cancellErrorMessage() {
         this.loading = false;
+        this.saving = false;
         this.errorSalaries = '';
         this.errorCreating = '';
     }
     public cancellSuccessMessage() {
         this.loading = false;
+        this.saving = false;
         this.successCreating = '';
     }
     private gotoClientGroupesForm() {

@@ -49,8 +49,8 @@ export class SiteService {
     }
 
     findEmployeeByName(name: string, page: any, sideId: number): Observable<any> {
-        console.log('service: ' + sideId);
-        console.log(localStorage);
+        // console.log('service: ' + sideId);
+        // console.log(localStorage);
         let useTolkin:boolean = true;
         let query = '?q=' + name + '&sort=' + page;
 

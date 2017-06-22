@@ -64,10 +64,6 @@ export class ClientSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loadingSalarieUsed = false;
-                if (err.status === 403) {
-                    this.errorLoad = "Aucun salarié n'a pas été créé";
-                    return;
-                }
 
                 let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 if (errorStatusKnown) {
