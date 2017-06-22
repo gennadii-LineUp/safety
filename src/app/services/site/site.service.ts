@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 
-import { Subject } from 'rxjs/Subject';
+//import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class SiteService {
@@ -12,20 +11,12 @@ export class SiteService {
     public id_site: number;
 
 
-
-
-
-    private subject: Subject<number> = new Subject<number>();
+ //   private subject: Subject<number> = new Subject<number>();
 
 
     constructor(private backendService: BackendService) {
         this.token = localStorage.token;
     }
-
-
-
-
-
 
 
 
@@ -57,22 +48,21 @@ export class SiteService {
 
     }
 
-
-    findClientByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
+    findEmployeeByName(name: string, page: any, sideId: number): Observable<any> {
+        console.log('service: ' + sideId);
+        console.log(localStorage);
         let useTolkin:boolean = true;
-        let query = '?q=' + name + '&page=' + page;
+        let query = '?q=' + name + '&sort=' + page;
 
-        return this.backendService.get(UrlParams.adminClients + query, useTolkin);
-
+        return this.backendService.get(UrlParams.siteHome+sideId+'/employees' + query, useTolkin);
     }
 
 
-    addNewEmployee(newEmployee: any): Observable<any> {
+    addNewEmployee(newEmployee: any, sideId: number): Observable<any> {
         //console.log('==site service:_addNewEmployee started==');
         let useTolkin:boolean = true;
 
-        return this.backendService.post(UrlParams.siteNewEmployeeEtap1, JSON.stringify(newEmployee), useTolkin);
+        return this.backendService.post(UrlParams.siteHome+sideId+'/employees', JSON.stringify(newEmployee), useTolkin);
 
     }
 

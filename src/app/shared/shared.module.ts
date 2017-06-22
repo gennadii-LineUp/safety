@@ -22,6 +22,7 @@ import {AdminAccessPipe} from '../services/pipes/accessAdmin.pipe';
 import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component';
 import { NavbarSalariesComponent } from './navbar/navbar-salaries/navbar-salaries.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import {ValidityPeriodPipe} from '../services/pipes/validityPeriodSalarie.pipe';
 
 // import {ModalModule} from "ng2-modal";
 
@@ -52,6 +53,7 @@ import { PaginationComponent } from './pagination/pagination.component';
         NavbarSiteComponent,
         NavbarSalariesComponent,
         PaginationComponent,
+        ValidityPeriodPipe,
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -68,6 +70,7 @@ import { PaginationComponent } from './pagination/pagination.component';
         NavbarSiteComponent,
         NavbarSalariesComponent,
         PaginationComponent,
+        ValidityPeriodPipe,
     ],
     providers: [
         BackendService,

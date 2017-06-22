@@ -24,6 +24,7 @@ export class SiteParcPageComponent implements OnInit {
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
+        console.log('get from LS ' + this.id_site);
 
         $(document).ready(() => {
             this.datepickerRun();

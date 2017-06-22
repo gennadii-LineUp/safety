@@ -68,7 +68,7 @@ const routes: Routes = [
                 { path: 'fichiers', component: SiteFichiersPageComponent },
                 { path: 'parc', component: SiteParcPageComponent },
                 { path: 'salaries', component: SiteSalariesPageComponent },
-                { path: 'salarie/ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent },
+                { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent },
                 { path: 'salarie/ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component },
                 { path: '', redirectTo: 'accueil', pathMatch: 'full' }
         ]

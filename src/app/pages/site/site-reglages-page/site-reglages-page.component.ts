@@ -32,6 +32,7 @@ export class SiteReglagesPageComponent implements OnInit {
 
   ngOnInit() {
       this.id_site = localStorage.id_site;
+      console.log('get from LS ' + this.id_site);
 
       this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
   }

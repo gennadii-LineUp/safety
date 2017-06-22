@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'site-fichiers-page',
@@ -19,12 +20,29 @@ export class SiteFichiersPageComponent implements OnInit {
 
     id_site: number;
 
-    constructor(private siteService: SiteService) {}
+    constructor (private siteService: SiteService) {}
 
     ngOnInit():void {
         this.id_site = localStorage.id_site;
-
+        console.log('get from LS ' + this.id_site);
     }
+
+    // parentRouteId: number;
+    // private sub: any;
+
+
+
+  //  ngOnInit() {
+        // this.sub = this.router.routerState.parent(this.route)
+        //     .params.subscribe(params => {
+        //         this.parentRouteId = +params["id"];
+        //     });
+        // console.log(this.route);
+  //  }
+
+    // ngOnDestroy() {
+    //     this.sub.unsubscribe();
+    // }
 
 
 }

@@ -14,27 +14,31 @@ export class SiteComponent implements OnInit {
 
     id_site: number;
     private sub: any;
+    private id;
 
-    constructor(private route: ActivatedRoute,
-                private siteService: SiteService,
-                private dataService: DataService) {}
-
+    constructor(private route: ActivatedRoute) {}
+//private siteService: SiteService,
 
 
     ngOnInit():void {
         this.sub = this.route.params.subscribe(params => {
-            this.id_site = +params['id_site'];
+            this.id_site = +params['id_site']; // (+) converts string 'id' to a number
         });
-        this.updateData(this.id_site);        // doesn't work
 
+
+        // if (this.id_site) {
+        //     this.id_site = localStorage.id_site;
+        // }
         localStorage.setItem('id_site', ''+this.id_site);
 
+        console.log('from site '+this.id_site);
         this.tableMobileViewInit();
     }
 
-    updateData(value: number) {        // doesn't work
-        this.dataService.updateData(value);
-    }
+    //this.updateData(this.id_site);        // doesn't work
+    // updateData(value: number) {        // doesn't work
+    //     this.dataService.updateData(value);
+    // }
 
     ngOnDestroy() {
         this.sub.unsubscribe();

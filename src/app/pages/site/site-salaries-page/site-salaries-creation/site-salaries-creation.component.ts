@@ -23,6 +23,8 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     errorLoad: string = '';
 
+    id_site:number;
+
     public periodeDeValidite = [
         { value: 'indeterminee', booleanValue: false, display: 'Indéterminée' },
         { value: 'determinee',   booleanValue: true,  display: 'Déterminée' }
@@ -41,6 +43,7 @@ export class SiteSalariesCreationComponent implements OnInit {
     ngOnInit() {
         this.getEmployeeGroupes();
         this.datepickerRun();
+        this.id_site = localStorage.id_site;
     }
 
     public getEmployeeGroupes() {
@@ -107,10 +110,9 @@ export class SiteSalariesCreationComponent implements OnInit {
                                                 newEmployeesForm.value.employeeGroup);
 
         console.dir(newEmployee);
-        console.log(typeof newEmployeesForm.value.validityPeriod + ', ' + newEmployeesForm.value.validityPeriod);
 
 
-        this.siteService.addNewEmployee(newEmployee)
+        this.siteService.addNewEmployee(newEmployee, this.id_site)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -179,8 +181,7 @@ export class SiteSalariesCreationComponent implements OnInit {
     gotoSiteSalariesPage() {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
-        this.router.navigate(['/site/salaries']);
-        //this.router.navigate(['/site/salarie/ajouter-un-salarie-etap2']);
+        this.router.navigate(['/site', this.id_site, 'salaries']);
     }
 
 }

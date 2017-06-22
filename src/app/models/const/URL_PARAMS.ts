@@ -35,9 +35,9 @@ export class UrlParams {
        // return `http://82.117.251.13/api/client/profile`;
     }
 
-    public static get siteNewEmployeeEtap1(): string {
-        return `http://sfapi:8000/app_dev.php/sites/1/employees`;
-        // return `http://82.117.251.13/api/sites/1/employees`;
+    public static get siteHome(): string {
+        return `http://sfapi:8000/app_dev.php/sites/`;
+        // return `http://82.117.251.13/api/sites`;
     }
 
 
