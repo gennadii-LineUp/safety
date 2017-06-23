@@ -231,7 +231,7 @@ export class ClientSitesPageComponent implements OnInit {
         this.ngOnInit();
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
-        this.router.navigate(['/client/accueil']);
+        this.router.navigate(['/client']);
     }
     public gotoSiteHomePage (e:Event) {
         console.dir(e);

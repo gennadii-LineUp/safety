@@ -8,10 +8,9 @@ import {AdminClientsPageComponent} from './admin-clients-page/admin-clients-page
 export const AdminRoutingModule = {
     path: 'admin', component: AdminComponent, canActivate: [ AdminGuard], //data: { pageName: 'admin' },
     children: [
-        { path: 'accueil', component: AdminAccueilContentComponent },//AdminAccueilPageComponent
+        { path: '', component: AdminAccueilContentComponent },//AdminAccueilPageComponent
         { path: 'reglages', component: AdminReglagesPageComponent }, //
         { path: 'client', component: AdminClientsPageComponent }, //
-        { path: 'bibliotheque', component: AdminBibliothequePageComponent }, //
-        { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+        { path: 'bibliotheque', component: AdminBibliothequePageComponent } //
     ]
 };

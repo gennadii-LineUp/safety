@@ -121,7 +121,7 @@ export class ClientProfilPageComponent implements OnInit {
     public gotoClientHomePage() {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
-        this.router.navigate(['/client/accueil']);
+        this.router.navigate(['/client']);
     }
 
     public toggleDifferentBillingAddress(checkbox) {

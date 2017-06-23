@@ -31,7 +31,7 @@
                                #password="ngModel"  name="password"  id='password'  ngModel> <!--required -->
                     </div>
                     <p>
-                        <span [routerLink]="['/login/rappeler-le-mot-de-passe']">
+                        <span [routerLink]="['/rappeler-le-mot-de-passe']">
                             Mot de passe oublié ?
                         </span>
                     </p>
@@ -42,6 +42,19 @@
                     </div>
                 </form>
 
+                <!--DELETE  START-->
+                <div style='position: absolute; top: 126px; right: 30px; text-align: left;'>
+                    <p style='color: tomato;'>Admin:</p>
+                    <p>admin@example.com</p>
+                    <p>admin</p>
+                    <br>
+                    <p style='color: tomato;'>Client <span style='color: mediumseagreen;'>(login=password)</span>:</p>
+                    <p>client1@email.com</p>
+                    <p>client08@email.com</p>
+                    <p>client14@email.com</p>
+                </div>
+                <!--DELETE  END-->
+
             </div>
 
             <div class="footer">
@@ -50,19 +63,19 @@
                 <div>Découvrez nos solutions !</div>
                 <br>
                 <div class="solution-wrapper">
-                    <div class="solution" [routerLink]="['/site/accueil']">
+                    <div class="solution" >   <!-- [routerLink]="['/site']"-->
                         <div class="image-wrapper">
                             <img src="../../../../assets/img/sigma_b.png" alt="PRO">
                         </div>
                         <div>PRO</div>
                     </div>
-                    <div class="solution" [routerLink]="['/site/accueil']">
+                    <div class="solution" >   <!-- [routerLink]="['/site']"-->
                         <div class="image-wrapper">
                             <img src="../../../../assets/img/sigma_w.png" alt="SAFE">
                         </div>
                         <div>SAFE</div>
                     </div>
-                    <div class="solution" [routerLink]="['/site/accueil']">
+                    <div class="solution" >   <!-- [routerLink]="['/site']"-->
                         <div class="image-wrapper">
                             <img src="../../../../assets/img/sigma_w.png" alt="DATA">
                         </div>

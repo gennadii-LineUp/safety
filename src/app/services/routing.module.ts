@@ -35,102 +35,62 @@ import {SalarieAutorisComponent} from '../pages/salarie/salarie-autoris/salarie-
 import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestations/salarie-attestations.component';
 import {EmployeeNullGuard} from '../guards/employee-null-guard.service';
 import {DataService} from './DataService.service';
+import {AdminAsClientGuard} from '../guards/admin-as-client-guard.service';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'site', pathMatch: 'full' },
-    { path: 'login', component: LoginStartComponent },
-    { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
+   // { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', component: LoginStartComponent },
+    { path: 'rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
     { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
         children: [
-                { path: 'accueil', component: AdminAccueilContentComponent }, //AdminAccueilPageComponent
+                { path: '', component: AdminAccueilContentComponent }, //AdminAccueilPageComponent
                 { path: 'reglages', component: AdminReglagesPageComponent },
                 { path: 'client', component: AdminClientsPageComponent},
                 { path: 'client/ajouter-un-client', component: AdminClientAjouterComponent },
-                { path: 'bibliotheque', component: AdminBibliothequePageComponent },
-                { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+                { path: 'bibliotheque', component: AdminBibliothequePageComponent }
         ]
     },
     { path: 'client', component: ClientComponent, canActivate: [AuthGuard, ClientGuard],
         children: [
-                { path: 'accueil', component: ClientSitesPageComponent  },
+                { path: '', component: ClientSitesPageComponent  },
                 { path: 'groupes', component: ClientGroupesPageComponent },
                 { path: 'employees', component: ClientSalariesPageComponent },//salarie
                 { path: 'profil', component: ClientProfilPageComponent },
-                { path: 'bibliotheque', component: ClientBibliothequePageComponent },
-                { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+                { path: 'bibliotheque', component: ClientBibliothequePageComponent }
         ]
     },
     { path: 'site/:id_site', component: SiteComponent, //canActivate: [AuthGuard, ClientGuard],
         children: [
-                { path: 'accueil', component: SiteAccueilPageComponent },
+                { path: '', component: SiteAccueilPageComponent },
                 { path: 'reglages', component: SiteReglagesPageComponent },
                 { path: 'fichiers', component: SiteFichiersPageComponent },
                 { path: 'parc', component: SiteParcPageComponent },
                 { path: 'salaries', component: SiteSalariesPageComponent },
                 { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent },
-                { path: 'salarie/ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component },
-                { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+                { path: 'salarie/ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component } //path: 'salarie/ajouter-un-salarie-etap2'
         ]
     },
     { path: 'sfsalarie', component: SalarieComponent, canActivate: [AuthGuard, EmployeeNullGuard],
         children: [
-            { path: 'profil', component: SalarieProfilComponent },
+            { path: '', component: SalarieProfilComponent },
             { path: 'fichiers', component: SalarieFichiersComponent },
             { path: 'fiches-machines', component: SalarieFichesMachinesComponent },
             { path: 'visite-medicale', component: SalarieVisiteMedicComponent },
             { path: 'caces', component: SalarieCacesComponent },
             { path: 'attestations', component: SalarieAttestationsComponent },
-            { path: 'autorisations-conduite', component: SalarieAutorisComponent },
-            { path: '', redirectTo: 'profil', pathMatch: 'full' }
+            { path: 'autorisations-conduite', component: SalarieAutorisComponent }
         ]
     },
-    { path: '**', component: SiteComponent }
+    { path: '**', component: LoginStartComponent }
 ];
-
-
-// const routes: Routes = [
-//     { path: '', component: AppComponent, children: [
-//         { path: '',
-//             component: InnerPagesComponent,
-//             canActivate: [AuthGuard],
-//             children: [
-//                 AdminRoutingModule,
-//                 ClientRoutingModule  ]
-//         },
-//         { path: 'login', component: LoginStartComponent},
-//         { path: 'login/rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
-//     ]
-//     }//,
-//    // { path: '', redirectTo: 'login', pathMatch: 'full'}
-// ];
-
-
-
-// const routes: Routes = [
-//     { path: '', component: McComponent, children: [
-//         { path: '',
-//             component: InnerPagesComponent,
-//             canActivate: [AuthGuard],
-//             children: [
-//                 userRoutes,
-//                 taskRoutes  ]
-//         },
-//         { path: 'login',   component: LoginComponent}
-//     ]
-//     },
-//     { path: '', redirectTo: 'login', pathMatch: 'full'}
-// ]
 
 
 @NgModule({
     imports: [ RouterModule.forRoot(routes) ],
     exports: [ RouterModule ],
     providers: [
-        AuthGuard, AdminGuard, ClientGuard, EmployeeNullGuard, DataService
+        AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, DataService
     ]
 })
 export class AppRoutingModule {}
-
-
-

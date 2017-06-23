@@ -9,12 +9,11 @@ import {ClientComponent} from 'app/pages/client/client.component';
 export const ClientRoutingModule = {
     path: 'client', component: ClientComponent, canActivate: [ ClientGuard],
         children: [
-            { path: 'accueil', component: ClientSitesPageComponent  },
+            { path: '', component: ClientSitesPageComponent  },
             { path: 'groupes', component: ClientGroupesPageComponent },
             { path: 'salaries', component: ClientSalariesPageComponent },
             { path: 'profil', component: ClientProfilPageComponent },
-            { path: 'bibliotheque', component: ClientBibliothequePageComponent },
-            { path: '', redirectTo: 'accueil', pathMatch: 'full' }
+            { path: 'bibliotheque', component: ClientBibliothequePageComponent }
         ]
 };
 

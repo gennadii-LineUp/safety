@@ -16,7 +16,7 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li  routerLinkActive="active" [routerLink]="['/site', id_site, 'accueil']">
+            <li  routerLinkActive="active" [routerLink]="['/site', id_site, '']">
                 <a href="javascript:void(0);">
                     Accueil
                 </a>
@@ -47,12 +47,12 @@
                     &lt; Retour à login
                 </a>
             </li>
-            <li *ngIf='showClientData' class="back-to-admin-link" [routerLink]="['/client/accueil']">
+            <li *ngIf='showClientData' class="back-to-admin-link" [routerLink]="['/client']">
                 <a href="javascript:void(0);">
                     &lt; Retour au client
                 </a>
             </li>
-            <li *ngIf='showAdminData' class="back-to-admin-link" [routerLink]="['/admin/accueil']">
+            <li *ngIf='showAdminData' class="back-to-admin-link" [routerLink]="['/admin']">
                 <a href="javascript:void(0);">
                     &lt; Retour à l’admin
                 </a>

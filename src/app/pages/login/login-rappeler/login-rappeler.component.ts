@@ -17,7 +17,7 @@ export class RappelerLeMotDePasseComponent implements OnInit {
 
   public EnvoyerEmailFunction() {
       console.log("EnvoyerEmailFunction");
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);  ///login
   }
 
     private cancellErrorMessage() {
