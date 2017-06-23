@@ -47,6 +47,11 @@
                     <!--&lt; Retour au site-->
                 <!--</a>-->
             <!--</li>-->
+            <li *ngIf='showAdminData' class="back-to-admin-link" [routerLink]="['/admin']">
+                <a href="javascript:void(0);">
+                    &lt; Retour à l’admin
+                </a>
+            </li>
             <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['']">
                 <a href="javascript:void(0);">
                     &lt; Logout

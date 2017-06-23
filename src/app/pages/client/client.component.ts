@@ -31,23 +31,11 @@ export class ClientComponent implements OnInit {
 
     }
 
-    // public mobileMenuClickable() {
-    //     jQuery('#nav-icon1').click(() => {
-    //         jQuery(this).toggleClass('open');
-    //     });
-    //     jQuery('#nav-icon1').click(() => {
-    //         jQuery('.sidebar-nav').slideToggle(400);
-    //     });
-    //     jQuery(window).resize(() => {
-    //         let windowWidth = window.innerWidth;
-    //         if (windowWidth > 991) {
-    //             jQuery(".sidebar-nav").slideDown();
-    //         }
-    //         else {
-    //             jQuery("#nav-icon1").removeClass('open');
-    //             jQuery(".sidebar-nav").slideUp();
-    //         }
-    //     });
-    // }
+    ngOnDestroy() {
+        localStorage.removeItem('tokenAdminAsClient');
+        console.log('token removed');
+    }
+
+
 
 }

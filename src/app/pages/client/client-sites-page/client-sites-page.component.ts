@@ -46,12 +46,13 @@ export class ClientSitesPageComponent implements OnInit {
     ngOnInit() {
         this.findSiteByNameFunction('');
         this.tableMobileViewInit();
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
     }
-
 
     ngOnDestroy() {
         localStorage.removeItem('clientSiteSearch_page');
         localStorage.removeItem('clientSiteSearch_name');
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
 

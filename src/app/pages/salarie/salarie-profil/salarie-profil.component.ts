@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalarieProfilComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+      window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
+    }
+    ngOnDestroy() {
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
+    }
+
 
 }

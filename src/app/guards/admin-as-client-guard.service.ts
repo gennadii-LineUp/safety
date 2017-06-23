@@ -8,7 +8,7 @@ export class AdminAsClientGuard implements CanActivate {
 
     canActivate() {
 
-        if ((localStorage.role === 'ROLE_ADMIN') && (localStorage.role2 === 'ROLE_CLIENT')) {
+        if (localStorage.getItem('tokenAdminAsClient')) {
             // logged as admin
             return true;
         }

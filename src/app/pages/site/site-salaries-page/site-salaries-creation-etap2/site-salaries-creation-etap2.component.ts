@@ -34,17 +34,15 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     ngOnInit() {
         this.tableMobileViewInit();
-
-        //Datepicker Popups calender to Choose date
-        $(() =>{
-            $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker();
-            $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker( "option", "changeYear", true );
-            //Pass the user selected date format
-            $( "#format" ).change(() => {
-                $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker( "option", "dateFormat", $(this).val() );
-            });
-        });
+        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
+        this.datepickerViewInit();
     }
+
+
+    ngOnDestroy() {
+        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.remove('active');
+    }
+
 
     public ShowType(userChoice:string) {
         if (userChoice === "gruesMobiles") {
@@ -62,6 +60,17 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.router.navigate(['/site/salarie']);
     }
 
+    public datepickerViewInit() {
+        //Datepicker Popups calender to Choose date
+        $(() =>{
+            $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker();
+            $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker( "option", "changeYear", true );
+            //Pass the user selected date format
+            $( "#format" ).change(() => {
+                $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5" ).datepicker( "option", "dateFormat", $(this).val() );
+            });
+        });
+    }
     public tableMobileViewInit() {
         let headertext = [],
             headers = document.querySelectorAll("th"),

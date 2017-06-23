@@ -4,11 +4,24 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
+import {AuthGuard} from '../../guards/auth-guards.service';
+import {AdminAsClientGuard} from '../../guards/admin-as-client-guard.service';
+import {AdminGuard} from '../../guards/admin-guard.service';
+import {ClientGuard} from '../../guards/client-guard.service';
 
 @Injectable()
 export class BackendService {
 
-    constructor(private http: Http) { }
+    public token: string;
+    // this.showAdminData = this.authGuard.canActivate()
+    // && this.adminAsClientGuard.canActivate()
+    // && this.adminGuard.canActivate();
+
+    constructor(private authGuard: AuthGuard,
+                private adminAsClientGuard: AdminAsClientGuard,
+                private adminGuard: AdminGuard,
+                private clientGuard: ClientGuard,
+                private http: Http){}
 
 
     public login(url, body, usernamePassword) : Observable<any>  {
@@ -25,8 +38,15 @@ export class BackendService {
                 contentType: string = CONTENT_TYPE.JSON_TYPE) : Observable<any> {
 
         let headers: Headers = new Headers();
+
+        if (this.adminAsClientGuard.canActivate()) {
+            this.token = localStorage.getItem('tokenAdminAsClient')
+        } else {
+            this.token = localStorage.getItem('token');
+        }
+
         headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + this.token);
 
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
@@ -38,7 +58,14 @@ export class BackendService {
                token: boolean = false,
                contentType: string = CONTENT_TYPE.JSON_TYPE): Observable<any> {
         let headers: Headers = new Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+
+        if (this.adminAsClientGuard.canActivate()) {
+            this.token = localStorage.getItem('tokenAdminAsClient')
+        } else {
+            this.token = localStorage.getItem('token');
+        }
+
+        headers.append('Authorization', 'Bearer ' + this.token);
 
         return this.http.get(url, {headers: headers})
             .map((res: Response) => <Object[]>res.json());

@@ -44,7 +44,13 @@ export class SiteSalariesCreationComponent implements OnInit {
         this.getEmployeeGroupes();
         this.datepickerRun();
         this.id_site = localStorage.id_site;
+        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
     }
+
+    ngOnDestroy() {
+        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.remove('active');
+    }
+
 
     public getEmployeeGroupes() {
         this.noGroups = false;

@@ -90,7 +90,7 @@ const routes: Routes = [
     imports: [ RouterModule.forRoot(routes) ],
     exports: [ RouterModule ],
     providers: [
-        AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, DataService
+    //    AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, DataService
     ]
 })
 export class AppRoutingModule {}

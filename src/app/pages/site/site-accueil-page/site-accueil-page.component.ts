@@ -26,6 +26,7 @@ export class SiteAccueilPageComponent implements OnInit {
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
 
         // this.id_site = this.siteService.getIdSite();       // doesn't work
 
@@ -35,6 +36,10 @@ export class SiteAccueilPageComponent implements OnInit {
         // })
         console.log('get from LS ' + this.id_site);
    }
+
+    ngOnDestroy() {
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
+    }
 
 
 

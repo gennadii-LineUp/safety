@@ -26,7 +26,11 @@ export class AdminAccueilContentComponent implements OnInit {
                 private progressBarFillService: ProgressBarFillService){}
 
     ngOnInit(): void {
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
         this.getProgressBarValues();
+    }
+    ngOnDestroy() {
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
     getProgressBarValues(): void {
