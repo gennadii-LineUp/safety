@@ -21,8 +21,8 @@ export class ClientSalariesPageComponent implements OnInit {
     errorCreating: string = '';
     successCreating: string = '';
 
-    salariesMaxPossible:number = 1;
-    salariesUsed:number = 1;
+    salariesMaxPossible:number;
+    salariesUsed:number;
 
     salaries = [];
     pager: any = {};
@@ -53,14 +53,15 @@ export class ClientSalariesPageComponent implements OnInit {
     public getUsedSalaries() {
         this.loadingSalarieUsed = true;
         this.loadedSalarieUsed = false;
-        this.adminService.findClientByName('', 1)
+        this.clientService.employeeCount()
             .subscribe(result => {
                 if (result) {
                     this.loadingSalarieUsed = false;
                     this.loadedSalarieUsed = true;
 
                     console.log(result);
-                    this.salariesMaxPossible = result;
+                    this.salariesMaxPossible = result.limitEmployees;
+                    this.salariesUsed = result.employeeCount;
                 }
             }, (err) => {
                 this.loadingSalarieUsed = false;

@@ -13,14 +13,21 @@ export class ClientService {
     }
 
 
-    getClientProfilData(): Observable<any> {
+    public getClientProfilData(): Observable<any> {
         console.log('==client service started==');
         let useTolkin:boolean = false;
 
         return this.backendService.get(UrlParams.clientProfilData, useTolkin);
     }
 
-    findSiteByName(name: string, page: any): Observable<any> {
+    public employeeCount(): Observable<any> {
+        console.log('==client service started==');
+        let useTolkin:boolean = false;
+
+        return this.backendService.get(UrlParams.employeeCount, useTolkin);
+    }
+
+    public findSiteByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
         let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
@@ -28,7 +35,7 @@ export class ClientService {
         return this.backendService.get(UrlParams.clientSites + query, useTolkin);
     }
 
-    findSalarieByName(name: string, page: any): Observable<any> {
+    public findSalarieByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
         let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
@@ -36,22 +43,21 @@ export class ClientService {
         return this.backendService.get(UrlParams.clientEmployees + query, useTolkin);
     }
 
-    addNewSite(newSite: any): Observable<any> {
+    public addNewSite(newSite: any): Observable<any> {
         console.log('==client service:_addNewSite started==');
         let useTolkin:boolean = true;
 
         return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite), useTolkin);
     }
 
-    getGroupList(page): Observable<any> {
+    public getGroupList(): Observable<any> {
         //console.log('==client service:_groupList started==');
         let useTolkin:boolean = true;
-        let query = '?q=&sort=&page=';
 
-        return this.backendService.get(UrlParams.clientGroupes + query + page, useTolkin);
+        return this.backendService.get(UrlParams.employeesGroupsList, useTolkin);
     }
 
-    findGroupeByName(name: string, page: any): Observable<any> {
+    public findGroupeByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
         let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
@@ -59,7 +65,7 @@ export class ClientService {
         return this.backendService.get(UrlParams.clientGroupes + query, useTolkin);
     }
 
-    addNewGroupe(newGroupe: any): Observable<any> {
+    public addNewGroupe(newGroupe: any): Observable<any> {
         console.log('==client service:_addNewGroupe started==');
         let useTolkin:boolean = true;
 
@@ -67,7 +73,7 @@ export class ClientService {
     }
 
 
-    encode(obj) {
+    public encode(obj) {
         let newData = '';
         for (let key in obj) {
             newData += key;
@@ -79,7 +85,7 @@ export class ClientService {
     }
 
 
-    logout(): void {
+    public logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('role');

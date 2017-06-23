@@ -20,6 +20,11 @@ export class UrlParams {
       //  return `http://82.117.251.13/api/sites`;
     }
 
+    public static get employeesGroupsList(): string {
+        return `http://sfapi:8000/app_dev.php/client/employees-groups-list`;
+        //  return `http://82.117.251.13/api/client/employees-groups-list`;
+    }
+
     public static get clientGroupes(): string {
         return `http://sfapi:8000/app_dev.php/client/employees-groups`;
       //  return `http://82.117.251.13/api/client/employees-groups`;
@@ -28,6 +33,11 @@ export class UrlParams {
     public static get clientEmployees(): string {
         return `http://sfapi:8000/app_dev.php/client/employees`;
         //   return `http://82.117.251.13/api/client/employees`;
+    }
+
+    public static get employeeCount(): string {
+        return `http://sfapi:8000/app_dev.php/client/employee_count`;
+        //   return `http://82.117.251.13/api/client/employee_count`;
     }
 
     public static get clientProfilData(): string {

@@ -54,13 +54,12 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     public getEmployeeGroupes() {
         this.noGroups = false;
-        this.clientService.getGroupList(1)
+        this.clientService.getGroupList()
             .subscribe(result => {
                 if (result) {
                     this.noGroups = false;
                     this.cancellErrorMessage();
-                    this.employeeGroupes = result.items;
-                    // this.employees.validityPeriod = this.periodeDeValidite[0].booleanValue;
+                    this.employeeGroupes = result;
                 }
             }, (err) => {
                 console.log('====error=============');
