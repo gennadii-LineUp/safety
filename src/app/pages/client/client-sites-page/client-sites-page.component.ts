@@ -114,14 +114,16 @@ export class ClientSitesPageComponent implements OnInit {
             }, (err) => {
                 this.loading = false;
                 console.log('====error=============');
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                this.errorLoad = err;
-                console.log(err);
+                // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // this.errorLoad = err;
+                // console.log(err);
             });
     }
 
@@ -167,17 +169,17 @@ export class ClientSitesPageComponent implements OnInit {
                 this.loading = false;
                 console.log(err);
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorCreating = errorStatusKnown;
-                    return;
-                }
-
-                let error = (JSON.parse(err._body)).errors;
-
-                if (Object.keys(error).length > 0) {
-                    this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                }
+                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorCreating = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // let error = (JSON.parse(err._body)).errors;
+                //
+                // if (Object.keys(error).length > 0) {
+                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+                // }
             });
     }
 
@@ -226,17 +228,18 @@ export class ClientSitesPageComponent implements OnInit {
                     this.uploadFileText = '  error  error  error';
                         console.log(err);
 
-                    let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                    if (errorStatusKnown) {
-                        this.errorCreating = errorStatusKnown;
-                        return;
-                    }
-
-                    let error = (JSON.parse(err._body)).errors;
-
-                    if (Object.keys(error).length > 0) {
-                        this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                    }
+                    this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+                    // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                    // if (errorStatusKnown) {
+                    //     this.errorCreating = errorStatusKnown;
+                    //     return;
+                    // }
+                    //
+                    // let error = (JSON.parse(err._body)).errors;
+                    //
+                    // if (Object.keys(error).length > 0) {
+                    //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+                    // }
                 });
 
 

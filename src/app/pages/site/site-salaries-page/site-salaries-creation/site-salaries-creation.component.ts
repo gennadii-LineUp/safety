@@ -11,7 +11,7 @@ declare var $:any;
   selector: 'site-salaries-creation',
   templateUrl: './site-salaries-creation.component.html',
   styleUrls: ['./site-salaries-creation.component.css'],
-    providers: [ClientService, SiteService, ErrorMessageHandlerService]
+    providers: [ClientService, SiteService]
 })
 export class SiteSalariesCreationComponent implements OnInit {
     loading: boolean = false;
@@ -71,17 +71,18 @@ export class SiteSalariesCreationComponent implements OnInit {
                     this.errorLoad = "Il n'y a pas de groupes disponibles. Créez-les d'abord ...";
                     return;
                 }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
-
-                let error = (JSON.parse(err._body)).errors;
-                if (Object.keys(error).length > 0) {
-                    this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
-                }
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // let error = (JSON.parse(err._body)).errors;
+                // if (Object.keys(error).length > 0) {
+                //     this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
+                // }
             });
     }
 
@@ -128,18 +129,19 @@ export class SiteSalariesCreationComponent implements OnInit {
                 console.log('====error=============');
                 this.loading = false;
                 console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
-
-               let error = (JSON.parse(err._body)).errors;
-
-                if (Object.keys(error).length > 0) {
-                    this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
-                }
+                //      let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+               //  if (errorStatusKnown) {
+               //      this.errorLoad = errorStatusKnown;
+               //      return;
+               //  }
+               //
+               // let error = (JSON.parse(err._body)).errors;
+               //
+               //  if (Object.keys(error).length > 0) {
+               //      this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
+               //  }
             });
     }
 

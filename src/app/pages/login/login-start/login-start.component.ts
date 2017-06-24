@@ -37,14 +37,17 @@ export class LoginStartComponent implements OnInit {
                         this.loading = false;
                 }
             }, (err) => {
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                 this.loading = false;
+                if ((err.status === 403) || (err.status === 404)) {
+                    this.errorLoad = 'Username or password is incorrect';
+                    return;
+                };
+
+                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus_old(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;
                     return;
                 }
-
-                this.errorLoad = 'Username or password is incorrect';
             });
 
     }

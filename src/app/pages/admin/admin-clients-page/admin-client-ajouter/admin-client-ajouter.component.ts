@@ -81,19 +81,21 @@ export class AdminClientAjouterComponent implements OnInit {
 
                 }
             }, (err) => {
-                console.log('====error=============');
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorCreating = errorStatusKnown;
-                    return;
-                }
-
-                let error = (JSON.parse(err._body)).errors;
-                console.log(error);
-                if (Object.keys(error).length > 0) {
-                    this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                }
                 this.loading = false;
+                console.log('====error=============');
+                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorCreating = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // let error = (JSON.parse(err._body)).errors;
+                // console.log(error);
+                // if (Object.keys(error).length > 0) {
+                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+                // }
             });
     }
 

@@ -7,15 +7,14 @@ export class ErrorMessageHandlerService {
 
     constructor() {   }
 
-    public successHandler(successObject: any) {
-        this.message = '';
-
-        for (let key in successObject) {
-
-        }
-        return true;
-    }
-
+    // public successHandler(successObject: any) {
+    //     this.message = '';
+    //
+    //     for (let key in successObject) {
+    //
+    //     }
+    //     return true;
+    // }
 
     public checkErrorStatus(err: any):any {
         if (err.status === 401) return "please relogin!";
@@ -23,9 +22,24 @@ export class ErrorMessageHandlerService {
         if (err.status === 404) return "Il n'y a pas de données. Créez-le d'abord.";
         if (err.status === 500) return "problems with connection to server... verify your internet!";
         if (err.status === 0) return "problems with connection to server... verify your internet!";
-        return false;
+
+        let error = (JSON.parse(err._body)).errors;
+        let errorMessage: string;
+
+        if (Object.keys(error).length > 0) {
+            errorMessage = this.errorHandler(error);
+        }
+        return errorMessage;
     }
 
+    public checkErrorStatus_old(err: any):any {
+        if (err.status === 401) return "please relogin!";
+        if (err.status === 403) return "wrong UrlParams, ask Alexander";
+        if (err.status === 404) return "Il n'y a pas de données. Créez-le d'abord.";
+        if (err.status === 500) return "problems with connection to server... verify your internet!";
+        if (err.status === 0) return "problems with connection to server... verify your internet!";
+        return false;
+    }
 
     public errorHandler(errorObject: any):string {
         this.message = '';

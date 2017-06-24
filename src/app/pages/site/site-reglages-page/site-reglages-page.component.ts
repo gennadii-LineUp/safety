@@ -8,7 +8,7 @@ import {SiteService} from '../../../services/site/site.service';
   selector: 'site-reglages-page',
   templateUrl: './site-reglages-page.component.html',
   styleUrls: ['./site-reglages-page.component.css'],
-    providers: [SiteService, AuthGuard, AdminGuard, ErrorMessageHandlerService]
+    providers: [SiteService, AuthGuard, AdminGuard]
 })
 export class SiteReglagesPageComponent implements OnInit {
     loading: boolean = false;

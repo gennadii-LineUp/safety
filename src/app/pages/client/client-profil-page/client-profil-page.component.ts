@@ -8,7 +8,7 @@ import {ClientClass} from '../../../models/const/client-class';
   selector: 'app-client-profil-page',
   templateUrl: './client-profil-page.component.html',
   styleUrls: ['./client-profil-page.component.css'],
-    providers: [ClientService, ErrorMessageHandlerService]
+    providers: [ClientService]
 })
 export class ClientProfilPageComponent implements OnInit {
     loading: boolean = true;
@@ -68,16 +68,17 @@ export class ClientProfilPageComponent implements OnInit {
             }, (err) => {
                 console.log('====error=============');
                 this.loading = false;
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                //let error = (JSON.parse(err._body)).errors;
-                console.log(err);
-                this.errorLoad = err;//this.errorMessageHandlerService.errorHandler(err);
-
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // //let error = (JSON.parse(err._body)).errors;
+                // console.log(err);
+                // this.errorLoad = err;//this.errorMessageHandlerService.errorHandler(err);
             });
 
     }

@@ -8,7 +8,7 @@ import {ErrorMessageHandlerService} from '../../../../services/error/error-messa
   selector: 'admin-accueil-content',
   templateUrl: './admin-accueil-content.component.html',
   styleUrls: ['./admin-accueil-content.component.css'],
-    providers: [AdminService, ErrorMessageHandlerService, ProgressBarFillService],
+    providers: [AdminService, ProgressBarFillService],
 })
 export class AdminAccueilContentComponent implements OnInit {
     loading: boolean = true;
@@ -56,14 +56,17 @@ export class AdminAccueilContentComponent implements OnInit {
             }, (err) => {
                // let error = (JSON.parse(err._body)).errors;
                 console.log('====error=============');
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                this.errorLoad = err;
-                console.log(err);
+                //
+                // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // this.errorLoad = err;
+                // console.log(err);
 
                 //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
                 // this.loading = false;

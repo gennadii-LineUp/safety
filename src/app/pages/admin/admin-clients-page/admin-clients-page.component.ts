@@ -9,7 +9,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
   selector: 'app-admin-clients-page',
   templateUrl: './admin-clients-page.component.html',
   styleUrls: ['./admin-clients-page.component.css'],
-    providers: [AdminService, ErrorMessageHandlerService, PaginationService]
+    providers: [AdminService, PaginationService]
 })
 export class AdminClientsPageComponent implements OnInit {
     loading: boolean = true;
@@ -97,14 +97,17 @@ export class AdminClientsPageComponent implements OnInit {
             }, (err) => {
                 this.loading = false;
                 console.log('====error=============');
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                this.errorLoad = err;
-                console.log(err);
+
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // this.errorLoad = err;
+                // console.log(err);
             });
     }
 

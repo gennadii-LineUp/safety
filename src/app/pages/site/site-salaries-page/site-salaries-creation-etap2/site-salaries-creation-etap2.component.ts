@@ -8,7 +8,7 @@ declare var $:any;
   selector: 'app-site-salaries-creation-etap2',
   templateUrl: './site-salaries-creation-etap2.component.html',
   styleUrls: ['./site-salaries-creation-etap2.component.css'],
-    providers: [SiteService, ErrorMessageHandlerService]
+    providers: [SiteService]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit {
     loading: boolean = false;

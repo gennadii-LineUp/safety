@@ -9,7 +9,7 @@ import {EmployeesClass} from '../../../models/const/employees-class';
   selector: 'site-salaries-page',
   templateUrl: './site-salaries-page.component.html',
   styleUrls: ['./site-salaries-page.component.css'],
-    providers: [SiteService, ErrorMessageHandlerService, PaginationService]
+    providers: [SiteService, PaginationService]
 })
 export class SiteSalariesPageComponent implements OnInit {
     loading: boolean = false;
@@ -101,13 +101,15 @@ export class SiteSalariesPageComponent implements OnInit {
             }, (err) => {
                 this.loading = false;
                 console.log('====error=============');
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                this.errorLoad = err;
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // this.errorLoad = err;
                 console.log(err);
             });
     }

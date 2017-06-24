@@ -10,7 +10,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
   selector: 'app-client-groupes-page',
   templateUrl: './client-groupes-page.component.html',
   styleUrls: ['./client-groupes-page.component.css'],
-    providers: [ClientService, ErrorMessageHandlerService, PaginationService]
+    providers: [ClientService, PaginationService]
 })
 export class ClientGroupesPageComponent implements OnInit {
     loading: boolean = false;
@@ -97,13 +97,15 @@ export class ClientGroupesPageComponent implements OnInit {
             }, (err) => {
                 this.loading = false;
                 console.log('====error=============');
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                this.errorLoad = err;
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // this.errorLoad = err;
                 console.log(err);
             });
     }
@@ -132,18 +134,19 @@ export class ClientGroupesPageComponent implements OnInit {
                 console.log('====error=============');
                 this.saving = false;
                 console.log(err);
+                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorCreating = errorStatusKnown;
-                    return;
-                }
-
-                let error = (JSON.parse(err._body)).errors;
-
-                if (Object.keys(error).length > 0) {
-                    this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                }
+                // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorCreating = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // let error = (JSON.parse(err._body)).errors;
+                //
+                // if (Object.keys(error).length > 0) {
+                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+                // }
             });
     }
 

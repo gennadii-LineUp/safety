@@ -9,7 +9,7 @@ import {AdminService} from '../../../services/admin/admin.service';
   selector: 'client-salaries-page',
   templateUrl: './client-salaries-page.component.html',
   styleUrls: ['./client-salaries-page.component.css'],
-    providers: [ClientService, AdminService, PaginationService, ErrorMessageHandlerService]
+    providers: [ClientService, AdminService, PaginationService]
 })
 export class ClientSalariesPageComponent implements OnInit {
     loading: boolean = false;
@@ -65,15 +65,16 @@ export class ClientSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loadingSalarieUsed = false;
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
 
                 console.log(err);
-                this.errorLoad = err;
+                // this.errorLoad = err;
             });
     }
 
@@ -135,13 +136,16 @@ export class ClientSalariesPageComponent implements OnInit {
                     return;
                 }
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                if (errorStatusKnown) {
-                    this.errorLoad = errorStatusKnown;
-                    return;
-                }
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
 
-                this.errorLoad = err;
+
+                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                // if (errorStatusKnown) {
+                //     this.errorLoad = errorStatusKnown;
+                //     return;
+                // }
+                //
+                // this.errorLoad = err;
                 console.log(err);
             });
     }
