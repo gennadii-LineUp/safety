@@ -16,6 +16,7 @@ import {AdminGuard} from './guards/admin-guard.service';
 import {ClientGuard} from './guards/client-guard.service';
 import {AdminAsClientGuard} from './guards/admin-as-client-guard.service';
 import {EmployeeNullGuard} from './guards/employee-null-guard.service';
+import {ErrorMessageHandlerService} from './services/error/error-message-handler.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import {EmployeeNullGuard} from './guards/employee-null-guard.service';
   ],
     exports: [ ],
     providers: [
-        AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, BackendService, DataService
+        AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, ErrorMessageHandlerService, BackendService, DataService
     ],
     bootstrap: [AppComponent]
 })

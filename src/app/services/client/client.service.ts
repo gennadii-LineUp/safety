@@ -73,6 +73,16 @@ export class ClientService {
     }
 
 
+    public uploadImage(file: any, siteId: number): Observable<any> {
+        console.log('==client service:_uploadImage started==');
+        let useTolkin:boolean = true;
+        let formData:FormData = new FormData();
+        formData.append('image', file, file.name);
+
+        return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData, useTolkin);
+    }
+
+
     public encode(obj) {
         let newData = '';
         for (let key in obj) {

@@ -47,7 +47,7 @@ export class UrlParams {
 
     public static get siteHome(): string {
         return `http://sfapi:8000/app_dev.php/sites/`;
-        // return `http://82.117.251.13/api/sites`;
+        // return `http://82.117.251.13/api/sites/`;
     }
 
 

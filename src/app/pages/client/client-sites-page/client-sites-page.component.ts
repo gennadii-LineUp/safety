@@ -10,7 +10,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
   selector: 'app-client-sites-page',
   templateUrl: './client-sites-page.component.html',
   styleUrls: ['./client-sites-page.component.css'],
-    providers: [ClientService, PaginationService, ErrorMessageHandlerService]
+    providers: [ClientService, PaginationService]
 })
 export class ClientSitesPageComponent implements OnInit {
     loading: boolean = false;
@@ -19,6 +19,10 @@ export class ClientSitesPageComponent implements OnInit {
     errorSalaries: string = '';
     errorCreating: string = '';
     successCreating: string = '';
+
+    loadingFile: boolean = false;
+    uploadedFile: boolean = false;
+    uploadFileText: string = 'Image du site';
 
     site: SiteClass[] = [];
 
@@ -195,6 +199,62 @@ export class ClientSitesPageComponent implements OnInit {
     }
     public techControlSiteClicked(e:any) {
         this._techControlSite = e.target.checked;
+    }
+
+    public fileChange(event) {
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.loadingFile = true;
+            let file: File = fileList[0];
+            this.uploadFileText = file.name;
+
+            this.clientService.uploadImage(file, 4)
+                .subscribe(result => {
+                    if (result) {
+                        // this.loading = false;
+                        // this.cancellErrorMessage();
+                        // console.log('======result====OK======');
+                        this.loadingFile = false;
+                        this.uploadedFile = true;
+                        console.log(result);
+                        // this.successCreating = "Well done! You've created a new client.";
+
+                    }
+                }, (err) => {
+                    console.log('====error=============');
+                    this.loadingFile = false;
+                    this.uploadFileText = '  error  error  error';
+                        console.log(err);
+
+                    let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
+                    if (errorStatusKnown) {
+                        this.errorCreating = errorStatusKnown;
+                        return;
+                    }
+
+                    let error = (JSON.parse(err._body)).errors;
+
+                    if (Object.keys(error).length > 0) {
+                        this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
+                    }
+                });
+
+
+            // let formData:FormData = new FormData();
+            // formData.append('uploadFile', file, file.name);
+
+            // let headers = new Headers();
+            // headers.append('Content-Type', 'multipart/form-data');
+            // headers.append('Accept', 'application/json');
+            // let options = new RequestOptions({ headers: headers });
+            // this.http.post(`${this.apiEndPoint}`, formData, options)
+            //     .map(res => res.json())
+            //     .catch(error => Observable.throw(error))
+            //     .subscribe(
+            //         data => console.log('success'),
+            //         error => console.log(error)
+            //     )
+        }
     }
 
 
