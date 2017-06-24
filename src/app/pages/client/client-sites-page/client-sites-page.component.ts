@@ -25,6 +25,7 @@ export class ClientSitesPageComponent implements OnInit {
     uploadFileText: string = 'Image du site';
 
     site: SiteClass[] = [];
+    newSite_id: number;
 
     _cacesSiege: boolean = false;
     _cacesSite: boolean = false;
@@ -127,6 +128,17 @@ export class ClientSitesPageComponent implements OnInit {
             });
     }
 
+    file: File;
+    userHasChoosenFile: boolean = false;
+    public fileChange(event) {
+        this.loadingFile = false;
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.userHasChoosenFile = true;
+            this.file = fileList[0];
+            this.uploadFileText = this.file.name;
+        }
+    }
 
     public submitForm(name: string, address: string, postalCode: string, city: string, notificationEmails: string,
                       cacesSiege: boolean,
@@ -157,12 +169,33 @@ export class ClientSitesPageComponent implements OnInit {
         this.clientService.addNewSite(newSite)
             .subscribe(result => {
                 if (result) {
-                    this.loading = false;
                     this.cancellErrorMessage();
                     console.log('======result====OK======');
                     console.log(result);
-                    this.successCreating = "Well done! You've created a new client.";
+                    this.newSite_id = result.siteId;
+                    if (this.userHasChoosenFile) {
+                        this.loadingFile = true;
+                        this.clientService.uploadImage(this.file, this.newSite_id)
+                            .subscribe(result => {
+                                if (result) {
+                                    this.loadingFile = false;
+                                    this.uploadedFile = true;
+                                    console.log(result);
+                                    this.successCreating = "Well done! You've created a new client.";
+                                }
+                            }, (err) => {
+                                this.loadingFile = false;
+                                this.uploadFileText = '  error  error  error';
+                                console.log(err);
 
+                                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+                            });
+                    }
+                    else {
+                        this.successCreating = "Well done! You've created a new client.";
+                    }
+                    this.loading = false;
+                    this.userHasChoosenFile = false;
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -184,6 +217,31 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
 
+    // public fileChange(event) {
+    //     let fileList: FileList = event.target.files;
+    //     if(fileList.length > 0) {
+    //         this.loadingFile = true;
+    //         let file: File = fileList[0];
+    //         this.uploadFileText = file.name;
+    //
+    //         this.clientService.uploadImage(file, 4)
+    //             .subscribe(result => {
+    //                 if (result) {
+    //                     this.loadingFile = false;
+    //                     this.uploadedFile = true;
+    //                     console.log(result);
+    //                 }
+    //             }, (err) => {
+    //                 this.loadingFile = false;
+    //                 this.uploadFileText = '  error  error  error';
+    //                 console.log(err);
+    //
+    //                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    //             });
+    //     }
+    // }
+
+
     public cacesSiegeClicked(e:any) {
         this._cacesSiege = e.target.checked;
     }
@@ -202,64 +260,6 @@ export class ClientSitesPageComponent implements OnInit {
     public techControlSiteClicked(e:any) {
         this._techControlSite = e.target.checked;
     }
-
-    public fileChange(event) {
-        let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
-            this.loadingFile = true;
-            let file: File = fileList[0];
-            this.uploadFileText = file.name;
-
-            this.clientService.uploadImage(file, 4)
-                .subscribe(result => {
-                    if (result) {
-                        // this.loading = false;
-                        // this.cancellErrorMessage();
-                        // console.log('======result====OK======');
-                        this.loadingFile = false;
-                        this.uploadedFile = true;
-                        console.log(result);
-                        // this.successCreating = "Well done! You've created a new client.";
-
-                    }
-                }, (err) => {
-                    console.log('====error=============');
-                    this.loadingFile = false;
-                    this.uploadFileText = '  error  error  error';
-                        console.log(err);
-
-                    this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-                    // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                    // if (errorStatusKnown) {
-                    //     this.errorCreating = errorStatusKnown;
-                    //     return;
-                    // }
-                    //
-                    // let error = (JSON.parse(err._body)).errors;
-                    //
-                    // if (Object.keys(error).length > 0) {
-                    //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                    // }
-                });
-
-
-            // let formData:FormData = new FormData();
-            // formData.append('uploadFile', file, file.name);
-
-            // let headers = new Headers();
-            // headers.append('Content-Type', 'multipart/form-data');
-            // headers.append('Accept', 'application/json');
-            // let options = new RequestOptions({ headers: headers });
-            // this.http.post(`${this.apiEndPoint}`, formData, options)
-            //     .map(res => res.json())
-            //     .catch(error => Observable.throw(error))
-            //     .subscribe(
-            //         data => console.log('success'),
-            //         error => console.log(error)
-            //     )
-        }
-    }
-
 
     public tableMobileViewInit() {
         let headertext = [],
@@ -296,11 +296,6 @@ export class ClientSitesPageComponent implements OnInit {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.router.navigate(['/client']);
-    }
-    public gotoSiteHomePage (e:Event) {
-        console.dir(e);
-        console.dir(e.target);
-        console.dir(e.currentTarget);
     }
 
 }
