@@ -66,15 +66,6 @@ export class ClientSalariesPageComponent implements OnInit {
             }, (err) => {
                 this.loadingSalarieUsed = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-
-                console.log(err);
-                // this.errorLoad = err;
             });
     }
 

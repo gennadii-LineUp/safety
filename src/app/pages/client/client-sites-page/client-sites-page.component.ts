@@ -16,7 +16,7 @@ export class ClientSitesPageComponent implements OnInit {
     loading: boolean = false;
     loaded: boolean = false;
     errorLoad: string = '';
-    errorSalaries: string = '';
+    errorSalaries: boolean = false;
     errorCreating: string = '';
     successCreating: string = '';
 
@@ -34,6 +34,8 @@ export class ClientSitesPageComponent implements OnInit {
     _techControlSiege: boolean = false;
     _techControlSite: boolean = false;
 
+    salariesMaxPossible:number;
+    salariesUsed:number;
 
     sites = [];
     pager: any = {};
@@ -74,6 +76,20 @@ export class ClientSitesPageComponent implements OnInit {
         console.log('====' + this.searchName);
     }
 
+    public checkFreeSalarieAccount() {
+        this.clientService.employeeCount()
+            .subscribe(result => {
+                if (result) {
+                    this.salariesMaxPossible = result.limitEmployees;
+                    this.salariesUsed = result.employeeCount;
+                    if (this.salariesMaxPossible === this.salariesUsed) {
+                        this.errorSalaries = true;
+                    }
+                }
+            }, (err) => {
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -116,15 +132,6 @@ export class ClientSitesPageComponent implements OnInit {
                 this.loading = false;
                 console.log('====error=============');
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // this.errorLoad = err;
-                // console.log(err);
             });
     }
 
@@ -203,16 +210,6 @@ export class ClientSitesPageComponent implements OnInit {
                 console.log(err);
 
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorCreating = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // let error = (JSON.parse(err._body)).errors;
-                //
-                // if (Object.keys(error).length > 0) {
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                // }
             });
     }
 
@@ -282,7 +279,7 @@ export class ClientSitesPageComponent implements OnInit {
     private cancellErrorMessage() {
         //this.loading = false;
         this.errorLoad = '';
-        this.errorSalaries = '';
+        this.errorSalaries = false;
         this.errorCreating = '';
     }
     public cancellSuccessMessage() {
