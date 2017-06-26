@@ -40,11 +40,11 @@ export class BackendService {
 
         let headers: Headers = new Headers();
 
-        if (this.adminAsClientGuard.canActivate()) {
-            this.token = localStorage.getItem('tokenAdminAsClient')
-        } else {
+        // if (this.adminAsClientGuard.canActivate()) {
+        //     this.token = localStorage.getItem('tokenAdminAsClient')
+        // } else {
             this.token = localStorage.getItem('token');
-        }
+        // }
 
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.token);
@@ -61,11 +61,11 @@ export class BackendService {
 
         let headers: Headers = new Headers();
 
-       if (this.adminAsClientGuard.canActivate()) {
-           this.token = localStorage.getItem('tokenAdminAsClient')
-        } else {
+       // if (this.adminAsClientGuard.canActivate()) {
+       //     this.token = localStorage.getItem('tokenAdminAsClient')
+       //  } else {
             this.token = localStorage.getItem('token');
-       }
+       // }
 
         headers.append('Authorization', 'Bearer ' + this.token);
         headers.append('Content-Type', 'form-data');
@@ -80,11 +80,11 @@ export class BackendService {
                token: boolean = false): Observable<any> {
         let headers: Headers = new Headers();
 
-        if (this.adminAsClientGuard.canActivate()) {
-            this.token = localStorage.getItem('tokenAdminAsClient')
-        } else {
+        // if (this.adminAsClientGuard.canActivate()) {
+        //     this.token = localStorage.getItem('tokenAdminAsClient')
+        // } else {
             this.token = localStorage.getItem('token');
-        }
+        // }
 
         headers.append('Authorization', 'Bearer ' + this.token);
 

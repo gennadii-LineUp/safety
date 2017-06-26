@@ -15,12 +15,14 @@ export class ClientComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        localStorage.removeItem('tokenAdminAsClient');
-        localStorage.removeItem('roleAdminAsClient');
-        console.log('tokens removed');
+
+       // localStorage.removeItem('previous_tokenAdmin');
+      //  localStorage.removeItem('previous_roleAdmin');
+      //  console.log('tokens removed');
     }
 
-    public tableMobileViewInit() {
+
+public tableMobileViewInit() {
         let headertext = [],
             headers = document.querySelectorAll("th"),
             tablerows = document.querySelectorAll("th"),

@@ -8,7 +8,7 @@ export class AdminGuard implements CanActivate {
 
     canActivate() {
 
-        if (localStorage.role === 'ROLE_ADMIN') {
+        if ((localStorage.role === 'ROLE_ADMIN') || (localStorage.previous_roleAdmin === 'ROLE_ADMIN')) {
             // logged as admin
             return true;
         }
@@ -19,3 +19,4 @@ export class AdminGuard implements CanActivate {
 
     }
 }
+

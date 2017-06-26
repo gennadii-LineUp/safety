@@ -119,10 +119,20 @@ export class AdminClientsPageComponent implements OnInit {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    localStorage.setItem('tokenAdminAsClient', result.token);
-                    localStorage.setItem('roleAdminAsClient', result.roles[0]);
+
+                    localStorage.setItem('previous_tokenAdmin', localStorage.token);
+                    localStorage.setItem('previous_roleAdmin', localStorage.role);
+
+                    setTimeout(() => {
+                        localStorage.setItem('token', result.token);
+                        localStorage.setItem('role', result.roles[0]);
+                    }, 100);
+
                     console.log(localStorage);
-                    this.router.navigate(['/client']);
+
+                    setTimeout(() => {
+                        this.router.navigate(['/client']);
+                    }, 500);
                     console.log('=====');
                 }
             }, (err) => {

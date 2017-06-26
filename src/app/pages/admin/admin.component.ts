@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AdminAsClientGuard} from '../../guards/admin-as-client-guard.service';
 //import {ActivatedRoute} from '@angular/router';
 //import {Subscription} from 'rxjs/Subscription';
 declare var $:any;
@@ -10,8 +11,29 @@ declare var $:any;
 })
 export class AdminComponent implements OnInit {
 
+    constructor(private adminAsClientGuard: AdminAsClientGuard){
+        if (this.adminAsClientGuard.canActivate()) {
+            console.log('in AdminComponent');
+            console.log(localStorage);
+
+            // setTimeout(() => {
+             localStorage.setItem('role', localStorage.previous_roleAdmin);
+             localStorage.setItem('token', localStorage.previous_tokenAdmin);
+            // }, 100);
+
+            setTimeout(() => {
+                localStorage.removeItem('previous_tokenAdmin');
+                localStorage.removeItem('previous_roleAdmin');
+            }, 200);
+            console.log('tokens removed');
+            console.log(localStorage);
+        }
+    }
+
+
     ngOnInit(): void {
         this.tableMobileViewInit();
+
     }
 
 

@@ -8,8 +8,8 @@ export class AdminAsClientGuard implements CanActivate {
 
     canActivate() {
 
-        if (localStorage.getItem('tokenAdminAsClient')) {
-            // logged as admin
+        if (localStorage.getItem('previous_roleAdmin') && localStorage.getItem('previous_tokenAdmin')) {
+            // logged before as admin
             return true;
         }
 

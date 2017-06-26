@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthGuard} from '../../../guards/auth-guards.service';
-import {AdminGuard} from '../../../guards/admin-guard.service';
+//import {AuthGuard} from '../../../guards/auth-guards.service';
+//import {AdminGuard} from '../../../guards/admin-guard.service';
 import {AdminAsClientGuard} from '../../../guards/admin-as-client-guard.service';
 
 @Component({
   selector: 'navbar-client',
   templateUrl: './navbar-client.component.html',
-  styleUrls: ['./navbar-client.component.css'],
-    providers: [AuthGuard, AdminAsClientGuard, AdminGuard]
+  styleUrls: ['./navbar-client.component.css']
 })
 export class NavbarClientComponent implements OnInit {
     showAdminData : boolean = false;
@@ -16,11 +15,10 @@ export class NavbarClientComponent implements OnInit {
     //private sub: any;
 
 
-    constructor(private authGuard: AuthGuard,
-                private adminAsClientGuard: AdminAsClientGuard,
-                private adminGuard: AdminGuard){}
+    constructor(private adminAsClientGuard: AdminAsClientGuard){}
                 // private route: ActivatedRoute
-
+                // private authGuard: AuthGuard,
+                // private adminGuard: AdminGuard
     ngOnInit() {
         this.verifyUserRole();
 
@@ -36,12 +34,12 @@ export class NavbarClientComponent implements OnInit {
 
 
     public verifyUserRole() {
-        this.showAdminData = this.authGuard.canActivate()
-                          && this.adminAsClientGuard.canActivate()
-                          && this.adminGuard.canActivate();
+        this.showAdminData = this.adminAsClientGuard.canActivate();
     }
 
-    public logoutFunction() {
+
+
+public logoutFunction() {
         localStorage.clear();
     }
 
