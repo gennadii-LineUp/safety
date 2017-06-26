@@ -3,6 +3,7 @@ import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
 import {Observable} from 'rxjs/Observable';
+import {AdminReglagesClass} from '../../models/const/admin-reglages-class';
 
 @Injectable()
 export class AdminService {
@@ -38,6 +39,21 @@ export class AdminService {
 
     }
 
+
+    public getExistingReglages(): Observable<any> {
+        //console.log('==admin service:_getExistingReglages started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.get(UrlParams.adminReglages, useTolkin);
+
+    }
+    public updateReglages(newReglages: AdminReglagesClass): Observable<any> {
+        console.log('==admin service:_updateReglages started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.post(UrlParams.adminReglages, JSON.stringify(newReglages), useTolkin);
+
+    }
 
     findClientByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');

@@ -45,7 +45,9 @@ export class ErrorMessageHandlerService {
         this.message = '';
         for (let key in errorObject) {
             let status: string = '';
-            let _key = this.getKeyEquivalent(key);
+            let _key = '';
+
+            _key = this.getKeyEquivalent(key);
 
             try {
                 status = errorObject[key];
@@ -109,6 +111,7 @@ export class ErrorMessageHandlerService {
             case 'startDate':                 key='*Date de début*';  break;
             case 'endDate':                   key='*Date de fin*';  break;
             case 'employeeGroup':             key='*Groupe de salariés*';  break;
+            case 'password':                  key='*Mot de passe*';  break;
             //case '':         key='';  break;
             default:
                 key;

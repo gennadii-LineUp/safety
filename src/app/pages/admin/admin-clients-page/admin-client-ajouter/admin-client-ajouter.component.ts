@@ -82,7 +82,7 @@ export class AdminClientAjouterComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
-                console.log('====error=============');
+                console.log(err);
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
 
                 //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
