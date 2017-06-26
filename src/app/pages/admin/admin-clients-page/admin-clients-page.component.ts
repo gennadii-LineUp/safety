@@ -111,9 +111,33 @@ export class AdminClientsPageComponent implements OnInit {
             });
     }
 
+
+    gotoClientMenu(client_id: string) {
+        this.loading = true;
+        this.adminService.getTolkinAdminAsClient(+client_id)
+            .subscribe(result => {
+                if (result) {
+                    this.loading = false;
+                    console.log(result);
+                    localStorage.setItem('tokenAdminAsClient', result.token);
+                    localStorage.setItem('roleAdminAsClient', result.roles[0]);
+                    console.log(localStorage);
+                    this.router.navigate(['/client']);
+                    console.log('=====');
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+
+    }
+
+
     gotoNewClientForm() {
         this.router.navigate(['/admin/client/ajouter-un-client']);
     }
+
 
     public tableMobileViewInit() {
         let headertext = [],

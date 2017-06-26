@@ -74,6 +74,15 @@ export class AdminService {
     }
 
 
+    getTolkinAdminAsClient(client_id: number): Observable<any> {
+        //console.log('==admin service:_findClientByName started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.get(UrlParams.adminClientHome + client_id+'/access_token', useTolkin);
+
+    }
+
+
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;

@@ -10,6 +10,11 @@ export class UrlParams {
         // return `http://82.117.251.13/api/admin/clients`;
     }
 
+    public static get adminClientHome(): string {
+        return `http://sfapi:8000/app_dev.php/admin/clients/`;
+        // return `http://82.117.251.13/api/admin/clients/`;
+    }
+
     public static get adminReglages(): string {
         return `http://sfapi:8000/app_dev.php/admin/settings`;
         // return `http://82.117.251.13/api/admin/settings`;

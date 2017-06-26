@@ -3,12 +3,12 @@ import {AuthGuard} from '../../../guards/auth-guards.service';
 import {AdminGuard} from '../../../guards/admin-guard.service';
 import {ClientGuard} from '../../../guards/client-guard.service';
 import {ActivatedRoute} from '@angular/router';
+import {AdminAsClientGuard} from '../../../guards/admin-as-client-guard.service';
 
 @Component({
   selector: 'navbar-site',
   templateUrl: './navbar-site.component.html',
-  styleUrls: ['./navbar-site.component.css'],
-    providers: [AuthGuard, AdminGuard, ClientGuard]
+  styleUrls: ['./navbar-site.component.css']
 })
 export class NavbarSiteComponent implements OnInit {
     showAdminData : boolean = false;
@@ -21,6 +21,7 @@ export class NavbarSiteComponent implements OnInit {
 
     constructor(private authGuard: AuthGuard,
                 private adminGuard: AdminGuard,
+                private adminAsClientGuard: AdminAsClientGuard,
                 private clientGuard: ClientGuard,
                 private route: ActivatedRoute){}
 
@@ -40,7 +41,7 @@ export class NavbarSiteComponent implements OnInit {
 
 
     public verifyUserRole() {
-        this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
+        this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate() && this.adminAsClientGuard.canActivate();
         this.showClientData = this.authGuard.canActivate() && this.clientGuard.canActivate();
         if (this.showAdminData || this.showClientData) {
             this.showLogin = false;

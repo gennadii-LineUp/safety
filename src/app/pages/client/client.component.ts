@@ -16,7 +16,8 @@ export class ClientComponent implements OnInit {
 
     ngOnDestroy() {
         localStorage.removeItem('tokenAdminAsClient');
-        console.log('token removed');
+        localStorage.removeItem('roleAdminAsClient');
+        console.log('tokens removed');
     }
 
     public tableMobileViewInit() {
