@@ -3,12 +3,13 @@ import {AdminGuard} from 'app/guards/admin-guard.service';
 import {AuthGuard } from 'app/guards/auth-guards.service';
 import {ErrorMessageHandlerService} from 'app/services/error/error-message-handler.service';
 import {SiteService} from '../../../services/site/site.service';
+import {TableSortService} from '../../../services/table-sort.service';
 
 @Component({
   selector: 'site-reglages-page',
   templateUrl: './site-reglages-page.component.html',
   styleUrls: ['./site-reglages-page.component.css'],
-    providers: [SiteService, AuthGuard, AdminGuard]
+    providers: [SiteService, AuthGuard, AdminGuard, TableSortService]
 })
 export class SiteReglagesPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -26,12 +27,19 @@ export class SiteReglagesPageComponent implements OnInit {
     id_site: number = 0;
 
 
+    notificationHeaders: any[] = [
+        { display: 'Règle de notification', variable: 'name', filter: 'text' },
+    ];
+
+
     constructor(private authGuard: AuthGuard,
                 private adminGuard: AdminGuard,
                 private siteService: SiteService,
-                private errorMessageHandlerService: ErrorMessageHandlerService){}
+                private errorMessageHandlerService: ErrorMessageHandlerService,
+                private tableSortService: TableSortService){}
 
   ngOnInit() {
+      this.siteService.tableMobileViewInit();
       this.id_site = localStorage.id_site;
       console.log('get from LS ' + this.id_site);
 

@@ -29,41 +29,9 @@
         <table class="table-default salaries-table">
             <thead>
             <tr>
-                <th><button class="single-sort-button"></button>Nom</th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Prénom</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>n° Sécu</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Site</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Groupe</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Validité</span>
+                <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                    <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                    {{header.display}}
                 </th>
                 <th>
                     <span>Action</span>

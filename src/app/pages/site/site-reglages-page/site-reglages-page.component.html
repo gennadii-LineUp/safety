@@ -70,7 +70,10 @@
             <table class="table-default notifications-table">
                 <thead>
                 <tr>
-                    <th><button class="single-sort-button"></button>Règle de notification</th>
+                    <th *ngFor="let notification of notificationHeaders" (click)="tableSortService.changeSorting(notification.variable)">
+                        <button [class]="tableSortService.selectedClass(notification.variable)" ></button>
+                        {{notification.display}}
+                    </th>
                     <th>
                         <span>Siège</span>
                     </th>

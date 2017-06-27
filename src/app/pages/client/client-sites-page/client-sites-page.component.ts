@@ -5,12 +5,13 @@ import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {SiteClass} from '../../../models/const/site-class';
 import {PaginationService} from '../../../services/pagination/pagination.service';
+import {TableSortService} from '../../../services/table-sort.service';
 
 @Component({
   selector: 'app-client-sites-page',
   templateUrl: './client-sites-page.component.html',
   styleUrls: ['./client-sites-page.component.css'],
-    providers: [ClientService, PaginationService]
+    providers: [ClientService, PaginationService, TableSortService]
 })
 export class ClientSitesPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -45,15 +46,26 @@ export class ClientSitesPageComponent implements OnInit {
     searchName: string = '';
     currentPage: any;
 
+    headers: any[] = [
+        { display: 'Nom du site',       variable: 'name',       filter: 'text' },
+        { display: 'Adresse',           variable: 'sites',      filter: 'text' },
+        { display: 'Responsable site',  variable: 'employees',  filter: 'text' }
+    ];
+
+    modalHeaders: any[] = [
+        { display: 'Règle de notification', variable: 'name', filter: 'text' }
+    ];
+
 
     constructor(private clientService: ClientService,
                 private router: Router,
                 private paginationService: PaginationService,
-                private errorMessageHandlerService: ErrorMessageHandlerService) {}
+                private errorMessageHandlerService: ErrorMessageHandlerService,
+                private tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.findSiteByNameFunction('');
-        this.tableMobileViewInit();
+        this.clientService.tableMobileViewInit();
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
     }
 
@@ -128,7 +140,7 @@ export class ClientSitesPageComponent implements OnInit {
 
                     this.loaded = true;
                     setTimeout(() => {
-                        this.tableMobileViewInit();
+                        this.clientService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('clientSiteSearch_name', _name);
                     localStorage.setItem('clientSiteSearch_page', this.currentPage);
@@ -221,6 +233,7 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
 
+
     // public fileChange(event) {
     //     let fileList: FileList = event.target.files;
     //     if(fileList.length > 0) {
@@ -263,24 +276,6 @@ export class ClientSitesPageComponent implements OnInit {
     }
     public techControlSiteClicked(e:any) {
         this._techControlSite = e.target.checked;
-    }
-
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
     }
 
     private cancellErrorMessage() {

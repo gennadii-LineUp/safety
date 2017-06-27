@@ -4,12 +4,13 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {Router} from '@angular/router';
 import {AdminService} from '../../../services/admin/admin.service';
+import {TableSortService} from '../../../services/table-sort.service';
 
 @Component({
   selector: 'client-salaries-page',
   templateUrl: './client-salaries-page.component.html',
   styleUrls: ['./client-salaries-page.component.css'],
-    providers: [ClientService, AdminService, PaginationService]
+    providers: [ClientService, AdminService, PaginationService, TableSortService]
 })
 export class ClientSalariesPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -32,16 +33,26 @@ export class ClientSalariesPageComponent implements OnInit {
     searchName: string = '';
     currentPage: any;
 
+    headers: any[] = [
+        { display: 'Nom',       variable: 'name',           filter: 'text' },
+        { display: 'Prénom',    variable: 'surname',        filter: 'text' },
+        { display: 'n° Sécu',   variable: 'numSecu',        filter: 'text' },
+        { display: 'Site',      variable: 'siteName',       filter: 'text' },
+        { display: 'Groupe',    variable: 'groupName',      filter: 'text' },
+        { display: 'Validité',  variable: 'validityPeriod', filter: 'text' },
+    ];
+
 
     constructor(private clientService: ClientService,
                 private adminService: AdminService,
                 private router: Router,
                 private paginationService: PaginationService,
-                private errorMessageHandlerService: ErrorMessageHandlerService) {}
+                private errorMessageHandlerService: ErrorMessageHandlerService,
+                private tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.findSalarieByNameFunction('');
-        this.tableMobileViewInit();
+        this.clientService.tableMobileViewInit();
         this.getUsedSalaries();
     }
 
@@ -124,7 +135,7 @@ export class ClientSalariesPageComponent implements OnInit {
 
                     this.loaded = true;
                     setTimeout(() => {
-                        this.tableMobileViewInit();
+                        this.clientService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('clientSalarieSearch_name', _name);
                     localStorage.setItem('clientSalarieSearch_page', this.currentPage);
@@ -151,24 +162,6 @@ export class ClientSalariesPageComponent implements OnInit {
     public cancellSuccessMessage() {
         this.loading = false;
         this.successCreating = '';
-    }
-
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
     }
 
 }

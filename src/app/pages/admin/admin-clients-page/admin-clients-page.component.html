@@ -23,26 +23,15 @@
     <div class="table-wrapper">
         <table class="table-default clients-table">
             <thead>
-            <tr>
-                <th><button class="single-sort-button"></button>Entreprise</th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Sites</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Employés</span>
-                </th>
-                <th>
-                    <span>Action</span>
-                </th>
-            </tr>
+                <tr>
+                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                        {{header.display}}
+                    </th>
+                    <th>
+                        <span>Action</span>
+                    </th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngIf='emptyTable'>

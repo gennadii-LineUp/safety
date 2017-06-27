@@ -5,12 +5,13 @@ import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {GroupeClass} from '../../../models/const/groupe-class';
 import {PaginationService} from '../../../services/pagination/pagination.service';
+import {TableSortService} from '../../../services/table-sort.service';
 
 @Component({
   selector: 'app-client-groupes-page',
   templateUrl: './client-groupes-page.component.html',
   styleUrls: ['./client-groupes-page.component.css'],
-    providers: [ClientService, PaginationService]
+    providers: [ClientService, PaginationService, TableSortService]
 })
 export class ClientGroupesPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -32,10 +33,17 @@ export class ClientGroupesPageComponent implements OnInit {
 
     _adminAccess: boolean = false;
 
+    headers: any[] = [
+        { display: 'Nom du groupe', variable: 'name',  filter: 'text' },
+        { display: 'Accès',         variable: 'acces', filter: 'text' }
+    ];
+
+
     constructor(private clientService: ClientService,
                 private router: Router,
                 private paginationService: PaginationService,
-                private errorMessageHandlerService: ErrorMessageHandlerService) {}
+                private errorMessageHandlerService: ErrorMessageHandlerService,
+                private tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.findGroupByNameFunction('');
@@ -95,7 +103,7 @@ export class ClientGroupesPageComponent implements OnInit {
 
                     this.loaded = true;
                     setTimeout(() => {
-                        this.tableMobileViewInit();
+                        this.clientService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('clientGroupSearch_name', _name);
                 }
@@ -108,7 +116,7 @@ export class ClientGroupesPageComponent implements OnInit {
             });
     }
 
-    
+
     public submitForm(name: string,
                       adminAccess: boolean) {
 
@@ -170,22 +178,5 @@ export class ClientGroupesPageComponent implements OnInit {
         this.ngOnInit();
     }
 
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
-    }
 
 }

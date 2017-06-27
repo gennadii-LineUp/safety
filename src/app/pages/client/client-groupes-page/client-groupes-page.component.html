@@ -73,19 +73,15 @@
     <div class="table-wrapper">
         <table class="table-default groupe-de-salaries-table">
             <thead>
-            <tr>
-                <th><button class="single-sort-button"></button>Nom du groupe</th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Accès</span>
-                </th>
-                <th>
-                    <span>Action</span>
-                </th>
-            </tr>
+                <tr>
+                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                        {{header.display}}
+                    </th>
+                    <th>
+                        <span>Action</span>
+                    </th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngIf='emptyTable'>

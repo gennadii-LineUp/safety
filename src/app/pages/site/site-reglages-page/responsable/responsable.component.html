@@ -19,10 +19,9 @@
                 <table class="table-default ajouter-responsables-table">
                     <thead>
                         <tr>
-                            <th><button class="single-sort-button"></button>Nom</th>
-                            <th>
-                                <button class="single-sort-button"></button>
-                                <span>n° Sécu</span>
+                            <th *ngFor="let mobileHeader of mobileHeaders" (click)="tableSortService.changeSorting(mobileHeader.variable)">
+                                <button [class]="tableSortService.selectedClass(mobileHeader.variable)" ></button>
+                                {{mobileHeader.display}}
                             </th>
                             <th>
                                 <span>Accès Général</span>
@@ -105,19 +104,15 @@
 
 <table class="table-default responsable-du-site-table">
     <thead>
-    <tr>
-        <th><button class="single-sort-button"></button>Nom du salarié</th>
-        <th>
-            <button class="double-sort-button">
-                <span></span>
-                <span></span>
-            </button>
-            <span>Accès</span>
-        </th>
-        <th>
-            <span>Action</span>
-        </th>
-    </tr>
+        <tr>
+            <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                {{header.display}}
+            </th>
+            <th>
+                <span>Action</span>
+            </th>
+        </tr>
     </thead>
     <tbody>
     <tr>

@@ -514,35 +514,31 @@ h2 {
 .table-wrapper {
     margin-bottom: 3px;
 }
-
-.single-sort-button {
-    width: 22px;
-    height: 7px;
-    display: inline-block;
-    background: url(/assets/img/order-icon.png) no-repeat;
-    border: none;
-    padding: 2px 5px;
-    padding-bottom: 1px;
-    margin: 0 8px 0 0;
-    /*position: absolute;*/
-    left: 24px;
-    bottom: 25px;
+th {
+    text-align: center !important;
 }
-
+.sort-button-true,
+.sort-button-false,
 .double-sort-button {
     width: 22px;
     height: 16px;
     display: inline-block;
     border: none;
     background: transparent;
-    background: url(/assets/img/order-icon-double.png) no-repeat;
     padding: 2px 5px;
     margin: 0 8px 0 0;
-    /*position: absolute;*/
     left: 24px;
     bottom: 25px;
 }
-
+.sort-button-true {
+    background: url(/assets/img/order-icon-up.png) no-repeat;
+}
+.sort-button-false {
+    background: url(/assets/img/order-icon-down.png) no-repeat;
+}
+.double-sort-button {
+    background: url(/assets/img/order-icon-double.png) no-repeat;
+}
 .double-sort-button span {
     width: 22px;
     height: 8px;
@@ -1040,12 +1036,12 @@ h2 {
 }
 
 .library-table th:nth-of-type(2) {
-    padding-left: 102px;
+    /*padding-left: 102px;*/
 }
 
-.library-table th:nth-of-type(2) .double-sort-button {
-    left: 80px;
-}
+/*.library-table th:nth-of-type(2) .double-sort-button {*/
+    /*left: 80px;*/
+/*}*/
 
 .library-table td:nth-of-type(2) a,
 .library-table td:nth-of-type(3) a {
@@ -2293,15 +2289,19 @@ h2 {
 
 /* MOBILE TABLES */
 @media screen and (max-width: 1599px) {
-    .single-sort-button, .double-sort-button {
+    .sort-button-true, .sort-button-false, .double-sort-button {
         bottom: 25px;
         top: auto;
         left: 24px;
         background-position: center;
     }
-    .single-sort-button {
-        bottom: 25px;
-    }
+    /*.sort-button-true {*/
+        /*bottom: 25px;*/
+    /*}*/
+    /*.sort-button-false {*/
+        /*bottom: 40px;*/
+    /*}*/
+
     table {
         width: 100%;
         table-layout: fixed;
@@ -2328,15 +2328,18 @@ h2 {
 }
 
 @media screen and (max-width: 1199px) {
-    .single-sort-button, .double-sort-button {
+    .sort-button-true, .sort-button-false, .double-sort-button {
         bottom: 25px;
         top: auto;
         left: 24px;
         background-position: center;
     }
-    .single-sort-button {
-        bottom: 25px;
-    }
+    /*.sort-button-true {*/
+        /*bottom: 25px;*/
+    /*}*/
+    /*.sort-button-false {*/
+        /*bottom: 25px;*/
+    /*}*/
     table {
         width: 100%;
         table-layout: fixed;

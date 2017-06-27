@@ -3,13 +3,14 @@ import { Router}    from '@angular/router';
 import {AdminService} from '../../../services/admin/admin.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
+import {TableSortService} from '../../../services/table-sort.service';
 
 
 @Component({
   selector: 'app-admin-clients-page',
   templateUrl: './admin-clients-page.component.html',
   styleUrls: ['./admin-clients-page.component.css'],
-    providers: [AdminService, PaginationService]
+    providers: [AdminService, PaginationService, TableSortService]
 })
 export class AdminClientsPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -27,17 +28,26 @@ export class AdminClientsPageComponent implements OnInit {
     searchName: string = '';
     currentPage: any;
 
+    headers: any[] = [
+        { display: 'Entreprise', variable: 'name',       filter: 'text'  },
+        { display: 'Sites',      variable: 'sites',      filter: 'text' },
+        { display: 'Employés',   variable: 'employees',  filter: 'text' },
+    ];
+    // "company": "as",     REPLACE !!!!!!!!!!
+    // "sites": "0",
+    // "employees": "0/2"
+
 
     constructor(private adminService: AdminService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private paginationService: PaginationService,
-                private router: Router) { }
+                private router: Router,
+                private tableSortService: TableSortService) { }
 
 
 
     ngOnInit() {
         this.findClientByNameFunction('');
-        //console.log(localStorage);
     }
 
     ngOnDestroy() {
@@ -45,6 +55,21 @@ export class AdminClientsPageComponent implements OnInit {
         localStorage.removeItem('adminClientsSearch_name');
     }
 
+
+    // selectedClass(columnName): string{
+    //     return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+    // }        //    access = (age > 14) ? true : false;
+    //
+    // changeSorting(columnName): void{
+    //     console.log(columnName);
+    //     var sort = this.sorting;
+    //     if (sort.column == columnName) {
+    //         sort.descending = !sort.descending;
+    //     } else {
+    //         sort.column = columnName;
+    //         sort.descending = false;
+    //     }
+    // }
 
     public onInitChecking() {
         this.searchName = localStorage.adminClientsSearch_name;
@@ -94,7 +119,7 @@ export class AdminClientsPageComponent implements OnInit {
 
                     this.loaded = true;
                     setTimeout(() => {
-                        this.tableMobileViewInit();
+                        this.adminService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('adminClientsSearch_name', _name);
                 }
@@ -142,24 +167,6 @@ export class AdminClientsPageComponent implements OnInit {
         this.router.navigate(['/admin/client/ajouter-un-client']);
     }
 
-
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
-    }
 
     private cancellErrorMessage() {
         this.loading = false;
