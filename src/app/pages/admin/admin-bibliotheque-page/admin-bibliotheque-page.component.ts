@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-bibliotheque-page.component.css']
 })
 export class AdminBibliothequePageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = true;
     errorLoad: string = '';
 
@@ -14,6 +15,21 @@ export class AdminBibliothequePageComponent implements OnInit {
     ngOnInit() {
         this.tableMobileViewInit();
     }
+//////////////////////////////////////
+//     this.emptyTable = false;
+//
+// * .subscribe(result => {
+//     *     if (result) {
+//
+//         if (this.totalItems === 0) {
+//             this.emptyTable = true;
+//         }
+//
+//     * }, (err) => {
+//
+//     this.emptyTable = true;
+/////////////////////////////////////////////
+
 
     public tableMobileViewInit() {
         let headertext = [],

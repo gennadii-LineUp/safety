@@ -19,34 +19,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Chariots élévateurs R.389</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>PEMP (nacelle) R.386</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Ponts roulants R.318/423</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Engins de chantier R.372m</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Grues auxiliaires R.390</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Grues à tour R.377m</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Grues mobiles R.383m</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Chariots élévateurs R.389</td>
+                    <td><a href="javascript:void(0);">Voir</a></td>
+                </tr>
+                <tr>
+                    <td>PEMP (nacelle) R.386</td>
+                    <td><a href="javascript:void(0);">Voir</a></td>
+                </tr>
+                <tr>
+                    <td>Ponts roulants R.318/423</td>
+                    <td><a href="javascript:void(0);">Voir</a></td>
+                </tr>
             </tbody>
         </table>
     </div>

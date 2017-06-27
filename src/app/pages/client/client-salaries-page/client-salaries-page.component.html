@@ -13,9 +13,9 @@
 <div class="main-content"  *ngIf='loaded'>
 
     <div class="search-panel clearfix">
-        <img *ngIf="loadingSalarieUsed" style='position: absolute; left:20%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <img *ngIf="loadingSalarieUsed" style='position:absolute; left:112px; top:44px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         <p >Vous utilisez <span *ngIf="loadedSalarieUsed">{{salariesUsed}}/{{salariesMaxPossible}} </span>
-                          <span *ngIf="!loadedSalarieUsed" class='error-message'>error</span>
+                          <span *ngIf="!loadedSalarieUsed" class='error-message'>--/--</span>
             salariés disponibles
         </p>
         <div class="search-wrapper">
@@ -71,26 +71,25 @@
             </tr>
             </thead>
             <tbody >
-            <tr *ngFor="let salarie of salaries">
-                <td>{{salarie.name}}</td>
-                <td>{{salarie.surname}}</td>
-                <td>{{salarie.numSecu}}</td>
-                <td>{{salarie.siteName}}</td>
-                <td>{{salarie.groupName}}</td>
-                <td>{{salarie.validityPeriod | validityPeriod}}</td>
-                <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
 
-            <!--<tr>-->
-                <!--<td>Nom</td>-->
-                <!--<td>Prénom</td>-->
-                <!--<td>201010100000000</td>-->
-                <!--<td>Nom du site</td>-->
-                <!--<td>Nom du groupe</td>-->
-                <!--<td>Indéterminé</td>-->
-                <!--<td><a href="javascript:void(0);">Gérer / Supprimer</a></td>-->
-            <!--</tr>-->
-                                                                                                                                                                                                                                                                                                </tbody>
+                <tr *ngFor="let salarie of salaries">
+                    <td>{{salarie.name}}</td>
+                    <td>{{salarie.surname}}</td>
+                    <td>{{salarie.numSecu}}</td>
+                    <td>{{salarie.siteName}}</td>
+                    <td>{{salarie.groupName}}</td>
+                    <td>{{salarie.validityPeriod | validityPeriod}}</td>
+                    <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                </tr>
         </table>
     </div>
     <nav  aria-label="Page navigation" class="pagination-wrapper">

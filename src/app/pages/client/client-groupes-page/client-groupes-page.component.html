@@ -88,6 +88,11 @@
             </tr>
             </thead>
             <tbody>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
                 <tr *ngFor="let groupe of groupes">
                     <td>{{groupe.name}}</td>
                     <td>{{groupe.access | adminAccess }}</td>

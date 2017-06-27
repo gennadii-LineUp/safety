@@ -12,6 +12,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
     providers: [AdminService, PaginationService]
 })
 export class AdminClientsPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = true;
     loaded: boolean = false;
     updating: boolean = false;
@@ -69,6 +70,7 @@ export class AdminClientsPageComponent implements OnInit {
 
     public findClientByNameFunction(name:string, page:any = 1) {
         this.loading = true;
+        this.emptyTable = false;
         let _name = name;
         if (name === 'lineUp') {
             _name = localStorage.adminClientsSearch_name;
@@ -82,6 +84,9 @@ export class AdminClientsPageComponent implements OnInit {
                     console.log(result);
                     this.clients = result.items;
                     this.totalItems = +result.pagination.totalCount;
+                    if (this.totalItems === 0) {
+                        this.emptyTable = true;
+                    }
                     console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
@@ -92,22 +97,12 @@ export class AdminClientsPageComponent implements OnInit {
                         this.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('adminClientsSearch_name', _name);
-                    // localStorage.setItem('adminClientsSearch_page', this.currentPage);
                 }
             }, (err) => {
                 this.loading = false;
-                console.log('====error=============');
+                this.emptyTable = true;
+                console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // this.errorLoad = err;
-                // console.log(err);
             });
     }
 
@@ -132,7 +127,7 @@ export class AdminClientsPageComponent implements OnInit {
 
                     setTimeout(() => {
                         this.router.navigate(['/client']);
-                    }, 500);
+                    }, 300);
                     console.log('=====');
                 }
             }, (err) => {
@@ -140,7 +135,6 @@ export class AdminClientsPageComponent implements OnInit {
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
-
     }
 
 

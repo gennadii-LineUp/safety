@@ -12,6 +12,7 @@ import {EmployeesClass} from '../../../models/const/employees-class';
     providers: [SiteService, PaginationService]
 })
 export class SiteSalariesPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = false;
     loaded: boolean = false;
     errorLoad: string = '';
@@ -71,6 +72,8 @@ export class SiteSalariesPageComponent implements OnInit {
 
     public findEmployeeByNameFunction(name:string, page:any = 1) {
         this.loading = true;
+        this.emptyTable = false;
+
         this.cancellErrorMessage();
 
         let _name = name;
@@ -86,6 +89,9 @@ export class SiteSalariesPageComponent implements OnInit {
                     console.log(result);
                     this.salaries = result.items;
                     this.totalItems = +result.pagination.totalCount;
+                    if (this.totalItems === 0) {
+                        this.emptyTable = true;
+                    }
                     console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
@@ -100,17 +106,9 @@ export class SiteSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
-                console.log('====error=============');
-                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // this.errorLoad = err;
+                this.emptyTable = true;
                 console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 

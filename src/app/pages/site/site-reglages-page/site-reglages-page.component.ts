@@ -11,6 +11,7 @@ import {SiteService} from '../../../services/site/site.service';
     providers: [SiteService, AuthGuard, AdminGuard]
 })
 export class SiteReglagesPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = false;
     loadingSalarieUsed: boolean = false;
     loaded: boolean = false;
@@ -37,5 +38,19 @@ export class SiteReglagesPageComponent implements OnInit {
       this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
   }
 
+//////////////////////////////
+//     this.emptyTable = false;
+//
+// * .subscribe(result => {
+//     *     if (result) {
+//
+//         if (this.totalItems === 0) {
+//             this.emptyTable = true;
+//         }
+//
+//     * }, (err) => {
+//
+//     this.emptyTable = true;
+///////////////////////////////
 
 }

@@ -9,6 +9,7 @@ declare var $:any;
     providers: [SiteService]
 })
 export class SiteParcPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = false;
     loadingSalarieUsed: boolean = false;
     loaded: boolean = false;
@@ -31,6 +32,21 @@ export class SiteParcPageComponent implements OnInit {
         });
     }
 
+
+/////////////////////////////////////////
+//     this.emptyTable = false;
+//
+// * .subscribe(result => {
+//     *     if (result) {
+//
+//         if (this.totalItems === 0) {
+//             this.emptyTable = true;
+//         }
+//
+//     * }, (err) => {
+//
+//     this.emptyTable = true;
+/////////////////////////////////////////
 
 
     datepickerRun() {

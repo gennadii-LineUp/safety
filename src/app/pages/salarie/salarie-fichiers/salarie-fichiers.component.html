@@ -19,46 +19,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Lien 1</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier est un nom qui peut être vraiment très très long, au maximum 90 caractères mmmmmm...</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Lien 1</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier est un nom qui peut être vraiment très très long, au maximum 90 caractères mmmmmm...</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Lien 1</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier est un nom qui peut être vraiment très très long, au maximum 90 caractères mmmmmm...</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Lien 1</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier est un nom qui peut être vraiment très très long, au maximum 90 caractères mmmmmm...</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Lien 1</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier est un nom qui peut être vraiment très très long, au maximum 90 caractères mmmmmm...</td>
-                <td><a href="javascript:void(0);">Voir</a></td>
-            </tr>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Lien 1</td>
+                    <td><a href="javascript:void(0);">Voir</a></td>
+                </tr>
+                <tr>
+                    <td>Le nom du fichier est un nom qui peut être vraiment très très long, au maximum 90 caractères mmmmmm...</td>
+                    <td><a href="javascript:void(0);">Voir</a></td>
+                </tr>
+                <tr>
+                    <td>Lien 1</td>
+                    <td><a href="javascript:void(0);">Voir</a></td>
+                </tr>
             </tbody>
         </table>
     </div>

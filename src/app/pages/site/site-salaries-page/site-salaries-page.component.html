@@ -65,6 +65,16 @@
             </tr>
             </thead>
             <tbody>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+
                 <tr *ngFor="let salarie of salaries" >
                     <td>{{salarie.name}}</td>
                     <td>{{salarie.surname}}</td>

@@ -13,6 +13,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
     providers: [ClientService, PaginationService]
 })
 export class ClientSitesPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = false;
     loaded: boolean = false;
     errorLoad: string = '';
@@ -101,6 +102,7 @@ export class ClientSitesPageComponent implements OnInit {
 
     public findSiteByNameFunction(name:string, page:any = 1) {
         this.loading = true;
+        this.emptyTable = false;
         this.cancellErrorMessage();
 
         let _name = name;
@@ -116,6 +118,9 @@ export class ClientSitesPageComponent implements OnInit {
                     console.log(result);
                     this.sites = result.items;  // EXAMPLE:  [{ address:"ff", id:23, name:"ds"} ]
                     this.totalItems = +result.pagination.totalCount;
+                    if (this.totalItems === 0) {
+                        this.emptyTable = true;
+                    }
                     console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
@@ -130,6 +135,7 @@ export class ClientSitesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
+                this.emptyTable = true;
                 console.log('====error=============');
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
@@ -139,6 +145,7 @@ export class ClientSitesPageComponent implements OnInit {
     userHasChoosenFile: boolean = false;
     public fileChange(event) {
         this.loadingFile = false;
+        this.uploadedFile = false;
         let fileList: FileList = event.target.files;
         if(fileList.length > 0) {
             this.userHasChoosenFile = true;

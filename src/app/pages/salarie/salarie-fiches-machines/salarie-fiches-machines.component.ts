@@ -7,12 +7,30 @@ declare var $:any;
   styleUrls: ['./salarie-fiches-machines.component.css']
 })
 export class SalarieFichesMachinesComponent implements OnInit {
+    emptyTable: boolean = true;
 
   constructor() { }
 
     ngOnInit() {
         this.tableMobileViewInit();
     }
+
+////////////////////////////////////
+//     this.emptyTable = false;
+//
+// * .subscribe(result => {
+//     *     if (result) {
+//
+//         if (this.totalItems === 0) {
+//             this.emptyTable = true;
+//         }
+//
+//     * }, (err) => {
+//
+//     this.emptyTable = true;
+//
+////////////////////////////////////
+
 
     public tableMobileViewInit() {
         let headertext = [],

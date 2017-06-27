@@ -50,86 +50,39 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>AA-123-AA</td>
-                <td>255-100-200</td>
-                <td>VL</td>
-                <td>Modèle 1</td>
-                <td>Marque 1</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>BB-456-BB</td>
-                <td>NP à 20 lettres max...</td>
-                <td>PL</td>
-                <td>Mod 20 lettres max...</td>
-                <td>Marq 20 lettres max...</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>CC-789-CC</td>
-                <td>-</td>
-                <td>Remorque</td>
-                <td>Modèle 1</td>
-                <td>Marque 1</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>NP à 20 lettres max...</td>
-                <td>Chariots élévateurs...</td>
-                <td>Mod 20 lettres max...</td>
-                <td>Marq 20 lettres max...</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>255-100-200</td>
-                <td>PEMP (nacelle) R.386</td>
-                <td>Modèle 1</td>
-                <td>Marque 1</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>NP à 20 lettres max...</td>
-                <td>Ponts Roulants R.31...</td>
-                <td>Mod 20 lettres max...</td>
-                <td>Marq 20 lettres max...</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>255-100-200</td>
-                <td>Engins de chantier R...</td>
-                <td>Modèle 1</td>
-                <td>Marque 1</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>NP à 20 lettres max...</td>
-                <td>Grues auxiliaires R.3...</td>
-                <td>Mod 20 lettres max...</td>
-                <td>Marq 20 lettres max...</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>255-100-200</td>
-                <td>Grues a tour R.377m</td>
-                <td>Modèle 1</td>
-                <td>Marque 1</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>-</td>
-                <td>NP à 20 lettres max...</td>
-                <td>Grues mobiles R.383...</td>
-                <td>Mod 20 lettres max...</td>
-                <td>Marq 20 lettres max...</td>
-                <td><a href="javascript:void(0);" (click)="modal_detailsEngine.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-            </tr>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>AA-123-AA</td>
+                    <td>255-100-200</td>
+                    <td>VL</td>
+                    <td>Modèle 1</td>
+                    <td>Marque 1</td>
+                    <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                </tr>
+                <tr>
+                    <td>BB-456-BB</td>
+                    <td>NP à 20 lettres max...</td>
+                    <td>PL</td>
+                    <td>Mod 20 lettres max...</td>
+                    <td>Marq 20 lettres max...</td>
+                    <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                </tr>
+                <tr>
+                    <td>CC-789-CC</td>
+                    <td>-</td>
+                    <td>Remorque</td>
+                    <td>Modèle 1</td>
+                    <td>Marque 1</td>
+                    <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                </tr>
             </tbody>
         </table>
     </div>

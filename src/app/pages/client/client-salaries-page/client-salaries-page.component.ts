@@ -12,6 +12,7 @@ import {AdminService} from '../../../services/admin/admin.service';
     providers: [ClientService, AdminService, PaginationService]
 })
 export class ClientSalariesPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = false;
     loadingSalarieUsed: boolean = false;
     loaded: boolean = false;
@@ -65,6 +66,11 @@ export class ClientSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loadingSalarieUsed = false;
+                if ((err.status === 403) || (err.status === 500)) {
+                    // this.errorLoad = "Aucun salarié n'a pas été créé";
+                    return;
+                }
+
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
@@ -79,7 +85,6 @@ export class ClientSalariesPageComponent implements OnInit {
         } else {
             this.findSalarieByNameFunction('');
         }
-        console.log('====' + this.searchName);
     }
 
 
@@ -93,6 +98,7 @@ export class ClientSalariesPageComponent implements OnInit {
 
     public findSalarieByNameFunction(name:string, page:any = 1) {
         this.loading = true;
+        this.emptyTable = false;
         this.cancellErrorMessage();
 
         let _name = name;
@@ -106,8 +112,11 @@ export class ClientSalariesPageComponent implements OnInit {
                     this.loading = false;
 
                     console.log(result);
-                    this.salaries = result.items;  // EXAMPLE: [{ id:107, name:"d", surname:"ds", numSecu:"ds", siteName:"Site 3", groupName:"56", validityPeriod: false, expiresDate:null} ]
+                    this.salaries = result.items;
                     this.totalItems = +result.pagination.totalCount;
+                    if (this.totalItems === 0) {
+                        this.emptyTable = true;
+                    }
                     console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
@@ -122,22 +131,14 @@ export class ClientSalariesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
+                this.emptyTable = true;
+                console.log(err);
                 if (err.status === 403) {
-                    this.errorLoad = "Aucun salarié n'a pas été créé";
+                    //this.errorLoad = "Aucun salarié n'a pas été créé";
                     return;
                 }
 
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // this.errorLoad = err;
-                console.log(err);
             });
     }
 

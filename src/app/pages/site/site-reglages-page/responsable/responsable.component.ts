@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./responsable.component.css']
 })
 export class ResponsableSiteComponent implements OnInit {
+    emptyTableMobile: boolean = true;
     loading: boolean = false;
     loadingSalarieUsed: boolean = false;
     loaded: boolean = false;
@@ -19,5 +20,20 @@ export class ResponsableSiteComponent implements OnInit {
 
   ngOnInit() {
   }
+
+////////////////////////////////
+//     this.emptyTable = false;
+//
+// * .subscribe(result => {
+//     *     if (result) {
+//
+//         if (this.totalItems === 0) {
+//             this.emptyTable = true;
+//         }
+//
+//     * }, (err) => {
+//
+//     this.emptyTable = true;
+/////////////////////////////
 
 }

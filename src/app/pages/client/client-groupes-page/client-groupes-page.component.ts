@@ -13,6 +13,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
     providers: [ClientService, PaginationService]
 })
 export class ClientGroupesPageComponent implements OnInit {
+    emptyTable: boolean = true;
     loading: boolean = false;
     saving: boolean = false;
     loaded: boolean = false;
@@ -70,6 +71,7 @@ export class ClientGroupesPageComponent implements OnInit {
 
     public findGroupByNameFunction(name:string, page:any = 1) {
         this.loading = true;
+        this.emptyTable = false;
         let _name = name;
         if (name === 'lineUp') {
             _name = localStorage.clientGroupSearch_name;
@@ -83,6 +85,9 @@ export class ClientGroupesPageComponent implements OnInit {
 
                     this.groupes = result.items;
                     this.totalItems = +result.pagination.totalCount;
+                    if (this.totalItems === 0) {
+                        this.emptyTable = true;
+                    }
                     console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
@@ -96,16 +101,9 @@ export class ClientGroupesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
+                this.emptyTable = true;
                 console.log('====error=============');
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // this.errorLoad = err;
                 console.log(err);
             });
     }

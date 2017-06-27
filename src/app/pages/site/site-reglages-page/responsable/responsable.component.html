@@ -18,69 +18,76 @@
             <div class="table-wrapper">
                 <table class="table-default ajouter-responsables-table">
                     <thead>
-                    <tr>
-                        <th><button class="single-sort-button"></button>Nom</th>
-                        <th>
-                            <button class="single-sort-button"></button>
-                            <span>n° Sécu</span>
-                        </th>
-                        <th>
-                            <span>Accès Général</span>
-                        </th>
-                        <th>
-                            <span>Accès Technique</span>
-                        </th>
-                    </tr>
+                        <tr>
+                            <th><button class="single-sort-button"></button>Nom</th>
+                            <th>
+                                <button class="single-sort-button"></button>
+                                <span>n° Sécu</span>
+                            </th>
+                            <th>
+                                <span>Accès Général</span>
+                            </th>
+                            <th>
+                                <span>Accès Technique</span>
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Nom du salarié 1</td>
-                        <td>201010100011133</td>
-                        <td>
-                            <div class="radio">
-                                <input id="radio-11" name="radio1" type="radio" checked>
-                                <label for="radio-11" class="radio-label"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="radio">
-                                <input id="radio-12" name="radio1" type="radio">
-                                <label  for="radio-12" class="radio-label"></label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nom du salarié 2</td>
-                        <td>201010100011133</td>
-                        <td>
-                            <div class="radio">
-                                <input id="radio-21" name="radio2" type="radio">
-                                <label for="radio-21" class="radio-label"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="radio">
-                                <input id="radio-22" name="radio2" type="radio" checked>
-                                <label  for="radio-22" class="radio-label"></label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Nom du salarié 3</td>
-                        <td>201010100011133</td>
-                        <td>
-                            <div class="radio">
-                                <input id="radio-31" name="radio3" type="radio">
-                                <label for="radio-31" class="radio-label"></label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="radio">
-                                <input id="radio-32" name="radio3" type="radio" checked>
-                                <label  for="radio-32" class="radio-label"></label>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr *ngIf='emptyTableMobile'>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+
+                        <tr>
+                            <td>Nom du salarié 1</td>
+                            <td>201010100011133</td>
+                            <td>
+                                <div class="radio">
+                                    <input id="radio-11" name="radio1" type="radio" checked>
+                                    <label for="radio-11" class="radio-label"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="radio">
+                                    <input id="radio-12" name="radio1" type="radio">
+                                    <label  for="radio-12" class="radio-label"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nom du salarié 2</td>
+                            <td>201010100011133</td>
+                            <td>
+                                <div class="radio">
+                                    <input id="radio-21" name="radio2" type="radio">
+                                    <label for="radio-21" class="radio-label"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="radio">
+                                    <input id="radio-22" name="radio2" type="radio" checked>
+                                    <label  for="radio-22" class="radio-label"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nom du salarié 3</td>
+                            <td>201010100011133</td>
+                            <td>
+                                <div class="radio">
+                                    <input id="radio-31" name="radio3" type="radio">
+                                    <label for="radio-31" class="radio-label"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="radio">
+                                    <input id="radio-32" name="radio3" type="radio" checked>
+                                    <label  for="radio-32" class="radio-label"></label>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

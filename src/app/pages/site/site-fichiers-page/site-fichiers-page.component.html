@@ -80,56 +80,27 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Nom du fichier 1</td>
-                <td>Groupe 1</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
-                <td>Nom du groupe 2</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du fichier 1</td>
-                <td>Groupe 1</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
-                <td>Nom du groupe 2</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du fichier 1</td>
-                <td>Groupe 1</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
-                <td>Nom du groupe 2</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du fichier 1</td>
-                <td>Groupe 1</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
-                <td>Nom du groupe 2</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Nom du fichier 1</td>
-                <td>Groupe 1</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
-            <tr>
-                <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
-                <td>Nom du groupe 2</td>
-                <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-            </tr>
+                <tr *ngIf='emptyTable'>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>Nom du fichier 1</td>
+                    <td>Groupe 1</td>
+                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+                </tr>
+                <tr>
+                    <td>Le nom du fichier peut être vraiment long, jusqu’à 65 caractère</td>
+                    <td>Nom du groupe 2</td>
+                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+                </tr>
+                <tr>
+                    <td>Nom du fichier 1</td>
+                    <td>Groupe 1</td>
+                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
+                </tr>
             </tbody>
         </table>
     </div>
