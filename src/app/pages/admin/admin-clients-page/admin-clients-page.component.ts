@@ -27,7 +27,7 @@ export class AdminClientsPageComponent implements OnInit {
     activePage: number = 1;
     searchName: string = '';
     currentPage: any;
-    query: string;
+    sortingTarget: string;
 
     sorting: any = { column: 'company',  descending: false };
     headers: any[] = [
@@ -56,8 +56,10 @@ export class AdminClientsPageComponent implements OnInit {
     public selectedClass(columnName): string{
         return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }
-    public changeSorting(columnName): void{
-        console.log(columnName);
+    public changeSorting(columnName:string, e:any): string{
+        let sortingDirection: string;
+        let thClass: string;
+
         var sort = this.sorting;
         if (sort.column == columnName) {
             sort.descending = !sort.descending;
@@ -66,15 +68,34 @@ export class AdminClientsPageComponent implements OnInit {
             sort.descending = false;
         }
 
+        if (e.target.firstElementChild) {
+            thClass = e.target.firstElementChild.className;
+        } else {
+            thClass = e.target.className;
+        }
+        if ((thClass === 'double-sort-button') || (thClass === 'sort-button-true')) {
+            sortingDirection = '';  // down
+        }
+        if (thClass === 'sort-button-false') {
+            sortingDirection = '-'; // up
+        }
+
+//                ?q=&sort=-groupName&page=1
+        this.sortingTarget = '&sort=' + sortingDirection + columnName;
+        console.log(this.sortingTarget);
+        return this.sortingTarget;
+
+
     }
 
-    public collectQuery(columnName, name:string, page:any = 1) {
-
+    public collectQuery() {
+        console.log(1111111111);
          //   ?q=mycompany&sort=-employees
 
-        this.query = '?q=' + name + '&page=' + page+ '&sort=' + columnName;
-        return this.query;
+        // this.sortingTarget = '?q=' + name + '&page=' + page+ '&sort=' + columnName;
+        // return this.sortingTarget;
     }
+   //                ?q=&sort=-groupName&page=1
    // '?q=' + name + '&page=' + page;
 
     public onInitChecking() {

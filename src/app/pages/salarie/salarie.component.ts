@@ -11,7 +11,10 @@ export class SalarieComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+        this.mobileMenuViewInit();
+    }
 
+    public mobileMenuViewInit() {
         /* MOBILE MENU */
         $('#nav-icon1').click(function(){
             $(this).toggleClass('open');
@@ -29,7 +32,5 @@ export class SalarieComponent implements OnInit {
                 $(".sidebar-nav").slideUp();
             }
         });
-
     }
-
 }

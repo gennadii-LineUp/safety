@@ -24,7 +24,7 @@
         <table class="table-default clients-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers" (click)="changeSorting(header.variable)">
+                    <th *ngFor="let header of headers" (click)="changeSorting(header.variable, $event); collectQuery();">
                         <button [class]="selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
