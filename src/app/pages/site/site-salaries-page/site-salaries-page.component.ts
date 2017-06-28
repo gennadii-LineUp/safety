@@ -4,12 +4,13 @@ import {SiteService} from '../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {EmployeesClass} from '../../../models/const/employees-class';
+import {TableSortService} from '../../../services/table-sort.service';
 
 @Component({
   selector: 'site-salaries-page',
   templateUrl: './site-salaries-page.component.html',
   styleUrls: ['./site-salaries-page.component.css'],
-    providers: [SiteService, PaginationService]
+    providers: [SiteService, PaginationService, TableSortService]
 })
 export class SiteSalariesPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -30,18 +31,28 @@ export class SiteSalariesPageComponent implements OnInit {
     searchName: string = '';
     currentPage: any;
 
+    headers: any[] = [
+        { display: 'Nom',     variable: 'name',           filter: 'text' },
+        { display: 'Prénom',  variable: 'surname',        filter: 'text' },
+        { display: 'N° sécu', variable: 'numSecu',        filter: 'text' },
+        { display: 'Groupe',  variable: 'groupName',  filter: 'number' },
+        { display: 'Accès',   variable: 'access',          filter: 'text' },
+        { display: 'Validité',variable: 'validityPeriod', filter: 'text' }
+    ];
+
 
     constructor(private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private paginationService: PaginationService,
-                private router: Router) { }
+                private router: Router,
+                private tableSortService: TableSortService) { }
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
         console.log('get from LS ' + this.id_site);
         this.findEmployeeByNameFunction('');
 
-        this.tableMobileViewInit();
+        this.siteService.tableMobileViewInit();
     }
 
     ngOnDestroy() {
@@ -99,7 +110,7 @@ export class SiteSalariesPageComponent implements OnInit {
 
                     this.loaded = true;
                     setTimeout(() => {
-                        this.tableMobileViewInit();
+                        this.siteService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('siteEmployeeSearch_name', _name);
                     localStorage.setItem('siteEmployeeSearch_page', this.currentPage);
@@ -112,24 +123,6 @@ export class SiteSalariesPageComponent implements OnInit {
             });
     }
 
-
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
-    }
 
     private cancellErrorMessage() {
         //this.loading = false;

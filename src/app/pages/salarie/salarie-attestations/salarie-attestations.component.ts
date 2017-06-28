@@ -1,18 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import {SalariesService} from '../../../services/salaries/salaries.service';
+import {TableSortService} from '../../../services/table-sort.service';
 declare var $:any;
 
 @Component({
   selector: 'app-salarie-attestations',
   templateUrl: './salarie-attestations.component.html',
-  styleUrls: ['./salarie-attestations.component.css']
+  styleUrls: ['./salarie-attestations.component.css'],
+    providers: [SalariesService, TableSortService]
 })
 export class SalarieAttestationsComponent implements OnInit {
     emptyTable: boolean = true;
 
-  constructor() { }
+    headers: any[] = [
+        { display: 'Nom du fichier', variable: 'name', filter: 'text' }
+    ];
+
+
+    constructor(private salariesService: SalariesService,
+                private tableSortService: TableSortService) { }
+
 
     ngOnInit() {
-        this.tableMobileViewInit();
+        this.salariesService.tableMobileViewInit();
     }
 
 ///////////////////////////////////////
@@ -30,23 +40,5 @@ export class SalarieAttestationsComponent implements OnInit {
 //     this.emptyTable = true;
 //////////////////////////////////////
 
-
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
-    }
 
 }

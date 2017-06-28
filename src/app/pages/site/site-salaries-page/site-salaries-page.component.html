@@ -22,47 +22,15 @@
     <div class="table-wrapper">
         <table class="table-default salaries-site-table">
             <thead>
-            <tr>
-                <th><button class="sort-button-true"></button>Nom</th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Prénom</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>N° sécu</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Groupe</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Accès</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Validité</span>
-                </th>
-                <th>
-                    <span>Action</span>
-                </th>
-            </tr>
+                <tr>
+                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                        {{header.display}}
+                    </th>
+                    <th>
+                        <span>Action</span>
+                    </th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngIf='emptyTable'>

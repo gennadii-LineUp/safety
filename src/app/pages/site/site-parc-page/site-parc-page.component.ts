@@ -1,12 +1,13 @@
 import { Component, OnInit  } from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
+import {TableSortService} from '../../../services/table-sort.service';
 declare var $:any;
 
 @Component({
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
   styleUrls: ['./site-parc-page.component.css'],
-    providers: [SiteService]
+    providers: [SiteService, TableSortService]
 })
 export class SiteParcPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -21,11 +22,22 @@ export class SiteParcPageComponent implements OnInit {
 
     id_site: number = 0;
 
-    constructor(private siteService: SiteService) {}
+    headers: any[] = [
+        { display: 'Immatriculation', variable: 'name',         filter: 'text' },
+        { display: 'N° de parc',      variable: 'parkNumber',   filter: 'text' },
+        { display: 'Type',            variable: 'category',     filter: 'text' },
+        { display: 'Modèle',          variable: 'model',        filter: 'text' },
+        { display: 'Marque',          variable: 'mark',         filter: 'text' }
+    ];
+
+
+    constructor(private siteService: SiteService,
+                private tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
         console.log('get from LS ' + this.id_site);
+        this.siteService.tableMobileViewInit();
 
         $(document).ready(() => {
             this.datepickerRun();

@@ -15,34 +15,9 @@
         <table class="table-default parc-machine-table">
             <thead>
             <tr>
-                <th><button class="sort-button-true"></button>Immatriculation</th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>N° de parc</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Type</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Modèle</span>
-                </th>
-                <th>
-                    <button class="double-sort-button">
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <span>Marque</span>
+                <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                    <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                    {{header.display}}
                 </th>
                 <th>
                     <span>Action</span>

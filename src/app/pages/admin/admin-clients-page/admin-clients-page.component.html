@@ -24,8 +24,8 @@
         <table class="table-default clients-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
-                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                    <th *ngFor="let header of headers" (click)="changeSorting(header.variable)">
+                        <button [class]="selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
                     <th>

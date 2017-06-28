@@ -27,15 +27,14 @@ export class AdminClientsPageComponent implements OnInit {
     activePage: number = 1;
     searchName: string = '';
     currentPage: any;
+    query: string;
 
+    sorting: any = { column: 'company',  descending: false };
     headers: any[] = [
-        { display: 'Entreprise', variable: 'name',       filter: 'text'  },
+        { display: 'Entreprise', variable: 'company',    filter: 'text'  },
         { display: 'Sites',      variable: 'sites',      filter: 'text' },
         { display: 'Employés',   variable: 'employees',  filter: 'text' },
     ];
-    // "company": "as",     REPLACE !!!!!!!!!!
-    // "sites": "0",
-    // "employees": "0/2"
 
 
     constructor(private adminService: AdminService,
@@ -43,8 +42,6 @@ export class AdminClientsPageComponent implements OnInit {
                 private paginationService: PaginationService,
                 private router: Router,
                 private tableSortService: TableSortService) { }
-
-
 
     ngOnInit() {
         this.findClientByNameFunction('');
@@ -56,20 +53,29 @@ export class AdminClientsPageComponent implements OnInit {
     }
 
 
-    // selectedClass(columnName): string{
-    //     return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
-    // }        //    access = (age > 14) ? true : false;
-    //
-    // changeSorting(columnName): void{
-    //     console.log(columnName);
-    //     var sort = this.sorting;
-    //     if (sort.column == columnName) {
-    //         sort.descending = !sort.descending;
-    //     } else {
-    //         sort.column = columnName;
-    //         sort.descending = false;
-    //     }
-    // }
+    public selectedClass(columnName): string{
+        return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+    }
+    public changeSorting(columnName): void{
+        console.log(columnName);
+        var sort = this.sorting;
+        if (sort.column == columnName) {
+            sort.descending = !sort.descending;
+        } else {
+            sort.column = columnName;
+            sort.descending = false;
+        }
+
+    }
+
+    public collectQuery(columnName, name:string, page:any = 1) {
+
+         //   ?q=mycompany&sort=-employees
+
+        this.query = '?q=' + name + '&page=' + page+ '&sort=' + columnName;
+        return this.query;
+    }
+   // '?q=' + name + '&page=' + page;
 
     public onInitChecking() {
         this.searchName = localStorage.adminClientsSearch_name;
