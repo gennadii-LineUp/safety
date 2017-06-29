@@ -572,6 +572,11 @@ th {
 
 .table-default th {
     height: 56px;
+    cursor: pointer;
+}
+
+.table-default th:last-of-type {
+    cursor: default;
 }
 
 .table-default tbody {

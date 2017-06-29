@@ -7,7 +7,7 @@
     </div>
 
     <h1>Bibliothèque</h1>
-    <!--<img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+    <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
 <div class="main-content">
     <div class="search-panel clearfix">
@@ -21,40 +21,58 @@
             </modal-header-AB>
 
             <modal-content-AB>
-                <form action="/" class="modal-form">
+                <form #admin_newBibliotequeForm="ngForm" class="modal-form" novalidate (click)='cancellMessages()' >
                     <div class="input-wrapper">
-                        <input class="form-control" id="exampleInputText1" placeholder="Nom*" type="text">
-                        <p class="requred-field hidden">Champs requis</p>
+                        <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
+                        <input class="form-control" placeholder="Nom*" type="text"
+                               #name="ngModel" id="name" name='name' required [(ngModel)]="adminBibliotheque.name" />
+                        <p [hidden]="name.valid || name.untouched" class="requred-field ">Champs requis</p>
                     </div>
-                    <textarea placeholder="Description"></textarea>
+                    <textarea placeholder="Description"
+                              #description="ngModel" id="description" name='description' [(ngModel)]="adminBibliotheque.description" ></textarea>
                     <div class="input-wrapper">
-                        <input class="form-control" id="exampleInputText2" placeholder="Lien*" type="text">
-                        <p class="requred-field hidden">Champs requis</p>
+                        <p [hidden]="link.invalid" class="requred-field color-valid">Lien*</p>
+                        <input class="form-control" placeholder="Lien*" type="text"
+                               #link="ngModel" id="link" name='link' required [(ngModel)]="adminBibliotheque.link" />
+                        <p [hidden]="link.valid || link.untouched" class="requred-field ">Champs requis</p>
                     </div>
                 </form>
+                <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
             </modal-content-AB>
 
             <modal-footer-AB>
                 <div class="button-wrapper">
-                    <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
-                            (click)="myModal.close()">Annuler</button>
-                    <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Créer</button>
+                    <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+                            (click)="myModal.close()"  (click)='gotoAdminBibliothequeForm()'>Annuler</button>
+                    <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
+                            (click)='submitForm(name.value, description.value, link.value)'
+                            [disabled]="!admin_newBibliotequeForm.form.valid">Créer</button>
+                    <br>
+                    <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </div>
             </modal-footer-AB>
         </admin-bibliotheque-modal>
 
 
         <div class="search-wrapper">
-            <button class="search-button" type="button"></button>
-            <input type="text" class="form-control search-input" placeholder="Rechercher">
+            <button class="search-button" type="button" (click)='findLinkByNameFunction(findClientByName.value, 1,sortingTarget)'></button>
+            <input #findClientByName id="findClientByName" name='findClientByName' type="text"
+                   class="form-control search-input" placeholder="Rechercher"
+                   (keyup.enter)='findLinkByNameFunction(findClientByName.value, 1,sortingTarget)'>
         </div>
     </div>
     <div class="table-wrapper">
         <table class="table-default library-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
-                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                    <th *ngFor="let header of headers"  (click)="changeSorting(header.variable, $event);
+                                                                findLinkByNameFunction(findClientByName.value, 1,sortingTarget);">
+                        <button [class]="selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
                     <th>
@@ -69,67 +87,50 @@
                     <td>-</td>
                 </tr>
 
-                <tr>
-                    <td>Lien 1</td>
-                    <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
-                    <td><a href="javascript:void(0);">Modifier / Supprimer</a></td>
-                </tr>
-                <tr>
-                    <td>Nom de l’entreprise, maximum 40 caractères...</td>
-                    <td><a href="javascript:void(0);">https://www.lienquiesttroplong-max-40-let...</a></td>
-                    <td><a href="javascript:void(0);">Modifier / Supprimer</a></td>
-                </tr>
-                <tr>
-                    <td>Lien 1</td>
-                    <td><a href="javascript:void(0);">http://www.lien1.com</a></td>
-                    <td><a href="javascript:void(0);">Modifier / Supprimer</a></td>
+                <tr *ngFor="let link of links">
+                    <td>{{link.name}}</td>
+                    <td>{{link.link}}</td>
+                    <td><a href="javascript:void(0);" >Gérer </a> / <a href="javascript:void(0);">Supprimer</a></td>
                 </tr>
             </tbody>
         </table>
     </div>
+
     <nav aria-label="Page navigation" class="pagination-wrapper">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous" class="prev-link">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
+            <li *ngIf="!(pager.currentPage === 1)">
+                <a class="prev-link" (click)="findLinkByNameFunction('lineUp', pager.currentPage - 1, sortingTarget)" aria-label="Previous" >
                   <span aria-hidden="true">
-                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
-            <li class="active"><a href="javascript:void(0);">1</a></li>
-            <li><a href="javascript:void(0);">2</a></li>
-            <li><a href="javascript:void(0);">3</a></li>
-            <li><a href="javascript:void(0);">...</a></li>
-            <li><a href="javascript:void(0);">998</a></li>
-            <li><a href="javascript:void(0);">999</a></li>
-            <li>
-                <a href="javascript:void(0);" aria-label="Next" class="next-link">
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
+                <a href="javascript:void(0);"  (click)="findLinkByNameFunction('lineUp', 1, sortingTarget)" >1</a>
+            </li>
+            <li *ngIf="pager.hiddenAtStart">
+                <a (click)="findLinkByNameFunction('lineUp', pager.startPage-1, sortingTarget)"  >...</a>
+            </li>
+
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="findLinkByNameFunction('lineUp', page, sortingTarget)">{{page}}</a>
+            </li>
+
+            <li *ngIf="pager.hiddenAtEnd">
+                <a (click)="findLinkByNameFunction('lineUp', pager.endPage+1, sortingTarget)" >...</a>
+            </li>
+            <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
+                <a (click)="findLinkByNameFunction('lineUp', pager.totalPages, sortingTarget)">{{pager.totalPages}}</a>
+            </li>
+            <li *ngIf="!(pager.currentPage === pager.totalPages)" >
+                <a href="javascript:void(0);" aria-label="Next" class="next-link"
+                   (click)="findLinkByNameFunction('lineUp', pager.currentPage + 1, sortingTarget)">
                   <span aria-hidden="true">
-                    <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
         </ul>
     </nav>
 </div>
-
-
-<script>
-    (() => {
-        var headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(var i = 0; i < headers.length; i++) {
-                var current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
-            }
-            for (var i = 0, row; row = tablebody.rows[i]; i++) {
-                for (var j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
-                }
-            }
-        }
-    } ());
-</script>

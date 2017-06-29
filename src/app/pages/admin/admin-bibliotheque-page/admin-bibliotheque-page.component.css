@@ -10,3 +10,14 @@ admin-bibliotheque-modal .modal-form textarea {
 admin-bibliotheque-modal .modal-content .button-wrapper button {
     margin-left: 16px;
 }
+
+.requred-field {
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 10px !important;
+    color: #f32938;
+    position: absolute;
+    bottom: -12px;
+}
+p.color-valid {
+    color: #3ba890 !important;
+}

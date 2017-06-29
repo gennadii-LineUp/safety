@@ -72,6 +72,18 @@ export class AdminService {
 
     }
 
+    addNewLink(newLink: any): Observable<any> {
+        console.log('==admin service:_addNewLink started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.post(UrlParams.adminLink, JSON.stringify(newLink), useTolkin);
+    }
+
+    findLinksByName(name: string, page: any, sort:string): Observable<any> {
+        let useTolkin:boolean = true;
+        let query = '?q=' + name + sort + '&page=' + page;
+        return this.backendService.get(UrlParams.adminLink + query, useTolkin);
+    }
 
     getTolkinAdminAsClient(client_id: number): Observable<any> {
         //console.log('==admin service:_findClientByName started==');

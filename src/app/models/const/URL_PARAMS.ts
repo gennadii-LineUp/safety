@@ -25,6 +25,12 @@ export class UrlParams {
       //  return `http://82.117.251.13/api/admin/home`;
     }
 
+    public static get adminLink(): string {
+        return `http://sfapi:8000/app_dev.php/library_links`;
+        //  return `http://82.117.251.13/api/library_links`;
+    }
+
+
     public static get clientSites(): string {
         return `http://sfapi:8000/app_dev.php/sites`;
       //  return `http://82.117.251.13/api/sites`;
