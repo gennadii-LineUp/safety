@@ -640,6 +640,7 @@ th {
     text-align: right;
     overflow: auto;
     padding-right: 1px;
+    cursor: pointer;
 }
 
 .pagination a {
@@ -651,6 +652,7 @@ th {
     text-align: center;
     line-height: 2.5 !important;
     transition:.4s;
+    cursor: pointer;
 }
 
 .pagination .active a {
@@ -665,6 +667,7 @@ th {
     border: 1px solid #bdbdbd !important;
     color: #8d8d8d !important;
     transition:.4s;
+    cursor: pointer;
 }
 
 .pagination .prev-link,

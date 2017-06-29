@@ -14,17 +14,18 @@
     <div class="search-panel clearfix">
         <button (click)="gotoNewClientForm()" class="add-an-item-button" ></button>
         <div class="search-wrapper">
-            <button class="search-button" type="button" (click)='findClientByNameFunction(findClientByName.value, 1)'></button>
+            <button class="search-button" type="button" (click)='findClientByNameFunction(findClientByName.value, 1,sortingTarget)'></button>
             <input #findClientByName id="findClientByName" name='findClientByName' type="text"
                    class="form-control search-input" placeholder="Rechercher"
-                   (keyup.enter)='findClientByNameFunction(findClientByName.value)'>
+                   (keyup.enter)='findClientByNameFunction(findClientByName.value, 1,sortingTarget)'>
         </div>
     </div>
     <div class="table-wrapper">
         <table class="table-default clients-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers" (click)="changeSorting(header.variable, $event); collectQuery();">
+                    <th *ngFor="let header of headers"  (click)="changeSorting(header.variable, $event);
+                                                                findClientByNameFunction(findClientByName.value, 1,sortingTarget);">
                         <button [class]="selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
@@ -56,32 +57,32 @@
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">
-                <a class="prev-link" (click)="findClientByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
+                <a class="prev-link" (click)="findClientByNameFunction('lineUp', pager.currentPage - 1, sortingTarget)" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
-                <a href="javascript:void(0);"  (click)="findClientByNameFunction('lineUp', 1)" >1</a>
+                <a href="javascript:void(0);"  (click)="findClientByNameFunction('lineUp', 1, sortingTarget)" >1</a>
             </li>
             <li *ngIf="pager.hiddenAtStart">
-                <a (click)="findClientByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+                <a (click)="findClientByNameFunction('lineUp', pager.startPage-1, sortingTarget)"  >...</a>
             </li>
 
             <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="findClientByNameFunction('lineUp', page)">{{page}}</a>
+                <a (click)="findClientByNameFunction('lineUp', page, sortingTarget)">{{page}}</a>
             </li>
 
             <li *ngIf="pager.hiddenAtEnd">
-                <a (click)="findClientByNameFunction('lineUp', pager.endPage+1)" >...</a>
+                <a (click)="findClientByNameFunction('lineUp', pager.endPage+1, sortingTarget)" >...</a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
-                <a (click)="findClientByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+                <a (click)="findClientByNameFunction('lineUp', pager.totalPages, sortingTarget)">{{pager.totalPages}}</a>
             </li>
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
-                   (click)="findClientByNameFunction('lineUp', pager.currentPage + 1)">
+                   (click)="findClientByNameFunction('lineUp', pager.currentPage + 1, sortingTarget)">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>

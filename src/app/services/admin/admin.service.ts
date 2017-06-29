@@ -8,6 +8,7 @@ import {AdminReglagesClass} from '../../models/const/admin-reglages-class';
 @Injectable()
 export class AdminService {
     public token: string;
+    public sortOption: string = '';
 
     constructor(private backendService: BackendService) {
         this.token = localStorage.token;
@@ -55,13 +56,11 @@ export class AdminService {
 
     }
 
-    findClientByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
+
+    findClientByName(name: string, page: any, sort:string): Observable<any> {
         let useTolkin:boolean = true;
-        let query = '?q=' + name + '&page=' + page;
-
+        let query = '?q=' + name + sort + '&page=' + page;
         return this.backendService.get(UrlParams.adminClients + query, useTolkin);
-
     }
 
 

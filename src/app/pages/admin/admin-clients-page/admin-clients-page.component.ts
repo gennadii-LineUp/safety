@@ -27,7 +27,8 @@ export class AdminClientsPageComponent implements OnInit {
     activePage: number = 1;
     searchName: string = '';
     currentPage: any;
-    sortingTarget: string;
+    sortingTarget: string = '';
+
 
     sorting: any = { column: 'company',  descending: false };
     headers: any[] = [
@@ -44,7 +45,7 @@ export class AdminClientsPageComponent implements OnInit {
                 private tableSortService: TableSortService) { }
 
     ngOnInit() {
-        this.findClientByNameFunction('');
+        this.findClientByNameFunction('', 1, '');
     }
 
     ngOnDestroy() {
@@ -56,7 +57,7 @@ export class AdminClientsPageComponent implements OnInit {
     public selectedClass(columnName): string{
         return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }
-    public changeSorting(columnName:string, e:any): string{
+    public changeSorting(columnName:string, e:any): void{
         let sortingDirection: string;
         let thClass: string;
 
@@ -80,23 +81,10 @@ export class AdminClientsPageComponent implements OnInit {
             sortingDirection = '-'; // up
         }
 
-//                ?q=&sort=-groupName&page=1
+        let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
-        console.log(this.sortingTarget);
-        return this.sortingTarget;
-
-
     }
 
-    public collectQuery() {
-        console.log(1111111111);
-         //   ?q=mycompany&sort=-employees
-
-        // this.sortingTarget = '?q=' + name + '&page=' + page+ '&sort=' + columnName;
-        // return this.sortingTarget;
-    }
-   //                ?q=&sort=-groupName&page=1
-   // '?q=' + name + '&page=' + page;
 
     public onInitChecking() {
         this.searchName = localStorage.adminClientsSearch_name;
@@ -104,9 +92,9 @@ export class AdminClientsPageComponent implements OnInit {
 
         if (this.searchName && this.activePage) {
             console.log('== from local storage ==');
-            this.findClientByNameFunction(this.searchName, this.activePage + 1);
+            this.findClientByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findClientByNameFunction('');
+            this.findClientByNameFunction('',1,'');
         }
         console.log('====' + this.searchName);
     }
@@ -120,7 +108,7 @@ export class AdminClientsPageComponent implements OnInit {
     }
 
 
-    public findClientByNameFunction(name:string, page:any = 1) {
+    public findClientByNameFunction(name:string, page:any = 1, sort) {
         this.loading = true;
         this.emptyTable = false;
         let _name = name;
@@ -128,7 +116,7 @@ export class AdminClientsPageComponent implements OnInit {
             _name = localStorage.adminClientsSearch_name;
         }
 
-        this.adminService.findClientByName(_name, page)
+        this.adminService.findClientByName(_name, page, sort)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
