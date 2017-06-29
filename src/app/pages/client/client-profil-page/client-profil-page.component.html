@@ -91,14 +91,15 @@
                 <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper" style="margin-bottom: 21px;">
-                <p [hidden]="RIB.invalid" class="requred-field color-valid">RIB</p>
+                <p [hidden]="rib.invalid" class="requred-field color-valid">RIB</p>
                 <input type="text" class="form-control"  placeholder="RIB*"
-                       #RIB="ngModel" id="RIB" name='RIB' required (ngModel)="RIB" />
-                <p [hidden]="RIB.valid || RIB.untouched " class="requred-field ">Champs requis</p>
+                       #rib="ngModel" id="rib" name='rib' required [(ngModel)]="client.rib" />
+                <p [hidden]="rib.valid || rib.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
         <div class="form-divider clearfix"></div>
-        <div class="one-column-input-wrapper">
+        <!--<div class="one-column-input-wrapper">-->
+        <div>
             <div class="input-wrapper">
                 <p [hidden]="contactName.invalid" class="requred-field color-valid">Nom du contact</p>
                 <input type="text" class="form-control" placeholder="Nom du contact"
@@ -116,6 +117,19 @@
                 <input type="email" class="form-control"  placeholder="Email du contact"
                        #contactEmail="ngModel" id="contactEmail" name='contactEmail' required email [(ngModel)]="client.contactEmail" />
                 <p [hidden]="contactEmail.valid || contactEmail.untouched " class="requred-field ">Champs requis</p>
+            </div>
+        </div>
+        <div class="form-divider clearfix"></div>
+        <div class="one-column-input-wrapper">
+            <div class="input-wrapper">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" placeholder="*********"
+                       #password="ngModel" id="password" name='password'  [(ngModel)]="client.password" />
+            </div>
+            <div class="input-wrapper" style="margin-bottom: 10px;">
+                <label for="confirmPassword" style="margin-bottom: 2px;">Confirmer le mot de passe</label>
+                <input type="password" class="form-control" placeholder="*********"
+                       #confirmPassword="ngModel" id="confirmPassword" name='confirmPassword'  [(ngModel)]="client.confirmPassword" />
             </div>
         </div>
         <div class="button-wrapper">

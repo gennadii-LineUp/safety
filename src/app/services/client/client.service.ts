@@ -82,6 +82,12 @@ export class ClientService {
         return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData, useTolkin);
     }
 
+    public updateClientProfile(newProfile: any): Observable<any> {
+        console.log('==client service:_updateClientProfile started==');
+        let useTolkin:boolean = true;
+
+        return this.backendService.post('http://sfapi:8000/app_dev.php/client/profile', JSON.stringify(newProfile), useTolkin);
+    }//UrlParams.clientProfilData
 
     public encode(obj) {
         let newData = '';

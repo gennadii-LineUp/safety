@@ -1,4 +1,4 @@
-export class ClientClass{
+export class ClientProfileClass{
     email : string;
     company : string;
     address : string;
@@ -11,10 +11,12 @@ export class ClientClass{
     diffCity : string;
     phone : string;
     numberSiret : string;
+    rib : string;
     contactName : string;
     contactPhone : string;
     contactEmail : string;
-    employeesLimit : number;
+    password : string;
+    confirmPassword: string;
 
     constructor( email: string,
                  company: string,
@@ -28,10 +30,12 @@ export class ClientClass{
                  diffCity: string = '',
                  phone: string,
                  numberSiret: string,
+                 rib: string,
                  contactName: string,
                  contactPhone: string,
                  contactEmail: string,
-                 employeesLimit: number) {
+                 password: string,
+                 confirmPassword: string) {
 
         this.email = email;
         this.company = company;
@@ -45,9 +49,11 @@ export class ClientClass{
         this.diffCity = diffCity;
         this.phone = phone;
         this.numberSiret = numberSiret;
+        this.rib = rib;
         this.contactName = contactName;
         this.contactPhone = contactPhone;
         this.contactEmail = contactEmail;
-        this.employeesLimit = employeesLimit;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 }

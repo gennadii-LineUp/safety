@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {ClientClass} from '../../../models/const/client-class';
+import {ClientProfileClass} from '../../../models/const/client-profile-class';
 
 @Component({
   selector: 'app-client-profil-page',
@@ -19,8 +20,8 @@ export class ClientProfilPageComponent implements OnInit {
 
     billingAddressIsDifferent: boolean = true;
 
-    client = new ClientClass('','','','','',true,'','','','','',0,'','','',0);
-
+    client = new ClientProfileClass('','','','','',true,'','','','','','','','','','','','');
+    //ClientProfileClass
     constructor(private router: Router,
                 private clientService: ClientService,
                 private errorMessageHandlerService: ErrorMessageHandlerService){}
@@ -40,7 +41,7 @@ export class ClientProfilPageComponent implements OnInit {
                     this.loading = false;
                     console.dir(result);
 
-                    let currentClient = new ClientClass(result.email,
+                    let currentClient = new ClientProfileClass(result.email,
                         result.company,
                         result.address,
                         result.postalCode,
@@ -52,18 +53,14 @@ export class ClientProfilPageComponent implements OnInit {
                         result.diffCity,
                         result.phone,
                         result.numberSiret,
+                        '',
                         result.contactName,
                         result.contactPhone,
                         result.contactEmail,
-                        result.employeesLimit);
+                        '', '');
 
                     this.client = currentClient;
                     console.dir(this.client);
-
-
-                    // this.progressBarValues[0].value = result.clients;
-                    // this.progressBarValues[1].value = result.sites;
-                    // this.progressBarValues[2].value = result.employees;
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -84,24 +81,6 @@ export class ClientProfilPageComponent implements OnInit {
     }
 
 
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll('th'),
-            tablerows = document.querySelectorAll('th'),
-            tablebody = document.querySelector('tbody');
-        if (document.querySelector('table')) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,''));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute('data-th', headertext[j]);
-                }
-            }
-        }
-    }
-
     private cancellErrorMessage() {
         this.loading = false;
         this.updating = true;
@@ -115,8 +94,25 @@ export class ClientProfilPageComponent implements OnInit {
 
     public submitNewProfilClientFunction() {
         this.cancellErrorMessage();
-        console.log('submit');
         this.updating = true;
+        this.cancellErrorMessage();
+        this.cancellSuccessMessage();
+
+        console.dir(this.client);
+
+        // this.clientService.updateClientProfile(this.client)
+        //     .subscribe(result => {
+        //         if (result) {
+        //             this.updating = false;
+        //             console.log(result);
+        //             this.successUpdate = "Well done! You've updated your settings.";
+        //         }
+        //     }, (err) => {
+        //         this.updating = false;
+        //         console.log(err);
+        //         this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+        //     });
+
     }
 
     public gotoClientHomePage() {

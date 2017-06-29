@@ -82,7 +82,7 @@
 
         <div class="input-wrapper" style="margin-bottom: 21px;">
             <p [hidden]="numberSiret.invalid" class="requred-field color-valid">Numéro SIRET</p>
-            <input type="number" class="form-control" placeholder="Numéro SIRET*"
+            <input type="text" class="form-control" placeholder="Numéro SIRET*"
                    #numberSiret="ngModel" id="numberSiret" name='numberSiret' required (ngModel)="numberSiret" />
             <p [hidden]="numberSiret.valid || numberSiret.untouched " class="requred-field ">Champs requis</p>
         </div>
