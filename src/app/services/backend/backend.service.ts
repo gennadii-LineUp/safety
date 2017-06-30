@@ -4,11 +4,7 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
-//import {AuthGuard} from '../../guards/auth-guards.service';
-import {AdminAsClientGuard} from '../../guards/admin-as-client-guard.service';
-import {ErrorMessageHandlerService} from '../error/error-message-handler.service';
-//import {AdminGuard} from '../../guards/admin-guard.service';
-//import {ClientGuard} from '../../guards/client-guard.service';
+//import {AdminAsClientGuard} from '../../guards/admin-as-client-guard.service';
 
 @Injectable()
 export class BackendService {
@@ -21,9 +17,7 @@ export class BackendService {
     // private adminGuard: AdminGuard,
     // private clientGuard: ClientGuard,
 
-    constructor(private adminAsClientGuard: AdminAsClientGuard,
-                private http: Http,
-                private errorMessageHandlerService: ErrorMessageHandlerService){}
+    constructor(private http: Http){}
 
 
     public login(url, body, usernamePassword) : Observable<any>  {
@@ -34,17 +28,10 @@ export class BackendService {
             .map((res: Response) => <Object[]>res.json());
     }
 
-    public post(url: string,
-                body: any,
-                token: boolean = false) : Observable<any> {
 
+    public post(url: string, body: any) : Observable<any> {
         let headers: Headers = new Headers();
-
-        // if (this.adminAsClientGuard.canActivate()) {
-        //     this.token = localStorage.getItem('tokenAdminAsClient')
-        // } else {
-            this.token = localStorage.getItem('token');
-        // }
+        this.token = localStorage.getItem('token');
 
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.token);
@@ -55,49 +42,44 @@ export class BackendService {
     }
 
 
-    public loadImage_post(url: string,
-                          body: any,
-                          token: boolean = false) : Observable<any> {
-
+    public loadImage_post(url: string, body: any) : Observable<any> {
         let headers: Headers = new Headers();
-
-       // if (this.adminAsClientGuard.canActivate()) {
-       //     this.token = localStorage.getItem('tokenAdminAsClient')
-       //  } else {
-            this.token = localStorage.getItem('token');
-       // }
+        this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
         headers.append('Content-Type', 'form-data');
 
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
-        // .catch((err: Response) => this.errorHandler.handleError(err));
     }
 
 
-    public get(url: string,
-               token: boolean = false): Observable<any> {
+    public get(url: string): Observable<any> {
         let headers: Headers = new Headers();
-
-        // if (this.adminAsClientGuard.canActivate()) {
-        //     this.token = localStorage.getItem('tokenAdminAsClient')
-        // } else {
-            this.token = localStorage.getItem('token');
-        // }
+        this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
 
         return this.http.get(url, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
-            // .map(this.extractData)
             // .catch(this.handleError);
     }
 
 
+    public delete(url: string): Observable<any> {
+        let headers: Headers = new Headers();
+        this.token = localStorage.getItem('token');
+
+        headers.append('Authorization', 'Bearer ' + this.token);
+
+        return this.http.delete(url, {headers: headers})
+            .map((res: Response) => <Object[]>res.json());
+    }
+
+
+
     // public post(url: string,
     //             body: any,
-    //             token: boolean = false,
     //             contentType: string = CONTENT_TYPE.JSON_TYPE) : Observable<any> {
     //
     //     let headers: Headers = new Headers();
@@ -119,18 +101,18 @@ export class BackendService {
 
 
 
-  public delete(url: string, id: string, addToken: boolean = false, contentType: string = CONTENT_TYPE.JSON): Observable<any> {
-    let headers = new Headers({ 'Content-Type': contentType, 'OrganizationId': id }),
-        options = new RequestOptions({ headers: headers });
-
-    if (this.addToken) {
-      this.addToken(headers);
-    }
-
-    return this.http.delete(url, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
+  // public delete(url: string, id: string, addToken: boolean = false, contentType: string = CONTENT_TYPE.JSON): Observable<any> {
+  //   let headers = new Headers({ 'Content-Type': contentType, 'OrganizationId': id }),
+  //       options = new RequestOptions({ headers: headers });
+  //
+  //   if (this.addToken) {
+  //     this.addToken(headers);
+  //   }
+  //
+  //   return this.http.delete(url, options)
+  //     .map(this.extractData)
+  //     .catch(this.handleError);
+  // }
 
   private extractData(res: Response) {
     let body = res.json();

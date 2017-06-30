@@ -7,96 +7,59 @@ import {AdminReglagesClass} from '../../models/const/admin-reglages-class';
 
 @Injectable()
 export class AdminService {
-    public token: string;
     public sortOption: string = '';
 
-    constructor(private backendService: BackendService) {
-        this.token = localStorage.token;
-    }
-
-    homeData(): Observable<any> {
-        //console.log('==admin service:_homeData started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.get(UrlParams.adminHome, useTolkin);
-
-    }
+    constructor(private backendService: BackendService) {}
 
 
-    // clientList(): Observable<any> {
-    //     console.log('==admin service:_clientList started==');
-    //     let useTolkin:boolean = true;
-    //
-    //     return this.backendService.get(UrlParams.adminClients, useTolkin);
-    //
-    // }
-
-    clientList(page): Observable<any> {
-        //console.log('==admin service:_clientList started==');
-        let useTolkin:boolean = true;
-        let query = '?q=&sort=&page=';
-
-        return this.backendService.get(UrlParams.adminClients + query + page, useTolkin);
-
+    public homeData(): Observable<any> {
+        return this.backendService.get(UrlParams.adminHome);
     }
 
 
     public getExistingReglages(): Observable<any> {
-        //console.log('==admin service:_getExistingReglages started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.get(UrlParams.adminReglages, useTolkin);
-
+        return this.backendService.get(UrlParams.adminReglages);
     }
+    
     public updateReglages(newReglages: AdminReglagesClass): Observable<any> {
-        console.log('==admin service:_updateReglages started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.post(UrlParams.adminReglages, JSON.stringify(newReglages), useTolkin);
-
+        return this.backendService.post(UrlParams.adminReglages, JSON.stringify(newReglages));
     }
 
 
     findClientByName(name: string, page: any, sort:string): Observable<any> {
-        let useTolkin:boolean = true;
         let query = '?q=' + name + sort + '&page=' + page;
-        return this.backendService.get(UrlParams.adminClients + query, useTolkin);
+        return this.backendService.get(UrlParams.adminClients + query);
     }
 
 
     addNewClient(newClient: any): Observable<any> {
-        console.log('==admin service:_addNewClient started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.post(UrlParams.adminClients, JSON.stringify(newClient), useTolkin);
-
+        return this.backendService.post(UrlParams.adminClients, JSON.stringify(newClient));
     }
 
-    addNewLink(newLink: any): Observable<any> {
-        console.log('==admin service:_addNewLink started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.post(UrlParams.adminLink, JSON.stringify(newLink), useTolkin);
+    saveLink(link: any, urlOption: string): Observable<any> {
+        return this.backendService.post(UrlParams.adminLink + urlOption, JSON.stringify(link));
     }
 
     findLinksByName(name: string, page: any, sort:string): Observable<any> {
-        let useTolkin:boolean = true;
         let query = '?q=' + name + sort + '&page=' + page;
-        return this.backendService.get(UrlParams.adminLink + query, useTolkin);
+        return this.backendService.get(UrlParams.adminLink + query);
     }
 
+    deleteLink(link: string): Observable<any> {
+        return this.backendService.delete(UrlParams.adminLink + link);
+    }
+
+    getLinkForUpdate(link: string): Observable<any> {
+        return this.backendService.get(UrlParams.adminLink + link);
+    }
+
+
     getTolkinAdminAsClient(client_id: number): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.get(UrlParams.adminClientHome + client_id+'/access_token', useTolkin);
-
+        return this.backendService.get(UrlParams.adminClientHome + client_id+'/access_token');
     }
 
 
     logout(): void {
-        // clear token remove user from local storage to log user out
-        this.token = null;
         localStorage.removeItem('role');
         localStorage.removeItem('token');
     }
@@ -131,8 +94,5 @@ export class AdminService {
             }
         }
     }
-
-
-
 
 }

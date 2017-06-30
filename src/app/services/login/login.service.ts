@@ -7,44 +7,23 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class LoginService {
-    public token: string;
 
     constructor(private backendService: BackendService,
-                private router: Router) {
-        //var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = localStorage.token;
+                private router: Router) {}
+
+
+    login(user: string, password: string): Observable<any> {
+        this.logout();
+        let usernamePassword = btoa(user+':'+password);
+
+        return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword);
     }
 
 
-  login(user: string, password: string): Observable<any> {
-    this.logout();
-    let usernamePassword = btoa(user+':'+password);
-
-    return this.backendService.login(UrlParams.LOGIN, "HELLO", usernamePassword);
-  }
-
-
     logout(): void {
-        // clear token remove user from local storage to log user out
-        this.token = null;
         localStorage.removeItem('role');
         localStorage.removeItem('token');
     }
 
-
-    //============
-    // =================
-
-
-
-  encode(obj) {
-    let newData = '';
-    for (let key in obj) {
-      newData += key;
-      newData += '=' + encodeURI(obj[key]) + '&';
-    }
-    newData = newData.slice(0, -1);
-    return newData;
-  }
 
 }

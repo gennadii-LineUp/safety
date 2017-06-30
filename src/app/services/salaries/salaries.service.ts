@@ -6,80 +6,59 @@ import {SiteClass} from '../../models/const/site-class';
 
 @Injectable()
 export class SalariesService {
-    public token: string;
 
-    constructor(private backendService: BackendService) {
-        this.token = localStorage.token;
-    }
+    constructor(private backendService: BackendService) {}
 
 
     public getClientProfilData(): Observable<any> {
         console.log('==client service started==');
-        let useTolkin:boolean = false;
-
-        return this.backendService.get(UrlParams.clientProfilData, useTolkin);
+        return this.backendService.get(UrlParams.clientProfilData);
     }
 
+    
     public employeeCount(): Observable<any> {
         console.log('==client service started==');
-        let useTolkin:boolean = false;
-
-        return this.backendService.get(UrlParams.employeeCount, useTolkin);
+        return this.backendService.get(UrlParams.employeeCount);
     }
 
     public findSiteByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
-        let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
-
-        return this.backendService.get(UrlParams.clientSites + query, useTolkin);
+        return this.backendService.get(UrlParams.clientSites + query);
     }
 
     public findSalarieByName(name: string, page: any): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
-        let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
-
-        return this.backendService.get(UrlParams.clientEmployees + query, useTolkin);
+        return this.backendService.get(UrlParams.clientEmployees + query);
     }
 
     public addNewSite(newSite: any): Observable<any> {
         console.log('==client service:_addNewSite started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite), useTolkin);
+        return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite));
     }
 
     public getGroupList(): Observable<any> {
-        //console.log('==client service:_groupList started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.get(UrlParams.employeesGroupsList, useTolkin);
+        return this.backendService.get(UrlParams.employeesGroupsList);
     }
 
     public findGroupeByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
-        let useTolkin:boolean = true;
         let query = '?q=' + name + '&page=' + page;
-
-        return this.backendService.get(UrlParams.clientGroupes + query, useTolkin);
+        return this.backendService.get(UrlParams.clientGroupes + query);
     }
 
     public addNewGroupe(newGroupe: any): Observable<any> {
         console.log('==client service:_addNewGroupe started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.post(UrlParams.clientGroupes, JSON.stringify(newGroupe), useTolkin);
+        return this.backendService.post(UrlParams.clientGroupes, JSON.stringify(newGroupe));
     }
 
 
     public uploadImage(file: any, siteId: number): Observable<any> {
         console.log('==client service:_uploadImage started==');
-        let useTolkin:boolean = true;
         let formData:FormData = new FormData();
         formData.append('image', file, file.name);
 
-        return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData, useTolkin);
+        return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData);
     }
 
 
@@ -97,7 +76,6 @@ export class SalariesService {
 
     public logout(): void {
         // clear token remove user from local storage to log user out
-        this.token = null;
         localStorage.removeItem('role');
         localStorage.removeItem('token');
     }
@@ -120,7 +98,5 @@ export class SalariesService {
             }
         }
     }
-
-
 
 }

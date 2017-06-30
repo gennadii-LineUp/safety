@@ -29,6 +29,9 @@ export class AdminBibliothequePageComponent implements OnInit {
 
     emptyTable: boolean = true;
 
+    itemForChange: number = 0;
+    saveButtonCaption: string = 'Créer';
+
     sorting: any = { column: 'name',  descending: false };
     headers: any[] = [
         { display: 'Nom',  variable: 'name',  filter: 'text' },
@@ -50,6 +53,7 @@ export class AdminBibliothequePageComponent implements OnInit {
                 private router: Router) { }
 
     ngOnInit() {
+        this.loading = true;
         this.findLinkByNameFunction('', 1, '');
         this.adminService.tableMobileViewInit();
     }
@@ -59,20 +63,6 @@ export class AdminBibliothequePageComponent implements OnInit {
         localStorage.removeItem('adminLinkSearch_name');
     }
 
-//////////////////////////////////////
-//     this.emptyTable = false;
-//
-// * .subscribe(result => {
-//     *     if (result) {
-//
-//         if (this.totalItems === 0) {
-//             this.emptyTable = true;
-//         }
-//
-//     * }, (err) => {
-//
-//     this.emptyTable = true;
-/////////////////////////////////////////////
 
     public selectedClass(columnName): string{
         return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
@@ -106,7 +96,6 @@ export class AdminBibliothequePageComponent implements OnInit {
     }
 
 
-
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
             return;
@@ -126,7 +115,7 @@ export class AdminBibliothequePageComponent implements OnInit {
         this.adminService.findLinksByName(_name, page, sort)
             .subscribe(result => {
                 if (result) {
-                    this.loading = false;
+                    this.cancellMessages();
 
                     console.log(result);
                     this.links = result.items;
@@ -152,18 +141,21 @@ export class AdminBibliothequePageComponent implements OnInit {
             });
     }
 
-
-    public submitForm(name: string, description: string, link: string) {
+    public getItemForUpdateFunction(id_itemForUpdate: number) {
         this.cancellMessages();
         this.creating = true;
-        console.dir(this.adminBibliotheque);
+        this.adminBibliotheque = new AdminBibliothequeClass('','','');
 
-        this.adminService.addNewLink(this.adminBibliotheque)
+        this.adminService.getLinkForUpdate('/' + id_itemForUpdate)
             .subscribe(result => {
                 if (result) {
                     this.creating = false;
                     console.log(result);
-                    this.successCreating = "Well done! You've created a new link.";
+                    this.adminBibliotheque.name = result.name;
+                    this.adminBibliotheque.description = result.description;
+                    this.adminBibliotheque.link = result.link;
+                    this.itemForChange = result.id;
+                    this.saveButtonCaption = 'Modifier';
                 }
             }, (err) => {
                 this.creating = false;
@@ -172,12 +164,55 @@ export class AdminBibliothequePageComponent implements OnInit {
             });
     }
 
+    public submitForm(name: string, description: string, link: string) {
+        let urlOption = '';
+        if (this.itemForChange) {
+            urlOption = '/' + this.itemForChange;
+            this.saveButtonCaption = 'Modifier';
+        }
 
-    public gotoAdminBibliothequeForm() {
-        this.loading = true;
-        this.ngOnInit();
         this.cancellMessages();
-        this.router.navigate(['/admin/bibliotheque']);
+        this.creating = true;
+
+        this.adminService.saveLink(this.adminBibliotheque, urlOption)
+            .subscribe(result => {
+                if (result) {
+                    this.creating = false;
+                    console.log(result);
+                    this.successCreating = "Well done! Link is saved.";
+                    if (this.itemForChange) {
+                        this.saveButtonCaption = 'Créer';
+                        this.itemForChange = 0;
+                    }
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.creating = false;
+                console.log(err);
+                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+    
+    public deleteFunction(id_itemForDelete: number) {
+        this.loading = true;
+        this.emptyTable = false;
+
+        this.adminService.deleteLink('/' + id_itemForDelete)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellMessages();
+                    console.log(result);
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+
+    openLinkInNewWindowFunction(link) {
+        window.open(link, '_blank');
     }
 
     private cancellMessages() {

@@ -7,17 +7,10 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SiteService {
-    public token: string;
     public id_site: number;
 
 
- //   private subject: Subject<number> = new Subject<number>();
-
-
-    constructor(private backendService: BackendService) {
-        this.token = localStorage.token;
-    }
-
+    constructor(private backendService: BackendService) {}
 
 
     public setIdSite(id_site: number) {
@@ -30,46 +23,32 @@ export class SiteService {
     }
 
 
-    homeData(): Observable<any> {
+    public homeData(): Observable<any> {
         //console.log('==admin service:_homeData started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.get(UrlParams.adminHome, useTolkin);
+        return this.backendService.get(UrlParams.adminHome);
 
     }
 
 
-    clientList(page): Observable<any> {
+    public clientList(page): Observable<any> {
         //console.log('==admin service:_clientList started==');
-        let useTolkin:boolean = true;
         let query = '?q=&sort=&page=';
-
-        return this.backendService.get(UrlParams.adminClients + query + page, useTolkin);
-
+        return this.backendService.get(UrlParams.adminClients + query + page);
     }
 
-    findEmployeeByName(name: string, page: any, sideId: number): Observable<any> {
-        // console.log('service: ' + sideId);
-        // console.log(localStorage);
-        let useTolkin:boolean = true;
+    public findEmployeeByName(name: string, page: any, sideId: number): Observable<any> {
         let query = '?q=' + name + '&sort=' + page;
-
-        return this.backendService.get(UrlParams.siteHome+sideId+'/employees' + query, useTolkin);
+        return this.backendService.get(UrlParams.siteHome+sideId+'/employees' + query);
     }
 
 
-    addNewEmployee(newEmployee: any, sideId: number): Observable<any> {
-        //console.log('==site service:_addNewEmployee started==');
-        let useTolkin:boolean = true;
-
-        return this.backendService.post(UrlParams.siteHome+sideId+'/employees', JSON.stringify(newEmployee), useTolkin);
-
+    public addNewEmployee(newEmployee: any, sideId: number): Observable<any> {
+        return this.backendService.post(UrlParams.siteHome+sideId+'/employees', JSON.stringify(newEmployee));
     }
 
 
-    logout(): void {
+    public logout(): void {
         // clear token remove user from local storage to log user out
-        this.token = null;
         localStorage.removeItem('role');
         localStorage.removeItem('token');
     }
@@ -103,7 +82,5 @@ export class SiteService {
             }
         }
     }
-
-
 
 }
