@@ -90,7 +90,7 @@
 
                 <tr *ngFor="let link of links">
                     <td>{{link.name}}</td>
-                    <td style='cursor: pointer;' (click)="openLinkInNewWindowFunction(link.link)">{{link.link}}</td>
+                    <td (click)="openLinkInNewWindowFunction(link.link)"><span style='cursor: pointer;'>{{link.link}}</span></td>
                     <td>
                         <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(link.id)'>
                             Modifier

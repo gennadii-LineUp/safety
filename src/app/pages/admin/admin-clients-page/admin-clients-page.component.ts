@@ -177,6 +177,24 @@ export class AdminClientsPageComponent implements OnInit {
             });
     }
 
+    public deleteFunction(id_itemForDelete: number) {
+        this.loading = true;
+        this.emptyTable = false;
+
+        this.adminService.deleteClient('/' + id_itemForDelete)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellErrorMessage();
+                    console.log(result);
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+
 
     gotoNewClientForm() {
         this.router.navigate(['/admin/client/ajouter-un-client']);

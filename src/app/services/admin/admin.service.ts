@@ -31,10 +31,14 @@ export class AdminService {
         return this.backendService.get(UrlParams.adminClients + query);
     }
 
-
     addNewClient(newClient: any): Observable<any> {
         return this.backendService.post(UrlParams.adminClients, JSON.stringify(newClient));
     }
+
+    deleteClient(link: string): Observable<any> {
+        return this.backendService.delete(UrlParams.adminClients + link);
+    }
+
 
     saveLink(link: any, urlOption: string): Observable<any> {
         return this.backendService.post(UrlParams.adminLink + urlOption, JSON.stringify(link));
