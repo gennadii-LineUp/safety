@@ -20,8 +20,9 @@ export class AdminClientAjouterComponent implements OnInit {
     billingAddressIsDifferent:boolean = true;
     spins = document.getElementsByClassName("spin");
 
-    client: ClientClass[] = [];
-
+    client = new ClientClass('','','','','',false,'','','','','','','','','',1);
+    myForm: NgForm;
+    newValue: number = 1;
 
     constructor(private adminService: AdminService,
                 private router: Router,
@@ -41,6 +42,7 @@ export class AdminClientAjouterComponent implements OnInit {
 
 
     submitNewClientFunction(newClientForm: NgForm) {
+        this.myForm = newClientForm;
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
@@ -52,50 +54,21 @@ export class AdminClientAjouterComponent implements OnInit {
             _billingAddressIfDifferent = newClientForm.value.billingAddressIfDifferent;
         }
 
-        let newClient = new ClientClass(newClientForm.value.email,
-                                    newClientForm.value.company,
-                                    newClientForm.value.address,
-                                    newClientForm.value.postalCode,
-                                    newClientForm.value.city,
-                                    _billingAddressIfDifferent,
-                                    newClientForm.value.diffName,
-                                    newClientForm.value.diffAddress,
-                                    newClientForm.value.diffPostalCode,
-                                    newClientForm.value.diffCity,
-                                    newClientForm.value.phone,
-                                    newClientForm.value.numberSiret,
-                                    newClientForm.value.contactName,
-                                    newClientForm.value.contactPhone,
-                                    newClientForm.value.contactEmail,
-                                    newClientForm.value.employeesLimit);
+        this.client.billingAddressIfDifferent = _billingAddressIfDifferent;
+        this.client.employeesLimit = this.newValue;
+        console.dir(this.client);
 
-        //console.dir(newClient);
-
-        this.adminService.addNewClient(newClient)
+        this.adminService.addNewClient(this.client)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log('======result====OK======');
                     console.log(result);
                     this.successCreating = "Well done! You've created a new client.";
-
                 }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorCreating = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // let error = (JSON.parse(err._body)).errors;
-                // console.log(error);
-                // if (Object.keys(error).length > 0) {
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                // }
             });
     }
 
@@ -115,15 +88,17 @@ export class AdminClientAjouterComponent implements OnInit {
             let input = spin.getElementsByTagName("input")[0];
 
             input.value = +input.value + 1 + '';
+            this.newValue =+input.value;
         }
     }
 
     public decreaseSpinEmployees() {
-        for (let i = 0; i < this.spins.length; i++) {
+         for (let i = 0; i < this.spins.length; i++) {
             let spin = this.spins[i];
             let input = spin.getElementsByTagName("input")[0];
 
             input.value = Math.max(0, +input.value - 1) +'';
+            this.newValue = +input.value;
         }
     }
 
@@ -132,8 +107,9 @@ export class AdminClientAjouterComponent implements OnInit {
             let spin = this.spins[i];
             let input = spin.getElementsByTagName("input")[0];
 
-           // if (+input.value < 0)    input.value = '0';
+           // if (+input.value < 0)    input.value = '1';
             input.value = Math.max(1, +input.value) + '';
+            this.newValue = +input.value
         }
     }
 

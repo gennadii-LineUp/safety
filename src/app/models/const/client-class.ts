@@ -28,9 +28,9 @@ export class ClientClass{
                  diffCity: string = '',
                  phone: string,
                  numberSiret: string,
-                 contactName: string,
-                 contactPhone: string,
-                 contactEmail: string,
+                 contactName: string = '',
+                 contactPhone: string = '',
+                 contactEmail: string = '',
                  employeesLimit: number) {
 
         this.email = email;
