@@ -81,7 +81,7 @@ export class AdminClientsPageComponent implements OnInit {
             sortingDirection = '-'; // up
         }
 
-        let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
+       // let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
     }
 

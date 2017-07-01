@@ -25,13 +25,13 @@ export class AdminBibliothequePageComponent implements OnInit {
     activePage: number = 1;
     searchName: string = '';
     currentPage: any;
-    sortingTarget: string = '';
 
     emptyTable: boolean = true;
 
     itemForChange: number = 0;
     saveButtonCaption: string = 'Créer';
 
+    sortingTarget: string = '';
     sorting: any = { column: 'name',  descending: false };
     headers: any[] = [
         { display: 'Nom',  variable: 'name',  filter: 'text' },
@@ -91,7 +91,7 @@ export class AdminBibliothequePageComponent implements OnInit {
             sortingDirection = '-'; // up
         }
 
-        let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
+        //let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
     }
 

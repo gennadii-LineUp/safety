@@ -24,10 +24,8 @@ export class ClientService {
         return this.backendService.get(UrlParams.employeeCount);
     }
 
-    public findSiteByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
-        let query = '?q=' + name + '&page=' + page;
-
+    public findSiteByName(name: string, page: any, sort:string): Observable<any> {
+        let query = '?q=' + name + sort + '&page=' + page;
         return this.backendService.get(UrlParams.clientSites + query);
     }
 
@@ -87,6 +85,12 @@ export class ClientService {
         console.log(newData);
         return newData;
     }
+
+
+    deleteSites(link: string): Observable<any> {
+        return this.backendService.delete(UrlParams.clientSites + link);
+    }
+
 
 
     public logout(): void {

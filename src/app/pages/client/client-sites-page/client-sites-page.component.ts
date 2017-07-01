@@ -15,8 +15,8 @@ import {TableSortService} from '../../../services/table-sort.service';
 })
 export class ClientSitesPageComponent implements OnInit {
     emptyTable: boolean = true;
-    loading: boolean = false;
-    loaded: boolean = false;
+    loading: boolean = true;
+    creating: boolean = false;
     errorLoad: string = '';
     errorSalaries: boolean = false;
     errorCreating: string = '';
@@ -46,11 +46,6 @@ export class ClientSitesPageComponent implements OnInit {
     searchName: string = '';
     currentPage: any;
 
-    headers: any[] = [
-        { display: 'Nom du site',       variable: 'name',       filter: 'text' },
-        { display: 'Adresse',           variable: 'sites',      filter: 'text' },
-        { display: 'Responsable site',  variable: 'employees',  filter: 'text' }
-    ];
 
     modalHeaders: any[] = [
         { display: 'Règle de notification', variable: 'name', filter: 'text' }
@@ -64,7 +59,7 @@ export class ClientSitesPageComponent implements OnInit {
                 private tableSortService: TableSortService) {}
 
     ngOnInit() {
-        this.findSiteByNameFunction('');
+        this.findSiteByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
     }
@@ -75,6 +70,44 @@ export class ClientSitesPageComponent implements OnInit {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
+    sortingTarget: string = '';
+    sorting: any = { column: 'name',  descending: false };
+    headers: any[] = [
+        { display: 'Nom du site',       variable: 'name',       filter: 'text' },
+        { display: 'Adresse',           variable: 'address',    filter: 'text' }//,
+        // { display: 'Responsable site',  variable: 'employees',  filter: 'text' }
+    ];
+
+    public selectedClass(columnName): string{
+        return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+    }
+    public changeSorting(columnName:string, e:any): void{
+        let sortingDirection: string;
+        let thClass: string;
+
+        var sort = this.sorting;
+        if (sort.column == columnName) {
+            sort.descending = !sort.descending;
+        } else {
+            sort.column = columnName;
+            sort.descending = false;
+        }
+
+        if (e.target.firstElementChild) {
+            thClass = e.target.firstElementChild.className;
+        } else {
+            thClass = e.target.className;
+        }
+        if ((thClass === 'double-sort-button') || (thClass === 'sort-button-true')) {
+            sortingDirection = '';  // down
+        }
+        if (thClass === 'sort-button-false') {
+            sortingDirection = '-'; // up
+        }
+
+        //let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
+        this.sortingTarget = '&sort=' + sortingDirection + columnName;
+    }
 
     public onInitChecking() {
         this.searchName = localStorage.clientSiteSearch_name;
@@ -82,9 +115,9 @@ export class ClientSitesPageComponent implements OnInit {
 
         if (this.searchName && this.activePage) {
             console.log('== from local storage ==');
-            this.findSiteByNameFunction(this.searchName, this.activePage + 1);
+            this.findSiteByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findSiteByNameFunction('');
+            this.findSiteByNameFunction('',1, '');
         }
         console.log('====' + this.searchName);
     }
@@ -112,17 +145,17 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
 
-    public findSiteByNameFunction(name:string, page:any = 1) {
+    public findSiteByNameFunction(name:string, page:any = 1, sort: string) {
+        this.cancellMessages();
         this.loading = true;
         this.emptyTable = false;
-        this.cancellErrorMessage();
 
         let _name = name;
         if (name === 'lineUp') {
             _name = localStorage.clientSiteSearch_name;
         }
 
-        this.clientService.findSiteByName(_name, page)
+        this.clientService.findSiteByName(_name, page, sort)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -138,7 +171,6 @@ export class ClientSitesPageComponent implements OnInit {
 
                     this.setPage(this.currentPage);
 
-                    this.loaded = true;
                     setTimeout(() => {
                         this.clientService.tableMobileViewInit();
                     }, 200);
@@ -174,29 +206,23 @@ export class ClientSitesPageComponent implements OnInit {
                       techControlSiege: boolean,
                       techControlSite: boolean) {
 
-        this.cancellErrorMessage();
-        this.cancellSuccessMessage();
-        this.loading = true;
+        this.cancellMessages();
+        this.creating = true;
 
-        let newSite = new SiteClass(name,
-            address,
-            postalCode,
-            city,
-            notificationEmails,
-            this._cacesSiege,
-            this._cacesSite,
-            this._medicalVisitSiege,
-            this._medicalVisitSite,
-            this._techControlSiege,
-            this._techControlSite);
+        let newSite = new SiteClass(name, address, postalCode, city, notificationEmails,
+                                    this._cacesSiege,
+                                    this._cacesSite,
+                                    this._medicalVisitSiege,
+                                    this._medicalVisitSite,
+                                    this._techControlSiege,
+                                    this._techControlSite);
 
         console.dir(newSite);
 
         this.clientService.addNewSite(newSite)
             .subscribe(result => {
                 if (result) {
-                    this.cancellErrorMessage();
-                    console.log('======result====OK======');
+                    this.cancellMessages();
                     console.log(result);
                     this.newSite_id = result.siteId;
                     if (this.userHasChoosenFile) {
@@ -220,43 +246,35 @@ export class ClientSitesPageComponent implements OnInit {
                     else {
                         this.successCreating = "Well done! You've created a new client.";
                     }
-                    this.loading = false;
+                    this.creating = false;
                     this.userHasChoosenFile = false;
+                    this.ngOnInit();
                 }
             }, (err) => {
-                console.log('====error=============');
-                this.loading = false;
+                this.creating = false;
                 console.log(err);
 
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 
+    public deleteFunction(id_itemForDelete: number) {
+        this.loading = true;
+        this.emptyTable = false;
 
-
-    // public fileChange(event) {
-    //     let fileList: FileList = event.target.files;
-    //     if(fileList.length > 0) {
-    //         this.loadingFile = true;
-    //         let file: File = fileList[0];
-    //         this.uploadFileText = file.name;
-    //
-    //         this.clientService.uploadImage(file, 4)
-    //             .subscribe(result => {
-    //                 if (result) {
-    //                     this.loadingFile = false;
-    //                     this.uploadedFile = true;
-    //                     console.log(result);
-    //                 }
-    //             }, (err) => {
-    //                 this.loadingFile = false;
-    //                 this.uploadFileText = '  error  error  error';
-    //                 console.log(err);
-    //
-    //                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-    //             });
-    //     }
-    // }
+        this.clientService.deleteSites('/' + id_itemForDelete)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellMessages();
+                    console.log(result);
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
 
 
     public cacesSiegeClicked(e:any) {
@@ -278,23 +296,13 @@ export class ClientSitesPageComponent implements OnInit {
         this._techControlSite = e.target.checked;
     }
 
-    private cancellErrorMessage() {
-        //this.loading = false;
+    public cancellMessages() {
+        this.loading = false;
+        this.creating = false;
         this.errorLoad = '';
         this.errorSalaries = false;
         this.errorCreating = '';
-    }
-    public cancellSuccessMessage() {
-        this.loading = false;
         this.successCreating = '';
-    }
-
-    public gotoClientHomeForm() {
-        this.loading = true;
-        this.ngOnInit();
-        this.cancellErrorMessage();
-        this.cancellSuccessMessage();
-        this.router.navigate(['/client']);
     }
 
 }
