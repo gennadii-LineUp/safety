@@ -203,15 +203,12 @@
         <table class="table-default sites-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers"  (click)="changeSorting(header.variable, $event);
+                    <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
+                                                                getSortingTarget();
                                                                 findSiteByNameFunction(findSiteByName.value, 1,sortingTarget);">
-                        <button [class]="selectedClass(header.variable)" ></button>
+                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
-                    <!--<th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">-->
-                        <!--<button [class]="tableSortService.selectedClass(header.variable)" ></button>-->
-                        <!--{{header.display}}-->
-                    <!--</th>-->
                     <th style='cursor:default;'>
                         <span>Responsable site</span>
                     </th>

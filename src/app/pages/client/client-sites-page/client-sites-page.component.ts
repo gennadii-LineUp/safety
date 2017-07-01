@@ -71,43 +71,15 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
     sortingTarget: string = '';
-    sorting: any = { column: 'name',  descending: false };
     headers: any[] = [
         { display: 'Nom du site',       variable: 'name',       filter: 'text' },
         { display: 'Adresse',           variable: 'address',    filter: 'text' }//,
         // { display: 'Responsable site',  variable: 'employees',  filter: 'text' }
     ];
-
-    public selectedClass(columnName): string{
-        return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+    public getSortingTarget(){
+        this.sortingTarget = this.tableSortService._getSortingTarget();
     }
-    public changeSorting(columnName:string, e:any): void{
-        let sortingDirection: string;
-        let thClass: string;
 
-        var sort = this.sorting;
-        if (sort.column == columnName) {
-            sort.descending = !sort.descending;
-        } else {
-            sort.column = columnName;
-            sort.descending = false;
-        }
-
-        if (e.target.firstElementChild) {
-            thClass = e.target.firstElementChild.className;
-        } else {
-            thClass = e.target.className;
-        }
-        if ((thClass === 'double-sort-button') || (thClass === 'sort-button-true')) {
-            sortingDirection = '';  // down
-        }
-        if (thClass === 'sort-button-false') {
-            sortingDirection = '-'; // up
-        }
-
-        //let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
-        this.sortingTarget = '&sort=' + sortingDirection + columnName;
-    }
 
     public onInitChecking() {
         this.searchName = localStorage.clientSiteSearch_name;
