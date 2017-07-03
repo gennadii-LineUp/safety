@@ -25,7 +25,6 @@ export class AdminComponent implements OnInit {
                 localStorage.removeItem('previous_tokenAdmin');
                 localStorage.removeItem('previous_roleAdmin');
             }, 100);
-            console.log('tokens removed');
             console.log(localStorage);
         }
     }

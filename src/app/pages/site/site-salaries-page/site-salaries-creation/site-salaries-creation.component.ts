@@ -23,6 +23,12 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     errorLoad: string = '';
 
+    addNewSalariesAvailable: boolean = true;
+    errorSalaries: boolean = false;
+    salariesMaxPossible:number;
+    salariesUsed:number;
+
+
     id_site:number;
 
     public periodeDeValidite = [
@@ -124,12 +130,13 @@ export class SiteSalariesCreationComponent implements OnInit {
                     this.loading = false;
                     console.log(result);
                     this.successCreating = "Well done! You've created a new employee.";
+                    this.checkFreeSalarieAccount();
                 }
             }, (err) => {
                 console.log('====error=============');
                 this.loading = false;
                 console.log(err);
-                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+                this.errorLoad = err._body;//this.errorMessageHandlerService.checkErrorStatus(err);
 
                 //      let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
                //  if (errorStatusKnown) {
@@ -145,6 +152,25 @@ export class SiteSalariesCreationComponent implements OnInit {
             });
     }
 
+    public checkFreeSalarieAccount() {
+        this.clientService.employeeCount()
+            .subscribe(result => {
+                if (result) {
+                    this.salariesMaxPossible = result.limitEmployees;
+                    this.salariesUsed = result.employeeCount;
+                    if (this.salariesMaxPossible === this.salariesUsed) {
+                        this.addNewSalariesAvailable = false;
+                        this.successCreating = '';
+                        this.errorSalaries = true;
+                    }
+                }
+            }, (err) => {
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+    public cancellErrorSalariesMessages() {
+        this.errorSalaries = false;
+    }
 
 
     ngAfterViewChecked () {

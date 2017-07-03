@@ -5,22 +5,27 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {EmployeesClass} from '../../../models/const/employees-class';
 import {TableSortService} from '../../../services/table-sort.service';
+import {ClientService} from '../../../services/client/client.service';
 
 @Component({
   selector: 'site-salaries-page',
   templateUrl: './site-salaries-page.component.html',
   styleUrls: ['./site-salaries-page.component.css'],
-    providers: [SiteService, PaginationService, TableSortService]
+    providers: [ClientService, SiteService, PaginationService, TableSortService]
 })
 export class SiteSalariesPageComponent implements OnInit {
     emptyTable: boolean = true;
     loading: boolean = false;
     loaded: boolean = false;
     errorLoad: string = '';
-    errorSalaries: string = '';
     errorCreating: string = '';
     successCreating: string = '';
-    
+
+    addNewSalariesAvailable: boolean = true;
+    errorSalaries: boolean = false;
+    salariesMaxPossible:number;
+    salariesUsed:number;
+
     id_site: number;
     site: EmployeesClass[] = [];
 
@@ -35,13 +40,14 @@ export class SiteSalariesPageComponent implements OnInit {
         { display: 'Nom',     variable: 'name',           filter: 'text' },
         { display: 'Prénom',  variable: 'surname',        filter: 'text' },
         { display: 'N° sécu', variable: 'numSecu',        filter: 'text' },
-        { display: 'Groupe',  variable: 'groupName',  filter: 'number' },
-        { display: 'Accès',   variable: 'access',          filter: 'text' },
+        { display: 'Groupe',  variable: 'groupName',      filter: 'number' },
+        { display: 'Accès',   variable: 'access',         filter: 'text' },
         { display: 'Validité',variable: 'validityPeriod', filter: 'text' }
     ];
 
 
-    constructor(private siteService: SiteService,
+    constructor(private clientService: ClientService,
+                private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private paginationService: PaginationService,
                 private router: Router,
@@ -50,6 +56,7 @@ export class SiteSalariesPageComponent implements OnInit {
     ngOnInit() {
         this.id_site = localStorage.id_site;
         console.log('get from LS ' + this.id_site);
+        this.checkFreeSalarieAccount();
         this.findEmployeeByNameFunction('');
 
         this.siteService.tableMobileViewInit();
@@ -123,13 +130,32 @@ export class SiteSalariesPageComponent implements OnInit {
             });
     }
 
+    public checkFreeSalarieAccount() {
+        this.clientService.employeeCount()
+            .subscribe(result => {
+                if (result) {
+                    this.salariesMaxPossible = result.limitEmployees;
+                    this.salariesUsed = result.employeeCount;
+                    if (this.salariesMaxPossible === this.salariesUsed) {
+                        this.addNewSalariesAvailable = false;
+                        this.errorSalaries = true;
+                    }
+                }
+            }, (err) => {
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+
 
     private cancellErrorMessage() {
         //this.loading = false;
         this.errorLoad = '';
-        this.errorSalaries = '';
         this.errorCreating = '';
     }
+    public cancellErrorSalariesMessages() {
+        this.errorSalaries = false;
+    }
+
 
     gotoNewSalariesForm() {
         this.router.navigate(['/site', this.id_site, 'ajouter-un-salarie-etap1']);

@@ -62,6 +62,7 @@ export class ClientSitesPageComponent implements OnInit {
         this.findSiteByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
+        this.checkFreeSalarieAccount();
     }
 
     ngOnDestroy() {
@@ -272,9 +273,13 @@ export class ClientSitesPageComponent implements OnInit {
         this.loading = false;
         this.creating = false;
         this.errorLoad = '';
-        this.errorSalaries = false;
+       // this.errorSalaries = false;
         this.errorCreating = '';
         this.successCreating = '';
     }
+    public cancellErrorSalariesMessages() {
+        this.errorSalaries = false;
+    }
+
 
 }

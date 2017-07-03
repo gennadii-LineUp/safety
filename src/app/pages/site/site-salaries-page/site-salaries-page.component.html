@@ -1,4 +1,11 @@
 <header class="main-header">
+    <div *ngIf="errorSalaries" class="alert alert-danger alert-dismissible fade in" role="alert"  style='position: absolute;' >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorSalariesMessages()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p>Votre limite de salariés a été atteinte. Vous utilisez <span>{{salariesUsed}}/{{salariesMaxPossible}} comptes salariés disponibles.</span></p>
+    </div>
+
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;'>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
             <span aria-hidden="true"></span>
@@ -11,7 +18,7 @@
 </header>
 <div class="main-content" *ngIf='loaded'>
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="gotoNewSalariesForm()"></button>
+        <button class="add-an-item-button" *ngIf="addNewSalariesAvailable"  (click)="gotoNewSalariesForm()"></button>
         <div class="search-wrapper">
             <button class="search-button" type="button" (click)='findEmployeeByNameFunction(findSalarieByName.value, 1)'></button>
             <input #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"

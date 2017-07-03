@@ -1,6 +1,6 @@
 <header class="main-header">
     <div *ngIf="errorSalaries" class="alert alert-danger alert-dismissible fade in" role="alert"  style='position: absolute;' >
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorSalariesMessages()'>
             <span aria-hidden="true"></span>
         </button>
         <p>Votre limite de salariés a été atteinte. Vous utilisez <span>{{salariesUsed}}/{{salariesMaxPossible}} comptes salariés disponibles.</span></p>
@@ -229,7 +229,7 @@
             <tr *ngFor="let site of sites" >
                     <td>{{site.name}}</td>
                     <td>{{site.address}}</td>
-                    <td>TODO: Prénom Nom</td>
+                    <td style='color: tomato;'>TODO: Prénom Nom</td>
                     <td>
                         <a href="javascript:void(0);" [routerLink]="['/site', site.id ]" >
                             Gérer {{site.id}}
