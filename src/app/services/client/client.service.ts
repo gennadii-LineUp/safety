@@ -18,7 +18,7 @@ export class ClientService {
     }
 
     public employeeCount(): Observable<any> {
-        console.log('==client service_employeeCount started==');
+        console.log('==client service_employeeCOUNT started==');
         let useTolkin:boolean = false;
 
         return this.backendService.get(UrlParams.employeeCount);
@@ -46,9 +46,9 @@ export class ClientService {
         return this.backendService.get(UrlParams.employeesGroupsList);
     }
 
-    public findGroupeByName(name: string, page: any): Observable<any> {
+    public findGroupeByName(name: string, page: any, sort:string): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
-        let query = '?q=' + name + '&page=' + page;
+        let query = '?q=' + name + sort + '&page=' + page;
 
         return this.backendService.get(UrlParams.clientGroupes + query);
     }
@@ -89,6 +89,9 @@ export class ClientService {
 
     deleteSites(link: string): Observable<any> {
         return this.backendService.delete(UrlParams.clientSites + link);
+    }
+    deleteGroupe(link: string): Observable<any> {
+        return this.backendService.delete(UrlParams.clientGroupes + link);
     }
 
 

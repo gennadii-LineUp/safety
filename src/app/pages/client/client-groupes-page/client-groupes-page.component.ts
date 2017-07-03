@@ -35,8 +35,12 @@ export class ClientGroupesPageComponent implements OnInit {
 
     headers: any[] = [
         { display: 'Nom du groupe', variable: 'name',  filter: 'text' },
-        { display: 'Accès',         variable: 'acces', filter: 'text' }
+        { display: 'Accès',         variable: 'access', filter: 'text' }
     ];
+    sortingTarget: string = '';
+    public getSortingTarget(){
+        this.sortingTarget = this.tableSortService._getSortingTarget();
+    }
 
 
     constructor(private clientService: ClientService,
@@ -46,7 +50,7 @@ export class ClientGroupesPageComponent implements OnInit {
                 private tableSortService: TableSortService) {}
 
     ngOnInit() {
-        this.findGroupByNameFunction('');
+        this.findGroupByNameFunction('', 1, '');
     }
 
     ngOnDestroy() {
@@ -61,9 +65,9 @@ export class ClientGroupesPageComponent implements OnInit {
 
         if (this.searchName && this.activePage) {
             console.log('== from local storage ==');
-            this.findGroupByNameFunction(this.searchName, this.activePage + 1);
+            this.findGroupByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findGroupByNameFunction('');//this.getGroupList(1);
+            this.findGroupByNameFunction('', 1, '');//this.getGroupList(1);
         }
         console.log('====' + this.searchName);
     }
@@ -77,7 +81,7 @@ export class ClientGroupesPageComponent implements OnInit {
     }
 
 
-    public findGroupByNameFunction(name:string, page:any = 1) {
+    public findGroupByNameFunction(name:string, page:any = 1, sort: string) {
         this.loading = true;
         this.emptyTable = false;
         let _name = name;
@@ -85,7 +89,7 @@ export class ClientGroupesPageComponent implements OnInit {
             _name = localStorage.clientGroupSearch_name;
         }
 
-        this.clientService.findGroupeByName(_name, page)
+        this.clientService.findGroupeByName(_name, page, sort)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -156,6 +160,24 @@ export class ClientGroupesPageComponent implements OnInit {
             });
     }
 
+    public deleteFunction(id_itemForDelete: number) {
+        this.loading = true;
+        this.emptyTable = false;
+
+        this.clientService.deleteGroupe('/' + id_itemForDelete)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellErrorMessage();
+                    console.log(result);
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+
     public adminAccessClicked(e:any) {
         this._adminAccess = e.target.checked;
     }
@@ -163,6 +185,7 @@ export class ClientGroupesPageComponent implements OnInit {
     private cancellErrorMessage() {
         this.loading = false;
         this.saving = false;
+        this.errorLoad =  '';
         this.errorSalaries = '';
         this.errorCreating = '';
     }

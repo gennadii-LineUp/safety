@@ -71,12 +71,12 @@ export class ClientSitesPageComponent implements OnInit {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
-    sortingTarget: string = '';
     headers: any[] = [
         { display: 'Nom du site',       variable: 'name',       filter: 'text' },
         { display: 'Adresse',           variable: 'address',    filter: 'text' }//,
         // { display: 'Responsable site',  variable: 'employees',  filter: 'text' }
     ];
+    sortingTarget: string = '';
     public getSortingTarget(){
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }

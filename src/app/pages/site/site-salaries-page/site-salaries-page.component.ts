@@ -136,9 +136,11 @@ export class SiteSalariesPageComponent implements OnInit {
                 if (result) {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
+                    console.log(this.salariesMaxPossible + ' ' + this.salariesUsed);
                     if (this.salariesMaxPossible === this.salariesUsed) {
                         this.addNewSalariesAvailable = false;
                         this.errorSalaries = true;
+                        console.log(this.salariesMaxPossible + ' ' + this.salariesUsed);
                     }
                 }
             }, (err) => {

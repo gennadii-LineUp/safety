@@ -64,17 +64,19 @@
         </client-groupes-modal>
 
         <div class="search-wrapper">
-            <button class="search-button" type="button" (click)='findGroupByNameFunction(findGroupByName.value, 1)'></button>
+            <button class="search-button" type="button" (click)='findGroupByNameFunction(findGroupByName.value, 1,sortingTarget)'></button>
             <input #findGroupByName id="findGroupByName" name='findGroupByName' type="text"
                    class="form-control search-input" placeholder="Rechercher"
-                   (keyup.enter)='findGroupByNameFunction(findGroupByName.value, 1)'>
+                   (keyup.enter)='findGroupByNameFunction(findGroupByName.value, 1,sortingTarget)'>
         </div>
     </div>
     <div class="table-wrapper">
         <table class="table-default groupe-de-salaries-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+                    <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
+                                                                getSortingTarget();
+                                                                findGroupByNameFunction(findGroupByName.value, 1,sortingTarget);">
                         <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
@@ -93,7 +95,10 @@
                     <td>{{groupe.name}}</td>
                     <td>{{groupe.access | adminAccess }}</td>
                     <!--<td>{{groupe.admin_access}}</td>-->
-                    <td><a href="javascript:void(0);">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                    <td>
+                        <a href="javascript:void(0);">Modifier</a>
+                            /
+                        <a href="javascript:void(0);" (click)='deleteFunction(groupe.id)'>Supprimer</a></td>
                 </tr>
             </tbody>
         </table>
@@ -102,32 +107,32 @@
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">
-                <a class="prev-link" (click)="findGroupByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
+                <a class="prev-link" (click)="findGroupByNameFunction('lineUp', pager.currentPage - 1,sortingTarget)" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
-                <a href="javascript:void(0);"  (click)="findGroupByNameFunction('lineUp', 1)" >1</a>
+                <a href="javascript:void(0);"  (click)="findGroupByNameFunction('lineUp', 1,sortingTarget)" >1</a>
             </li>
             <li *ngIf="pager.hiddenAtStart">
-                <a (click)="findGroupByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+                <a (click)="findGroupByNameFunction('lineUp', pager.startPage-1,sortingTarget)"  >...</a>
             </li>
 
             <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="findGroupByNameFunction('lineUp', page)">{{page}}</a>
+                <a (click)="findGroupByNameFunction('lineUp', page,sortingTarget)">{{page}}</a>
             </li>
 
             <li *ngIf="pager.hiddenAtEnd">
-                <a (click)="findGroupByNameFunction('lineUp', pager.endPage+1)" >...</a>
+                <a (click)="findGroupByNameFunction('lineUp', pager.endPage+1,sortingTarget)" >...</a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
-                <a (click)="findGroupByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+                <a (click)="findGroupByNameFunction('lineUp', pager.totalPages,sortingTarget)">{{pager.totalPages}}</a>
             </li>
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
-                   (click)="findGroupByNameFunction('lineUp', pager.currentPage + 1)">
+                   (click)="findGroupByNameFunction('lineUp', pager.currentPage + 1,sortingTarget)">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
