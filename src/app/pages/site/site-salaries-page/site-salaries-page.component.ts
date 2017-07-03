@@ -148,6 +148,26 @@ export class SiteSalariesPageComponent implements OnInit {
             });
     }
 
+    public deleteFunction(id_itemForDelete: number) {
+        this.cancellErrorSalariesMessages();
+        this.cancellErrorMessage();
+        this.loading = true;
+        this.emptyTable = false;
+
+        this.siteService.deleteEmployee(this.id_site, id_itemForDelete)
+            .subscribe(result => {
+                if (result) {
+                    this.loading = false;
+                    console.log(result);
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+
 
     private cancellErrorMessage() {
         //this.loading = false;

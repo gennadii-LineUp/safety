@@ -36,14 +36,19 @@ export class SiteService {
         return this.backendService.get(UrlParams.adminClients + query + page);
     }
 
-    public findEmployeeByName(name: string, page: any, sideId: number): Observable<any> {
+    public findEmployeeByName(name: string, page: any, siteId: number): Observable<any> {
         let query = '?q=' + name + '&sort=' + page;
-        return this.backendService.get(UrlParams.siteHome+sideId+'/employees' + query);
+        return this.backendService.get(UrlParams.siteHome+siteId+'/employees' + query);
+    }
+    public deleteEmployee(siteId: number, employeeId: number): Observable<any> {
+        let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
+        console.log(query);
+        return this.backendService.delete(query);
     }
 
 
-    public addNewEmployee(newEmployee: any, sideId: number): Observable<any> {
-        return this.backendService.post(UrlParams.siteHome+sideId+'/employees', JSON.stringify(newEmployee));
+    public addNewEmployee(newEmployee: any, siteId: number): Observable<any> {
+        return this.backendService.post(UrlParams.siteHome+siteId+'/employees', JSON.stringify(newEmployee));
     }
 
 
