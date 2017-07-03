@@ -29,9 +29,9 @@ export class ClientService {
         return this.backendService.get(UrlParams.clientSites + query);
     }
 
-    public findSalarieByName(name: string, page: any): Observable<any> {
+    public findSalarieByName(name: string, page: any, sort:string): Observable<any> {
         //console.log('==admin service:_findClientByName started==');
-        let query = '?q=' + name + '&page=' + page;
+        let query = '?q=' + name + sort + '&page=' + page;
 
         return this.backendService.get(UrlParams.clientEmployees + query);
     }

@@ -41,6 +41,10 @@ export class ClientSalariesPageComponent implements OnInit {
         { display: 'Groupe',    variable: 'groupName',      filter: 'text' },
         { display: 'Validité',  variable: 'validityPeriod', filter: 'text' },
     ];
+    sortingTarget: string = '';
+    public getSortingTarget(){
+        this.sortingTarget = this.tableSortService._getSortingTarget();
+    }
 
 
     constructor(private clientService: ClientService,
@@ -51,7 +55,7 @@ export class ClientSalariesPageComponent implements OnInit {
                 private tableSortService: TableSortService) {}
 
     ngOnInit() {
-        this.findSalarieByNameFunction('');
+        this.findSalarieByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
         this.getUsedSalaries();
     }
@@ -92,9 +96,9 @@ export class ClientSalariesPageComponent implements OnInit {
 
         if (this.searchName && this.activePage) {
             console.log('== from local storage ==');
-            this.findSalarieByNameFunction(this.searchName, this.activePage + 1);
+            this.findSalarieByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findSalarieByNameFunction('');
+            this.findSalarieByNameFunction('', 1, '');
         }
     }
 
@@ -107,7 +111,7 @@ export class ClientSalariesPageComponent implements OnInit {
     }
 
 
-    public findSalarieByNameFunction(name:string, page:any = 1) {
+    public findSalarieByNameFunction(name:string, page:any = 1, sort: string) {
         this.loading = true;
         this.emptyTable = false;
         this.cancellErrorMessage();
@@ -117,7 +121,7 @@ export class ClientSalariesPageComponent implements OnInit {
             _name = localStorage.clientSalarieSearch_name;
         }
 
-        this.clientService.findSalarieByName(_name, page)
+        this.clientService.findSalarieByName(_name, page, sort)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;

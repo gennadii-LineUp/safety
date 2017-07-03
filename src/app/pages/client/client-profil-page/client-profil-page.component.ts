@@ -66,16 +66,6 @@ export class ClientProfilPageComponent implements OnInit {
                 console.log('====error=============');
                 this.loading = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // //let error = (JSON.parse(err._body)).errors;
-                // console.log(err);
-                // this.errorLoad = err;//this.errorMessageHandlerService.errorHandler(err);
             });
 
     }
@@ -94,24 +84,23 @@ export class ClientProfilPageComponent implements OnInit {
 
     public submitNewProfilClientFunction() {
         this.cancellErrorMessage();
-        this.updating = true;
-        this.cancellErrorMessage();
         this.cancellSuccessMessage();
+        this.updating = true;
 
         console.dir(this.client);
 
-        // this.clientService.updateClientProfile(this.client)
-        //     .subscribe(result => {
-        //         if (result) {
-        //             this.updating = false;
-        //             console.log(result);
-        //             this.successUpdate = "Well done! You've updated your settings.";
-        //         }
-        //     }, (err) => {
-        //         this.updating = false;
-        //         console.log(err);
-        //         this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-        //     });
+        this.clientService.updateClientProfile(this.client)
+            .subscribe(result => {
+                if (result) {
+                    this.updating = false;
+                    console.log(result);
+                    this.successUpdate = "Well done! You've updated your settings.";
+                }
+            }, (err) => {
+                this.updating = false;
+                console.log(err);
+                this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
 
     }
 
