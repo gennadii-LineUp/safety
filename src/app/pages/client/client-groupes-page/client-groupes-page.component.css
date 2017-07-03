@@ -27,3 +27,7 @@ header.main-header {
     padding: 10px 10px 10px 10px;
 }
 /*=end=== error message ====*/
+
+.search-panel p {
+    margin-bottom: 11px;
+}

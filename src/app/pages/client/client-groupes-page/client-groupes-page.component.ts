@@ -22,7 +22,12 @@ export class ClientGroupesPageComponent implements OnInit {
     errorCreating: string = '';
     successCreating: string = '';
 
-    groupes: GroupeClass[] = [];
+    itemForChange: number = 0;
+    saveButtonCaption: string = 'Créer';
+
+    groupes = [];
+    salaryeeGroupe = new GroupeClass('', false);
+
     pager: any = {};
 
     errorLoad: string = '';
@@ -121,42 +126,34 @@ export class ClientGroupesPageComponent implements OnInit {
     }
 
 
-    public submitForm(name: string,
-                      adminAccess: boolean) {
+    public submitForm(name: string, adminAccess: boolean) {
+        let urlOption = '';
+        if (this.itemForChange) {
+            urlOption = '/' + this.itemForChange;
+            this.saveButtonCaption = 'Modifier';
+        }
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.saving = true;
 
-        let newGroupe = new GroupeClass(name, this._adminAccess);
+        this.salaryeeGroupe.adminAccess = this._adminAccess;
+        console.dir(this.salaryeeGroupe);
 
-        console.dir(newGroupe);
-
-        this.clientService.addNewGroupe(newGroupe)
+        this.clientService.addNewGroupe(this.salaryeeGroupe, urlOption)
             .subscribe(result => {
                 if (result) {
                     this.saving = false;
                     console.log('======result====OK======');
                     console.log(result);
                     this.successCreating = "Well done! You've created a new group.";
+                    this.ngOnInit();
                 }
             }, (err) => {
                 console.log('====error=============');
                 this.saving = false;
                 console.log(err);
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorCreating = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // let error = (JSON.parse(err._body)).errors;
-                //
-                // if (Object.keys(error).length > 0) {
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                // }
             });
     }
 
@@ -178,6 +175,30 @@ export class ClientGroupesPageComponent implements OnInit {
             });
     }
 
+    public getItemForUpdateFunction(id_itemForUpdate: number) {
+        this.cancellErrorMessage();
+        this.saving = true;
+        this.salaryeeGroupe = new GroupeClass('', false);
+        console.log(id_itemForUpdate);
+
+        // this.clientService.getGroupeForUpdate('/' + id_itemForUpdate)
+        //     .subscribe(result => {
+        //         if (result) {
+        //             this.saving = false;
+        //             console.log(result);
+        //             this.salaryeeGroupe.name = result.name;
+        //             this.salaryeeGroupe.adminAccess = result.adminAccess;
+        // this.itemForChange = result.id;
+                       this.saveButtonCaption = 'Modifier';
+        //         }
+        //     }, (err) => {
+        //         this.saving = false;
+        //         console.log(err);
+        //         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+        //     });
+    }
+
+
     public adminAccessClicked(e:any) {
         this._adminAccess = e.target.checked;
     }
@@ -194,12 +215,5 @@ export class ClientGroupesPageComponent implements OnInit {
         this.saving = false;
         this.successCreating = '';
     }
-    private gotoClientGroupesForm() {
-        this.cancellErrorMessage();
-        this.cancellSuccessMessage();
-        this.router.navigate(['/client/groupes']);
-        this.ngOnInit();
-    }
-
 
 }

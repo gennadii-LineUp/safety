@@ -53,9 +53,16 @@ export class ClientService {
         return this.backendService.get(UrlParams.clientGroupes + query);
     }
 
-    public addNewGroupe(newGroupe: any): Observable<any> {
+    public addNewGroupe(newGroupe: any, urlOption: string): Observable<any> {
         console.log('==client service:_addNewGroupe started==');
-        return this.backendService.post(UrlParams.clientGroupes, JSON.stringify(newGroupe));
+        return this.backendService.post(UrlParams.clientGroupes + urlOption, JSON.stringify(newGroupe));
+    }
+    public getGroupeForUpdate(link: string): Observable<any> {
+        return this.backendService.get(UrlParams.clientGroupes + link);
+    }
+
+    getLinkForUpdate(link: string): Observable<any> {
+        return this.backendService.get(UrlParams.adminLink + link);
     }
 
 
