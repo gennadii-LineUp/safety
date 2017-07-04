@@ -102,6 +102,24 @@ export class ClientSalariesPageComponent implements OnInit {
         }
     }
 
+    public deleteFunction(siteId: number, employeeId: number) {
+        this.loading = true;
+        this.emptyTable = false;
+
+        this.clientService.deleteEmployee(siteId, employeeId)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellErrorMessage();
+                    console.log(result);
+                    this.ngOnInit();
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+    }
+
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {

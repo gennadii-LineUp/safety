@@ -18,6 +18,10 @@ export class ClientProfilPageComponent implements OnInit {
     successUpdate: string = '';
     errorUpdate: string = '';
 
+    loadingFile: boolean = false;
+    uploadedFile: boolean = false;
+    uploadFileText: string = 'Image du site';
+
     billingAddressIsDifferent: boolean = true;
 
     client = new ClientProfileClass('','','','','',true,'','','','','','','','','','','','');
@@ -27,6 +31,7 @@ export class ClientProfilPageComponent implements OnInit {
                 private errorMessageHandlerService: ErrorMessageHandlerService){}
 
     ngOnInit(): void {
+
         this.getClientProfilData();
     }
 
@@ -60,7 +65,22 @@ export class ClientProfilPageComponent implements OnInit {
                         '', '');
 
                     this.client = currentClient;
-                    console.dir(this.client);
+                    // console.dir(this.client);
+                    this.loadingFile = true;
+                    this.clientService.getProfileImage()
+                        .subscribe(result => {
+                            if (result) {
+                                this.loadingFile = false;
+                                console.log(result);
+                                // this.successUpdate = "Well done! You've updated your settings.";
+                            }
+                        }, (err) => {
+                            this.loadingFile = false;
+                            this.uploadFileText = '  error  error  error';
+                            console.log(err);
+                            this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                        });
+
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -82,6 +102,59 @@ export class ClientProfilPageComponent implements OnInit {
         //this.successCreating = '';
     }
 
+    file: File;
+    userHasChoosenFile: boolean = false;
+    public fileChange(event) {
+        // this.loadingFile = true;
+        this.uploadedFile = false;
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.userHasChoosenFile = true;
+            this.file = fileList[0];
+            this.uploadFileText = this.file.name;
+
+            if (this.userHasChoosenFile) {
+                this.loadingFile = true;
+                this.clientService.uploadProfileImage(this.file)
+                    .subscribe(result => {
+                        if (result) {
+                            console.log(result);
+
+                            setTimeout(() => {
+                                this.clientService.getProfileImage()
+                                    .subscribe(result => {
+                                        if (result) {
+                                            this.loadingFile = false;
+                                            this.uploadedFile = true;
+                                            console.log(result);
+                                            // this.successUpdate = "Well done! You've updated your settings.";
+                                        }
+                                    }, (err) => {
+                                        this.loadingFile = false;
+                                        this.uploadFileText = '  error  error  error';
+                                        console.log(err);
+                                        this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                                    });
+                            }, 1000);
+
+
+                            // this.successUpdate = "Well done! You've updated your settings.";
+                        }
+                    }, (err) => {
+                        this.loadingFile = false;
+                        this.uploadFileText = '  error  error  error';
+                        console.log(err);
+                        this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                    });
+            }
+            else {
+                // this.successUpdate = "Well done! You've updated your settings.";
+            }
+
+        }
+    }
+
+
     public submitNewProfilClientFunction() {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
@@ -92,9 +165,31 @@ export class ClientProfilPageComponent implements OnInit {
         this.clientService.updateClientProfile(this.client)
             .subscribe(result => {
                 if (result) {
-                    this.updating = false;
                     console.log(result);
-                    this.successUpdate = "Well done! You've updated your settings.";
+
+                    // if (this.userHasChoosenFile) {
+                    //     this.loadingFile = true;
+                    //     this.clientService.uploadProfileImage(this.file)
+                    //         .subscribe(result => {
+                    //             if (result) {
+                    //                 this.loadingFile = false;
+                    //                 this.uploadedFile = true;
+                    //                 console.log(result);
+                                     this.successUpdate = "Well done! You've updated your settings.";
+                    //             }
+                    //         }, (err) => {
+                    //             this.loadingFile = false;
+                    //             this.uploadFileText = '  error  error  error';
+                    //             console.log(err);
+                    //             this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                    //         });
+                    // }
+                    // else {
+                    //     this.successUpdate = "Well done! You've updated your settings.";
+                    // }
+                    this.updating = false;
+                    this.userHasChoosenFile = false;
+                    // this.ngOnInit();
                 }
             }, (err) => {
                 this.updating = false;

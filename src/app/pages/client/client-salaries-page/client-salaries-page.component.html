@@ -58,7 +58,9 @@
                     <td>{{salarie.siteName}}</td>
                     <td>{{salarie.groupName}}</td>
                     <td>{{salarie.validityPeriod | validityPeriod}}</td>
-                    <td><a href="javascript:void(0);">Modifier</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                    <td>
+                        <a href="javascript:void(0);">Modifier</a> /
+                        <a href="javascript:void(0);" (click)='deleteFunction(salarie.siteId, salarie.id)'>Supprimer</a></td>
                 </tr>
         </table>
     </div>

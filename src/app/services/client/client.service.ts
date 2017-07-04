@@ -78,8 +78,20 @@ export class ClientService {
 
     public updateClientProfile(newProfile: any): Observable<any> {
         console.log('==client service:_updateClientProfile started==');
-        return this.backendService.post('http://sfapi:8000/app_dev.php/client/profile', JSON.stringify(newProfile));
+        return this.backendService.post(UrlParams.clientProfilData, JSON.stringify(newProfile));
     }
+    public uploadProfileImage(file: any): Observable<any> {
+        console.log('==client service:_uploadProfileImage started==');
+        let formData:FormData = new FormData();
+        formData.append('image', file, file.name);
+
+        return this.backendService.loadImage_post(UrlParams.clientProfilData+'/image', formData);
+    }
+    public getProfileImage(): Observable<any> {
+        console.log(UrlParams.clientProfilData+'/image');
+        return this.backendService.loadImage_get(UrlParams.clientProfilData+'/image');
+    }
+
 
 
     public encode(obj) {
@@ -100,6 +112,13 @@ export class ClientService {
     deleteGroupe(link: string): Observable<any> {
         return this.backendService.delete(UrlParams.clientGroupes + link);
     }
+    deleteEmployee(siteId: number, employeeId: number): Observable<any> {
+        let link = UrlParams.clientSites + '/' + siteId+ '/employees/' + employeeId;
+        console.log(link);
+        return this.backendService.delete(link);
+    }
+
+
 
 
 

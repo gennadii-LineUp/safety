@@ -1,0 +1,15 @@
+.profil-form .button-wrapper .control {
+    padding-top: 0px;
+    margin-bottom: 24px;
+}
+
+.loading_ok {
+    right: -4px;
+    top: -10px;
+}
+
+/*input:disabled {*/
+    /*background-color: #d3d3d3;*/
+    /*color: #808080;*/
+    /*cursor:default;*/
+/*}*/

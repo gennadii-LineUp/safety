@@ -53,8 +53,26 @@ export class BackendService {
             .map((res: Response) => <Object[]>res.json());
     }
 
+    public loadImage_get(url: string) : Observable<any> {
+        console.log('back: loadImage_get');
+        let headers: Headers = new Headers();
+        this.token = localStorage.getItem('token');
 
-    public get(url: string): Observable<any> {
+        headers.append('Authorization', 'Bearer ' + this.token);
+        headers.append('Content-Type', 'image/jpeg');
+
+        return this.http.post(url, {headers: headers})
+            .map((res: Response) => {
+                console.log('1');
+                if(res.headers.get("Content-Type").startsWith("image/")){
+                    return res;
+                }
+                return <Object[]>res.json();
+            });
+    }
+
+
+public get(url: string): Observable<any> {
         let headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
