@@ -50,6 +50,11 @@ export class SiteService {
     public addNewEmployee(newEmployee: any, siteId: number): Observable<any> {
         return this.backendService.post(UrlParams.siteHome+siteId+'/employees', JSON.stringify(newEmployee));
     }
+    public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
+        let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
+        console.log(query);
+        return this.backendService.get(query);
+    }
 
 
     public logout(): void {

@@ -14,7 +14,6 @@ export class SiteComponent implements OnInit {
 
     id_site: number;
     private sub: any;
-    private id;
 
     constructor(private route: ActivatedRoute) {}
 //private siteService: SiteService,

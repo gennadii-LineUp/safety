@@ -1,26 +1,50 @@
 <header class="main-header">
+    <div *ngIf="errorSalaries" class="alert alert-danger alert-dismissible fade in" role="alert"  style='position: absolute;' >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorSalariesMessages()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p>Votre limite de salariés a été atteinte. Vous utilisez <span>{{salariesUsed}}/{{salariesMaxPossible}} comptes salariés disponibles.</span></p>
+    </div>
+    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;' >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+            <span aria-hidden="true"></span>
+        </button>
+        <p>SAFETY: <span>{{errorLoad}}</span></p>
+    </div>
+
     <h1>Création d’un salarié</h1>
     <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
 <div class="main-content" style="padding-top: 12px;" #createSalary2>
-    <form action="/" class="profil-form">
+    <form #site_newEmployee2Form="ngForm"  novalidate  class="profil-form" (click)='cancellSuccessMessage()'
+          (ngSubmit)="submitForm(site_newEmployee2Form)">
         <h2>Etape 2</h2>
         <div class="one-column-input-wrapper">
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText1" placeholder="Durand">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
+                <input type="text" class="form-control"  placeholder="Nom*"
+                        #name="ngModel" id="name" name='name' required [(ngModel)]="employees.name" />
+                <p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText2" placeholder="Paul">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="surname.invalid" class="requred-field color-valid">Prenom*</p>
+                <input type="text" class="form-control" placeholder="Prenom*"
+                        #surname="ngModel" id="surname" name='surname' required [(ngModel)]="employees.surname" />
+                <p [hidden]="surname.valid || surname.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
         <div class="one-column-input-wrapper">
             <div class="input-wrapper">
-                <input type="email" class="form-control" id="exampleInputText3" placeholder="durandpaul@email.com">
+                <p [hidden]="email.invalid" class="requred-field color-valid">Email</p>
+                <input type="email" class="form-control"  placeholder="Email"
+                       #email="ngModel" id="email" name='email' required email [(ngModel)]="employees.email" />
+                <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText4" placeholder="Cariste">
+                <p [hidden]="post.invalid" class="requred-field color-valid">Poste</p>
+                <input type="text" class="form-control"  placeholder="Poste"
+                       #post="ngModel" id="post" name='post' required [(ngModel)]="employees.post" />
+                <p [hidden]="post.valid || post.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
         <div class="one-column-input-wrapper">
@@ -33,8 +57,10 @@
                 <div class="clearfix"></div>
             </div>
             <div class="input-wrapper" style="margin-bottom: 15px;">
-                <input type="text" class="form-control" id="exampleInputText5" placeholder="112907522233344">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="numSecu.invalid" class="requred-field color-valid">N° sécu*</p>
+                <input type="text" class="form-control"  placeholder="N° sécu*"
+                       #numSecu="ngModel" id="numSecu" name='numSecu' required [(ngModel)]="employees.numSecu" />
+                <p [hidden]="numSecu.valid || numSecu.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="clearfix"></div>
             <p class="form-subheader">Photo</p>
@@ -42,17 +68,27 @@
                 <img src="../../../../../assets/img/progile_image.jpg" alt="progile_image">
             </div>
 
-            <p class="form-subheader">Groupe de salariés</p>
-            <div class="radio-btn-inline">
-                <div class="radio">
-                    <input id="radio-11" name="radio1" checked="" type="radio">
-                    <label for="radio-11" class="radio-label">Groupe 1</label>
-                </div>
-                <div class="radio">
-                    <input id="radio-12" name="radio1" checked="checked" type="radio">
-                    <label for="radio-12" class="radio-label">Groupe 2</label>
+            <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0;'>Groupe de salariés</p>
+            <img *ngIf="loadingGroupes" style='left:18%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /><br>
+            <div *ngIf='!loadingGroupes' class="radio-btn-block">
+                <div *ngFor="let groupe of employeeGroupes" class="radio" >
+                    <input type="radio"   id={{groupe.id}} name="employeeGroup"
+                           [(ngModel)]="employees.employeeGroup" [value]="groupe.id" >  <!-- checked={{groupe.booleanValue}}-->
+                    <label for={{groupe.id}} class="radio-label">{{groupe.name}}</label>
                 </div>
             </div>
+
+            <!--<p class="form-subheader">Groupe de salariés</p>-->
+            <!--<div class="radio-btn-inline">-->
+                <!--<div class="radio">-->
+                    <!--<input id="radio-11" name="radio1" checked="" type="radio">-->
+                    <!--<label for="radio-11" class="radio-label">Groupe 1</label>-->
+                <!--</div>-->
+                <!--<div class="radio">-->
+                    <!--<input id="radio-12" name="radio1" checked="checked" type="radio">-->
+                    <!--<label for="radio-12" class="radio-label">Groupe 2</label>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <button class="form-button green-button modifier-button" data-dismiss="modal">Modifier</button>
         </div>
@@ -61,7 +97,11 @@
                 <p class="form-label" style="font-family:'Open Sans',sans-serif;
                                             font-size:14px;
                                             padding-left:10px;
-                                            padding-top:10px;">Période de validité : indéterminée</p>
+                                            padding-top:10px;">Période de validité :
+                    <span #validityPeriod="ngModel" id="validityPeriod" name='validityPeriod' [(ngModel)]="employees.validityPeriod" >
+                        {{employees.validityPeriod}}
+                    </span>
+                </p>
             </div>
         </div>
         <div class="form-divider clearfix" style='margin: 1px 0 15px 0;'></div>

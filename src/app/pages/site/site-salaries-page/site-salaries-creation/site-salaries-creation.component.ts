@@ -49,6 +49,7 @@ export class SiteSalariesCreationComponent implements OnInit {
     ngOnInit() {
         this.getEmployeeGroupes();
         this.datepickerRun();
+        this.checkFreeSalarieAccount();
         this.id_site = localStorage.id_site;
         window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
     }
@@ -78,17 +79,6 @@ export class SiteSalariesCreationComponent implements OnInit {
                     return;
                 }
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //     let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // let error = (JSON.parse(err._body)).errors;
-                // if (Object.keys(error).length > 0) {
-                //     this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
-                // }
             });
     }
 
@@ -129,26 +119,16 @@ export class SiteSalariesCreationComponent implements OnInit {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    this.successCreating = "Well done! You've created a new employee.";
-                    this.checkFreeSalarieAccount();
+                    localStorage.setItem('id_salarie', ''+result.userId);
+                    this.gotoSiteSalariesCreationStep2Page();
+                    //this.successCreating = "Well done! You've created a new employee.";
+                    //this.checkFreeSalarieAccount();
                 }
             }, (err) => {
                 console.log('====error=============');
                 this.loading = false;
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-
-                //      let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-               //  if (errorStatusKnown) {
-               //      this.errorLoad = errorStatusKnown;
-               //      return;
-               //  }
-               //
-               // let error = (JSON.parse(err._body)).errors;
-               //
-               //  if (Object.keys(error).length > 0) {
-               //      this.errorLoad = this.errorMessageHandlerService.errorHandler(error);
-               //  }
             });
     }
 
@@ -216,5 +196,11 @@ export class SiteSalariesCreationComponent implements OnInit {
         this.cancellSuccessMessage();
         this.router.navigate(['/site', this.id_site, 'salaries']);
     }
+    gotoSiteSalariesCreationStep2Page() {
+        this.cancellErrorMessage();
+        this.cancellSuccessMessage();
+        this.router.navigate(['/site', this.id_site, 'ajouter-un-salarie-etap2']);
+    }
+
 
 }
