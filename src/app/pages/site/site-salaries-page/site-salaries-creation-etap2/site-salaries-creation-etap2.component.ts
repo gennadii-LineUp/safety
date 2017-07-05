@@ -32,6 +32,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     id_salarie: number;
     private sub: any;
 
+    checkedGroupFromEtap1:any;
+
     chariotsElevateurs: boolean = true;
     gruesMobiles: boolean = false;
 
@@ -100,15 +102,18 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.loading = false;
                     console.log(result);
                     this.employees = result;
-
+                    this.employees.birthDate = this.siteService.convertDataForInputView(result.birthDate);
                     this.loaded = true;
-                 }
+                    window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 1000);
+                }
             }, (err) => {
                 this.loading = false;
+                this.loaded = false;
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
+
 
     public getEmployeeGroupes() {
         this.loadingGroupes = true;
@@ -118,6 +123,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.loadingGroupes = false;
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
+                   // window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 1000);
+
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -208,11 +215,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     public datepickerViewInit() {
         //Datepicker Popups calender to Choose date
         $(() =>{
-            $( '#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker();
-            $( '#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker( 'option', 'changeYear', true );
+            $( '#birthDate, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker();
+            $( '#birthDate, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker( 'option', 'changeYear', true );
             //Pass the user selected date format
             $( '#format' ).change(() => {
-                $( '#datepicker1, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker( 'option', 'dateFormat', $(this).val() );
+                $( '#birthDate, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }

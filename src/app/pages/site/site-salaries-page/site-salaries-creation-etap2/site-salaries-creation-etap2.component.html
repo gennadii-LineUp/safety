@@ -48,14 +48,27 @@
             </div>
         </div>
         <div class="one-column-input-wrapper">
+
             <div class="calendar-wrapper clearfix">
                 <p class="form-label" style="font-family:'Open Sans',sans-serif;
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date de naissance*</p>
-                <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" />
-                <div class="clearfix"></div>
+                <input type="text" class="datepicker-default"
+                       #birthDate="ngModel" id='birthDate' name='birthDate'  [(ngModel)]="employees.birthDate"/>
+                <p [hidden]=" birthDate.valid || birthDate.untouched " class="requred-field ">Champs requis</p>
+                <div class="clearfix"></div>  <!--#birthDate="ngModel"  [(ngModel)]="employees.birthDate"-->
             </div>
+
+
+            <!--<div class="calendar-wrapper clearfix">-->
+                <!--<p class="form-label" style="font-family:'Open Sans',sans-serif;-->
+                                            <!--font-size:14px;-->
+                                            <!--padding-left:10px;-->
+                                            <!--padding-top:10px;">Date de naissance*</p>-->
+                <!--<input type="text" name="selected_date" id="datepicker1" class="datepicker-default" />-->
+                <!--<div class="clearfix"></div>-->
+            <!--</div>-->
             <div class="input-wrapper" style="margin-bottom: 15px;">
                 <p [hidden]="numSecu.invalid" class="requred-field color-valid">N° sécu*</p>
                 <input type="text" class="form-control"  placeholder="N° sécu*"
@@ -73,22 +86,11 @@
             <div *ngIf='!loadingGroupes' class="radio-btn-block">
                 <div *ngFor="let groupe of employeeGroupes" class="radio" >
                     <input type="radio"   id={{groupe.id}} name="employeeGroup"
-                           [(ngModel)]="employees.employeeGroup" [value]="groupe.id" >  <!-- checked={{groupe.booleanValue}}-->
-                    <label for={{groupe.id}} class="radio-label">{{groupe.name}}</label>
+                           [(ngModel)]="employees.employeeGroup" [value]="groupe.id"
+                           [checked]='checkedGroupFromEtap1==groupe.id'>  <!-- checked={{groupe.booleanValue}}-->
+                    <label for={{groupe.id}} class="radio-label">{{groupe.id}} {{groupe.name}}</label>
                 </div>
             </div>
-
-            <!--<p class="form-subheader">Groupe de salariés</p>-->
-            <!--<div class="radio-btn-inline">-->
-                <!--<div class="radio">-->
-                    <!--<input id="radio-11" name="radio1" checked="" type="radio">-->
-                    <!--<label for="radio-11" class="radio-label">Groupe 1</label>-->
-                <!--</div>-->
-                <!--<div class="radio">-->
-                    <!--<input id="radio-12" name="radio1" checked="checked" type="radio">-->
-                    <!--<label for="radio-12" class="radio-label">Groupe 2</label>-->
-                <!--</div>-->
-            <!--</div>-->
 
             <button class="form-button green-button modifier-button" data-dismiss="modal">Modifier</button>
         </div>
@@ -98,12 +100,11 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Période de validité :
-                    <span #validityPeriod="ngModel" id="validityPeriod" name='validityPeriod' [(ngModel)]="employees.validityPeriod" >
-                        {{employees.validityPeriod}}
-                    </span>
+                    <span>{{employees.validityPeriod | validityPeriod}}</span>
                 </p>
             </div>
         </div>
+    </form>
         <div class="form-divider clearfix" style='margin: 1px 0 15px 0;'></div>
         <div class="one-column-input-wrapper">
             <p class="form-subheader">Visite médicale</p>
@@ -431,5 +432,5 @@
             <button type="submit" class="form-button green-button sauvegarder-button"
                     (click)='gotoSalariesPage()'>Sauvegarder</button>
         </div>
-    </form>
+    <!--</form>-->
 </div>

@@ -52,8 +52,19 @@ export class SiteService {
     }
     public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
         let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
-        console.log(query);
         return this.backendService.get(query);
+    }
+
+    public convertDataForInputView(strDate: string): string {
+        let date = new Date(strDate);
+        let mm:any;
+        mm = +date.getMonth() + 1;
+        if (mm < 10) {mm= '0' + mm};
+        let dd:any;
+        dd = +date.getDate() + 1;
+        if (dd < 10) {dd = '0' + dd};
+
+        return mm + '/' + dd + '/' + date.getFullYear();
     }
 
 

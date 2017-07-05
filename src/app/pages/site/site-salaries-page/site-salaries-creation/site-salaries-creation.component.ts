@@ -64,7 +64,11 @@ export class SiteSalariesCreationComponent implements OnInit {
         this.clientService.getGroupList()
             .subscribe(result => {
                 if (result) {
-                    this.noGroups = false;
+                    if (result.length === 0) {
+                        this.noGroups = true;
+                    } else {
+                        this.noGroups = false;
+                    }
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
                 }
@@ -88,6 +92,55 @@ export class SiteSalariesCreationComponent implements OnInit {
         let dd = window.document.getElementsByClassName('datepicker-default')['0'].value;
         console.log(typeof dd + ' getElementsByClassName = ' + dd);
         console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
+    }
+
+    loadingFile: boolean = false;
+    uploadedFile: boolean = false;
+    file: File;
+    userHasChoosenFile: boolean = false;
+    public fileChange(event) {
+        // this.loadingFile = true;
+        this.uploadedFile = false;
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            this.userHasChoosenFile = true;
+            this.file = fileList[0];
+
+            if (this.userHasChoosenFile) {
+                this.loadingFile = true;
+                this.clientService.uploadProfileImage(this.file)
+                    .subscribe(result => {
+                        if (result) {
+                            console.log(result);
+
+                            // setTimeout(() => {
+                            //     this.clientService.getProfileImage()
+                            //         .subscribe(result => {
+                            //             if (result) {
+                                             this.loadingFile = false;
+                                             this.uploadedFile = true;
+                            //                 console.log(result);
+                            //                 // this.successUpdate = "Well done! You've updated your settings.";
+                            //             }
+                            //         }, (err) => {
+                            //             this.loadingFile = false;
+                            //             console.log(err);
+                            //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+                            //         });
+                            // }, 1000);
+                            // this.successUpdate = "Well done! You've updated your settings.";
+                        }
+                    }, (err) => {
+                        this.loadingFile = false;
+                        console.log(err);
+                        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+                    });
+            }
+            else {
+                // this.successUpdate = "Well done! You've updated your settings.";
+            }
+
+        }
     }
 
 

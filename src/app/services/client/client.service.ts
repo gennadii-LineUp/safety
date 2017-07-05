@@ -18,7 +18,7 @@ export class ClientService {
     }
 
     public employeeCount(): Observable<any> {
-        console.log('==client service_employeeCOUNT started==');
+        //console.log('==client service_employeeCOUNT started==');
         let useTolkin:boolean = false;
 
         return this.backendService.get(UrlParams.employeeCount);
