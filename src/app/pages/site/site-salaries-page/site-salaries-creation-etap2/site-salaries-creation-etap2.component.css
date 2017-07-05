@@ -297,3 +297,26 @@ modal-content-SSAtt .form-control {
     font-weight: bold;
     color: #000;
 }
+
+
+.attestations-de-formation-table th:nth-of-type(1),
+.attestations-de-formation-table td:nth-of-type(1) {
+    width: 34%;
+    text-align: left !important;
+    padding-left: 23px !important;
+}
+.attestations-de-formation-table th:nth-of-type(2),
+.attestations-de-formation-table td:nth-of-type(2),
+.attestations-de-formation-table th:nth-of-type(3),
+.attestations-de-formation-table td:nth-of-type(3) {
+    width: 22%;
+    text-align: left !important;
+    padding-left: 23px !important;
+}
+
+.attestations-de-conduite-table th:nth-of-type(1),
+.attestations-de-conduite-table td:nth-of-type(1) {
+    width: 70%;
+    text-align: left !important;
+    padding-left: 23px !important;
+}

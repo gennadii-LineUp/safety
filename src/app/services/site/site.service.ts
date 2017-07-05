@@ -54,6 +54,12 @@ export class SiteService {
         let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
         return this.backendService.get(query);
     }
+    public updateEmployee(newEmployee: any, siteId: number, employeeId: number): Observable<any> {
+        let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
+        console.log(query);
+        return this.backendService.post(query, JSON.stringify(newEmployee));
+    }
+
 
     public convertDataForInputView(strDate: string): string {
         let date = new Date(strDate);

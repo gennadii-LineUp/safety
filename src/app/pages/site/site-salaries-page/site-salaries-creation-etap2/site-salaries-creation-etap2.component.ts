@@ -23,7 +23,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     errorCreating: string = '';
     successCreating: string = '';
 
-    addNewSalariesAvailable: boolean = true;
     errorSalaries: boolean = false;
     salariesMaxPossible:number;
     salariesUsed:number;
@@ -123,11 +122,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.loadingGroupes = false;
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
-                   // window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 1000);
-
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.cancellErrorMessage();
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -135,37 +131,28 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    public submitForm(newEmployeesForm: NgForm) {
+    public submitModifyEtap1Form(newEmployee2Form: NgForm) {
         let datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-        let datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value;
-        let datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value;
+        // let datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value;
+        // let datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value;
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
-        let newEmployee = new EmployeesClass(newEmployeesForm.value.name,
-            newEmployeesForm.value.surname,
-            newEmployeesForm.value.email,
-            newEmployeesForm.value.post,
-            datepicker_birthDate,
-            newEmployeesForm.value.numSecu,
-            newEmployeesForm.value.validityPeriod,
-            datepicker_startDate,
-            datepicker_endDate,
-            newEmployeesForm.value.employeeGroup);
+        this.employees.birthDate = datepicker_birthDate;
+        console.dir(this.employees);
 
-        console.dir(newEmployee);
+        // this.id_site
+        // this.id_salarie
 
-
-        this.siteService.addNewEmployee(newEmployee, 1 )  // this.id_salarie
+        this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)  // this.id_salarie
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
                     console.log(result);
                     this.gotoSalariesPage();
-                    //this.successCreating = "Well done! You've created a new employee.";
-                    //this.checkFreeSalarieAccount();
+                    this.successCreating = "Well done! You've updated this employee.";
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -176,22 +163,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    public checkFreeSalarieAccount() {
-        this.clientService.employeeCount()
-            .subscribe(result => {
-                if (result) {
-                    this.salariesMaxPossible = result.limitEmployees;
-                    this.salariesUsed = result.employeeCount;
-                    if (this.salariesMaxPossible === this.salariesUsed) {
-                        this.addNewSalariesAvailable = false;
-                        this.successCreating = '';
-                        this.errorSalaries = true;
-                    }
-                }
-            }, (err) => {
-                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-            });
-    }
     public cancellErrorSalariesMessages() {
         this.errorSalaries = false;
     }
@@ -209,7 +180,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
 
     gotoSalariesPage() {
-        this.router.navigate(['/site/salarie']);
+        this.router.navigate(['/site', this.id_site, 'salaries']);
     }
 
     public datepickerViewInit() {

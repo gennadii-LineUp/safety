@@ -167,6 +167,10 @@ export class SiteSalariesPageComponent implements OnInit {
             });
     }
 
+    modifierSalarieFunction(id_salarie:number) {
+        localStorage.setItem('id_salarie', ''+id_salarie);
+        this.router.navigate(['/site', this.id_site, 'ajouter-un-salarie-etap2']);
+    }
 
     private cancellErrorMessage() {
         //this.loading = false;

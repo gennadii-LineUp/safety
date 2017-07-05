@@ -175,6 +175,12 @@ export class ClientSalariesPageComponent implements OnInit {
             });
     }
 
+    public modifierSalarieFunction(id_site:number, id_salarie:number) {
+        localStorage.setItem('id_site', ''+id_site);
+        localStorage.setItem('id_salarie', ''+id_salarie);
+        this.router.navigate(['/site', id_site, 'ajouter-un-salarie-etap2']);
+    }
+
     private cancellErrorMessage() {
         //this.loading = false;
         this.errorLoad = '';
