@@ -54,7 +54,7 @@
                 <input type="text" class="datepicker-default"
                        #birthDate="ngModel" id='birthDate' name='birthDate'  [(ngModel)]="employees.birthDate"/>
                 <p [hidden]=" birthDate.valid || birthDate.untouched " class="requred-field ">Champs requis</p>
-                <div class="clearfix"></div>  <!--#birthDate="ngModel"  [(ngModel)]="employees.birthDate"-->
+                <div class="clearfix"></div>
             </div>
             <div class="input-wrapper" style="margin-bottom: 15px;">
                 <p [hidden]="numSecu.invalid" class="requred-field color-valid">N° sécu*</p>
@@ -103,22 +103,39 @@
                     <div *ngFor="let periode of periodeDeValidite" class="radio" >
                         <input type="radio"  checked={{periode.booleanValue}} id={{periode.value}} name="validityPeriod"
                                [(ngModel)]="employees.validityPeriod" [value]="periode.booleanValue" >
-                        <label for={{periode.value}} class="radio-label">{{periode.display}}</label>
+                        <label for={{periode.value}} class="radio-label" (click)='showDetermineeDatesFunction($event)'>{{periode.display}}</label>
                     </div>
                 </div>
 
-                <div class="calendar-wrapper clearfix">
-                    <p>Date de début*</p>
-                    <input type="text" class="datepicker-default"
-                           #startDate id="startDate" name='startDate' />
-                    <!--<p [hidden]="startDate.untouched " class="requred-field ">Champs requis</p>-->
+                <div style='height: 117px;'>
+                    <div *ngIf='showDetermineeDates' class="calendar-wrapper clearfix">
+                        <p class="form-label">Date de début*</p>
+                        <input type="text" class="datepicker-default"
+                               #startDate="ngModel" id='startDate' name='startDate'  [(ngModel)]="employees.startDate"/>
+                        <p [hidden]=" startDate.valid || startDate.untouched " class="requred-field ">Champs requis</p>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div *ngIf='showDetermineeDates' class="calendar-wrapper clearfix">
+                        <p class="form-label">Date de fin*</p>
+                        <input type="text" class="datepicker-default"
+                               #endDate="ngModel" id='endDate' name='endDate'  [(ngModel)]="employees.endDate"/>
+                        <p [hidden]=" endDate.valid || endDate.untouched " class="requred-field ">Champs requis</p>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
-                <div class="calendar-wrapper clearfix">
-                    <p>Date de fin*</p>
-                    <input type="text" class="datepicker-default"
-                           #endDate  id="endDate" name='endDate' />
-                    <!--<p [hidden]="endDate.untouched " class="requred-field ">Champs requis</p>-->
-                </div>
+
+                <!--<div class="calendar-wrapper clearfix">-->
+                    <!--<p>Date de début*</p>-->
+                    <!--<input type="text" class="datepicker-default"-->
+                           <!--#startDate="ngModel" id='startDate' name='startDate' required [(ngModel)]="employees.startDate"/>-->
+                    <!--<p [hidden]=" startDate.valid || startDate.untouched " class="requred-field ">Champs requis</p>-->
+                <!--</div>-->
+                <!--<div class="calendar-wrapper clearfix">-->
+                    <!--<p>Date de fin*</p>-->
+                    <!--<input type="text" class="datepicker-default"-->
+                           <!--#endDate="ngModel" id='endDate' name='endDate'  [(ngModel)]="employees.endDate"/>-->
+                    <!--<p [hidden]=" endDate.valid || endDate.untouched " class="requred-field ">Champs requis</p>-->
+                <!--</div>-->
 
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button"

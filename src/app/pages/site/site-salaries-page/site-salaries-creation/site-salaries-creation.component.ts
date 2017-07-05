@@ -87,12 +87,12 @@ export class SiteSalariesCreationComponent implements OnInit {
     }
 
 
-    @ViewChild('birthDate')  birthDate: ElementRef;
-    public getDatepicker() {
-        let dd = window.document.getElementsByClassName('datepicker-default')['0'].value;
-        console.log(typeof dd + ' getElementsByClassName = ' + dd);
-        console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
-    }
+    // @ViewChild('birthDate')  birthDate: ElementRef;
+    // public getDatepicker() {
+    //     let dd = window.document.getElementsByClassName('datepicker-default')['0'].value;
+    //     console.log(typeof dd + ' getElementsByClassName = ' + dd);
+    //     console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
+    // }
 
     loadingFile: boolean = false;
     uploadedFile: boolean = false;
@@ -153,29 +153,31 @@ export class SiteSalariesCreationComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        let newEmployee = new EmployeesClass(newEmployeesForm.value.name,
-                                                newEmployeesForm.value.surname,
-                                                newEmployeesForm.value.email,
-                                                newEmployeesForm.value.post,
-                                                datepicker_birthDate,
-                                                newEmployeesForm.value.numSecu,
-                                                newEmployeesForm.value.validityPeriod,
-                                                datepicker_startDate,
-                                                datepicker_endDate,
-                                                newEmployeesForm.value.employeeGroup);
+        // let newEmployee = new EmployeesClass(newEmployeesForm.value.name,
+        //                                         newEmployeesForm.value.surname,
+        //                                         newEmployeesForm.value.email,
+        //                                         newEmployeesForm.value.post,
+        //                                         datepicker_birthDate,
+        //                                         newEmployeesForm.value.numSecu,
+        //                                         newEmployeesForm.value.validityPeriod,
+        //                                         datepicker_startDate,
+        //                                         datepicker_endDate,
+        //                                         newEmployeesForm.value.employeeGroup);
 
-        console.dir(newEmployee);
+        this.employees.birthDate = datepicker_birthDate;
+        this.employees.startDate = datepicker_startDate;
+        this.employees.endDate = datepicker_endDate;
 
-
-        this.siteService.addNewEmployee(newEmployee, this.id_site)
+        this.siteService.addNewEmployee(this.employees, this.id_site)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
                     console.log(result);
                     localStorage.setItem('id_salarie', ''+result.userId);
-                    this.gotoSiteSalariesCreationStep2Page();
-                    //this.successCreating = "Well done! You've created a new employee.";
-                    //this.checkFreeSalarieAccount();
+                    console.log(localStorage.id_salarie);
+                    setTimeout(() => {
+                        this.gotoSiteSalariesCreationStep2Page();
+                    }, 1000);
                 }
             }, (err) => {
                 console.log('====error=============');
@@ -183,6 +185,14 @@ export class SiteSalariesCreationComponent implements OnInit {
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
+    }
+    showDetermineeDates:boolean = false;
+    public showDetermineeDatesFunction(e:any){
+        console.dir(e.target.previousElementSibling.id);
+        this.showDetermineeDates = false;
+        if (e.target.previousElementSibling.id == 'determinee') {
+            this.showDetermineeDates = true;
+        }
     }
 
     public checkFreeSalarieAccount() {

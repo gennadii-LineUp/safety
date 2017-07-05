@@ -96,7 +96,7 @@
                     <td>{{groupe.access | adminAccess }}</td>
                     <!--<td>{{groupe.admin_access}}</td>-->
                     <td>
-                        <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe.id)'>Modifier</a>
+                        <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe.id)'>{{groupe.id}}Modifier</a>
                             /
                         <a href="javascript:void(0);" (click)='deleteFunction(groupe.id)'>Supprimer</a></td>
                 </tr>

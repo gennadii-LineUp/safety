@@ -4,6 +4,7 @@ import {UrlParams} from '../../models/const/URL_PARAMS';
 
 //import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import {EmployeesClass} from '../../models/const/employees-class';
 
 @Injectable()
 export class SiteService {
@@ -47,12 +48,15 @@ export class SiteService {
     }
 
 
-    public addNewEmployee(newEmployee: any, siteId: number): Observable<any> {
-        return this.backendService.post(UrlParams.siteHome+siteId+'/employees', JSON.stringify(newEmployee));
+    public addNewEmployee(newEmployee: EmployeesClass, siteId: number): Observable<any> {
+        let query = UrlParams.siteHome+siteId+'/employees';
+        return this.backendService.post(query, JSON.stringify(newEmployee));
     }
     public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
-        let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
-        return this.backendService.get(query);
+        let query = siteId + '/employees/' + employeeId;
+        console.log(query);
+        return this.backendService.get(UrlParams.siteHome + query);
+       // return this.backendService.get(UrlParams.siteHome + '44/employees/148');
     }
     public updateEmployee(newEmployee: any, siteId: number, employeeId: number): Observable<any> {
         let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;

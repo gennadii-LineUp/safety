@@ -140,6 +140,8 @@ export class SiteSalariesPageComponent implements OnInit {
                         this.addNewSalariesAvailable = false;
                         this.errorSalaries = true;
                         console.log(this.salariesMaxPossible + ' ' + this.salariesUsed);
+                    } else {
+                        this.addNewSalariesAvailable = true;
                     }
                 }
             }, (err) => {

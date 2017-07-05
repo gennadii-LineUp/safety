@@ -4,7 +4,7 @@ import {SiteService} from '../../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
 import {ClientService} from '../../../../services/client/client.service';
 import {EmployeesClass} from 'app/models/const/employees-class';
-import {NgForm} from '@angular/forms';
+import {VisitesClass} from '../../../../models/const/visites-class';
 declare var $:any;
 
 @Component({
@@ -43,6 +43,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     public employeeGroupes = [];
     employees = new EmployeesClass('','','','','','',true,'','',0);
+    visites = new VisitesClass('', '');
 
     constructor(private siteService: SiteService,
                 private clientService: ClientService,
@@ -64,9 +65,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     ngOnInit():void {
         this.id_site = localStorage.id_site;
         this.id_salarie = localStorage.id_salarie;
-        // this.sub = this.route.params.subscribe(params => {
-        //     this.id_salarie = +params['id_salarie'];
-        // });
+
         this.getEmployeeFromEtap1Function();
         this.tableMobileViewInit();
         this.getEmployeeGroupes();
@@ -100,7 +99,23 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    this.employees = result;
+                        // "id": 136,
+                        // "medicalVisitDateExpires": null,
+                        // "cacesDateExpires": null,
+                        // "responsible": null,
+
+                    this.employees.name = result.name;
+                    this.employees.surname = result.surname;
+                    this.employees.email = result.email;
+                    this.employees.post = result.post;
+                    this.employees.birthDate = result.birthDate;
+                    this.employees.numSecu = result.numSecu;
+                    this.employees.validityPeriod = result.validityPeriod;
+                    this.employees.startDate = result.startDate;
+                    this.employees.endDate = result.endDate;
+                    this.employees.employeeGroup = result.employeeGroup;
+
+                   // this.employees = result.;
                     this.employees.birthDate = this.siteService.convertDataForInputView(result.birthDate);
                     this.loaded = true;
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 1000);
@@ -131,10 +146,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    public submitModifyEtap1Form(newEmployee2Form: NgForm) {
+    public submitModifyEtap1Form() {
         let datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-        // let datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value;
-        // let datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value;
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
@@ -143,15 +156,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.employees.birthDate = datepicker_birthDate;
         console.dir(this.employees);
 
-        // this.id_site
-        // this.id_salarie
-
         this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)  // this.id_salarie
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    this.gotoSalariesPage();
                     this.successCreating = "Well done! You've updated this employee.";
                 }
             }, (err) => {
@@ -162,6 +171,12 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
             });
     }
 
+    public saveVisiteMedicaleAndCaces() {
+        let datepicker_visiteMedicale = window.document.getElementsByClassName('datepicker-default')['1'].value;
+        let datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
+
+        console.log(this.visites);
+    }
 
     public cancellErrorSalariesMessages() {
         this.errorSalaries = false;
@@ -186,11 +201,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     public datepickerViewInit() {
         //Datepicker Popups calender to Choose date
         $(() =>{
-            $( '#birthDate, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker();
-            $( '#birthDate, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker( 'option', 'changeYear', true );
+            $( '#birthDate, #visiteMedicale, #caces, #datepicker4, #datepicker5' ).datepicker();
+            $( '#birthDate, #visiteMedicale, #caces, #datepicker4, #datepicker5' ).datepicker( 'option', 'changeYear', true );
             //Pass the user selected date format
             $( '#format' ).change(() => {
-                $( '#birthDate, #datepicker2, #datepicker3, #datepicker4, #datepicker5' ).datepicker( 'option', 'dateFormat', $(this).val() );
+                $( '#birthDate, #visiteMedicale, #caces, #datepicker4, #datepicker5' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }
