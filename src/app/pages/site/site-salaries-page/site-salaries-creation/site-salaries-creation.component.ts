@@ -146,8 +146,8 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     public submitForm(newEmployeesForm: NgForm) {
         let datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-        let datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value;
-        let datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value;
+        let datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value || "";
+        let datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value || "";
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
@@ -186,12 +186,12 @@ export class SiteSalariesCreationComponent implements OnInit {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
-    showDetermineeDates:boolean = false;
-    public showDetermineeDatesFunction(e:any){
+    hideIndetermineeDates:boolean = true;
+    public hideIndetermineeDatesFunction(e:any){
         console.dir(e.target.previousElementSibling.id);
-        this.showDetermineeDates = false;
-        if (e.target.previousElementSibling.id == 'determinee') {
-            this.showDetermineeDates = true;
+        this.hideIndetermineeDates = false;
+        if (e.target.previousElementSibling.id == 'indeterminee') {
+            this.hideIndetermineeDates = true;
         }
     }
 

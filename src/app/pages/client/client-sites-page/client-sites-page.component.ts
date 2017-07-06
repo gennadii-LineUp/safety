@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import { NgForm} from '@angular/forms';
+//import { NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {SiteClass} from '../../../models/const/site-class';
@@ -164,6 +164,7 @@ export class ClientSitesPageComponent implements OnInit {
         this.loadingFile = false;
         this.uploadedFile = false;
         let fileList: FileList = event.target.files;
+        console.log(fileList);
         if(fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];

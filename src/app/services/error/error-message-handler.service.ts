@@ -111,7 +111,12 @@ export class ErrorMessageHandlerService {
             case 'endDate':                   key='*Date de fin*';  break;
             case 'employeeGroup':             key='*Groupe de salariés*';  break;
             case 'password':                  key='*Mot de passe*';  break;
-            //case '':         key='';  break;
+            case 'medicalVisitDateExpires':   key='*Visite médicale*';  break;
+            case 'cacesDateExpires':          key='*CACES*';  break;
+            case 'file':                      key='*Fishier*';  break;
+            case 'dateIssue':                 key='*Date de délivrance*';  break;
+            case 'dateExpires':               key='*Date d’expiration*';  break;
+            // case '':         key='';  break;
             default:
                 key;
 

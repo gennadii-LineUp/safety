@@ -25,6 +25,7 @@ export class TableSortService {
     public _changeSorting(columnName:string, e:any): void{
         let sortingDirection: string;
         let thClass: string;
+        console.log(columnName);
 
         var sort = this.sorting;
         if (sort.column == columnName) {
@@ -47,6 +48,7 @@ export class TableSortService {
         }
 
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
+        console.log(this.sortingTarget);
     }
 
     public _getSortingTarget():string {

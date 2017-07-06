@@ -5,7 +5,7 @@
         </button>
         <p>Votre limite de salariés a été atteinte. Vous utilisez <span>{{salariesUsed}}/{{salariesMaxPossible}} comptes salariés disponibles.</span></p>
     </div>
-    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;' >
+    <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
             <span aria-hidden="true"></span>
         </button>
@@ -103,8 +103,8 @@
 
     <!-- N E X T   F O R M -->
 
-    <form #site_newEmployee3Form="ngForm"  novalidate  class="profil-form" (click)='cancellSuccessMessage()'
-          (ngSubmit)="submitForm(site_newEmployee3Form)">
+    <form #site_newEmployee3DatesAutorisationsForm="ngForm"  novalidate  class="profil-form" (click)='cancellSuccessMessage()'
+          (ngSubmit)="submitDatesAutorisationsForm(site_newEmployee3DatesAutorisationsForm)">
         <div class="one-column-input-wrapper">
             <p class="form-subheader">Visite médicale</p>
             <div class="calendar-wrapper clearfix" style='padding-top: 9px !important;' >
@@ -112,43 +112,44 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" (change)='saveVisiteMedicaleAndCaces()'
+                <input type="text" class="datepicker-default" 
                        #visiteMedicale="ngModel" id='visiteMedicale' name='visiteMedicale'  [(ngModel)]="visites.visiteMedicale"/>
-
             </div>
         </div>
         <div class="form-divider clearfix" style='margin-bottom: 6px;'></div>
         <div class="one-column-input-wrapper"  style='padding-top: 12px !important;'>
             <p class="form-subheader">CACES</p>
-            <div class="calendar-wrapper clearfix" style='margin-top: 2px !important;'>
+            <div class="calendar-wrapper clearfix" style='margin-top: 2px !important;' >
                 <p class="form-label" style="font-family:'Open Sans',sans-serif;
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" (change)='saveVisiteMedicaleAndCaces()'
+                <input type="text" class="datepicker-default" 
                        #caces="ngModel" id='caces' name='caces'  [(ngModel)]="visites.caces"/>
             </div>
 
-            <p class="form-label" style='display: inline-block;
-                                            width: auto;
-                                            float: left;'>Fishier *</p>
-            <div class="input-wrapper" style='display: inline-block;
-                                            width: auto;
-                                            float: right;
-                                            margin-right: 12px;'>
+            <p class="form-label" style='display: inline-block; width: auto; float: left;'>Fishier *</p>
+
+             <div class="input-wrapper" style='display: inline-block; width: auto;  float: right; margin-right: 12px;'>
                 <div class="image-upload"  style='display: inline-block !important;'>
-                    <p>fichier1.jpg</p>
+                    <p>{{uploadFileText}}</p>
                     <label for="file-input">
                         <span></span>
                     </label>
-                    <input id="file-input" type="file" class="datepicker-default"/>
+                    <input id="file-input" type="file"
+                           (change)="fileChange($event)"
+                           accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
+                    <img *ngIf='loadingFile' style='position:absolute; bottom:12px; right:50px; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                    <span *ngIf='uploadedFile' class="loading_ok"></span>
                 </div>
             </div>
-
         </div>
+
         <div class="form-divider clearfix" style='margin: -1px 0 15px 0;'></div>
         <div class="search-panel clearfix">
             <p><span>Attestations / Habilitations</span></p>
+            <img *ngIf="loadingAttestations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 49%;' />
 
             <button type="button" class="add-an-item-button" (click)="attestModal.open()"></button>
 
@@ -159,19 +160,16 @@
             <table class="table-default attestations-de-formation-table">
                 <thead>
                 <tr>
-                    <th><button class="sort-button-true"></button>Nom</th>
-                    <th>
-                        <button class="double-sort-button">
-                            <span></span>
-                            <span></span>
-                        </button>
+                    <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
+                                                                getSortingTarget();
+                                                                getAttestations(this.sortingTarget);">
+                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                        {{header.display}}
+                    </th>
+                    <th style='cursor:default;'>
                         <span>Date de délivrance</span>
                     </th>
-                    <th>
-                        <button class="double-sort-button">
-                            <span></span>
-                            <span></span>
-                        </button>
+                    <th style='cursor:default;'>
                         <span>Date d’expiration</span>
                     </th>
                     <th>
@@ -180,18 +178,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Nom du fichier</td>
-                    <td>00/00/0000</td>
-                    <td>00/00/0000</td>
-                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-                </tr>
-                <tr>
-                    <td>Le nom du fichier fait max 35 lettres...</td>
-                    <td>00/00/0000</td>
-                    <td>00/00/0000</td>
-                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-                </tr>
+                    <tr *ngIf='emptyTable'>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+
+                    <tr *ngFor="let employeeAttestation of employeeAttestations">
+                        <td>{{employeeAttestation.name}}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                            <a href="javascript:void(0);" (click)='attestModal.open(); getAttestForUpdateFunction(employeeAttestation.id)'>
+                                Modifier
+                            </a>
+                            /
+                            <a href="javascript:void(0);" (click)='deleteAttestFunction(employeeAttestation.id)'>Supprimer</a></td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -227,9 +232,10 @@
         </div>
     </form>
     <div class="button-wrapper">
-        <button type="submit" class="form-button red-button annuler-button" (click)='gotoSalariesPage()'>Annuler</button>
+        <button type="button" class="form-button red-button annuler-button" (click)='gotoSalariesPage()'>Annuler</button>
         <button type="submit" class="form-button green-button sauvegarder-button"
-                (click)='gotoSalariesPage()'>Sauvegarder</button>
+                (click)='submitDatesAutorisationsForm()'>Sauvegarder</button>
+        <!--[disabled]="!(site_newEmployee3DatesAutorisationsForm.form.valid)"-->
     </div>
 </div>
 
@@ -239,21 +245,25 @@
     </modal-header-SSAtt>
 
     <modal-content-SSAtt>
-        <form action="/" class="modal-form">
+        <form  #site_AttestationForm="ngForm"  novalidate class="modal-form" (click)='cancellSuccessMessage()'>
             <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText6" placeholder="Nom*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
+                <p [hidden]="attest_name.invalid" class="requred-field color-valid">Nom*</p>
+                <input type="text" class="form-control"  placeholder="Nom*"
+                       #attest_name="ngModel" id="attest_name" name='attest_name' required [(ngModel)]="attestation.name" />
+                <p [hidden]="attest_name.valid || attest_name.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date de délivrance*</p>
-                <input type="text" name="selected_date" id="datepicker4" class="datepicker-default" />
+                <input type="text" class="datepicker-default"
+                       #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance' [(ngModel)]="attestation.dateIssue"/>
                 <div class="clearfix"></div>
             </div>
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration*</p>
-                <input type="text" name="selected_date" id="datepicker5" class="datepicker-default" />
+                <input type="text" class="datepicker-default"
+                       #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir' [(ngModel)]="attestation.dateExpires"/>
                 <div class="clearfix"></div>
             </div>
             <div class="autres-fichiers-wrapper clearfix">
@@ -270,12 +280,21 @@
     </modal-content-SSAtt>
 
     <modal-footer-SSAtt>
-        <div class="button-wrapper">
-            <button type="submit"
-                    class="form-button green-button enregistrer-button pull-right"
-                    data-dismiss="modal"
-                    (click)="attestModal.close()">Enregistrer</button>
+        <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+                <span aria-hidden="true"></span>
+            </button>
         </div>
+        <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
+
+        <div class="button-wrapper">
+            <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+                    (click)="attestModal.close()">Close</button>
+            <button type="submit"  class="form-button green-button enregistrer-button pull-right" data-dismiss="modal"
+                    (click)='submitAttestationForm(attest_name.value, attest_dateDelivrance.value, attest_dateExpir.value)'
+                    [disabled]="!site_AttestationForm.form.valid">Enregistrer</button>
+        </div>
+        <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
     </modal-footer-SSAtt>
 </modal-attest>
 

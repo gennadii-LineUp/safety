@@ -54,15 +54,60 @@ export class SiteService {
     }
     public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
         let query = siteId + '/employees/' + employeeId;
-        console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
-       // return this.backendService.get(UrlParams.siteHome + '44/employees/148');
     }
     public updateEmployee(newEmployee: any, siteId: number, employeeId: number): Observable<any> {
-        let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
-        console.log(query);
-        return this.backendService.post(query, JSON.stringify(newEmployee));
+        let url = UrlParams.siteHome + siteId + '/employees/' + employeeId;
+        console.log(url);
+        return this.backendService.post(url, JSON.stringify(newEmployee));
     }
+    public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
+        let url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
+        console.log(url);
+        return this.backendService.post(url, JSON.stringify(MedicaleCacesDates));
+    }
+
+
+    public setAttestation(newAttestation: any, siteId: number, employeeId: number): Observable<any> {
+        let url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations';
+        console.log(url);
+        return this.backendService.post(url, JSON.stringify(newAttestation));
+    }
+    public getOneAttestation(siteId: number, employeeId: number, attestationId: number): Observable<any> {
+        let query = siteId + '/employees/' + employeeId + '/attestations';
+        console.log(query);
+        return this.backendService.get(UrlParams.siteHome + query);
+    }
+
+    public getAttestations(siteId: number, employeeId: number, sort:string): Observable<any> {
+        let query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
+        console.log(query);
+        return this.backendService.get(UrlParams.siteHome + query);
+    }
+
+    deleteAttestation(attestation: string): Observable<any> {
+        return this.backendService.delete(UrlParams.siteHome + attestation);
+    }
+
+
+    public uploadImage(file: any, siteId: number, employeeId: number): Observable<any> {
+        let formData:FormData = new FormData();
+        formData.append('image', file, file.name);
+        let query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
+        console.log(query);
+
+        return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
+    }
+
+    public uploadText(file: any, siteId: number, employeeId: number): Observable<any> {
+        let formData:FormData = new FormData();
+        formData.append('file', file, file.name);
+        let query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
+        console.log(UrlParams.siteHome + query);
+
+        return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
+    }
+
 
 
     public convertDataForInputView(strDate: string): string {

@@ -103,19 +103,19 @@
                     <div *ngFor="let periode of periodeDeValidite" class="radio" >
                         <input type="radio"  checked={{periode.booleanValue}} id={{periode.value}} name="validityPeriod"
                                [(ngModel)]="employees.validityPeriod" [value]="periode.booleanValue" >
-                        <label for={{periode.value}} class="radio-label" (click)='showDetermineeDatesFunction($event)'>{{periode.display}}</label>
+                        <label for={{periode.value}} class="radio-label" (click)='hideIndetermineeDatesFunction($event)'>{{periode.display}}</label>
                     </div>
                 </div>
 
                 <div style='height: 117px;'>
-                    <div *ngIf='showDetermineeDates' class="calendar-wrapper clearfix">
+                    <div [hidden]='hideIndetermineeDates' class="calendar-wrapper clearfix">
                         <p class="form-label">Date de début*</p>
                         <input type="text" class="datepicker-default"
                                #startDate="ngModel" id='startDate' name='startDate'  [(ngModel)]="employees.startDate"/>
                         <p [hidden]=" startDate.valid || startDate.untouched " class="requred-field ">Champs requis</p>
                         <div class="clearfix"></div>
                     </div>
-                    <div *ngIf='showDetermineeDates' class="calendar-wrapper clearfix">
+                    <div [hidden]='hideIndetermineeDates' class="calendar-wrapper clearfix">
                         <p class="form-label">Date de fin*</p>
                         <input type="text" class="datepicker-default"
                                #endDate="ngModel" id='endDate' name='endDate'  [(ngModel)]="employees.endDate"/>
@@ -123,19 +123,6 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
-
-                <!--<div class="calendar-wrapper clearfix">-->
-                    <!--<p>Date de début*</p>-->
-                    <!--<input type="text" class="datepicker-default"-->
-                           <!--#startDate="ngModel" id='startDate' name='startDate' required [(ngModel)]="employees.startDate"/>-->
-                    <!--<p [hidden]=" startDate.valid || startDate.untouched " class="requred-field ">Champs requis</p>-->
-                <!--</div>-->
-                <!--<div class="calendar-wrapper clearfix">-->
-                    <!--<p>Date de fin*</p>-->
-                    <!--<input type="text" class="datepicker-default"-->
-                           <!--#endDate="ngModel" id='endDate' name='endDate'  [(ngModel)]="employees.endDate"/>-->
-                    <!--<p [hidden]=" endDate.valid || endDate.untouched " class="requred-field ">Champs requis</p>-->
-                <!--</div>-->
 
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button"

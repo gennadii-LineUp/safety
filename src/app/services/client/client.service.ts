@@ -71,6 +71,7 @@ export class ClientService {
         
         let formData:FormData = new FormData();
         formData.append('image', file, file.name);
+        console.log(UrlParams.siteHome+siteId+'/image');
 
         return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData);
     }
