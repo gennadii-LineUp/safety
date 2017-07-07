@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
-
+declare var $:any;
 
 @Component({
     selector: "modal-header-SSAtt",
@@ -76,6 +76,24 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
         this.createBackDrop();
     }
 
+    public tableMobileViewInit() {
+        let headertext = [],
+            headers = document.querySelectorAll('th'),
+            tablerows = document.querySelectorAll('th'),
+            tablebody = document.querySelector('tbody');
+        if (document.querySelector('table')) {
+            for(let i = 0; i < headers.length; i++) {
+                let current = headers[i];
+                headertext.push(current.textContent.replace(/\r?\n|\r/,''));
+            }
+            for (let i = 0, row; row = tablebody.rows[i]; i++) {
+                for (let j = 0, col; col = row.cells[j]; j++) {
+                    col.setAttribute('data-th', headertext[j]);
+                }
+            }
+        }
+    }
+
 
     ngOnDestroy() {
         document.body.className = document.body.className.replace(/modal-open\b/, "");
@@ -121,5 +139,18 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
             this.backdropElement.classList.add("modal-backdrop");
         }
     }
+
+    public datepickerViewInit() {
+        //Datepicker Popups calender to Choose date
+        $(() =>{
+            $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker();
+            $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
+            //Pass the user selected date format
+            $( '#format' ).change(() => {
+                $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'dateFormat', $(this).val() );
+            });
+        });
+    }
+
 
 }

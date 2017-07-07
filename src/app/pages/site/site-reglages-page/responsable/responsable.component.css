@@ -34,3 +34,12 @@ site-reglages-modal .table-wrapper {
 site-reglages-modal .form-control {
     width: 100% !important;
 }
+
+/*@media screen and (max-width: 1199px){*/
+.ajouter-responsables-table td:nth-of-type(3),
+.ajouter-responsables-table td:nth-of-type(4) {
+    text-align: center !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+/*}*/

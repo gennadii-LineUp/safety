@@ -64,6 +64,7 @@ export class SiteParcPageComponent implements OnInit {
     datepickerRun() {
        // $(() => {
             $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
+            $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( 'option', 'changeYear', true );
             //Pass the user selected date format
             $( "#format" ).change(() => {
                 $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "dateFormat", $(this).val() );

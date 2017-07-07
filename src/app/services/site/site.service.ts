@@ -101,10 +101,11 @@ export class SiteService {
 
     public uploadText(file: any, siteId: number, employeeId: number): Observable<any> {
         let formData:FormData = new FormData();
-        formData.append('file', file, file.name);
+        formData.append('image', file, file.name);
         let query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
         console.log(UrlParams.siteHome + query);
 
+        console.log(formData);
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
     }
 

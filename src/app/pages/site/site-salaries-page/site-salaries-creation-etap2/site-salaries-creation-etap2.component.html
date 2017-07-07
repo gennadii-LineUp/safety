@@ -112,7 +112,7 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" 
+                <input type="text" class="datepicker-default"
                        #visiteMedicale="ngModel" id='visiteMedicale' name='visiteMedicale'  [(ngModel)]="visites.visiteMedicale"/>
             </div>
         </div>
@@ -124,7 +124,7 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" 
+                <input type="text" class="datepicker-default"
                        #caces="ngModel" id='caces' name='caces'  [(ngModel)]="visites.caces"/>
             </div>
 
@@ -255,14 +255,14 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date de délivrance*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default"   (focus)='datepickerViewInit()'
                        #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance' [(ngModel)]="attestation.dateIssue"/>
                 <div class="clearfix"></div>
             </div>
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default"   (click)='datepickerViewInit()'
                        #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir' [(ngModel)]="attestation.dateExpires"/>
                 <div class="clearfix"></div>
             </div>
@@ -316,9 +316,7 @@
             <!--</select>-->
 
             <div>
-                <select name="role"
-                        [(ngModel)]="bbb"
-                        (change)="ShowType(bbb)">
+                <select name="role" [(ngModel)]="Type[0].value"  (change)="ShowType(bbb)">
                     <option *ngFor="let type of Type" [value]="type.value">
                         {{type.display}}
                     </option>

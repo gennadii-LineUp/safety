@@ -395,6 +395,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.router.navigate(['/site', this.id_site, 'salaries']);
     }
 
+
     public datepickerViewInit() {
         //Datepicker Popups calender to Choose date
         $(() =>{
