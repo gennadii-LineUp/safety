@@ -36,36 +36,40 @@
                    #city="ngModel" id="city" name='city' required [(ngModel)]="client.city" />
             <p [hidden]="city.valid || city.untouched " class="requred-field ">Champs requis</p>
         </div>
+
+
         <div class="control-group">
             <label class="control control--checkbox">Adresse de facturation si différente
-                <input type="checkbox" checked="checked" (click)='toggleDifferentBillingAddress($event)'
+                <input type="checkbox" [checked]='client.billingAddressIfDifferent' (click)='toggleDifferentBillingAddress($event)'
                        #billingAddressIfDifferent id="billingAddressIfDifferent" name='billingAddressIfDifferent'
                        required [(ngModel)]="client.billingAddressIfDifferent"/>
                 <span class="control__indicator"></span>
             </label>
         </div>
+
+
         <div>
             <div class="input-wrapper">
                 <p [hidden]="diffName.invalid" class="requred-field color-valid">Nom</p>
-                <input type="text" class="form-control"  placeholder="Nom*"  [disabled]='billingAddressIsDifferent'
+                <input type="text" class="form-control"  placeholder="Nom*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffName="ngModel" id="diffName" name='diffName' required [(ngModel)]="client.diffName">
                 <p [hidden]="diffName.valid || diffName.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="diffAddress.invalid" class="requred-field color-valid">Adresse</p>
-                <input type="text" class="form-control"  placeholder="Adresse*"  [disabled]='billingAddressIsDifferent'
+                <input type="text" class="form-control"  placeholder="Adresse*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffAddress="ngModel" id="diffAddress" name='diffAddress' required [(ngModel)]="client.diffAddress" >
                 <p [hidden]="diffAddress.valid || diffAddress.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="diffPostalCode.invalid" class="requred-field color-valid">Code postal</p>
-                <input type="text" class="form-control"  placeholder="Code postal*"  [disabled]='billingAddressIsDifferent'
+                <input type="text" class="form-control"  placeholder="Code postal*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffPostalCode="ngModel" id="diffPostalCode" name='diffPostalCode' required [(ngModel)]="client.diffPostalCode" >
                 <p [hidden]="diffPostalCode.valid || diffPostalCode.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="diffCity.invalid" class="requred-field color-valid">Ville</p>
-                <input type="text" class="form-control"  placeholder="Ville*"  [disabled]='billingAddressIsDifferent'
+                <input type="text" class="form-control"  placeholder="Ville*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffCity="ngModel" id="diffCity" name='diffCity' required [(ngModel)]="client.diffCity" />
                 <p [hidden]="diffCity.valid || diffCity.untouched " class="requred-field ">Champs requis</p>
             </div>

@@ -23,7 +23,7 @@ import { NavbarSiteComponent } from './navbar/navbar-site/navbar-site.component'
 import { NavbarSalariesComponent } from './navbar/navbar-salaries/navbar-salaries.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import {ValidityPeriodPipe} from '../services/pipes/validityPeriodSalarie.pipe';
-import {ValueNullPipe} from "../services/pipes/valueNull.pipe";
+import {ValueNullPipe} from '../services/pipes/valueNull.pipe';
 
 // import {ModalModule} from "ng2-modal";
 

@@ -1,10 +1,10 @@
-import {NgModule} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
-import {AppComponent} from "./index-page/app.component";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {AppComponent} from './index-page/app.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
-import {AppRoutingModule} from "../services/routing.module";
-import {SharedModule} from "../shared/shared.module";
+import {AppRoutingModule} from '../services/routing.module';
+import {SharedModule} from '../shared/shared.module';
 import {AdminAccueilPageComponent} from './admin/admin-accueil-page/admin-accueil-page.component';
 import { AdminReglagesPageComponent } from './admin/admin-reglages-page/admin-reglages-page.component';
 import { AdminClientsPageComponent } from './admin/admin-clients-page/admin-clients-page.component';

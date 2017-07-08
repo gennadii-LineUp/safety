@@ -1,21 +1,21 @@
-export class ClientProfileClass{
-    email : string;
-    company : string;
-    address : string;
-    postalCode : string;
-    city : string;
-    billingAddressIfDifferent : boolean;
-    diffName : string;
-    diffAddress : string;
-    diffPostalCode : string;
-    diffCity : string;
-    phone : string;
-    numberSiret : string;
-    rib : string;
-    contactName : string;
-    contactPhone : string;
-    contactEmail : string;
-    password : string;
+export class ClientProfileClass {
+    email: string;
+    company: string;
+    address: string;
+    postalCode: string;
+    city: string;
+    billingAddressIfDifferent: boolean;
+    diffName: string;
+    diffAddress: string;
+    diffPostalCode: string;
+    diffCity: string;
+    phone: string;
+    numberSiret: string;
+    rib: string;
+    contactName: string;
+    contactPhone: string;
+    contactEmail: string;
+    password: string;
     confirmPassword: string;
 
     constructor( email: string,

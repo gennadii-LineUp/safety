@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {ProgressBarTESTclass} from '../models/const/progress-bar-test-class';
 import {ProgressBarTESTvalues} from '../models/const/progress-bar-test-data';
 

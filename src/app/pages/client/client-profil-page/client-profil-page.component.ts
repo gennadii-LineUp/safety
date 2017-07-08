@@ -24,14 +24,16 @@ export class ClientProfilPageComponent implements OnInit {
 
     billingAddressIsDifferent: boolean = true;
 
-    client = new ClientProfileClass('','','','','',true,'','','','','','','','','','','','');
-    //ClientProfileClass
+    file: File;
+    userHasChoosenFile: boolean = false;
+
+  client = new ClientProfileClass('', '', '', '', '', false, '', '', '', '', '', '', '', '', '', '', '', '');
+
     constructor(private router: Router,
                 private clientService: ClientService,
-                private errorMessageHandlerService: ErrorMessageHandlerService){}
+                private errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit(): void {
-
         this.getClientProfilData();
     }
 
@@ -46,7 +48,7 @@ export class ClientProfilPageComponent implements OnInit {
                     this.loading = false;
                     console.dir(result);
 
-                    let currentClient = new ClientProfileClass(result.email,
+                    const currentClient = new ClientProfileClass(result.email,
                         result.company,
                         result.address,
                         result.postalCode,
@@ -65,25 +67,23 @@ export class ClientProfilPageComponent implements OnInit {
                         '', '');
 
                     this.client = currentClient;
-                    // console.dir(this.client);
                     this.loadingFile = true;
-                    this.clientService.getProfileImage()
-                        .subscribe(result => {
-                            if (result) {
-                                this.loadingFile = false;
-                                console.log(result);
-                                // this.successUpdate = "Well done! You've updated your settings.";
-                            }
-                        }, (err) => {
-                            this.loadingFile = false;
-                            this.uploadFileText = '  error  error  error';
-                            console.log(err);
-                            this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-                        });
+                    // this.clientService.getProfileImage()
+                    //     .subscribe(result => {
+                    //         if (result) {
+                    //             this.loadingFile = false;
+                    //             console.log(result);
+                    //             // this.successUpdate = "Well done! You've updated your settings.";
+                    //         }
+                    //     }, (err) => {
+                    //         this.loadingFile = false;
+                    //         this.uploadFileText = '  error  error  error';
+                    //         console.log(err);
+                    //         this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                    //     });
 
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.loading = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
@@ -99,16 +99,12 @@ export class ClientProfilPageComponent implements OnInit {
     }
     public cancellSuccessMessage() {
         this.updating = false;
-        //this.successCreating = '';
     }
 
-    file: File;
-    userHasChoosenFile: boolean = false;
     public fileChange(event) {
-        // this.loadingFile = true;
         this.uploadedFile = false;
-        let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];
             this.uploadFileText = this.file.name;
@@ -120,22 +116,22 @@ export class ClientProfilPageComponent implements OnInit {
                         if (result) {
                             console.log(result);
 
-                            setTimeout(() => {
-                                this.clientService.getProfileImage()
-                                    .subscribe(result => {
-                                        if (result) {
-                                            this.loadingFile = false;
-                                            this.uploadedFile = true;
-                                            console.log(result);
-                                            // this.successUpdate = "Well done! You've updated your settings.";
-                                        }
-                                    }, (err) => {
-                                        this.loadingFile = false;
-                                        this.uploadFileText = '  error  error  error';
-                                        console.log(err);
-                                        this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-                                    });
-                            }, 1000);
+                            // setTimeout(() => {
+                            //     this.clientService.getProfileImage()
+                            //         .subscribe(result => {
+                            //             if (result) {
+                            //                 this.loadingFile = false;
+                            //                 this.uploadedFile = true;
+                            //                 console.log(result);
+                            //                 // this.successUpdate = "Well done! You've updated your settings.";
+                            //             }
+                            //         }, (err) => {
+                            //             this.loadingFile = false;
+                            //             this.uploadFileText = '  error  error  error';
+                            //             console.log(err);
+                            //             this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                            //         });
+                            // }, 1000);
 
 
                             // this.successUpdate = "Well done! You've updated your settings.";
