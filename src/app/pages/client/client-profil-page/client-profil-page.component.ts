@@ -20,7 +20,6 @@ export class ClientProfilPageComponent implements OnInit {
 
     loadingFile: boolean = false;
     uploadedFile: boolean = false;
-    uploadFileText: string = 'Image du site';
 
     billingAddressIsDifferent: boolean = true;
 
@@ -67,21 +66,10 @@ export class ClientProfilPageComponent implements OnInit {
                         '', '');
 
                     this.client = currentClient;
-                    this.loadingFile = true;
-                    // this.clientService.getProfileImage()
-                    //     .subscribe(result => {
-                    //         if (result) {
-                    //             this.loadingFile = false;
-                    //             console.log(result);
-                    //             // this.successUpdate = "Well done! You've updated your settings.";
-                    //         }
-                    //     }, (err) => {
-                    //         this.loadingFile = false;
-                    //         this.uploadFileText = '  error  error  error';
-                    //         console.log(err);
-                    //         this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-                    //     });
 
+                    // this.loadingFile = true;
+
+                    this.getNewImage();
                 }
             }, (err) => {
                 this.loading = false;
@@ -107,7 +95,6 @@ export class ClientProfilPageComponent implements OnInit {
         if (fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];
-            this.uploadFileText = this.file.name;
 
             if (this.userHasChoosenFile) {
                 this.loadingFile = true;
@@ -116,29 +103,17 @@ export class ClientProfilPageComponent implements OnInit {
                         if (result) {
                             console.log(result);
 
-                            // setTimeout(() => {
-                            //     this.clientService.getProfileImage()
-                            //         .subscribe(result => {
-                            //             if (result) {
-                            //                 this.loadingFile = false;
-                            //                 this.uploadedFile = true;
-                            //                 console.log(result);
-                            //                 // this.successUpdate = "Well done! You've updated your settings.";
-                            //             }
-                            //         }, (err) => {
-                            //             this.loadingFile = false;
-                            //             this.uploadFileText = '  error  error  error';
-                            //             console.log(err);
-                            //             this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-                            //         });
-                            // }, 1000);
+                            setTimeout(() => {
+                                this.getNewImage();
+                            }, 1000);
 
+                            this.loadingFile = false;
+                            this.uploadedFile = true;
 
                             // this.successUpdate = "Well done! You've updated your settings.";
                         }
                     }, (err) => {
                         this.loadingFile = false;
-                        this.uploadFileText = '  error  error  error';
                         console.log(err);
                         this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
                     });
@@ -148,6 +123,23 @@ export class ClientProfilPageComponent implements OnInit {
             }
 
         }
+    }
+
+    public getNewImage() {
+        this.loadingFile = true;
+        this.uploadedFile = false;
+            this.clientService.getProfileImage()
+                .subscribe(result => {
+                    if (result) {
+                        this.loadingFile = false;
+                        console.log(result);
+                        // this.successUpdate = "Well done! You've updated your settings.";
+                    }
+                }, (err) => {
+                    this.loadingFile = false;
+                    console.log(err);
+                    this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+                });
     }
 
 
@@ -175,7 +167,6 @@ export class ClientProfilPageComponent implements OnInit {
                     //             }
                     //         }, (err) => {
                     //             this.loadingFile = false;
-                    //             this.uploadFileText = '  error  error  error';
                     //             console.log(err);
                     //             this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
                     //         });

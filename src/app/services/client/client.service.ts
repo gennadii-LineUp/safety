@@ -80,14 +80,14 @@ export class ClientService {
     }
     public uploadProfileImage(file: any): Observable<any> {
         console.log('==client service:_uploadProfileImage started==');
-        let formData:FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('image', file, file.name);
 
-        return this.backendService.loadImage_post(UrlParams.clientProfilData+'/image', formData);
+        return this.backendService.loadImage_post(UrlParams.clientProfilData + '/image', formData);
     }
     public getProfileImage(): Observable<any> {
-        console.log(UrlParams.clientProfilData+'/image');
-        return this.backendService.loadImage_get(UrlParams.clientProfilData+'/image');
+        console.log(UrlParams.clientProfilData + '/image');
+        return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image');
     }
 
 

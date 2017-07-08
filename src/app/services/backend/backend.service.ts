@@ -42,7 +42,8 @@ export class BackendService {
     }
 
 
-    public loadImage_post(url: string, body: any) : Observable<any> {
+    public loadImage_post(url: string, body: any): Observable<any> {
+        console.log('= loading image TO server =');
         let headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
@@ -51,27 +52,29 @@ export class BackendService {
 
         console.log(url);
         console.log(body);
-        console.dir(body);
         console.dir(headers);
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
     }
 
-    public loadImage_get(url: string) : Observable<any> {
-        console.log('back: loadImage_get');
+    public loadImage_get(url: string): Observable<any> {
+        console.log('= loading image FROM server =');
         let headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
         headers.append('Content-Type', 'image/jpeg');
 
-        return this.http.post(url, {headers: headers})
+        console.log(url);
+        console.dir(headers);
+
+      return this.http.get(url, {headers: headers})
             .map((res: Response) => {
                 console.log('1');
-                if(res.headers.get("Content-Type").startsWith("image/")){
+                //if (res.headers.get("Content-Type").startsWith("image/")){
                     return res;
-                }
-                return <Object[]>res.json();
+               // }
+               // return <Object[]>res.json();
             });
     }
 
