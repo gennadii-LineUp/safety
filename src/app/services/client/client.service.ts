@@ -46,8 +46,8 @@ export class ClientService {
         return this.backendService.get(UrlParams.employeesGroupsList);
     }
 
-    public findGroupeByName(name: string, page: any, sort:string): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
+    public findGroupeByName(name: string, page: any, sort: string): Observable<any> {
+        // console.log('==admin service:_findClientByName started==');
         let query = '?q=' + name + sort + '&page=' + page;
 
         return this.backendService.get(UrlParams.clientGroupes + query);
@@ -68,7 +68,7 @@ export class ClientService {
 
     public uploadImage(file: any, siteId: number): Observable<any> {
         console.log('==client service:_uploadImage started==');
-        
+
         let formData:FormData = new FormData();
         formData.append('image', file, file.name);
         console.log(UrlParams.siteHome+siteId+'/image');

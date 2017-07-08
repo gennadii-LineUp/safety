@@ -86,7 +86,7 @@ export class ClientGroupesPageComponent implements OnInit {
     }
 
 
-    public findGroupByNameFunction(name:string, page:any = 1, sort: string) {
+    public findGroupByNameFunction(name: string, page: any = 1, sort: string) {
         this.loading = true;
         this.emptyTable = false;
         let _name = name;
@@ -144,9 +144,12 @@ export class ClientGroupesPageComponent implements OnInit {
             .subscribe(result => {
                 if (result) {
                     this.saving = false;
-                    console.log('======result====OK======');
                     console.log(result);
-                    this.successCreating = "Well done! You've created a new group.";
+                    this.successCreating = 'Well done! Group is saved.';
+                    if (this.itemForChange) {
+                      this.saveButtonCaption = 'Créer';
+                      this.itemForChange = 0;
+                    }
                     this.ngOnInit();
                 }
             }, (err) => {
@@ -156,6 +159,7 @@ export class ClientGroupesPageComponent implements OnInit {
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
+
 
     public deleteFunction(id_itemForDelete: number) {
         this.loading = true;
@@ -177,29 +181,30 @@ export class ClientGroupesPageComponent implements OnInit {
 
     public getItemForUpdateFunction(id_itemForUpdate: number) {
         this.cancellErrorMessage();
+        this.cancellSuccessMessage();
         this.saving = true;
         this.salaryeeGroupe = new GroupeClass('', false);
         console.log(id_itemForUpdate);
 
-        // this.clientService.getGroupeForUpdate('/' + id_itemForUpdate)
-        //     .subscribe(result => {
-        //         if (result) {
-        //             this.saving = false;
-        //             console.log(result);
-        //             this.salaryeeGroupe.name = result.name;
-        //             this.salaryeeGroupe.adminAccess = result.adminAccess;
-        // this.itemForChange = result.id;
-                       this.saveButtonCaption = 'Modifier';
-        //         }
-        //     }, (err) => {
-        //         this.saving = false;
-        //         console.log(err);
-        //         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-        //     });
+        this.clientService.getGroupeForUpdate('/' + id_itemForUpdate)
+            .subscribe(result => {
+                if (result) {
+                    this.saving = false;
+                    console.log(result);
+                    this.salaryeeGroupe.name = result.name;
+                    this.salaryeeGroupe.adminAccess = result.adminAccess;
+                    this.itemForChange = result.id;
+                    this.saveButtonCaption = 'Modifier';
+                }
+            }, (err) => {
+                this.saving = false;
+                console.log(err);
+                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
     }
 
 
-    public adminAccessClicked(e:any) {
+    public adminAccessClicked(e: any) {
         this._adminAccess = e.target.checked;
     }
 
