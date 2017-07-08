@@ -33,54 +33,59 @@ export class SiteService {
 
     public clientList(page): Observable<any> {
         //console.log('==admin service:_clientList started==');
-        let query = '?q=&sort=&page=';
+        const query = '?q=&sort=&page=';
         return this.backendService.get(UrlParams.adminClients + query + page);
     }
 
     public findEmployeeByName(name: string, page: any, siteId: number): Observable<any> {
-        let query = '?q=' + name + '&sort=' + page;
-        return this.backendService.get(UrlParams.siteHome+siteId+'/employees' + query);
+        const query = '?q=' + name + '&sort=' + page;
+        return this.backendService.get(UrlParams.siteHome + siteId + '/employees' + query);
     }
     public deleteEmployee(siteId: number, employeeId: number): Observable<any> {
-        let query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
+        const query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
         console.log(query);
         return this.backendService.delete(query);
     }
 
 
     public addNewEmployee(newEmployee: EmployeesClass, siteId: number): Observable<any> {
-        let query = UrlParams.siteHome+siteId+'/employees';
+        const query = UrlParams.siteHome + siteId + '/employees';
         return this.backendService.post(query, JSON.stringify(newEmployee));
     }
     public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
-        let query = siteId + '/employees/' + employeeId;
+        const query = siteId + '/employees/' + employeeId;
         return this.backendService.get(UrlParams.siteHome + query);
     }
     public updateEmployee(newEmployee: any, siteId: number, employeeId: number): Observable<any> {
-        let url = UrlParams.siteHome + siteId + '/employees/' + employeeId;
+        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId;
         console.log(url);
         return this.backendService.post(url, JSON.stringify(newEmployee));
     }
     public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
-        let url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
+        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
         console.log(url);
         return this.backendService.post(url, JSON.stringify(MedicaleCacesDates));
     }
+  public getMedicaleCacesDates(siteId: number, employeeId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
+    console.log(url);
+    return this.backendService.get(url);
+  }
 
 
     public setAttestation(newAttestation: any, siteId: number, employeeId: number): Observable<any> {
-        let url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations';
+        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations';
         console.log(url);
         return this.backendService.post(url, JSON.stringify(newAttestation));
     }
     public getOneAttestation(siteId: number, employeeId: number, attestationId: number): Observable<any> {
-        let query = siteId + '/employees/' + employeeId + '/attestations';
+        const query = siteId + '/employees/' + employeeId + '/attestations';
         console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
 
-    public getAttestations(siteId: number, employeeId: number, sort:string): Observable<any> {
-        let query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
+    public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
+        const query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
         console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
@@ -93,7 +98,7 @@ export class SiteService {
     public uploadImage(file: any, siteId: number, employeeId: number): Observable<any> {
         let formData:FormData = new FormData();
         formData.append('image', file, file.name);
-        let query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
+        const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
         console.log(query);
 
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
@@ -102,7 +107,7 @@ export class SiteService {
     public uploadText(file: any, siteId: number, employeeId: number): Observable<any> {
         let formData:FormData = new FormData();
         formData.append('image', file, file.name);
-        let query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
+        const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
         console.log(UrlParams.siteHome + query);
 
         console.log(formData);

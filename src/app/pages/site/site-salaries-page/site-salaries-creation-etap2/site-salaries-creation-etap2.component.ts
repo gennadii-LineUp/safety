@@ -16,12 +16,13 @@ declare var $:any;
     providers: [SiteService, ClientService, TableSortService]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit {
-    loading: boolean = false;
-    loadingAttestations: boolean = true;
-    loadingSalarieUsed: boolean = false;
-    loadingGroupes: boolean = true;
-    loaded: boolean = false;
-    loadedSalarieUsed: boolean = false;
+    loading = false;
+    loadingDatesAutorisations = true;
+    loadingAttestations = true;
+    loadingSalarieUsed = false;
+    loadingGroupes = true;
+    loaded = false;
+    loadedSalarieUsed = false;
     errorLoad: string = '';
     errorCreating: string = '';
     successCreating: string = '';
@@ -52,19 +53,21 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }//,
-        //{ display: 'Date de délivrance',variable: 'dateIssue',    filter: 'text' },
-        //{ display: 'Date d’expiration', variable: 'dateExpires',  filter: 'text' }
+        // { display: 'Date de délivrance',variable: 'dateIssue',    filter: 'text' },
+        // { display: 'Date d’expiration', variable: 'dateExpires',  filter: 'text' }
     ];
-    sortingTarget: string = '';
-    public getSortingTarget(){
-        this.sortingTarget = this.tableSortService._getSortingTarget();
-    }
+    sortingTarget = '';
 
     public employeeGroupes = [];
-    employees = new EmployeesClass('','','','','','',true,'','',0);
+    employees = new EmployeesClass('', '', '', '', '', '', true, '', '', 0);
     visites = new VisitesClass('', '');
     public employeeAttestations = [];
     attestation = new AttestationClass('', '', '');
+
+
+  public getSortingTarget() {
+        this.sortingTarget = this.tableSortService._getSortingTarget();
+    }
 
     constructor(private siteService: SiteService,
                 private clientService: ClientService,
@@ -74,7 +77,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                 private tableSortService: TableSortService) { }
 
 
-    ngOnInit():void {
+    ngOnInit(): void {
         this.id_site = localStorage.id_site;
         this.id_salarie = localStorage.id_salarie;
 
@@ -106,7 +109,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    public ShowType(userChoice:string) {
+    public ShowType(userChoice: string) {
         if (userChoice === 'gruesMobiles') {
             this.chariotsElevateurs = false;
             this.gruesMobiles = true;
@@ -140,6 +143,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.loaded = true;
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
                     this.getAttestations('');
+                    this.getDatesAutorisations();
                 }
             }, (err) => {
                 this.loading = false;
@@ -234,46 +238,46 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
         this.visites.medicalVisitDateExpires = datepicker_medicalVisit;
         this.visites.cacesDateExpires = datepicker_caces;
-        //console.log(this.visites);
+        console.log(this.visites);
 
-        // this.siteService.addMedicaleCacesDates(this.visites, this.id_site, this.id_salarie)
-        //     .subscribe(result => {
-        //         if (result) {
-        //             this.loading = false;
-        //             console.log(result);
+        this.siteService.addMedicaleCacesDates(this.visites, this.id_site, this.id_salarie)
+            .subscribe(result => {
+                if (result) {
+                    this.loading = false;
+                    console.log(result);
                     //this.successCreating = "Well done! You've saved MedicaleCacesDates.";
 
-                    if (this.userHasChoosenFile) {
-                        this.loadingFile = true;
-                        this.siteService.uploadText(this.file, this.id_site, this.id_salarie)
-                            .subscribe(result => {
-                                if (result) {
-                                    this.loadingFile = false;
-                                    this.uploadedFile = true;
-                                    console.log(result);
-                                    this.successCreating = "Well done! You've uploaded file.";
-                                }
-                            }, (err) => {
-                                this.loadingFile = false;
-                                this.uploadFileText = '  error  error  error';
-                                console.log(err);
-
-                                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-                            });
-                    }
-                    else {
+                    // if (this.userHasChoosenFile) {
+                    //     this.loadingFile = true;
+                    //     this.siteService.uploadText(this.file, this.id_site, this.id_salarie)
+                    //         .subscribe(result => {
+                    //             if (result) {
+                    //                 this.loadingFile = false;
+                    //                 this.uploadedFile = true;
+                    //                 console.log(result);
+                    //                 this.successCreating = "Well done! You've uploaded file.";
+                    //             }
+                    //         }, (err) => {
+                    //             this.loadingFile = false;
+                    //             this.uploadFileText = '  error  error  error';
+                    //             console.log(err);
+                    //
+                    //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+                    //         });
+                    // }
+                    // else {
                        // this.successCreating = "Well done! You've created a new client.";
-                    }
+                    // }
 
                     this.loading = false;
                     this.userHasChoosenFile = false;
 
-            //     }
-            // }, (err) => {
-            //     this.loading = false;
-            //     console.log(err);
-            //     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-            // });
+                }
+            }, (err) => {
+                this.loading = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
     }
 
 
@@ -313,7 +317,26 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
     //         });
     // }
-    public getAttestations(sort: string) {
+
+  public getDatesAutorisations() {
+    this.loadingDatesAutorisations = true;
+
+    this.siteService.getMedicaleCacesDates(this.id_site, this.id_salarie)
+      .subscribe(result => {
+        if (result) {
+          this.loadingDatesAutorisations = false;
+          console.log(result);
+          this.visites.cacesDateExpires = this.siteService.convertDataForInputView(result.cacesDateExpires);
+          this.visites.medicalVisitDateExpires = this.siteService.convertDataForInputView(result.medicalVisitDateExpires);
+        }
+      }, (err) => {
+        this.loadingDatesAutorisations = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public getAttestations(sort: string) {
         this.loadingAttestations = true;
         //this.emptyTable = false;
         this.siteService.getAttestations(this.id_site, this.id_salarie, sort)
