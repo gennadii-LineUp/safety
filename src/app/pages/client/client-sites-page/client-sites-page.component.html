@@ -209,9 +209,9 @@
                         <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
-                    <th style='cursor:default;'>
-                        <span>Responsable site</span>
-                    </th>
+                    <!--<th style='cursor:default;'>-->
+                        <!--<span>Responsable site</span>-->
+                    <!--</th>-->
                     <th>
                         <span>Action</span>
                     </th>
@@ -229,7 +229,7 @@
             <tr *ngFor="let site of sites" >
                     <td>{{site.name}}</td>
                     <td>{{site.address}}</td>
-                    <td style='color: tomato;'>TODO: Prénom Nom</td>
+                    <td>{{site.responsible | valueNull}}</td>
                     <td>
                         <a href="javascript:void(0);" [routerLink]="['/site', site.id ]" >
                             Gérer

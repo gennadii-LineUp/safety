@@ -73,8 +73,8 @@ export class ClientSitesPageComponent implements OnInit {
 
     headers: any[] = [
         { display: 'Nom du site',       variable: 'name',       filter: 'text' },
-        { display: 'Adresse',           variable: 'address',    filter: 'text' }//,
-        // { display: 'Responsable site',  variable: 'employees',  filter: 'text' }
+        { display: 'Adresse',           variable: 'address',    filter: 'text' },
+        { display: 'Responsable site',  variable: 'responsible', filter: 'text' }
     ];
     sortingTarget: string = '';
     public getSortingTarget(){
@@ -118,7 +118,7 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
 
-    public findSiteByNameFunction(name:string, page:any = 1, sort: string) {
+    public findSiteByNameFunction(name: string, page: any = 1, sort: string) {
         this.cancellMessages();
         this.loading = true;
         this.emptyTable = false;
@@ -134,7 +134,8 @@ export class ClientSitesPageComponent implements OnInit {
                     this.loading = false;
 
                     console.log(result);
-                    this.sites = result.items;  // EXAMPLE:  [{ address:"ff", id:23, name:"ds"} ]
+                    this.sites = result.items;
+                    console.log(this.sites);
                     this.totalItems = +result.pagination.totalCount;
                     if (this.totalItems === 0) {
                         this.emptyTable = true;

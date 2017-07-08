@@ -325,7 +325,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
       .subscribe(result => {
         if (result) {
           this.loadingDatesAutorisations = false;
-          console.log(result);
           this.visites.cacesDateExpires = this.siteService.convertDataForInputView(result.cacesDateExpires);
           this.visites.medicalVisitDateExpires = this.siteService.convertDataForInputView(result.medicalVisitDateExpires);
         }

@@ -12,25 +12,19 @@ export class ClientService {
 
     public getClientProfilData(): Observable<any> {
         console.log('==client service started==');
-        let useTolkin:boolean = false;
-
         return this.backendService.get(UrlParams.clientProfilData);
     }
 
     public employeeCount(): Observable<any> {
-        //console.log('==client service_employeeCOUNT started==');
-        let useTolkin:boolean = false;
-
         return this.backendService.get(UrlParams.employeeCount);
     }
 
-    public findSiteByName(name: string, page: any, sort:string): Observable<any> {
+    public findSiteByName(name: string, page: any, sort: string): Observable<any> {
         let query = '?q=' + name + sort + '&page=' + page;
         return this.backendService.get(UrlParams.clientSites + query);
     }
 
-    public findSalarieByName(name: string, page: any, sort:string): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
+    public findSalarieByName(name: string, page: any, sort: string): Observable<any> {
         let query = '?q=' + name + sort + '&page=' + page;
 
         return this.backendService.get(UrlParams.clientEmployees + query);
@@ -65,11 +59,14 @@ export class ClientService {
         return this.backendService.get(UrlParams.adminLink + link);
     }
 
+    getBibliotheques(): Observable<any> {
+      return this.backendService.get(UrlParams.adminLink);
+    }
 
     public uploadImage(file: any, siteId: number): Observable<any> {
         console.log('==client service:_uploadImage started==');
 
-        let formData:FormData = new FormData();
+        let formData: FormData = new FormData();
         formData.append('image', file, file.name);
         console.log(UrlParams.siteHome+siteId+'/image');
 

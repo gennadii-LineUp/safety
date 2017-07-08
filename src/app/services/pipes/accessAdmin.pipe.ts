@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class AdminAccessPipe implements PipeTransform {
     transform(value: boolean, args?: any): string {
 
-        if(value===true) {
+        if (value === true) {
             return 'Admin';
         } else {
             return '-';

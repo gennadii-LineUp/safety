@@ -64,14 +64,14 @@ export class AdminBibliothequePageComponent implements OnInit {
     }
 
 
-    public selectedClass(columnName): string{
+    public selectedClass(columnName): string {
         return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }
-    public changeSorting(columnName:string, e:any): void{
+    public changeSorting(columnName: string, e: any): void {
         let sortingDirection: string;
         let thClass: string;
 
-        var sort = this.sorting;
+        let sort = this.sorting;
         if (sort.column == columnName) {
             sort.descending = !sort.descending;
         } else {
@@ -104,7 +104,7 @@ export class AdminBibliothequePageComponent implements OnInit {
     }
 
 
-    public findLinkByNameFunction(name:string, page:any = 1, sort) {
+    public findLinkByNameFunction(name: string, page: any = 1, sort) {
         this.loading = true;
         this.emptyTable = false;
         let _name = name;
@@ -192,7 +192,7 @@ export class AdminBibliothequePageComponent implements OnInit {
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
-    
+
     public deleteFunction(id_itemForDelete: number) {
         this.loading = true;
         this.emptyTable = false;
