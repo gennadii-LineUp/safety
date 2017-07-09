@@ -19,6 +19,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     loading = false;
     loadingDatesAutorisations = true;
     loadingAttestations = true;
+    creatingAttest = false;
     loadingSalarieUsed = false;
     loadingGroupes = true;
     loaded = false;
@@ -30,6 +31,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     loadingFile: boolean = false;
     uploadedFile: boolean = false;
     uploadFileText: string = 'fichier1.jpg';
+
+    saveButtonCaptionAttest = 'Enregistrer';
+    itemForChange = 0;
 
     errorSalaries: boolean = false;
     salariesMaxPossible:number;
@@ -82,7 +86,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.id_salarie = localStorage.id_salarie;
 
         this.getEmployeeFromEtap1Function();
-        this.tableMobileViewInit();
+        this.siteService.tableMobileViewInit();
         this.getEmployeeGroupes();
 
         window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
@@ -196,27 +200,34 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    public submitAttestationForm(attest_name:string, attest_dateDelivrance:string, attest_dateExpir:string) {
-        let dateExpires = window.document.getElementsByClassName('datepicker-default')['3'].value;
-        let dateIssue   = window.document.getElementsByClassName('datepicker-default')['4'].value;
+    public submitAttestationForm(attest_name: string, attest_dateDelivrance: string, attest_dateExpir: string) {
+        let urlOption = '';
+        if (this.itemForChange) {
+          urlOption = '/' + this.itemForChange;
+          this.saveButtonCaptionAttest = 'Modifier';
+        }
+
+        const dateIssue   = window.document.getElementsByClassName('datepicker-default')['3'].value;
+        const dateExpires = window.document.getElementsByClassName('datepicker-default')['4'].value;
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
-        console.dir('from form');
-        console.dir(attest_name + '=' + attest_dateDelivrance + '=' + attest_dateExpir);
-
         this.attestation.dateExpires = dateExpires;
         this.attestation.dateIssue = dateIssue;
         console.dir(this.attestation);
 
-        this.siteService.setAttestation(this.attestation, this.id_site, this.id_salarie)
+        this.siteService.setAttestation(this.attestation, this.id_site, this.id_salarie, urlOption)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log(result);
-                    this.successCreating = "Well done! You saved this Attestation.";
+                    this.successCreating = 'Well done! You saved this Attestation.';
+                    if (this.itemForChange) {
+                      this.saveButtonCaptionAttest = 'Enregistrer';
+                      this.itemForChange = 0;
+                    }
+                    this.attestation = new AttestationClass('', '', '');
                     this.getAttestations('');
                 }
             }, (err) => {
@@ -306,7 +317,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     //                 this.setPage(this.currentPage);
     //
     //                 setTimeout(() => {
-    //                     this.adminService.tableMobileViewInit();
+    //                     this.adminService.siteService.tableMobileViewInit();
     //                 }, 200);
     //                 localStorage.setItem('adminLinkSearch_name', _name);
     //             }
@@ -342,7 +353,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
             .subscribe(result => {
                 if (result) {
                     this.loadingAttestations = false;
-                    console.log(result);
                     this.employeeAttestations = result.items;
                     this.emptyTable = false;
                     if (result.items.length === 0) {
@@ -359,40 +369,44 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     public getAttestForUpdateFunction(id_itemForUpdate: number) {
         this.cancellErrorMessage();
-        this.loading = true;
+        this.creatingAttest = true;
         this.attestation = new AttestationClass('', '', '');
         console.log(id_itemForUpdate);
 
-        // this.siteService.getOneAttestation(this.id_site, this.id_salarie, id_itemForUpdate)
-        //     .subscribe(result => {
-        //         if (result) {
-        //             this.loading = false;
-        //             console.log(result);
-        //             this.attestation = result;
-        //         }
-        //     }, (err) => {
-        //         this.loading = false;
-        //         console.log(err);
-        //         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-        //     });
+        this.siteService.getOneAttestation(this.id_site, this.id_salarie, '/' + id_itemForUpdate)
+            .subscribe(result => {
+                if (result) {
+                    this.creatingAttest = false;
+                    console.log(result);
+                    this.attestation.name = result.name;
+                    this.attestation.dateExpires = this.siteService.convertDataForInputView(result.dateExpires);
+                    this.attestation.dateIssue = this.siteService.convertDataForInputView(result.dateIssue);
+                    this.saveButtonCaptionAttest = 'Modifier';
+                    this.itemForChange = result.id;
+                }
+            }, (err) => {
+                this.creatingAttest = false;
+                console.log(err);
+                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
     }
 
     public deleteAttestFunction(id_itemForDelete: number) {
-        this.loading = true;
+        this.loadingAttestations = true;
         this.emptyTable = false;
         console.log(id_itemForDelete);
-        // this.siteService.deleteAttestation('/' + id_itemForDelete)
-        //     .subscribe(result => {
-        //         if (result) {
-        //             this.cancellErrorMessage();
-        //             console.log(result);
-        //             //this.getAttestations('');
-        //         }
-        //     }, (err) => {
-        //         this.loading = false;
-        //         console.log(err);
-        //         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-        //     });
+        this.siteService.deleteAttestation(this.id_site, this.id_salarie, '/' + id_itemForDelete)
+            .subscribe(result => {
+                if (result) {
+                    this.cancellErrorMessage();
+                    console.log(result);
+                    this.getAttestations('');
+                }
+            }, (err) => {
+                this.loadingAttestations = false;
+                console.log(err);
+                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
     }
 
 
@@ -417,35 +431,21 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.router.navigate(['/site', this.id_site, 'salaries']);
     }
 
+    public startAttestationEmpty() {
+      this.attestation = new AttestationClass('', '', '');
+    }
+
 
     public datepickerViewInit() {
-        //Datepicker Popups calender to Choose date
-        $(() =>{
+        // Datepicker Popups calender to Choose date
+        $(() => {
             $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker();
             $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
-            //Pass the user selected date format
+            // Pass the user selected date format
             $( '#format' ).change(() => {
                 $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }
-    public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll('th'),
-            tablerows = document.querySelectorAll('th'),
-            tablebody = document.querySelector('tbody');
-        if (document.querySelector('table')) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,''));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute('data-th', headertext[j]);
-                }
-            }
-        }
-    }
-
 
 }

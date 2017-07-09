@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
-
-//import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import {EmployeesClass} from '../../models/const/employees-class';
 
@@ -18,33 +16,31 @@ export class SiteService {
         this.id_site = id_site;
         console.log('setted ' + this.id_site);
     }
-    public getIdSite():number {
+    public getIdSite(): number {
         console.log('getting... ' + this.id_site);
         return this.id_site;
     }
 
 
     public homeData(): Observable<any> {
-        //console.log('==admin service:_homeData started==');
         return this.backendService.get(UrlParams.adminHome);
-
     }
 
 
     public clientList(page): Observable<any> {
-        //console.log('==admin service:_clientList started==');
         const query = '?q=&sort=&page=';
         return this.backendService.get(UrlParams.adminClients + query + page);
     }
 
-    public findEmployeeByName(name: string, page: any, siteId: number): Observable<any> {
-        const query = '?q=' + name + '&sort=' + page;
-        return this.backendService.get(UrlParams.siteHome + siteId + '/employees' + query);
+    public findEmployeeByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
+        const query =  + siteId + '/employees' + '?q=' + name + sort + '&page=' + page;
+        return this.backendService.get(UrlParams.siteHome + query);
+
     }
     public deleteEmployee(siteId: number, employeeId: number): Observable<any> {
         const query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
         console.log(query);
-        return this.backendService.delete(query);
+        return this.backendService.deleteData(query);
     }
 
 
@@ -73,16 +69,17 @@ export class SiteService {
   }
 
 
-    public setAttestation(newAttestation: any, siteId: number, employeeId: number): Observable<any> {
-        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations';
+    public setAttestation(newAttestation: any, siteId: number, employeeId: number, urlOption: string): Observable<any> {
+        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations' + urlOption;
         console.log(url);
         return this.backendService.post(url, JSON.stringify(newAttestation));
     }
-    public getOneAttestation(siteId: number, employeeId: number, attestationId: number): Observable<any> {
-        const query = siteId + '/employees/' + employeeId + '/attestations';
+    public getOneAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {
+      const query = siteId + '/employees/' + employeeId + '/attestations' + attestationId;
         console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
+    // {{siteId}}/employees/{{employeeId}}/attestations/{{employeeAttestationId}}
 
     public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
         const query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
@@ -90,13 +87,14 @@ export class SiteService {
         return this.backendService.get(UrlParams.siteHome + query);
     }
 
-    deleteAttestation(attestation: string): Observable<any> {
-        return this.backendService.delete(UrlParams.siteHome + attestation);
+    deleteAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {
+      const query = siteId + '/employees/' + employeeId + '/attestations' + attestationId;
+      return this.backendService.deleteData(UrlParams.siteHome + query);
     }
 
 
     public uploadImage(file: any, siteId: number, employeeId: number): Observable<any> {
-        let formData:FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('image', file, file.name);
         const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
         console.log(query);
@@ -105,7 +103,7 @@ export class SiteService {
     }
 
     public uploadText(file: any, siteId: number, employeeId: number): Observable<any> {
-        let formData:FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('image', file, file.name);
         const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
         console.log(UrlParams.siteHome + query);
@@ -117,13 +115,13 @@ export class SiteService {
 
 
     public convertDataForInputView(strDate: string): string {
-        let date = new Date(strDate);
-        let mm:any;
+        const date = new Date(strDate);
+        let mm: any;
         mm = +date.getMonth() + 1;
-        if (mm < 10) {mm= '0' + mm};
-        let dd:any;
+        if (mm < 10) {mm = '0' + mm; }
+        let dd: any;
         dd = +date.getDate() + 1;
-        if (dd < 10) {dd = '0' + dd};
+        if (dd < 10) {dd = '0' + dd; }
 
         return mm + '/' + dd + '/' + date.getFullYear();
     }
@@ -138,7 +136,7 @@ export class SiteService {
 
     encode(obj) {
         let newData = '';
-        for (let key in obj) {
+        for (const key in obj) {
             newData += key;
             newData += '=' + encodeURI(obj[key]) + '&';
         }
@@ -148,18 +146,18 @@ export class SiteService {
     }
 
     public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
+      const headertext = [],
+            headers = document.querySelectorAll('th'),
+            tablerows = document.querySelectorAll('th'),
+            tablebody = document.querySelector('tbody');
+        if (document.querySelector('table')) {
+            for (let i = 0; i < headers.length; i++) {
+                const current = headers[i];
+                headertext.push(current.textContent.replace(/\r?\n|\r/, ''));
             }
             for (let i = 0, row; row = tablebody.rows[i]; i++) {
                 for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
+                    col.setAttribute('data-th', headertext[j]);
                 }
             }
         }

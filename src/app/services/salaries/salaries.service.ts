@@ -15,21 +15,19 @@ export class SalariesService {
         return this.backendService.get(UrlParams.clientProfilData);
     }
 
-    
+
     public employeeCount(): Observable<any> {
         console.log('==client service started==');
         return this.backendService.get(UrlParams.employeeCount);
     }
 
     public findSiteByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
-        let query = '?q=' + name + '&page=' + page;
+        const query = '?q=' + name + '&page=' + page;
         return this.backendService.get(UrlParams.clientSites + query);
     }
 
     public findSalarieByName(name: string, page: any): Observable<any> {
-        //console.log('==admin service:_findClientByName started==');
-        let query = '?q=' + name + '&page=' + page;
+        const query = '?q=' + name + '&page=' + page;
         return this.backendService.get(UrlParams.clientEmployees + query);
     }
 
@@ -43,7 +41,7 @@ export class SalariesService {
     }
 
     public findGroupeByName(name: string, page: any): Observable<any> {
-        let query = '?q=' + name + '&page=' + page;
+        const query = '?q=' + name + '&page=' + page;
         return this.backendService.get(UrlParams.clientGroupes + query);
     }
 
@@ -55,16 +53,16 @@ export class SalariesService {
 
     public uploadImage(file: any, siteId: number): Observable<any> {
         console.log('==client service:_uploadImage started==');
-        let formData:FormData = new FormData();
+      const formData: FormData = new FormData();
         formData.append('image', file, file.name);
 
-        return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData);
+        return this.backendService.loadImage_post(UrlParams.siteHome + siteId + '/image', formData);
     }
 
 
     public encode(obj) {
         let newData = '';
-        for (let key in obj) {
+        for (const key in obj) {
             newData += key;
             newData += '=' + encodeURI(obj[key]) + '&';
         }
@@ -82,18 +80,18 @@ export class SalariesService {
 
 
     public tableMobileViewInit() {
-        let headertext = [],
-            headers = document.querySelectorAll("th"),
-            tablerows = document.querySelectorAll("th"),
-            tablebody = document.querySelector("tbody");
-        if (document.querySelector("table")) {
-            for(let i = 0; i < headers.length; i++) {
-                let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,""));
+      const headertext = [],
+            headers = document.querySelectorAll('th'),
+            tablerows = document.querySelectorAll('th'),
+            tablebody = document.querySelector('tbody');
+        if (document.querySelector('table')) {
+            for (let i = 0; i < headers.length; i++) {
+                const current = headers[i];
+                headertext.push(current.textContent.replace(/\r?\n|\r/, ''));
             }
             for (let i = 0, row; row = tablebody.rows[i]; i++) {
                 for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute("data-th", headertext[j]);
+                    col.setAttribute('data-th', headertext[j]);
                 }
             }
         }

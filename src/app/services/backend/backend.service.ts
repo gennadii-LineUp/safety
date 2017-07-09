@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
-//import {AdminAsClientGuard} from '../../guards/admin-as-client-guard.service';
 
 @Injectable()
 export class BackendService {
@@ -17,11 +16,11 @@ export class BackendService {
     // private adminGuard: AdminGuard,
     // private clientGuard: ClientGuard,
 
-    constructor(private http: Http){}
+    constructor(private http: Http) {}
 
 
-    public login(url, body, usernamePassword) : Observable<any>  {
-        let headers: Headers = new Headers();
+    public login(url, body, usernamePassword): Observable<any>  {
+        const headers: Headers = new Headers();
         headers.append('Authorization', 'Basic ' + usernamePassword);
 
         return this.http.post(url, body, {headers: headers})
@@ -29,8 +28,8 @@ export class BackendService {
     }
 
 
-    public post(url: string, body: any) : Observable<any> {
-        let headers: Headers = new Headers();
+    public post(url: string, body: any): Observable<any> {
+        const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Content-Type', 'application/json');
@@ -44,7 +43,7 @@ export class BackendService {
 
     public loadImage_post(url: string, body: any): Observable<any> {
         console.log('= loading image TO server =');
-        let headers: Headers = new Headers();
+        const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
@@ -59,7 +58,7 @@ export class BackendService {
 
     public loadImage_get(url: string): Observable<any> {
         console.log('= loading image FROM server =');
-        let headers: Headers = new Headers();
+        const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
@@ -70,17 +69,20 @@ export class BackendService {
 
       return this.http.get(url, {headers: headers})
             .map((res: Response) => {
-                console.log('1');
-                //if (res.headers.get("Content-Type").startsWith("image/")){
+                console.log('=========== image ===========');
+                if (res.headers.get('Content-Type').startsWith('image/')) {
+                    // if (res.encoded===1) {
+                    //   console.log('res.encoded===1, continue!');
+                    // }
                     return res;
-               // }
-               // return <Object[]>res.json();
+                }
+                return <Object[]>res.json();
             });
     }
 
 
-public get(url: string): Observable<any> {
-        let headers: Headers = new Headers();
+    public get(url: string): Observable<any> {
+        const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
@@ -91,8 +93,8 @@ public get(url: string): Observable<any> {
     }
 
 
-    public delete(url: string): Observable<any> {
-        let headers: Headers = new Headers();
+    public deleteData(url: string): Observable<any> {
+        const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
@@ -140,7 +142,7 @@ public get(url: string): Observable<any> {
   // }
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || { };
   }
 
@@ -193,7 +195,7 @@ public get(url: string): Observable<any> {
   //
 
   private composeHeaders (headers: Headers, type: string): void {
-    let content: string = type.toUpperCase();
+    const content: string = type.toUpperCase();
     headers.append('Content-Type', CONTENT_TYPE[content]);
   }
 

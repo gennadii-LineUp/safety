@@ -108,7 +108,7 @@ export class SiteSalariesCreationComponent implements OnInit {
 
             if (this.userHasChoosenFile) {
                 this.loadingFile = true;
-                this.clientService.uploadProfileImage(this.file)
+                this.clientService.loadToServerProfileImage(this.file)
                     .subscribe(result => {
                         if (result) {
                             console.log(result);

@@ -21,6 +21,8 @@ export class ClientProfilPageComponent implements OnInit {
     loadingFile: boolean = false;
     uploadedFile: boolean = false;
 
+    imgServer: any;
+
     billingAddressIsDifferent: boolean = true;
 
     file: File;
@@ -69,7 +71,7 @@ export class ClientProfilPageComponent implements OnInit {
 
                     // this.loadingFile = true;
 
-                    this.getNewImage();
+                    this.getFromServerProfileImageFunction();
                 }
             }, (err) => {
                 this.loading = false;
@@ -98,13 +100,13 @@ export class ClientProfilPageComponent implements OnInit {
 
             if (this.userHasChoosenFile) {
                 this.loadingFile = true;
-                this.clientService.uploadProfileImage(this.file)
+                this.clientService.loadToServerProfileImage(this.file)
                     .subscribe(result => {
                         if (result) {
                             console.log(result);
 
                             setTimeout(() => {
-                                this.getNewImage();
+                                this.getFromServerProfileImageFunction();
                             }, 1000);
 
                             this.loadingFile = false;
@@ -125,15 +127,26 @@ export class ClientProfilPageComponent implements OnInit {
         }
     }
 
-    public getNewImage() {
+    public getFromServerProfileImageFunction() {
         this.loadingFile = true;
         this.uploadedFile = false;
-            this.clientService.getProfileImage()
+            this.clientService.getFromServerProfileImage()
                 .subscribe(result => {
                     if (result) {
                         this.loadingFile = false;
                         console.log(result);
-                        // this.successUpdate = "Well done! You've updated your settings.";
+                        // this.imgServer = result._body;
+                      // let blob = new Blob([new Uint8Array(result._body)], {
+                      //   type: result.headers.get('Content-Type')
+                      // });
+                      // let urlCreator = window.URL;
+                      // let url = urlCreator.createObjectURL(blob);
+                      // this.imgServer = url;
+
+                      this.imgServer = atob(result._body);
+
+                      // this.imgServer = atob(String.fromCharCode.apply(null, new Uint8Array(result._body)));
+                      // this.successUpdate = "Well done! You've updated your settings.";
                     }
                 }, (err) => {
                     this.loadingFile = false;
@@ -157,7 +170,7 @@ export class ClientProfilPageComponent implements OnInit {
 
                     // if (this.userHasChoosenFile) {
                     //     this.loadingFile = true;
-                    //     this.clientService.uploadProfileImage(this.file)
+                    //     this.clientService.loadToServerProfileImage(this.file)
                     //         .subscribe(result => {
                     //             if (result) {
                     //                 this.loadingFile = false;

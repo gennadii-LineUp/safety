@@ -36,14 +36,11 @@ export class ClientService {
     }
 
     public getGroupList(): Observable<any> {
-        //console.log('==client service:_groupList started==');
         return this.backendService.get(UrlParams.employeesGroupsList);
     }
 
     public findGroupeByName(name: string, page: any, sort: string): Observable<any> {
-        // console.log('==admin service:_findClientByName started==');
-        let query = '?q=' + name + sort + '&page=' + page;
-
+        const query = '?q=' + name + sort + '&page=' + page;
         return this.backendService.get(UrlParams.clientGroupes + query);
     }
 
@@ -78,14 +75,14 @@ export class ClientService {
         console.log('==client service:_updateClientProfile started==');
         return this.backendService.post(UrlParams.clientProfilData, JSON.stringify(newProfile));
     }
-    public uploadProfileImage(file: any): Observable<any> {
+    public loadToServerProfileImage(file: any): Observable<any> {
         console.log('==client service:_uploadProfileImage started==');
         const formData: FormData = new FormData();
         formData.append('image', file, file.name);
 
         return this.backendService.loadImage_post(UrlParams.clientProfilData + '/image', formData);
     }
-    public getProfileImage(): Observable<any> {
+    public getFromServerProfileImage(): Observable<any> {
         console.log(UrlParams.clientProfilData + '/image');
         return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image');
     }
@@ -105,15 +102,15 @@ export class ClientService {
 
 
     deleteSites(link: string): Observable<any> {
-        return this.backendService.delete(UrlParams.clientSites + link);
+        return this.backendService.deleteData(UrlParams.clientSites + link);
     }
     deleteGroupe(link: string): Observable<any> {
-        return this.backendService.delete(UrlParams.clientGroupes + link);
+        return this.backendService.deleteData(UrlParams.clientGroupes + link);
     }
     deleteEmployee(siteId: number, employeeId: number): Observable<any> {
         let link = UrlParams.clientSites + '/' + siteId+ '/employees/' + employeeId;
         console.log(link);
-        return this.backendService.delete(link);
+        return this.backendService.deleteData(link);
     }
 
 

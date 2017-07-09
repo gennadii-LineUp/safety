@@ -42,11 +42,15 @@ export class SiteSalariesPageComponent implements OnInit {
         { display: 'N° sécu', variable: 'numSecu',        filter: 'text' },
         { display: 'Groupe',  variable: 'groupName',      filter: 'number' },
         { display: 'Accès',   variable: 'access',         filter: 'text' },
-        { display: 'Validité',variable: 'validityPeriod', filter: 'text' }
+        { display: 'Validité', variable: 'validityPeriod', filter: 'text' }
     ];
+    sortingTarget: string = '';
+    public getSortingTarget() {
+      this.sortingTarget = this.tableSortService._getSortingTarget();
+    }
 
 
-    constructor(private clientService: ClientService,
+  constructor(private clientService: ClientService,
                 private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private paginationService: PaginationService,
@@ -57,7 +61,7 @@ export class SiteSalariesPageComponent implements OnInit {
         this.id_site = localStorage.id_site;
         console.log('get from LS ' + this.id_site);
         this.checkFreeSalarieAccount();
-        this.findEmployeeByNameFunction('');
+        this.findEmployeeByNameFunction('', 1, '');
 
         this.siteService.tableMobileViewInit();
     }
@@ -73,9 +77,9 @@ export class SiteSalariesPageComponent implements OnInit {
         this.activePage = +localStorage.siteEmployeeSearch_page;
 
         if (this.searchName && this.activePage) {
-            this.findEmployeeByNameFunction(this.searchName, this.activePage + 1);
+            this.findEmployeeByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findEmployeeByNameFunction('');
+            this.findEmployeeByNameFunction('', 1, '');
         }
     }
 
@@ -88,7 +92,7 @@ export class SiteSalariesPageComponent implements OnInit {
     }
 
 
-    public findEmployeeByNameFunction(name:string, page:any = 1) {
+    public findEmployeeByNameFunction(name: string, page: any = 1, sort: string) {
         this.loading = true;
         this.emptyTable = false;
 
@@ -99,7 +103,7 @@ export class SiteSalariesPageComponent implements OnInit {
             _name = localStorage.siteEmployeeSearch_name;
         }
 
-        this.siteService.findEmployeeByName(_name, page, this.id_site)
+        this.siteService.findEmployeeByName(_name, page, this.id_site, sort)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;

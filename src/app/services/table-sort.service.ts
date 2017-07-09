@@ -6,14 +6,14 @@ export class TableSortService {
 
     sorting: any = { column: 'name',  descending: false };
 
-    public selectedClass(columnName): string{
-        return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+    public selectedClass(columnName): string {
+        return columnName === this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }        //    access = (age > 14) ? true : false;
 
-    public changeSorting(columnName): void{
+    public changeSorting(columnName): void {
         console.log(columnName);
-        var sort = this.sorting;
-        if (sort.column == columnName) {
+        const sort = this.sorting;
+        if (sort.column === columnName) {
             sort.descending = !sort.descending;
         } else {
             sort.column = columnName;
@@ -22,13 +22,12 @@ export class TableSortService {
     }
 
 
-    public _changeSorting(columnName:string, e:any): void{
+    public _changeSorting(columnName: string, e: any): void {
         let sortingDirection: string;
         let thClass: string;
-        console.log(columnName);
 
-        var sort = this.sorting;
-        if (sort.column == columnName) {
+        const sort = this.sorting;
+        if (sort.column === columnName) {
             sort.descending = !sort.descending;
         } else {
             sort.column = columnName;
@@ -51,7 +50,7 @@ export class TableSortService {
         console.log(this.sortingTarget);
     }
 
-    public _getSortingTarget():string {
+    public _getSortingTarget(): string {
         return this.sortingTarget;
     }
 // ///////////////////////////////////////////////////////////////////////////////////////////

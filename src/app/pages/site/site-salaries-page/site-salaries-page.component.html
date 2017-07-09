@@ -20,22 +20,24 @@
     <div class="search-panel clearfix">
         <button class="add-an-item-button" *ngIf="addNewSalariesAvailable"  (click)="gotoNewSalariesForm()"></button>
         <div class="search-wrapper">
-            <button class="search-button" type="button" (click)='findEmployeeByNameFunction(findSalarieByName.value, 1)'></button>
+            <button class="search-button" type="button" (click)='findEmployeeByNameFunction(findSalarieByName.value, 1, "")'></button>
             <input #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
                    class="form-control search-input" placeholder="Rechercher"
-                   (keyup.enter)='findEmployeeByNameFunction(findSalarieByName.value)'>
+                   (keyup.enter)='findEmployeeByNameFunction(findSalarieByName.value, 1, "")'>
         </div>
     </div>
     <div class="table-wrapper">
         <table class="table-default salaries-site-table">
             <thead>
                 <tr>
-                    <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
-                        <button [class]="tableSortService.selectedClass(header.variable)" ></button>
-                        {{header.display}}
+                    <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
+                                                                  getSortingTarget();
+                                                                  findEmployeeByNameFunction(findSalarieByName.value, 1, sortingTarget);">
+                      <button [class]="tableSortService.selectedClass(header.variable)" ></button>
+                      {{header.display}}
                     </th>
                     <th>
-                        <span>Action</span>
+                      <span>Action</span>
                     </th>
                 </tr>
             </thead>
@@ -55,7 +57,7 @@
                     <td>{{salarie.surname}}</td>
                     <td>{{salarie.numSecu}}</td>
                     <td>{{salarie.groupName}}</td>
-                    <td>TODO: Admin</td>
+                    <td>{{salarie.access | valueNull}}</td>
                     <td>{{salarie.validityPeriod | validityPeriod}}</td>
                     <td>
                         <a href="javascript:void(0);" (click)='modifierSalarieFunction(salarie.id)'>{{salarie.id}}Modifier</a>
@@ -69,32 +71,32 @@
     <nav aria-label="Page navigation" class="pagination-wrapper">
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li *ngIf="!(pager.currentPage === 1)">
-                <a class="prev-link" (click)="findEmployeeByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
+                <a class="prev-link" (click)="findEmployeeByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
-                <a href="javascript:void(0);"  (click)="findEmployeeByNameFunction('lineUp', 1)" >1</a>
+                <a href="javascript:void(0);"  (click)="findEmployeeByNameFunction('lineUp', 1, '')" >1</a>
             </li>
             <li *ngIf="pager.hiddenAtStart">
-                <a (click)="findEmployeeByNameFunction('lineUp', pager.startPage-1)"  >...</a>
+                <a (click)="findEmployeeByNameFunction('lineUp', pager.startPage-1, '')"  >...</a>
             </li>
 
             <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="findEmployeeByNameFunction('lineUp', page)">{{page}}</a>
+                <a (click)="findEmployeeByNameFunction('lineUp', page, '')">{{page}}</a>
             </li>
 
             <li *ngIf="pager.hiddenAtEnd">
-                <a (click)="findEmployeeByNameFunction('lineUp', pager.endPage+1)" >...</a>
+                <a (click)="findEmployeeByNameFunction('lineUp', pager.endPage+1, '')" >...</a>
             </li>
             <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
-                <a (click)="findEmployeeByNameFunction('lineUp', pager.totalPages)">{{pager.totalPages}}</a>
+                <a (click)="findEmployeeByNameFunction('lineUp', pager.totalPages, '')">{{pager.totalPages}}</a>
             </li>
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
-                   (click)="findEmployeeByNameFunction('lineUp', pager.currentPage + 1)">
+                   (click)="findEmployeeByNameFunction('lineUp', pager.currentPage + 1, '')">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
