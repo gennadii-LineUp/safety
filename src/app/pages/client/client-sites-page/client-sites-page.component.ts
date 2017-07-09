@@ -200,6 +200,7 @@ export class ClientSitesPageComponent implements OnInit {
                     this.cancellMessages();
                     console.log(result);
                     this.newSite_id = result.siteId;
+                    this.successCreating = "Well done! You've created a new client.";
                     if (this.userHasChoosenFile) {
                         this.loadingFile = true;
                         this.clientService.uploadImage(this.file, this.newSite_id)
@@ -208,18 +209,13 @@ export class ClientSitesPageComponent implements OnInit {
                                     this.loadingFile = false;
                                     this.uploadedFile = true;
                                     console.log(result);
-                                    this.successCreating = "Well done! You've created a new client.";
                                 }
                             }, (err) => {
                                 this.loadingFile = false;
                                 this.uploadFileText = '  error  error  error';
                                 console.log(err);
-
                                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
                             });
-                    }
-                    else {
-                        this.successCreating = "Well done! You've created a new client.";
                     }
                     this.creating = false;
                     this.userHasChoosenFile = false;

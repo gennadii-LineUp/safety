@@ -103,9 +103,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     public fileChange(event) {
         this.loadingFile = false;
         this.uploadedFile = false;
-        let fileList: FileList = event.target.files;
+        const fileList: FileList = event.target.files;
         console.log(fileList);
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];
             this.uploadFileText = this.file.name;
@@ -146,8 +146,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.employees.birthDate = this.siteService.convertDataForInputView(result.birthDate);
                     this.loaded = true;
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
-                    this.getAttestations('');
                     this.getDatesAutorisations();
+                    this.getAttestations('');
+
                 }
             }, (err) => {
                 this.loading = false;
@@ -249,6 +250,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
         this.visites.medicalVisitDateExpires = datepicker_medicalVisit;
         this.visites.cacesDateExpires = datepicker_caces;
+        console.log('====MedicaleCacesDates TO server:');
         console.log(this.visites);
 
         this.siteService.addMedicaleCacesDates(this.visites, this.id_site, this.id_salarie)
@@ -331,13 +333,23 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
   public getDatesAutorisations() {
     this.loadingDatesAutorisations = true;
+    this.visites = new VisitesClass('', '');
 
     this.siteService.getMedicaleCacesDates(this.id_site, this.id_salarie)
       .subscribe(result => {
         if (result) {
+          console.log('====MedicaleCacesDates from server:');
+          console.dir(result);
           this.loadingDatesAutorisations = false;
-          this.visites.cacesDateExpires = this.siteService.convertDataForInputView(result.cacesDateExpires);
-          this.visites.medicalVisitDateExpires = this.siteService.convertDataForInputView(result.medicalVisitDateExpires);
+          if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
+            this.visites = new VisitesClass('', '');
+          } else {
+
+            console.log(this.siteService.convertDataForInputView(result.cacesDateExpires));
+            console.log(this.siteService.convertDataForInputView(result.medicalVisitDateExpires));
+            this.visites.medicalVisitDateExpires = this.siteService.convertDataForInputView(result.medicalVisitDateExpires);
+            this.visites.cacesDateExpires = this.siteService.convertDataForInputView(result.cacesDateExpires);
+          }
         }
       }, (err) => {
         this.loadingDatesAutorisations = false;
@@ -348,7 +360,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
   public getAttestations(sort: string) {
         this.loadingAttestations = true;
-        //this.emptyTable = false;
         this.siteService.getAttestations(this.id_site, this.id_salarie, sort)
             .subscribe(result => {
                 if (result) {

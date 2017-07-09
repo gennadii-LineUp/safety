@@ -172,9 +172,8 @@ export class SiteSalariesCreationComponent implements OnInit {
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    console.log(result);
-                    localStorage.setItem('id_salarie', ''+result.userId);
-                    console.log(localStorage.id_salarie);
+                    localStorage.setItem('id_salarie', '' + result.userId);
+                    console.log('===== id NEW SALARIEE: ' + localStorage.id_salarie);
                     setTimeout(() => {
                         this.gotoSiteSalariesCreationStep2Page();
                     }, 1000);
@@ -186,11 +185,11 @@ export class SiteSalariesCreationComponent implements OnInit {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
-    hideIndetermineeDates:boolean = true;
-    public hideIndetermineeDatesFunction(e:any){
+    hideIndetermineeDates: boolean = true;
+    public hideIndetermineeDatesFunction(e: any) {
         console.dir(e.target.previousElementSibling.id);
         this.hideIndetermineeDates = false;
-        if (e.target.previousElementSibling.id == 'indeterminee') {
+        if (e.target.previousElementSibling.id === 'indeterminee') {
             this.hideIndetermineeDates = true;
         }
     }

@@ -59,12 +59,12 @@ export class SiteService {
     }
     public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-        console.log(url);
+        console.log(MedicaleCacesDates);
         return this.backendService.post(url, JSON.stringify(MedicaleCacesDates));
     }
   public getMedicaleCacesDates(siteId: number, employeeId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-    console.log(url);
+    console.log('======getMedicaleCacesDates url:' + url);
     return this.backendService.get(url);
   }
 
@@ -115,15 +115,22 @@ export class SiteService {
 
 
     public convertDataForInputView(strDate: string): string {
-        const date = new Date(strDate);
-        let mm: any;
-        mm = +date.getMonth() + 1;
-        if (mm < 10) {mm = '0' + mm; }
+        const date = Date.parse(strDate);
+        console.log(date);
+
+// new Date((Date.parse("2017-01-01T00:00:00+0300")))
+
         let dd: any;
-        dd = +date.getDate() + 1;
+        dd = (new Date(date)).getDate();
+        console.log('day ' + dd);
         if (dd < 10) {dd = '0' + dd; }
 
-        return mm + '/' + dd + '/' + date.getFullYear();
+        let mm: any;
+        mm = +(new Date(date)).getMonth() + 1;
+        console.log('month ' + mm);
+        if (mm < 10) {mm = '0' + mm; }
+
+        return mm + '/' + dd + '/' + (new Date(date)).getFullYear();
     }
 
 

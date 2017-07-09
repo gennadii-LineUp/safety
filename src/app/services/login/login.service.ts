@@ -13,7 +13,7 @@ export class LoginService {
 
     login(user: string, password: string): Observable<any> {
         this.logout();
-        const usernamePassword = btoa(user + ': ' + password);
+        let usernamePassword = btoa(user + ':' + password);
 
         return this.backendService.login(UrlParams.LOGIN, 'LineUp', usernamePassword);
     }
