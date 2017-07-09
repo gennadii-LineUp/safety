@@ -50,6 +50,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     chariotsElevateurs: boolean = true;
     gruesMobiles: boolean = false;
 
+    activeSelect = 'chariotsElevateurs';
     Type = [
         { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
         { value: 'gruesMobiles', display: 'Grues mobiles R.383m' }
@@ -112,8 +113,26 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         }
     }
 
+  // activeSelect = 'chariotsElevateurs';
+  // Type = [
+  //   { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
+  //   { value: 'gruesMobiles',       display: 'Grues mobiles R.383m' },
+  //   { value: 'grues',              display: 'Grues ' }
+  // ];
 
-    public ShowType(userChoice: string) {
+
+  public ShowType(userChoice: string) {
+    this.activeSelect = userChoice;
+      // switch (userChoice) {
+      //   case 'chariotsElevateurs':  key=Type[0].value;  break;
+      //   case 'gruesMobiles':        key=Type[1].value;  break;
+      //   case 'grues':               key=Type[2].value;  break;
+      //   default:    key;
+      // }
+      // return Type[0].value;
+
+    this.activeSelect = userChoice;
+
         if (userChoice === 'gruesMobiles') {
             this.chariotsElevateurs = false;
             this.gruesMobiles = true;

@@ -326,21 +326,22 @@
             <!--</select>-->
 
             <div>
-                <select name="role" [(ngModel)]="Type[0].value"  (change)="ShowType(bbb)">
+                <select name="role" [(ngModel)]="bbb"  (change)="ShowType(bbb)">
                     <option *ngFor="let type of Type" [value]="type.value">
                         {{type.display}}
                     </option>
                 </select>
             </div>
 
-            <!--<select #heroFromSelect class="form-control"-->
-            <!--[(ngModel)]="aaaaa"-->
-            <!--(change)="DefineHeroToDelete(aaaaa)">-->
 
-            <!--<option *ngFor="let hero of heroes" [ngValue]="hero">-->
-            <!--<span class="bold"> {{hero.name | uppercase}}</span>, id: {{hero.id}}-->
-            <!--</option>-->
+          <!--<div>-->
+            <!--<select [(ngModel)]="activeSelect"  #machines  (change)="ShowType(machines.value)">-->
+              <!--<option *ngFor="let type of Type" [value]="type.value">-->
+                <!--{{type.display}}-->
+              <!--</option>-->
             <!--</select>-->
+          <!--{{type.display}}-->
+          <!--</div>-->
 
 
             <div class="tabbable">
