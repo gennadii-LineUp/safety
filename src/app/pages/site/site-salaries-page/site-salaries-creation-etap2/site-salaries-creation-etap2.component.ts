@@ -197,6 +197,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.clientService.getGroupList()
             .subscribe(result => {
                 if (result) {
+                  console.log(result);
                     this.loadingGroupes = false;
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
@@ -210,13 +211,21 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
 
     public submitModifyEtap1Form() {
-        let datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
+        const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
-        this.employees.birthDate = datepicker_birthDate;
+    //  startDate
+
+      if (this.employees.startDate) {
+        this.employees.startDate = this.siteService.convertDataForInputView(this.employees.startDate);
+      }
+      if (this.employees.endDate) {
+        this.employees.endDate = this.siteService.convertDataForInputView(this.employees.endDate);
+      }
+      this.employees.birthDate = datepicker_birthDate;
         console.dir(this.employees);
 
         this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)

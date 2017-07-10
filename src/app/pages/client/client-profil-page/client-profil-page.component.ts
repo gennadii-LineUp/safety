@@ -81,16 +81,6 @@ export class ClientProfilPageComponent implements OnInit {
     }
 
 
-    private cancellErrorMessage() {
-        this.loading = false;
-        this.updating = true;
-        this.errorUpdate = '';
-        this.errorLoad = '';
-    }
-    public cancellSuccessMessage() {
-        this.updating = false;
-    }
-
     public fileChange(event) {
         this.uploadedFile = false;
         const fileList: FileList = event.target.files;
@@ -205,7 +195,19 @@ export class ClientProfilPageComponent implements OnInit {
         this.router.navigate(['/client']);
     }
 
-    public toggleDifferentBillingAddress(checkbox) {
+    private cancellErrorMessage() {
+      this.loading = false;
+      this.updating = true;
+      this.errorUpdate = '';
+      this.errorLoad = '';
+    }
+    public cancellSuccessMessage() {
+      this.updating = false;
+      this.successUpdate = '';
+    }
+
+
+  public toggleDifferentBillingAddress(checkbox) {
         this.billingAddressIsDifferent = !checkbox.target.checked;
     }
 
