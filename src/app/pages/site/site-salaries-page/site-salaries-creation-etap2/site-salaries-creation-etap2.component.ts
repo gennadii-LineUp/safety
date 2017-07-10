@@ -50,15 +50,22 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     chariotsElevateurs: boolean = true;
     gruesMobiles: boolean = false;
 
-    activeSelect = 'chariotsElevateurs';
+    activeSelect = '3';
     Type = [
         { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
         { value: 'gruesMobiles', display: 'Grues mobiles R.383m' }
     ];
   TypeM = [
-    { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
-    { value: 'gruesMobiles',       display: 'Grues mobiles R.383m' },
-    { value: 'grues',              display: 'Grues ' }
+    { value: '3', display: 'VL' },
+    { value: '4', display: 'PL' },
+    { value: '5', display: 'Remorque' },
+    { value: '6', display: 'Chariots élévateurs R.389' },
+    { value: '7', display: 'PEMP (nacelle) R.386' },
+    { value: '8', display: 'Ponts roulants R.318/423' },
+    { value: '9', display: 'Engins de chantier R.372m' },
+    { value: '10', display: 'Grues auxiliaire R.390' },
+    { value: '11', display: 'Grues à tour R.377m' },
+    { value: '12', display: 'Grues mobiles R.383m' }
   ];
 
     headers: any[] = [
@@ -120,15 +127,20 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
 
 
-
-
   public ShowType(userChoice: string) {
       console.log(userChoice);
 
       switch (userChoice) {
-        case 'chariotsElevateurs':  this.activeSelect = this.TypeM[0].value;  break;
-        case 'gruesMobiles':        this.activeSelect = this.TypeM[1].value;  break;
-        case 'grues':               this.activeSelect = this.TypeM[2].value;  break;
+        case  '3':  this.activeSelect = this.TypeM[0].value;  break;
+        case  '4':  this.activeSelect = this.TypeM[1].value;  break;
+        case  '5':  this.activeSelect = this.TypeM[2].value;  break;
+        case  '6':  this.activeSelect = this.TypeM[3].value;  break;
+        case  '7':  this.activeSelect = this.TypeM[4].value;  break;
+        case  '8':  this.activeSelect = this.TypeM[5].value;  break;
+        case  '9':  this.activeSelect = this.TypeM[6].value;  break;
+        case '10':  this.activeSelect = this.TypeM[7].value;  break;
+        case '11':  this.activeSelect = this.TypeM[8].value;  break;
+        case '12':  this.activeSelect = this.TypeM[9].value;  break;
         default:    this.activeSelect = this.TypeM[0].value;
       }
       // return this.activeSelect=Type[0].value;

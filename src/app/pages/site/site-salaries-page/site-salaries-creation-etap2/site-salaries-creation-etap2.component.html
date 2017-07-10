@@ -320,15 +320,9 @@
         <form action="/" class="modal-form">
             <p class="form-subheader">Type</p>
 
-            <!--<select #typeDeConduite >-->
-            <!--<option>Chariots élévateurs R.389</option>-->
-            <!--<option>Grues mobiles R.383m</option>-->
-            <!--</select>-->
-
             <span class="caret"></span>
             <div class="select-wrapper">
                 <select name="role" [(ngModel)]="activeSelect"  (change)="ShowType(activeSelect)">
-
                   <option *ngFor="let type of TypeM" [value]="type.value">
                         {{type.display}}
                     </option>
@@ -336,135 +330,144 @@
             </div>
 
 
-          <!--<div>-->
-            <!--<select [(ngModel)]="activeSelect"  #machines  (change)="ShowType(machines.value)">-->
+
+          <!--<span class="caret"></span>-->
+          <!--<div class="select-wrapper">-->
+            <!--<select name="role" [(ngModel)]="activeSelect"  (change)="ShowType(activeSelect)">-->
               <!--<option *ngFor="let type of TypeM" [value]="type.value">-->
                 <!--{{type.display}}-->
               <!--</option>-->
             <!--</select>-->
-          <!--{{type.display}}-->
+          <!--</div>-->
+          <!--<div *ngIf="activeSelect==='chariotsElevateurs'">-->
+            <!--hello 1-->
+          <!--</div>-->
+          <!--<div *ngIf="activeSelect==='gruesMobiles'">-->
+            <!--hello 2-->
+          <!--</div>-->
+          <!--<div *ngIf="activeSelect==='grues'">-->
+            <!--hello 3-->
           <!--</div>-->
 
-          <div *ngIf="activeSelect==='chariotsElevateurs'">
-            hello 1
-          </div>
-          <div *ngIf="activeSelect==='gruesMobiles'">
-            hello 2
-          </div>
-          <div *ngIf="activeSelect==='grues'">
-            hello 3
-          </div>
-          <!--//   { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },-->
-          <!--//   { value: 'gruesMobiles',       display: 'Grues mobiles R.383m' },-->
-          <!--//   { value: 'grues',              display: 'Grues ' }-->
-
             <div class="tabbable">
-                <!--<ul class="nav nav-tabs nav-pills" id="dropdown-tabs">-->
-                <!--<li class="dropdown active">-->
-                <!--<span href="#" class="dropdown-toggle" data-toggle="dropdown">Chariots élévateurs R.389 <span class="caret"></span></span>-->
-                <!--<ul class="dropdown-menu" role="menu">-->
-                <!--<li><a href="#tab3" data-toggle="tab">Chariots élévateurs R.389</a>-->
-                <!--</li>-->
-                <!--<li><a href="#tab4" data-toggle="tab">Grues mobiles R.383m</a>-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--</li>-->
-                <!--</ul>-->
+
                 <button class="form-button green-button ok-button pull-right">Ok</button>
                 <div class="clearfix"></div>
-                <div class="tab-content">
+                <div class="tab-content" style="min-height: 360px;">
+                  <div *ngIf="activeSelect==='3'">
+                    1
+                  </div>
+                  <div *ngIf="activeSelect==='4'">
+                    2
+                  </div>
+                  <div *ngIf="activeSelect==='5'">
+                    3
+                  </div>
 
-                    <!--<div  class="tab-pane active" id="tab3">-->
-                    <div *ngIf='chariotsElevateurs' class="control-group">
-                        <p class="form-subheader">Chariots élévateurs R.389</p>
-                        <br><br><br>
-                        <label class="control control--checkbox">Catégorie 1 : transpalette à conducteur porté
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Catégorie 2 : tracteur ou porteur cap. max. 6t
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Catégorie 3 : porte-à-faux cap. max. 6t
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Catégorie 4 : porte-à-faux cap. + 6t
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Catégorie 5 : mât rétractable
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Catégorie 6 : conduite hors production
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Complément de formation engins spéciaux (5+)
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                    </div>
-                    <!--</div>-->
+                  <div *ngIf="activeSelect==='6'" class="control-group">
+                    <p class="form-subheader">Chariots élévateurs R.389</p>
+                    <br><br><br>
+                    <label class="control control--checkbox">Catégorie 1 : transpalette à conducteur porté
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 2 : tracteur ou porteur cap. max. 6t
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 3 : porte-à-faux cap. max. 6t
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 4 : porte-à-faux cap. + 6t
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 5 : mât rétractable
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 6 : conduite hors production
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Complément de formation engins spéciaux (5+)
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                  </div>
 
-                    <!--<div class="tab-pane" id="tab4">-->
-                    <div *ngIf='gruesMobiles' class="control-group">
-                        <p class="form-subheader">Grues mobiles R.383m</p>
-                        <br><br><br>
-                        <p class="vehicle-type">Type 1 : Routier</p>
-                        <br><br><br>
-                        <label class="control control--checkbox">Automotrice immatriculée
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Automotrice non immatriculée
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Sur porteur automoteur
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Tractée
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <p class="vehicle-type">Type 2 : Non routier</p>
-                        <br><br><br>
-                        <label class="control control--checkbox">Sur chenilles
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Sur bandage ou rail
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <label class="control control--checkbox">Sur ponton
-                            <input type="checkbox">
-                            <span class="control__indicator"></span>
-                        </label>
-                        <p class="vehicle-type">Equipement</p>
-                        <br><br><br>
-                        <div class="radio">
-                            <input id="radio-101" name="radio1" checked="checked" type="radio">
-                            <label for="radio-101" class="radio-label">A - Treillis</label>
-                        </div>
-                        <div class="radio">
-                            <input id="radio-102" name="radio1" checked="" type="radio">
-                            <label for="radio-102" class="radio-label">B - Télescopique avec fléchette</label>
-                        </div>
-                        <div class="radio">
-                            <input id="radio-13" name="radio1" checked="" type="radio">
-                            <label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>
-                        </div>
-                        <div class="radio">
-                            <input id="radio-14" name="radio1" checked="" type="radio">
-                            <label for="radio-14" class="radio-label">C - Spécial</label>
-                        </div>
+                  <div *ngIf="activeSelect==='7'">
+                    7
+                  </div>
+                  <div *ngIf="activeSelect==='8'">
+                    8
+                  </div>
+                  <div *ngIf="activeSelect==='9'">
+                    9
+                  </div>
+                  <div *ngIf="activeSelect==='10'">
+                    10
+                  </div>
+                  <div *ngIf="activeSelect==='11'">
+                    11
+                  </div>
+
+                  <div *ngIf="activeSelect==='12'" class="control-group">
+                    <p class="form-subheader">Grues mobiles R.383m</p>
+                    <br><br><br>
+                    <p class="vehicle-type">Type 1 : Routier</p>
+                    <br><br><br>
+                    <label class="control control--checkbox">Automotrice immatriculée
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Automotrice non immatriculée
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Sur porteur automoteur
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Tractée
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <p class="vehicle-type">Type 2 : Non routier</p>
+                    <br><br><br>
+                    <label class="control control--checkbox">Sur chenilles
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Sur bandage ou rail
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Sur ponton
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <p class="vehicle-type">Equipement</p>
+                    <br><br><br>
+                    <div class="radio">
+                      <input id="radio-101" name="radio1" checked="checked" type="radio">
+                      <label for="radio-101" class="radio-label">A - Treillis</label>
                     </div>
-                    <!--</div>-->
+                    <div class="radio">
+                      <input id="radio-102" name="radio1" checked="" type="radio">
+                      <label for="radio-102" class="radio-label">B - Télescopique avec fléchette</label>
+                    </div>
+                    <div class="radio">
+                      <input id="radio-13" name="radio1" checked="" type="radio">
+                      <label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>
+                    </div>
+                    <div class="radio">
+                      <input id="radio-14" name="radio1" checked="" type="radio">
+                      <label for="radio-14" class="radio-label">C - Spécial</label>
+                    </div>
+                  </div>
+
                 </div>
             </div>
         </form>
