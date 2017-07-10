@@ -325,9 +325,11 @@
             <!--<option>Grues mobiles R.383m</option>-->
             <!--</select>-->
 
-            <div>
-                <select name="role" [(ngModel)]="bbb"  (change)="ShowType(bbb)">
-                    <option *ngFor="let type of Type" [value]="type.value">
+            <span class="caret"></span>
+            <div class="select-wrapper">
+                <select name="role" [(ngModel)]="activeSelect"  (change)="ShowType(activeSelect)">
+
+                  <option *ngFor="let type of TypeM" [value]="type.value">
                         {{type.display}}
                     </option>
                 </select>
@@ -336,13 +338,25 @@
 
           <!--<div>-->
             <!--<select [(ngModel)]="activeSelect"  #machines  (change)="ShowType(machines.value)">-->
-              <!--<option *ngFor="let type of Type" [value]="type.value">-->
+              <!--<option *ngFor="let type of TypeM" [value]="type.value">-->
                 <!--{{type.display}}-->
               <!--</option>-->
             <!--</select>-->
           <!--{{type.display}}-->
           <!--</div>-->
 
+          <div *ngIf="activeSelect==='chariotsElevateurs'">
+            hello 1
+          </div>
+          <div *ngIf="activeSelect==='gruesMobiles'">
+            hello 2
+          </div>
+          <div *ngIf="activeSelect==='grues'">
+            hello 3
+          </div>
+          <!--//   { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },-->
+          <!--//   { value: 'gruesMobiles',       display: 'Grues mobiles R.383m' },-->
+          <!--//   { value: 'grues',              display: 'Grues ' }-->
 
             <div class="tabbable">
                 <!--<ul class="nav nav-tabs nav-pills" id="dropdown-tabs">-->

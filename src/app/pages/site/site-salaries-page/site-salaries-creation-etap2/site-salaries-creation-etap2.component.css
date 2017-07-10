@@ -320,3 +320,49 @@ modal-content-SSAtt .form-control {
     text-align: left !important;
     padding-left: 23px !important;
 }
+
+
+div.select-wrapper{
+  width: 483px;
+  height: 42px;
+  overflow: hidden;
+}
+select {
+  width: 484px;
+  height: 42px;
+  background: transparent;
+  background: rgba(0, 0, 0, 0);
+  -webkit-appearance: none;
+  outline: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #8d8d8d !important;
+  position: relative;
+  border: 1px solid #bdbdbd !important;
+  border-radius: 0;
+  text-align: left;
+  display: block;
+  padding: 10px 15px;
+  margin-right: 2px;
+  line-height: 1.42857143;
+  box-sizing: border-box;
+  position: relative;
+}
+select option {
+  line-height: 1.42857143;
+  padding: 10px 15px !important;
+}
+span.caret{
+  position: absolute;
+  display: inline-block;
+  margin-left: 2px;
+  vertical-align: middle;
+  cursor: default;
+  right: 0;
+  top: 47px;
+  width: 42px;
+  height: 42px;
+  background: url(../../../../../assets/img/dropdown-caret.png) no-repeat;
+  border: none;
+  border-radius: 0;
+}

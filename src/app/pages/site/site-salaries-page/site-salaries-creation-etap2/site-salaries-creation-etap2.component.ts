@@ -7,7 +7,7 @@ import {EmployeesClass} from 'app/models/const/employees-class';
 import {VisitesClass} from '../../../../models/const/visites-class';
 import {AttestationClass} from '../../../../models/const/attestations-class';
 import {TableSortService} from '../../../../services/table-sort.service';
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-site-salaries-creation-etap2',
@@ -55,6 +55,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
         { value: 'gruesMobiles', display: 'Grues mobiles R.383m' }
     ];
+  TypeM = [
+    { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
+    { value: 'gruesMobiles',       display: 'Grues mobiles R.383m' },
+    { value: 'grues',              display: 'Grues ' }
+  ];
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }//,
@@ -113,34 +118,31 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         }
     }
 
-  // activeSelect = 'chariotsElevateurs';
-  // Type = [
-  //   { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
-  //   { value: 'gruesMobiles',       display: 'Grues mobiles R.383m' },
-  //   { value: 'grues',              display: 'Grues ' }
-  // ];
+
+
 
 
   public ShowType(userChoice: string) {
-    this.activeSelect = userChoice;
-      // switch (userChoice) {
-      //   case 'chariotsElevateurs':  key=Type[0].value;  break;
-      //   case 'gruesMobiles':        key=Type[1].value;  break;
-      //   case 'grues':               key=Type[2].value;  break;
-      //   default:    key;
-      // }
-      // return Type[0].value;
+      console.log(userChoice);
 
-    this.activeSelect = userChoice;
+      switch (userChoice) {
+        case 'chariotsElevateurs':  this.activeSelect = this.TypeM[0].value;  break;
+        case 'gruesMobiles':        this.activeSelect = this.TypeM[1].value;  break;
+        case 'grues':               this.activeSelect = this.TypeM[2].value;  break;
+        default:    this.activeSelect = this.TypeM[0].value;
+      }
+      // return this.activeSelect=Type[0].value;
 
-        if (userChoice === 'gruesMobiles') {
-            this.chariotsElevateurs = false;
-            this.gruesMobiles = true;
-        } else {
-            this.gruesMobiles = false;
-            this.chariotsElevateurs = true;
-        }
-        console.log(userChoice);
+    // this.activeSelect = userChoice;
+    //
+    //     if (userChoice === 'gruesMobiles') {
+    //         this.chariotsElevateurs = false;
+    //         this.gruesMobiles = true;
+    //     } else {
+    //         this.gruesMobiles = false;
+    //         this.chariotsElevateurs = true;
+    //     }
+
 
     }
 
