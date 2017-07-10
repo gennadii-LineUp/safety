@@ -40,7 +40,7 @@ export class ErrorMessageHandlerService {
         return false;
     }
 
-    public errorHandler(errorObject: any):string {
+    public errorHandler(errorObject: any): string {
         this.message = '';
         for (let key in errorObject) {
             let status: string = '';
@@ -51,7 +51,7 @@ export class ErrorMessageHandlerService {
             try {
                 status = errorObject[key];
                 this.message += _key
-                                +' - '
+                                + ' - '
                                 + status[0].toLowerCase()
                                 + status.substring(1).slice(0,-1)
                                 + ';  ';
@@ -60,15 +60,15 @@ export class ErrorMessageHandlerService {
                     for (let i in errorObject[key]) {
                         let _status = errorObject[key][i];
                         this.message += _key
-                            +' - "'
+                            + ' - "'
                             + i
-                            +'": '
+                            + '": '
                             + _status[0].toLowerCase()
-                            + _status.substring(1).slice(0,-1)
+                            + _status.substring(1).slice(0, -1)
                             + ';  ';
                     }
                 } catch (er) {
-                    this.message += _key +' - '+ 'this value is not valid;  ';
+                    this.message += _key + ' - ' + 'this value is not valid;  ';
                 }
             }
         }

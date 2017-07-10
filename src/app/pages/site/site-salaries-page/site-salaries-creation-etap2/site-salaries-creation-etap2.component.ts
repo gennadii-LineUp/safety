@@ -7,6 +7,8 @@ import {EmployeesClass} from 'app/models/const/employees-class';
 import {VisitesClass} from '../../../../models/const/visites-class';
 import {AttestationClass} from '../../../../models/const/attestations-class';
 import {TableSortService} from '../../../../services/table-sort.service';
+import {NgForm} from "@angular/forms";
+import {DrivingLicenseClass} from "../../../../models/const/driving-license-class";
 declare var $: any;
 
 @Component({
@@ -36,8 +38,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     itemForChange = 0;
 
     errorSalaries: boolean = false;
-    salariesMaxPossible:number;
-    salariesUsed:number;
+    salariesMaxPossible: number;
+    salariesUsed: number;
 
     emptyTable: boolean = true;
 
@@ -45,28 +47,22 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     id_salarie: number;
     private sub: any;
 
-    checkedGroupFromEtap1:any;
-
-    chariotsElevateurs: boolean = true;
-    gruesMobiles: boolean = false;
+    checkedGroupFromEtap1: any;
 
     activeSelect = '3';
-    Type = [
-        { value: 'chariotsElevateurs', display: 'Chariots élévateurs R.389' },
-        { value: 'gruesMobiles', display: 'Grues mobiles R.383m' }
+    categoryDrivingLicense = 3;
+    TypeM = [
+      { value: '3', display: 'VL' },
+      { value: '4', display: 'PL' },
+      { value: '5', display: 'Remorque' },
+      { value: '6', display: 'Chariots élévateurs R.389' },
+      { value: '7', display: 'PEMP (nacelle) R.386' },
+      { value: '8', display: '===Ponts roulants R.318/423' },
+      { value: '9', display: 'Engins de chantier R.372m' },
+      { value: '10', display: 'Grues auxiliaire R.390' },
+      { value: '11', display: 'Grues à tour R.377m' },
+      { value: '12', display: 'Grues mobiles R.383m' }
     ];
-  TypeM = [
-    { value: '3', display: 'VL' },
-    { value: '4', display: 'PL' },
-    { value: '5', display: 'Remorque' },
-    { value: '6', display: 'Chariots élévateurs R.389' },
-    { value: '7', display: 'PEMP (nacelle) R.386' },
-    { value: '8', display: 'Ponts roulants R.318/423' },
-    { value: '9', display: 'Engins de chantier R.372m' },
-    { value: '10', display: 'Grues auxiliaire R.390' },
-    { value: '11', display: 'Grues à tour R.377m' },
-    { value: '12', display: 'Grues mobiles R.383m' }
-  ];
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }//,
@@ -80,6 +76,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     visites = new VisitesClass('', '');
     public employeeAttestations = [];
     attestation = new AttestationClass('', '', '');
+    drivingLicense = new DrivingLicenseClass([], 0);
 
 
   public getSortingTarget() {
@@ -126,8 +123,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-
-  public ShowType(userChoice: string) {
+    public ShowType(userChoice: string) {
       console.log(userChoice);
 
       switch (userChoice) {
@@ -143,19 +139,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         case '12':  this.activeSelect = this.TypeM[9].value;  break;
         default:    this.activeSelect = this.TypeM[0].value;
       }
-      // return this.activeSelect=Type[0].value;
 
-    // this.activeSelect = userChoice;
-    //
-    //     if (userChoice === 'gruesMobiles') {
-    //         this.chariotsElevateurs = false;
-    //         this.gruesMobiles = true;
-    //     } else {
-    //         this.gruesMobiles = false;
-    //         this.chariotsElevateurs = true;
-    //     }
-
-
+      this.categoryDrivingLicense = +userChoice;
     }
 
     public getEmployeeFromEtap1Function() {
@@ -500,5 +485,56 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
             });
         });
     }
+
+
+    _check26 = false;
+    _check27 = false;
+
+    public check26Clicked(e: any) { this._check26 = e.target.checked; }
+    public check27Clicked(e: any) { this._check27 = e.target.checked; }
+
+
+    public convertCategory(checkbox: string): number {
+      let categoryId: number;
+      return categoryId;
+    }
+
+
+  public submitCategoryDrivingLicense() {
+      this.cancellErrorMessage();
+      this.cancellSuccessMessage();
+      this.loading = true;
+
+      if (this.categoryDrivingLicense === 8) {
+        console.log(this.categoryDrivingLicense);
+        this.drivingLicense[0].push();
+      }
+      if (this.categoryDrivingLicense === 9) {
+        console.log(this.categoryDrivingLicense);
+      }
+
+    //   if (this.employees.startDate) {
+    //     this.employees.startDate = this.siteService.convertDataForInputView(this.employees.startDate);
+    //   }
+    //   if (this.employees.endDate) {
+    //     this.employees.endDate = this.siteService.convertDataForInputView(this.employees.endDate);
+    //   }
+    //   this.employees.birthDate = datepicker_birthDate;
+    //   console.dir(this.employees);
+    //
+    //   this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)
+    //     .subscribe(result => {
+    //       if (result) {
+    //         this.loading = false;
+    //         console.log(result);
+    //         this.successCreating = "Well done! You've updated this employee.";
+    //       }
+    //     }, (err) => {
+    //       this.loading = false;
+    //       console.log(err);
+    //       this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    //     });
+    }
+
 
 }

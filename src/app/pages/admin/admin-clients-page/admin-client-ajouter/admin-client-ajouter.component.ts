@@ -47,7 +47,7 @@ export class AdminClientAjouterComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        let _billingAddressIfDifferent:boolean;
+        let _billingAddressIfDifferent: boolean;
         if (!newClientForm.value.billingAddressIfDifferent) {
             _billingAddressIfDifferent = false;
         } else {

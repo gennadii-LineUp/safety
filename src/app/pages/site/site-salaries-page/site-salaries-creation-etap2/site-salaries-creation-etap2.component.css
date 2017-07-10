@@ -366,3 +366,6 @@ span.caret{
   border: none;
   border-radius: 0;
 }
+div.control-group {
+  min-height: 295px;
+}

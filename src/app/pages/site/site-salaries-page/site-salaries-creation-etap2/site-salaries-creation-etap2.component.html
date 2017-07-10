@@ -321,7 +321,7 @@
             <p class="form-subheader">Type</p>
 
             <span class="caret"></span>
-            <div class="select-wrapper">
+            <div class="select-wrapper" style="margin-bottom: 24px;">
                 <select name="role" [(ngModel)]="activeSelect"  (change)="ShowType(activeSelect)">
                   <option *ngFor="let type of TypeM" [value]="type.value">
                         {{type.display}}
@@ -353,16 +353,22 @@
 
                 <button class="form-button green-button ok-button pull-right">Ok</button>
                 <div class="clearfix"></div>
+
                 <div class="tab-content" style="min-height: 360px;">
-                  <div *ngIf="activeSelect==='3'">
-                    1
+                  <div *ngIf="activeSelect==='3' "class="control-group">
+                    <p class="form-subheader">VL</p>
                   </div>
-                  <div *ngIf="activeSelect==='4'">
-                    2
+
+
+                  <div *ngIf="activeSelect==='4'" class="control-group">
+                    <p class="form-subheader">PL</p>
                   </div>
-                  <div *ngIf="activeSelect==='5'">
-                    3
+
+
+                  <div *ngIf="activeSelect==='5'" class="control-group">
+                    <p class="form-subheader">Remorque</p>
                   </div>
+
 
                   <div *ngIf="activeSelect==='6'" class="control-group">
                     <p class="form-subheader">Chariots élévateurs R.389</p>
@@ -397,20 +403,157 @@
                     </label>
                   </div>
 
-                  <div *ngIf="activeSelect==='7'">
-                    7
+
+                  <!--"7": {-->
+                  <!--"20": "Catégorie 1/A : stabilisée, élévation verticale",-->
+                  <!--"21": "Catégorie 1/B : stabilisée, élévation multidirectionnelle",-->
+                  <!--"22": "Catégorie 2/A : sur véhicule roulant, élévation verticale",-->
+                  <!--"23": "Catégorie 2/B : sur véhicule roulant, élévation multidirectionnelle",-->
+                  <!--"24": "Catégorie 3/A : automotrice, élévation verticale",-->
+                  <!--"25": "Catégorie 3/B : automotrice, élévation multidirectionnelle"-->
+                  <!--},-->
+                  <div *ngIf="activeSelect==='7'" class="control-group">
+                    <p class="form-subheader">PEMP (nacelle) R.386</p>
+                    <br><br><br>
+                    <label class="control control--checkbox">Catégorie 1/A : stabilisée, élévation verticale
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 1/B : stabilisée, élévation multidirectionnelle
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 2/A : sur véhicule roulant, élévation verticale
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 2/B : sur véhicule roulant, élévation multidirectionnelle
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 3/A : automotrice, élévation verticale
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 3/B : automotrice, élévation multidirectionnelle
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
                   </div>
-                  <div *ngIf="activeSelect==='8'">
-                    8
+
+
+                  <!--"8": {-->
+                  <!--"26": "Cabine",-->
+                  <!--"27": "Conduite au sol : filaire, télécommande, radiocommande"-->
+                  <!--},-->
+                  <div *ngIf="activeSelect==='8'" class="control-group">
+                    <p class="form-subheader">Ponts roulants R.318/423</p>
+                    <br><br><br>
+
+                    <!--<label class="control control&#45;&#45;checkbox">-->
+                      <!--<input type="checkbox" (change)='medicalVisitSiteClicked($event)'-->
+                             <!--#medicalVisitSite="ngModel" id="medicalVisitSite"-->
+                             <!--name='medicalVisitSite' (ngModel)="medicalVisitSite" />-->
+                      <!--<span class="control__indicator"></span>-->
+                    <!--</label>-->
+
+                    <!--<input type="checkbox" name="isActive" [(ngModel)]="user.isActive">-->
+                          <label class="control control--checkbox">Cabine
+                            <input type="checkbox" name="check26" [(ngModel)]="check26" (change)='check26Clicked($event)'>
+                            <span class="control__indicator"></span>
+                          </label>
+                          <label class="control control--checkbox">Conduite au sol : filaire, télécommande, radiocommande
+                            <input type="checkbox" name="check27" [(ngModel)]="check27" (change)='check27Clicked($event)'>
+                            <span class="control__indicator"></span>
+                          </label>
+                      <button type="submit" class="form-button green-button creer-button">TEST data</button>
                   </div>
-                  <div *ngIf="activeSelect==='9'">
-                    9
+
+
+                  <!--"9": {-->
+                  <!--"28": "Catégorie 1 : tracteurs et petits engins de chantier mobiles",-->
+                  <!--"29": "Catégorie 2 : engins d’extraction et/ou de chargement à déplacement séquentiel",-->
+                  <!--"30": "Catégorie 3 : engins d’extraction à déplacement alternatif",-->
+                  <!--"31": "Catégorie 4 : engins de chargement à déplacement alternatif",-->
+                  <!--"32": "Catégorie 5 : engins de finition à déplacement lent",-->
+                  <!--"33": "Catégorie 6 : engins de réglage à déplacement alternatif",-->
+                  <!--"34": "Catégorie 7 : engins de compactage à déplacement alternatif",-->
+                  <!--"35": "Catégorie 8 : engins de transport ou d’extraction-transport",-->
+                  <!--"36": "Catégorie 9 : engins de manutention",-->
+                  <!--"37": "Catégorie 10 : conduite hors production"-->
+                  <!--},-->
+                  <div *ngIf="activeSelect==='9'" class="control-group">
+                    <p class="form-subheader">Engins de chantier R.372m</p>
+                    <br><br><br>
+                    <label class="control control--checkbox">Catégorie 1 : tracteurs et petits engins de chantier mobiles
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 2 : engins d’extraction et/ou de chargement à déplacement séquentiel
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 3 : engins d’extraction à déplacement alternatif
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 4 : engins de chargement à déplacement alternatif
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 5 : engins de finition à déplacement lent
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 6 : engins de réglage à déplacement alternatif
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 7 : engins de compactage à déplacement alternatif
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 8 : engins de transport ou d’extraction-transport
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 9 : engins de manutention
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Catégorie 10 : conduite hors production
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
                   </div>
-                  <div *ngIf="activeSelect==='10'">
-                    10
+
+
+                  <div *ngIf="activeSelect==='10'" class="control-group">
+                    <p class="form-subheader">Grues auxiliaire R.390</p>
+                    <br><br><br>
                   </div>
-                  <div *ngIf="activeSelect==='11'">
-                    11
+
+
+                  <!--"11": {-->
+                  <!--"38": "Grue à montage automatisé conduite au sol",-->
+                  <!--"39": "Grue à montage automatisé conduite en cabine",-->
+                  <!--"40": "Grue à montage par éléments"-->
+                  <!--},-->
+                  <div *ngIf="activeSelect==='11'" class="control-group">
+                    <p class="form-subheader">Grues à tour R.377m</p>
+                    <br><br><br>
+                    <label class="control control--checkbox">Grue à montage automatisé conduite au sol
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Grue à montage automatisé conduite en cabine
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
+                    <label class="control control--checkbox">Grue à montage par éléments
+                      <input type="checkbox">
+                      <span class="control__indicator"></span>
+                    </label>
                   </div>
 
                   <div *ngIf="activeSelect==='12'" class="control-group">
@@ -475,11 +618,10 @@
 
     <modal-footer-SSAut>
         <div class="button-wrapper">
-            <button type="submit" class="form-button red-button annuler-button"
-                    data-dismiss="modal"
+            <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
                     (click)="autorModal.close()">Annuler</button>
             <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                    data-dismiss="modal">Enregistrer</button>
+                    (click)='submitCategoryDrivingLicense()'>Enregistrer</button>
         </div>
     </modal-footer-SSAut>
 </modal-autor>
