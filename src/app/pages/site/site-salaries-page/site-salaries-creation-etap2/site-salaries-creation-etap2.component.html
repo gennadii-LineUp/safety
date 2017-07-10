@@ -450,23 +450,26 @@
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
 
-                    <!--<label class="control control&#45;&#45;checkbox">-->
-                      <!--<input type="checkbox" (change)='medicalVisitSiteClicked($event)'-->
-                             <!--#medicalVisitSite="ngModel" id="medicalVisitSite"-->
-                             <!--name='medicalVisitSite' (ngModel)="medicalVisitSite" />-->
-                      <!--<span class="control__indicator"></span>-->
-                    <!--</label>-->
 
-                    <!--<input type="checkbox" name="isActive" [(ngModel)]="user.isActive">-->
-                          <label class="control control--checkbox">Cabine
-                            <input type="checkbox" name="check26" [(ngModel)]="check26" (change)='check26Clicked($event)'>
-                            <span class="control__indicator"></span>
-                          </label>
-                          <label class="control control--checkbox">Conduite au sol : filaire, télécommande, radiocommande
-                            <input type="checkbox" name="check27" [(ngModel)]="check27" (change)='check27Clicked($event)'>
-                            <span class="control__indicator"></span>
-                          </label>
-                      <button type="submit" class="form-button green-button creer-button">TEST data</button>
+                          <!--<label class="control control&#45;&#45;checkbox">Cabine-->
+                            <!--<input type="checkbox" name="check26" [(ngModel)]="check26" (change)='check26Clicked($event)'>-->
+                            <!--<span class="control__indicator"></span>-->
+                          <!--</label>-->
+                          <!--<label class="control control&#45;&#45;checkbox">Conduite au sol : filaire, télécommande, radiocommande-->
+                            <!--<input type="checkbox" name="check27" [(ngModel)]="check27" (change)='check27Clicked($event)'>-->
+                            <!--<span class="control__indicator"></span>-->
+                          <!--</label>-->
+
+                    <!--<th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);-->
+                                                                <!--getAttestations(this.sortingTarget);">-->
+                      <!--<button [class]="tableSortService.selectedClass(header.variable)" ></button>-->
+                      <!--{{header.display}}-->
+                    <!--</th>-->
+
+                      <label *ngFor="let type of typesDrivingLicenses_8" class="control control--checkbox">{{type.display}}
+                          <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                          <span class="control__indicator"></span>
+                      </label>
                   </div>
 
 

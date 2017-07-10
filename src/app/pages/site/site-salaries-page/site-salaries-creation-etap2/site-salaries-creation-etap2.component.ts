@@ -49,8 +49,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     checkedGroupFromEtap1: any;
 
-    activeSelect = '3';
-    categoryDrivingLicense = 3;
+    activeSelect = '8';
+    categoryDrivingLicense = 8;
     TypeM = [
       { value: '3', display: 'VL' },
       { value: '4', display: 'PL' },
@@ -63,6 +63,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
       { value: '11', display: 'Grues à tour R.377m' },
       { value: '12', display: 'Grues mobiles R.383m' }
     ];
+
+  typesDrivingLicenses_8 = [
+    { id: 26,  display: 'Cabine' },
+    { id: 27,  display: 'Conduite au sol : filaire, télécommande, radiocommande' }
+  ];
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }//,
@@ -141,6 +146,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
       }
 
       this.categoryDrivingLicense = +userChoice;
+      this.drivingLicense = new DrivingLicenseClass([], 0);
     }
 
     public getEmployeeFromEtap1Function() {
@@ -491,8 +497,22 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     _check27 = false;
 
     public check26Clicked(e: any) { this._check26 = e.target.checked; }
-    public check27Clicked(e: any) { this._check27 = e.target.checked; }
 
+    public addSubcategory(e: any) {
+      const userInput = e.target;
+      // console.dir(+userInput.name);
+      if (userInput.checked) {
+
+         this.drivingLicense.categories.push(+userInput.name);
+      }
+
+      console.log(this.drivingLicense);
+      console.log('-------------');
+
+      // this.drivingLicense
+    }
+
+    public checkDrivingLicenseClicked(id: number) { console.log('hello  ' + id); }
 
     public convertCategory(checkbox: string): number {
       let categoryId: number;
