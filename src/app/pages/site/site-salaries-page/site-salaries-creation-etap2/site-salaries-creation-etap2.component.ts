@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router}    from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SiteService} from '../../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
 import {ClientService} from '../../../../services/client/client.service';
@@ -8,14 +8,15 @@ import {VisitesClass} from '../../../../models/const/visites-class';
 import {AttestationClass} from '../../../../models/const/attestations-class';
 import {TableSortService} from '../../../../services/table-sort.service';
 import {NgForm} from "@angular/forms";
-import {DrivingLicenseClass} from "../../../../models/const/driving-license-class";
+import {DrivingLicenseClass} from '../../../../models/const/driving-license-class';
+import {DrivingLicensesGlossary} from '../../../../models/const/driving-license-categories';
 declare var $: any;
 
 @Component({
   selector: 'app-site-salaries-creation-etap2',
   templateUrl: './site-salaries-creation-etap2.component.html',
   styleUrls: ['./site-salaries-creation-etap2.component.css'],
-    providers: [SiteService, ClientService, TableSortService]
+    providers: [SiteService, ClientService, TableSortService, DrivingLicensesGlossary]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit {
     loading = false;
@@ -54,26 +55,22 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     checkedGroupFromEtap1: any;
 
-    activeSelect = '8';
-    categoryDrivingLicense = 8;
-    categoryDrivingLicense_nullData = true;
+    activeSelect = '3';
+    categoryDrivingLicense_active = 3;
+    categoryDrivingLicense_nullData = false;
+    subcategoryEquipement: number;
     TypeM = [
-      { value: '3', display: 'VL' },
-      { value: '4', display: 'PL' },
-      { value: '5', display: 'Remorque' },
-      { value: '6', display: 'Chariots élévateurs R.389' },
-      { value: '7', display: 'PEMP (nacelle) R.386' },
-      { value: '8', display: '===Ponts roulants R.318/423' },
-      { value: '9', display: 'Engins de chantier R.372m' },
-      { value: '10', display: 'Grues auxiliaire R.390' },
-      { value: '11', display: 'Grues à tour R.377m' },
-      { value: '12', display: 'Grues mobiles R.383m' }
+        { value: '3', display: 'VL' },
+        { value: '4', display: 'PL' },
+        { value: '5', display: 'Remorque' },
+        { value: '6', display: 'Chariots élévateurs R.389' },
+        { value: '7', display: 'PEMP (nacelle) R.386' },
+        { value: '8', display: 'Ponts roulants R.318/423' },
+        { value: '9', display: 'Engins de chantier R.372m' },
+        { value: '10', display: 'Grues auxiliaire R.390' },
+        { value: '11', display: 'Grues à tour R.377m' },
+        { value: '12', display: 'Grues mobiles R.383m' }
     ];
-
-  typesDrivingLicenses_8 = [
-    { id: 26,  display: 'Cabine' },
-    { id: 27,  display: 'Conduite au sol : filaire, télécommande, radiocommande' }
-  ];
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }//,
@@ -99,7 +96,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                 private errorMessageHandlerService: ErrorMessageHandlerService,
                 private router: Router,
                 private route: ActivatedRoute,
-                private tableSortService: TableSortService) { }
+                private tableSortService: TableSortService,
+                private drivingLicensesGlossary: DrivingLicensesGlossary) { }
 
 
     ngOnInit(): void {
@@ -151,8 +149,15 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         default:    this.activeSelect = this.TypeM[0].value;
       }
       this.categoryDrivingLicense_nullData = true;
-      this.categoryDrivingLicense = +userChoice;
+      this.categoryDrivingLicense_active = +userChoice;
       this.drivingLicense = new DrivingLicenseClass([], 0);
+      if (+userChoice === 3 ||
+          +userChoice === 4 ||
+          +userChoice === 5 ||
+          +userChoice === 10) {
+        this.drivingLicense.categories.push(+userChoice);
+        this.categoryDrivingLicense_nullData = false;
+      }
     }
 
     public getEmployeeFromEtap1Function() {
@@ -214,16 +219,14 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-    //  startDate
-
-      if (this.employees.startDate) {
-        this.employees.startDate = this.siteService.convertDataForInputView(this.employees.startDate);
-      }
-      if (this.employees.endDate) {
-        this.employees.endDate = this.siteService.convertDataForInputView(this.employees.endDate);
-      }
-      this.employees.birthDate = datepicker_birthDate;
-        console.dir(this.employees);
+        if (this.employees.startDate) {
+          this.employees.startDate = this.siteService.convertDataForInputView(this.employees.startDate);
+        }
+        if (this.employees.endDate) {
+          this.employees.endDate = this.siteService.convertDataForInputView(this.employees.endDate);
+        }
+        this.employees.birthDate = datepicker_birthDate;
+          console.dir(this.employees);
 
         this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)
             .subscribe(result => {
@@ -521,9 +524,16 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.categoryDrivingLicense_nullData = false;
       }
     }
+    public addSubcategoryEquipement(e: any) {
+        this.subcategoryEquipement = +e.target.id;
+        console.log(this.subcategoryEquipement);
+        this.drivingLicense.equipment = this.subcategoryEquipement;
+        this.categoryDrivingLicense_nullData = false;
+    }
 
 
-    public checkDrivingLicenseClicked(id: number) { console.log('hello  ' + id); }
+
+  public checkDrivingLicenseClicked(id: number) { console.log('hello  ' + id); }
 
     public convertCategory(checkbox: string): number {
       let categoryId: number;
@@ -541,6 +551,16 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         return false;
       } else {
         this.categoryDrivingLicense_nullData = false;
+      }
+
+      if (this.categoryDrivingLicense_active === 12) {
+        if (this.drivingLicense.equipment === 0) {
+          this.categoryDrivingLicense_nullData = true;
+          this.errorCreatingDrLicence = 'SAFETY:  At least 1 equipement have to be choosen.';
+          console.log(this.drivingLicense.equipment);
+          console.log(this.subcategoryEquipement);
+          return false;
+        }
       }
 
       this.creatingDrivingLicense = true;

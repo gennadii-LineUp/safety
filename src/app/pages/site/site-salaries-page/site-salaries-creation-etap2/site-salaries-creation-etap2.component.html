@@ -339,270 +339,96 @@
             </div>
 
 
-
-          <!--<span class="caret"></span>-->
-          <!--<div class="select-wrapper">-->
-            <!--<select name="role" [(ngModel)]="activeSelect"  (change)="ShowType(activeSelect)">-->
-              <!--<option *ngFor="let type of TypeM" [value]="type.value">-->
-                <!--{{type.display}}-->
-              <!--</option>-->
-            <!--</select>-->
-          <!--</div>-->
-          <!--<div *ngIf="activeSelect==='chariotsElevateurs'">-->
-            <!--hello 1-->
-          <!--</div>-->
-          <!--<div *ngIf="activeSelect==='gruesMobiles'">-->
-            <!--hello 2-->
-          <!--</div>-->
-          <!--<div *ngIf="activeSelect==='grues'">-->
-            <!--hello 3-->
-          <!--</div>-->
-
             <div class="tabbable">
-
-                <button class="form-button green-button ok-button pull-right">Ok</button>
+                <button class="form-button green-button ok-button pull-right" style="display: none;">Ok</button>
                 <div class="clearfix"></div>
-
                 <div class="tab-content" style="min-height: 360px;">
+
                   <div *ngIf="activeSelect==='3' "class="control-group">
                     <p class="form-subheader">VL</p>
                   </div>
-
 
                   <div *ngIf="activeSelect==='4'" class="control-group">
                     <p class="form-subheader">PL</p>
                   </div>
 
-
                   <div *ngIf="activeSelect==='5'" class="control-group">
                     <p class="form-subheader">Remorque</p>
                   </div>
 
-
                   <div *ngIf="activeSelect==='6'" class="control-group">
                     <p class="form-subheader">Chariots élévateurs R.389</p>
                     <br><br><br>
-                    <label class="control control--checkbox">Catégorie 1 : transpalette à conducteur porté
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 2 : tracteur ou porteur cap. max. 6t
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 3 : porte-à-faux cap. max. 6t
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 4 : porte-à-faux cap. + 6t
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 5 : mât rétractable
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 6 : conduite hors production
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Complément de formation engins spéciaux (5+)
-                      <input type="checkbox">
+                    <label *ngFor="let type of drivingLicensesGlossary.types_6" class="control control--checkbox">{{type.display}}
+                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
 
-
-                  <!--"7": {-->
-                  <!--"20": "Catégorie 1/A : stabilisée, élévation verticale",-->
-                  <!--"21": "Catégorie 1/B : stabilisée, élévation multidirectionnelle",-->
-                  <!--"22": "Catégorie 2/A : sur véhicule roulant, élévation verticale",-->
-                  <!--"23": "Catégorie 2/B : sur véhicule roulant, élévation multidirectionnelle",-->
-                  <!--"24": "Catégorie 3/A : automotrice, élévation verticale",-->
-                  <!--"25": "Catégorie 3/B : automotrice, élévation multidirectionnelle"-->
-                  <!--},-->
                   <div *ngIf="activeSelect==='7'" class="control-group">
-                    <p class="form-subheader">PEMP (nacelle) R.386</p>
+                    <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
-                    <label class="control control--checkbox">Catégorie 1/A : stabilisée, élévation verticale
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 1/B : stabilisée, élévation multidirectionnelle
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 2/A : sur véhicule roulant, élévation verticale
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 2/B : sur véhicule roulant, élévation multidirectionnelle
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 3/A : automotrice, élévation verticale
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 3/B : automotrice, élévation multidirectionnelle
-                      <input type="checkbox">
+                    <label *ngFor="let type of drivingLicensesGlossary.types_7" class="control control--checkbox">{{type.display}}
+                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
 
-
-                  <!--"8": {-->
-                  <!--"26": "Cabine",-->
-                  <!--"27": "Conduite au sol : filaire, télécommande, radiocommande"-->
-                  <!--},-->
                   <div *ngIf="activeSelect==='8'" class="control-group">
                       <p class="form-subheader">Ponts roulants R.318/423</p>
                       <br><br><br>
-                      <label *ngFor="let type of typesDrivingLicenses_8" class="control control--checkbox">{{type.display}}
+                      <label *ngFor="let type of drivingLicensesGlossary.types_8" class="control control--checkbox">{{type.display}}
                           <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                           <span class="control__indicator"></span>
                       </label>
                   </div>
 
-
-                  <!--"9": {-->
-                  <!--"28": "Catégorie 1 : tracteurs et petits engins de chantier mobiles",-->
-                  <!--"29": "Catégorie 2 : engins d’extraction et/ou de chargement à déplacement séquentiel",-->
-                  <!--"30": "Catégorie 3 : engins d’extraction à déplacement alternatif",-->
-                  <!--"31": "Catégorie 4 : engins de chargement à déplacement alternatif",-->
-                  <!--"32": "Catégorie 5 : engins de finition à déplacement lent",-->
-                  <!--"33": "Catégorie 6 : engins de réglage à déplacement alternatif",-->
-                  <!--"34": "Catégorie 7 : engins de compactage à déplacement alternatif",-->
-                  <!--"35": "Catégorie 8 : engins de transport ou d’extraction-transport",-->
-                  <!--"36": "Catégorie 9 : engins de manutention",-->
-                  <!--"37": "Catégorie 10 : conduite hors production"-->
-                  <!--},-->
                   <div *ngIf="activeSelect==='9'" class="control-group">
-                    <p class="form-subheader">Engins de chantier R.372m</p>
+                    <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
-                    <label class="control control--checkbox">Catégorie 1 : tracteurs et petits engins de chantier mobiles
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 2 : engins d’extraction et/ou de chargement à déplacement séquentiel
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 3 : engins d’extraction à déplacement alternatif
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 4 : engins de chargement à déplacement alternatif
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 5 : engins de finition à déplacement lent
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 6 : engins de réglage à déplacement alternatif
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 7 : engins de compactage à déplacement alternatif
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 8 : engins de transport ou d’extraction-transport
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 9 : engins de manutention
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Catégorie 10 : conduite hors production
-                      <input type="checkbox">
+                    <label *ngFor="let type of drivingLicensesGlossary.types_9" class="control control--checkbox">{{type.display}}
+                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
-
 
                   <div *ngIf="activeSelect==='10'" class="control-group">
                     <p class="form-subheader">Grues auxiliaire R.390</p>
                     <br><br><br>
                   </div>
 
-
-                  <!--"11": {-->
-                  <!--"38": "Grue à montage automatisé conduite au sol",-->
-                  <!--"39": "Grue à montage automatisé conduite en cabine",-->
-                  <!--"40": "Grue à montage par éléments"-->
-                  <!--},-->
                   <div *ngIf="activeSelect==='11'" class="control-group">
-                    <p class="form-subheader">Grues à tour R.377m</p>
-                    <br><br><br>
-                    <label class="control control--checkbox">Grue à montage automatisé conduite au sol
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Grue à montage automatisé conduite en cabine
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Grue à montage par éléments
-                      <input type="checkbox">
+                    <p class="form-subheader">Ponts roulants R.318/423</p>
+                    <br>
+                    <label *ngFor="let type of drivingLicensesGlossary.types_11" class="control control--checkbox">{{type.display}}
+                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
 
                   <div *ngIf="activeSelect==='12'" class="control-group">
                     <p class="form-subheader">Grues mobiles R.383m</p>
-                    <br><br><br>
+                    <br>
+
                     <p class="vehicle-type">Type 1 : Routier</p>
-                    <br><br><br>
-                    <label class="control control--checkbox">Automotrice immatriculée
-                      <input type="checkbox">
+                    <label *ngFor="let type of drivingLicensesGlossary.types_12_routier" class="control control--checkbox">{{type.display}}
+                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
-                    <label class="control control--checkbox">Automotrice non immatriculée
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Sur porteur automoteur
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Tractée
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
+
+                    <br>
                     <p class="vehicle-type">Type 2 : Non routier</p>
-                    <br><br><br>
-                    <label class="control control--checkbox">Sur chenilles
-                      <input type="checkbox">
+                    <label *ngFor="let type of drivingLicensesGlossary.types_12_nonRoutier" class="control control--checkbox">{{type.display}}
+                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
-                    <label class="control control--checkbox">Sur bandage ou rail
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
-                    <label class="control control--checkbox">Sur ponton
-                      <input type="checkbox">
-                      <span class="control__indicator"></span>
-                    </label>
+
+                    <br>
                     <p class="vehicle-type">Equipement</p>
-                    <br><br><br>
-                    <div class="radio">
-                      <input id="radio-101" name="radio1" checked="checked" type="radio">
-                      <label for="radio-101" class="radio-label">A - Treillis</label>
-                    </div>
-                    <div class="radio">
-                      <input id="radio-102" name="radio1" checked="" type="radio">
-                      <label for="radio-102" class="radio-label">B - Télescopique avec fléchette</label>
-                    </div>
-                    <div class="radio">
-                      <input id="radio-13" name="radio1" checked="" type="radio">
-                      <label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>
-                    </div>
-                    <div class="radio">
-                      <input id="radio-14" name="radio1" checked="" type="radio">
-                      <label for="radio-14" class="radio-label">C - Spécial</label>
+                    <div *ngFor="let equipement of drivingLicensesGlossary.types_12_equipement" class="radio" >
+                      <input type="radio"   id={{equipement.id}} name="equipementGroup"
+                             [value]="equipement.id" (change)='addSubcategoryEquipement($event); false'>  <!-- checked={{equipement.booleanValue}}-->
+                      <label for={{equipement.id}} class="radio-label">{{equipement.display}}</label>
                     </div>
                   </div>
 

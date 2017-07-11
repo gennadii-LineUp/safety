@@ -6,7 +6,7 @@
      [ngClass]="{ in: isOpened, fade: isOpened }"
      [ngStyle]="{ display: isOpened ? 'block' : 'none' }"
      (click)="closeOnOutsideClick ? close() : 0">
-    <div class="modal-dialog modal-sm" role="document" (click)="preventClosing($event)" style='margin-top: 198px;'>
+    <div class="modal-dialog modal-sm" role="document" (click)="preventClosing($event)" style='margin-top: 50px;'>
         <div class="modal-content" tabindex="0" *ngIf="isOpened">
 
             <div class="modal-header">

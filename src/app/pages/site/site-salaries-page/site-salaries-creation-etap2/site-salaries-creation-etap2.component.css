@@ -224,7 +224,7 @@ modal-content-SSAtt .form-control {
     text-align: left;
     padding-top: 0px;
     padding-left: 44px;
-    margin-bottom: 21px;
+    margin-bottom: 18px;
     font-size: 14px;
     font-weight: 400;
     letter-spacing: normal;
@@ -254,7 +254,7 @@ modal-content-SSAtt .form-control {
 
 .autorisation-de-conduite-modal .radio {
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: 12px;
 }
 
 .autorisation-de-conduite-modal .radio input[type="radio"] + .radio-label::before {
@@ -369,3 +369,4 @@ span.caret{
 div.control-group {
   min-height: 295px;
 }
+
