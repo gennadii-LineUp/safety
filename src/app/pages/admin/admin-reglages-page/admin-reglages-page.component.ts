@@ -61,11 +61,12 @@ export class AdminReglagesPageComponent implements OnInit {
                 }
             }, (err) => {
                 this.loading = false;
+                console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 
-    public setDefaultReglages(){
+    public setDefaultReglages() {
         this.reglages = this.defaultReglages;
     }
 

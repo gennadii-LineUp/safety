@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ErrorMessageHandlerService {
-    message: string = '';
+    message = '';
 
     constructor() {   }
 
@@ -16,13 +16,13 @@ export class ErrorMessageHandlerService {
     //     return true;
     // }
 
-    public checkErrorStatus(err: any):any {
-        if (err.status === 401) return "please relogin!";
-        if (err.status === 404) return "Il n'y a pas de données. Créez-le d'abord.";
-        if (err.status === 500) return "problems with connection to server... verify your internet!";
-        if (err.status === 0) return "problems with connection to server... verify your internet!";
+    public checkErrorStatus(err: any): any {
+        if (err.status === 401) {return 'please relogin!'; }
+        if (err.status === 404) {return "Il n'y a pas de données. Créez-le d'abord."; }
+        if (err.status === 500) {return 'problems with connection to server... verify your internet!'; }
+        if (err.status === 0) {return 'problems with connection to server... verify your internet!'; }
 
-        let error = (JSON.parse(err._body)).errors;
+        const error = (JSON.parse(err._body)).errors;
         let errorMessage: string;
 
         if (Object.keys(error).length > 0) {
@@ -32,33 +32,34 @@ export class ErrorMessageHandlerService {
     }
 
     public checkErrorStatus_old(err: any):any {
-        if (err.status === 401) return "please relogin!";
-        if (err.status === 403) return "wrong UrlParams, ask Alexander";
+        if (err.status === 401) return 'please relogin!';
+        if (err.status === 403) return 'wrong UrlParams';
         if (err.status === 404) return "Il n'y a pas de données. Créez-le d'abord.";
-        if (err.status === 500) return "problems with connection to server... verify your internet!";
-        if (err.status === 0) return "problems with connection to server... verify your internet!";
+        if (err.status === 500) return 'problems with connection to server... verify your internet!';
+        if (err.status === 0) return 'problems with connection to server... verify your internet!';
         return false;
     }
 
     public errorHandler(errorObject: any): string {
         this.message = '';
-        for (let key in errorObject) {
-            let status: string = '';
+        for (const key in errorObject) {
+            let status = '';
             let _key = '';
 
             _key = this.getKeyEquivalent(key);
 
             try {
-                status = errorObject[key];
+                status = this.getMessageEquivalent(errorObject[key]);
+                console.log(status);
                 this.message += _key
                                 + ' - '
                                 + status[0].toLowerCase()
-                                + status.substring(1).slice(0,-1)
+                                + status.substring(1).slice(0, -1)
                                 + ';  ';
             } catch (e) {
                 try {
-                    for (let i in errorObject[key]) {
-                        let _status = errorObject[key][i];
+                    for (const i in errorObject[key]) {
+                        const _status = errorObject[key][i];
                         this.message += _key
                             + ' - "'
                             + i
@@ -124,6 +125,18 @@ export class ErrorMessageHandlerService {
         }
         return key;
     }
+
+
+  public getMessageEquivalent(message: string) {
+    switch (message) {
+      case 'Confirm password failed.': message = 'erreur de confirmation du mot de passe.';  break;
+      default:
+        message;
+
+
+    }
+    return message;
+  }
 
 
 }

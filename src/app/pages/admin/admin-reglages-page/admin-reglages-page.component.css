@@ -1,0 +1,11 @@
+.form-control {
+  margin-bottom: 19px;
+}
+
+.form-group label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  position: relative;
+  top: -5px;
+  margin-bottom: 6px;
+}
