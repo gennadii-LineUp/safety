@@ -3,6 +3,7 @@ import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import { Observable } from 'rxjs/Observable';
 import {EmployeesClass} from '../../models/const/employees-class';
+import {DrivingLicenseClass} from "../../models/const/driving-license-class";
 
 @Injectable()
 export class SiteService {
@@ -86,6 +87,15 @@ export class SiteService {
         console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
+
+
+  public setCategoryDrivingLicense(newDrivingLicense: DrivingLicenseClass, siteId: number, employeeId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/driving_licenses';
+    console.log(url);
+    return this.backendService.post(url, JSON.stringify(newDrivingLicense));
+  }
+  // /sites/{{siteId}}/employees/{{employeeId}}/driving_licenses
+
 
     deleteAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {
       const query = siteId + '/employees/' + employeeId + '/attestations' + attestationId;

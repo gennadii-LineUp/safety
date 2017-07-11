@@ -81,7 +81,7 @@ div.alert-danger {
     border-radius: 0;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    top: -10px !important;
+    top: -10px;
     left: 0;
     position: fixed;
     font-family: 'Open Sans', sans-serif;
@@ -93,7 +93,7 @@ div.alert-danger {
      font-weight: 500 !important;
 }
 div.alert-success {
-    height: 60px;
+    height: auto;
     text-align: center;
     width: 100%;
     padding-left: 23px;

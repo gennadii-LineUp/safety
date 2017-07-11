@@ -22,6 +22,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     loadingDatesAutorisations = true;
     loadingAttestations = true;
     creatingAttest = false;
+    creatingDrivingLicense = false;
     loadingSalarieUsed = false;
     loadingGroupes = true;
     loaded = false;
@@ -29,6 +30,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     errorLoad: string = '';
     errorCreating: string = '';
     successCreating: string = '';
+    errorCreatingDrLicence = '';
+    successCreatingDrLicence = '';
+    errorCreatingAttestat = '';
+    successCreatingAttestat = '';
 
     loadingFile: boolean = false;
     uploadedFile: boolean = false;
@@ -51,6 +56,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
 
     activeSelect = '8';
     categoryDrivingLicense = 8;
+    categoryDrivingLicense_nullData = true;
     TypeM = [
       { value: '3', display: 'VL' },
       { value: '4', display: 'PL' },
@@ -144,7 +150,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         case '12':  this.activeSelect = this.TypeM[9].value;  break;
         default:    this.activeSelect = this.TypeM[0].value;
       }
-
+      this.categoryDrivingLicense_nullData = true;
       this.categoryDrivingLicense = +userChoice;
       this.drivingLicense = new DrivingLicenseClass([], 0);
     }
@@ -256,7 +262,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    this.successCreating = 'Well done! You saved this Attestation.';
+                    this.successCreatingAttestat = 'Well done! You saved this Attestation.';
                     if (this.itemForChange) {
                       this.saveButtonCaptionAttest = 'Enregistrer';
                       this.itemForChange = 0;
@@ -267,7 +273,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
             }, (err) => {
                 this.loading = false;
                 console.log(err);
-                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+                this.errorCreatingAttestat = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 
@@ -462,12 +468,16 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     public cancellSuccessMessage() {
         this.loading = false;
         this.successCreating = '';
+        this.successCreatingAttestat = '';
+        this.successCreatingDrLicence = '';
     }
     private cancellErrorMessage() {
         this.loading = false;
         this.loadingGroupes = false;
         this.errorLoad = '';
         this.errorCreating = '';
+        this.errorCreatingAttestat = '';
+        this.errorCreatingDrLicence = '';
     }
 
 
@@ -493,24 +503,25 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    _check26 = false;
-    _check27 = false;
-
-    public check26Clicked(e: any) { this._check26 = e.target.checked; }
-
     public addSubcategory(e: any) {
       const userInput = e.target;
-      // console.dir(+userInput.name);
       if (userInput.checked) {
-
-         this.drivingLicense.categories.push(+userInput.name);
+          this.drivingLicense.categories.push(+userInput.name);
+          this.drivingLicense.categories = this.drivingLicense.categories.filter((elem, index, self) => {
+            return index === self.indexOf(elem);
+          });
+      }
+      if (!userInput.checked) {
+        this.drivingLicense.categories = this.drivingLicense.categories.filter(val => val !== +userInput.name);
       }
 
-      console.log(this.drivingLicense);
-      console.log('-------------');
-
-      // this.drivingLicense
+      if (this.drivingLicense.categories.length === 0) {
+        this.categoryDrivingLicense_nullData = true;
+      } else {
+        this.categoryDrivingLicense_nullData = false;
+      }
     }
+
 
     public checkDrivingLicenseClicked(id: number) { console.log('hello  ' + id); }
 
@@ -523,37 +534,32 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
   public submitCategoryDrivingLicense() {
       this.cancellErrorMessage();
       this.cancellSuccessMessage();
-      this.loading = true;
 
-      if (this.categoryDrivingLicense === 8) {
-        console.log(this.categoryDrivingLicense);
-        this.drivingLicense[0].push();
-      }
-      if (this.categoryDrivingLicense === 9) {
-        console.log(this.categoryDrivingLicense);
+      if (this.drivingLicense.categories.length === 0) {
+        this.categoryDrivingLicense_nullData = true;
+        this.errorCreatingDrLicence = 'SAFETY:  At least 1 category have to be choosen.';
+        return false;
+      } else {
+        this.categoryDrivingLicense_nullData = false;
       }
 
-    //   if (this.employees.startDate) {
-    //     this.employees.startDate = this.siteService.convertDataForInputView(this.employees.startDate);
-    //   }
-    //   if (this.employees.endDate) {
-    //     this.employees.endDate = this.siteService.convertDataForInputView(this.employees.endDate);
-    //   }
-    //   this.employees.birthDate = datepicker_birthDate;
-    //   console.dir(this.employees);
-    //
-    //   this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)
-    //     .subscribe(result => {
-    //       if (result) {
-    //         this.loading = false;
-    //         console.log(result);
-    //         this.successCreating = "Well done! You've updated this employee.";
-    //       }
-    //     }, (err) => {
-    //       this.loading = false;
-    //       console.log(err);
-    //       this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    //     });
+      this.creatingDrivingLicense = true;
+
+      this.drivingLicense.categories = this.drivingLicense.categories.sort((a, b) => a - b);
+      console.log(this.drivingLicense);
+
+      this.siteService.setCategoryDrivingLicense(this.drivingLicense, this.id_site, this.id_salarie)
+        .subscribe(result => {
+          if (result) {
+            this.creatingDrivingLicense = false;
+            console.log(result);
+            this.successCreatingDrLicence = "Well done! You've created new driving license.";
+          }
+        }, (err) => {
+          this.creatingDrivingLicense = false;
+          console.log(err);
+          this.errorCreatingDrLicence = this.errorMessageHandlerService.checkErrorStatus(err);
+        });
     }
 
 

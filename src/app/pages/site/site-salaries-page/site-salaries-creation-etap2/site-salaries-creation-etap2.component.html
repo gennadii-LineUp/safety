@@ -290,12 +290,12 @@
     </modal-content-SSAtt>
 
     <modal-footer-SSAtt>
-        <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+        <div *ngIf="errorCreatingAttestat" style='position: fixed; top: -40px  !important;' class="alert alert-danger">{{errorCreatingAttestat}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
                 <span aria-hidden="true"></span>
             </button>
         </div>
-        <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
+        <div *ngIf="successCreatingAttestat" style='position: fixed; top: -40px;' class="alert alert-success">{{successCreatingAttestat}}</div>
 
         <div class="button-wrapper">
             <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
@@ -316,8 +316,17 @@
     </modal-header-SSAut>
 
     <modal-content-SSAut>
+        <div *ngIf="errorCreatingDrLicence" style='position: fixed; top: -40px !important;' class="alert alert-danger">
+          {{errorCreatingDrLicence}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+        <div *ngIf="successCreatingDrLicence" style='position: fixed; top: -40px;' class="alert alert-success">
+          {{successCreatingDrLicence}}
+        </div>
 
-        <form action="/" class="modal-form">
+        <form action="/" class="modal-form"  (click)='cancellSuccessMessage()'>
             <p class="form-subheader">Type</p>
 
             <span class="caret"></span>
@@ -447,25 +456,8 @@
                   <!--"27": "Conduite au sol : filaire, télécommande, radiocommande"-->
                   <!--},-->
                   <div *ngIf="activeSelect==='8'" class="control-group">
-                    <p class="form-subheader">Ponts roulants R.318/423</p>
-                    <br><br><br>
-
-
-                          <!--<label class="control control&#45;&#45;checkbox">Cabine-->
-                            <!--<input type="checkbox" name="check26" [(ngModel)]="check26" (change)='check26Clicked($event)'>-->
-                            <!--<span class="control__indicator"></span>-->
-                          <!--</label>-->
-                          <!--<label class="control control&#45;&#45;checkbox">Conduite au sol : filaire, télécommande, radiocommande-->
-                            <!--<input type="checkbox" name="check27" [(ngModel)]="check27" (change)='check27Clicked($event)'>-->
-                            <!--<span class="control__indicator"></span>-->
-                          <!--</label>-->
-
-                    <!--<th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);-->
-                                                                <!--getAttestations(this.sortingTarget);">-->
-                      <!--<button [class]="tableSortService.selectedClass(header.variable)" ></button>-->
-                      <!--{{header.display}}-->
-                    <!--</th>-->
-
+                      <p class="form-subheader">Ponts roulants R.318/423</p>
+                      <br><br><br>
                       <label *ngFor="let type of typesDrivingLicenses_8" class="control control--checkbox">{{type.display}}
                           <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                           <span class="control__indicator"></span>
@@ -621,10 +613,12 @@
 
     <modal-footer-SSAut>
         <div class="button-wrapper">
-            <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
+            <img *ngIf="creatingDrivingLicense" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <button class="form-button red-button annuler-button" data-dismiss="modal"
                     (click)="autorModal.close()">Annuler</button>
             <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                    (click)='submitCategoryDrivingLicense()'>Enregistrer</button>
+                    (click)='submitCategoryDrivingLicense()'
+                    [disabled]="categoryDrivingLicense_nullData">Enregistrer</button>
         </div>
     </modal-footer-SSAut>
 </modal-autor>
