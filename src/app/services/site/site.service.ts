@@ -4,6 +4,7 @@ import {UrlParams} from '../../models/const/URL_PARAMS';
 import { Observable } from 'rxjs/Observable';
 import {EmployeesClass} from '../../models/const/employees-class';
 import {DrivingLicenseClass} from "../../models/const/driving-license-class";
+import {query} from "@angular/core/src/animation/dsl";
 
 @Injectable()
 export class SiteService {
@@ -27,6 +28,11 @@ export class SiteService {
         return this.backendService.get(UrlParams.adminHome);
     }
 
+    public findFichiersByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
+      const query =  + siteId + '/files' + '?q=' + name + sort + '&page=' + page;
+      console.log(query);
+      return this.backendService.get(UrlParams.siteHome + query);
+    }
 
     public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
@@ -36,7 +42,6 @@ export class SiteService {
     public findEmployeeByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
         const query =  + siteId + '/employees' + '?q=' + name + sort + '&page=' + page;
         return this.backendService.get(UrlParams.siteHome + query);
-
     }
     public deleteEmployee(siteId: number, employeeId: number): Observable<any> {
         const query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
