@@ -102,6 +102,7 @@ export class SiteSalariesPageComponent implements OnInit {
         if (name === 'lineUp') {
             _name = localStorage.siteEmployeeSearch_name;
         }
+        this.activePage = page;
 
         this.siteService.findEmployeeByName(_name, page, this.id_site, sort)
             .subscribe(result => {
@@ -164,7 +165,8 @@ export class SiteSalariesPageComponent implements OnInit {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    this.ngOnInit();
+                    // this.ngOnInit();
+                    this.findEmployeeByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
                 this.loading = false;

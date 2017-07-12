@@ -54,15 +54,15 @@ export class AdminClientsPageComponent implements OnInit {
     }
 
 
-    public selectedClass(columnName): string{
-        return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+    public selectedClass(columnName): string {
+        return columnName === this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }
-    public changeSorting(columnName:string, e:any): void{
+    public changeSorting(columnName: string, e: any): void {
         let sortingDirection: string;
         let thClass: string;
 
-        var sort = this.sorting;
-        if (sort.column == columnName) {
+        const sort = this.sorting;
+        if (sort.column === columnName) {
             sort.descending = !sort.descending;
         } else {
             sort.column = columnName;
@@ -94,7 +94,7 @@ export class AdminClientsPageComponent implements OnInit {
             console.log('== from local storage ==');
             this.findClientByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findClientByNameFunction('',1,'');
+            this.findClientByNameFunction('', 1, '');
         }
         console.log('====' + this.searchName);
     }
@@ -108,13 +108,15 @@ export class AdminClientsPageComponent implements OnInit {
     }
 
 
-    public findClientByNameFunction(name:string, page:any = 1, sort) {
+    public findClientByNameFunction(name: string, page: number, sort) {
         this.loading = true;
         this.emptyTable = false;
         let _name = name;
         if (name === 'lineUp') {
             _name = localStorage.adminClientsSearch_name;
         }
+        this.activePage = page;
+        localStorage.setItem('adminClientsSearch_page', '' + page);
 
         this.adminService.findClientByName(_name, page, sort)
             .subscribe(result => {
@@ -186,7 +188,8 @@ export class AdminClientsPageComponent implements OnInit {
                 if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
-                    this.ngOnInit();
+                    // this.ngOnInit();
+                    this.findClientByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
                 this.loading = false;
@@ -203,8 +206,6 @@ export class AdminClientsPageComponent implements OnInit {
 
     private cancellErrorMessage() {
         this.loading = false;
-        //this.updating = true;
-        // this.errorUpdate = '';
         this.errorLoad = '';
     }
 

@@ -36,8 +36,8 @@ export class ClientSitesPageComponent implements OnInit {
     _techControlSiege: boolean = false;
     _techControlSite: boolean = false;
 
-    salariesMaxPossible:number;
-    salariesUsed:number;
+    salariesMaxPossible: number;
+    salariesUsed: number;
 
     sites = [];
     pager: any = {};
@@ -77,7 +77,7 @@ export class ClientSitesPageComponent implements OnInit {
         { display: 'Responsable site',  variable: 'responsible', filter: 'text' }
     ];
     sortingTarget: string = '';
-    public getSortingTarget(){
+    public getSortingTarget() {
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }
 
@@ -127,6 +127,7 @@ export class ClientSitesPageComponent implements OnInit {
         if (name === 'lineUp') {
             _name = localStorage.clientSiteSearch_name;
         }
+        this.activePage = page;
 
         this.clientService.findSiteByName(_name, page, sort)
             .subscribe(result => {
@@ -238,7 +239,8 @@ export class ClientSitesPageComponent implements OnInit {
                 if (result) {
                     this.cancellMessages();
                     console.log(result);
-                    this.ngOnInit();
+                    // this.ngOnInit();
+                    this.findSiteByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
                 this.loading = false;

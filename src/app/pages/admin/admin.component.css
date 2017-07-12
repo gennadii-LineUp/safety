@@ -3,14 +3,20 @@ html {
     height: 100%;
     overflow-x: hidden;
 }
-
+html {
+  position: relative;
+}
+body {
+  height: 100%;
+}
 /* IE viewport fix */
 @-ms-viewport{
     width:auto!important;
 }
 
+
 body, .main-wrapper {
-    max-width: 1600px;
+    /*max-width: 1600px;*/
     /*min-width: 320px;*/
     margin-left: auto;
     margin-right: auto;

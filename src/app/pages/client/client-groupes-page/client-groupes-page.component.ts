@@ -93,6 +93,7 @@ export class ClientGroupesPageComponent implements OnInit {
         if (name === 'lineUp') {
             _name = localStorage.clientGroupSearch_name;
         }
+        this.activePage = page;
 
         this.clientService.findGroupeByName(_name, page, sort)
             .subscribe(result => {
@@ -170,7 +171,8 @@ export class ClientGroupesPageComponent implements OnInit {
                 if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
-                    this.ngOnInit();
+                    // this.ngOnInit();
+                    this.findGroupByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
                 this.loading = false;

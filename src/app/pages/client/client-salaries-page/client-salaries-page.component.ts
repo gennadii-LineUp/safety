@@ -108,7 +108,8 @@ export class ClientSalariesPageComponent implements OnInit {
                 if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
-                    this.ngOnInit();
+                    // this.ngOnInit();
+                    this.findSalarieByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
                 this.loading = false;
@@ -126,7 +127,7 @@ export class ClientSalariesPageComponent implements OnInit {
     }
 
 
-    public findSalarieByNameFunction(name:string, page:any = 1, sort: string) {
+    public findSalarieByNameFunction(name: string, page: any = 1, sort: string) {
         this.loading = true;
         this.emptyTable = false;
         this.cancellErrorMessage();
@@ -135,6 +136,7 @@ export class ClientSalariesPageComponent implements OnInit {
         if (name === 'lineUp') {
             _name = localStorage.clientSalarieSearch_name;
         }
+        this.activePage = page;
 
         this.clientService.findSalarieByName(_name, page, sort)
             .subscribe(result => {

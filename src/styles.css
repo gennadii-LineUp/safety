@@ -17,7 +17,12 @@
 }
 
 /* End of fonts */
-
+html {
+  position: relative;
+}
+body {
+  height: 100%;
+}
 body {position: relative; }
 
 
@@ -36,7 +41,7 @@ main {
 }
 
 article {
-    max-width: 880px;
+    /*max-width: 880px;*/
     position: relative;
     min-height: 100%;
     background: #fff;
