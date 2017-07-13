@@ -71,7 +71,9 @@ export class ClientProfilPageComponent implements OnInit {
 
                     // this.loadingFile = true;
 
-                    this.getFromServerProfileImageFunction();
+                  // setTimeout(() => {
+                  //     this.getFromServerProfileImageFunction();
+                  // }, 5000);
                 }
             }, (err) => {
                 this.loading = false;
@@ -80,7 +82,7 @@ export class ClientProfilPageComponent implements OnInit {
 
     }
 
-
+showImg = false;
     public fileChange(event) {
         this.uploadedFile = false;
         const fileList: FileList = event.target.files;
@@ -95,9 +97,9 @@ export class ClientProfilPageComponent implements OnInit {
                         if (result) {
                             console.log(result);
 
-                            setTimeout(() => {
-                                this.getFromServerProfileImageFunction();
-                            }, 1000);
+                            // setTimeout(() => {
+                            //     this.getFromServerProfileImageFunction();
+                            // }, 1000);
 
                             this.loadingFile = false;
                             this.uploadedFile = true;
@@ -124,8 +126,11 @@ export class ClientProfilPageComponent implements OnInit {
                 .subscribe(result => {
                     if (result) {
                         this.loadingFile = false;
+                      this.showImg = true;
                         console.log(result);
-                        // this.imgServer = result._body;
+                        let src = 'data:' + result.contentType + ';base64,';
+                        console.log(src);
+                         this.imgServer = src + result.content;
                       // let blob = new Blob([new Uint8Array(result._body)], {
                       //   type: result.headers.get('Content-Type')
                       // });
@@ -133,7 +138,7 @@ export class ClientProfilPageComponent implements OnInit {
                       // let url = urlCreator.createObjectURL(blob);
                       // this.imgServer = url;
 
-                      this.imgServer = atob(result._body);
+                      //this.imgServer = atob(result._body);
 
                       // this.imgServer = atob(String.fromCharCode.apply(null, new Uint8Array(result._body)));
                       // this.successUpdate = "Well done! You've updated your settings.";
