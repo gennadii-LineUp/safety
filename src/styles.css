@@ -19,6 +19,7 @@
 /* End of fonts */
 html {
   position: relative;
+  height: 100% !important;
 }
 body {
   height: 100%;
@@ -1602,7 +1603,13 @@ th {
 }
 
 .profil-form .image-upload label span {
-    background: url(/assets/img/ajouter-un-logo-img.png) no-repeat center;
+  background: url(/assets/img/ajouter-un-logo-img.png) no-repeat center;
+  height: 107px;
+  width: 140px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .profil-form .button-wrapper button {
