@@ -27,7 +27,7 @@
             </modal-header-CS>
 
             <modal-content-CS>
-                <form #client_newSitesForm="ngForm" class="modal-form" novalidate (click)='cancellMessages()'>
+                <form #client_newSitesForm="ngForm" class="modal-form" novalidate (click)='cancellMessages()' enctype="multipart/form-data">
                     <!--(ngSubmit)="submitForm(client_newSitesForm)"-->
                      <div class="input-wrapper">
                         <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>

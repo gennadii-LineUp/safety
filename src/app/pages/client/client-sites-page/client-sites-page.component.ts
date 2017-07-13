@@ -165,9 +165,9 @@ export class ClientSitesPageComponent implements OnInit {
     public fileChange(event) {
         this.loadingFile = false;
         this.uploadedFile = false;
-        let fileList: FileList = event.target.files;
+        const fileList: FileList = event.target.files;
         console.log(fileList);
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];
             this.uploadFileText = this.file.name;

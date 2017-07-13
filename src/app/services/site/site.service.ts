@@ -117,7 +117,36 @@ export class SiteService {
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
     }
 
-    public uploadText(file: any, siteId: number, employeeId: number): Observable<any> {
+    public sendPDFtoServer(file: any, content: any, siteId: number): Observable<any> {
+      console.log('====================');
+      const url = UrlParams.siteHome + siteId + '/files';
+      let formData: FormData = new FormData();
+      formData.append('file', file.name);
+      formData.append('uploadFile', content.result);
+
+      let fileToServer = {
+        file: file.name,
+        uploadFile: content.result
+      };
+
+      for (let i in fileToServer) {
+       // console.log(i + ', ' + fileToServer[i]);
+      }
+
+
+      // for (let key in formData) {
+      //   formData.append('file', file.name);
+      //   formData.append('uploadFile', content.result);
+      // }
+
+     // formData.append('uploadFile', file, file.name);
+
+      console.dir(fileToServer);
+      return this.backendService.sendPDFtoServer(url, fileToServer);
+    }
+
+
+  public uploadText(file: any, siteId: number, employeeId: number): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('image', file, file.name);
         const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';

@@ -46,8 +46,8 @@ export class BackendService {
         const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
+        headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.token);
-        headers.append('Content-Type', 'form-data');
 
         console.log(url);
         console.log(body);
@@ -56,7 +56,23 @@ export class BackendService {
             .map((res: Response) => <Object[]>res.json());
     }
 
-    public loadImage_get(url: string): Observable<any> {
+  public sendPDFtoServer(url: string, body: any): Observable<any> {
+    console.log('= loading image TO server =');
+    const headers: Headers = new Headers();
+    this.token = localStorage.getItem('token');
+
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Authorization', 'Bearer ' + this.token);
+
+    console.log(url);
+    console.log(body);
+    console.dir(headers);
+    return this.http.post(url, body, {headers: headers})
+      .map((res: Response) => <Object[]>res.json());
+  }
+
+
+  public loadImage_get(url: string): Observable<any> {
         console.log('= loading image FROM server =');
         const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');

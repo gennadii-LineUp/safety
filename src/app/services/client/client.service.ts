@@ -84,7 +84,7 @@ export class ClientService {
     }
     public getFromServerProfileImage(): Observable<any> {
         console.log(UrlParams.clientProfilData + '/image');
-        return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image');
+        return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image'+'?encoded=1');
     }
 
 

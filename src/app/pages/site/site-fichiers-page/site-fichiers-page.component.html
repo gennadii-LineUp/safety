@@ -18,44 +18,73 @@
                         </modal-header-SF>
 
                         <modal-content-SF>
-                            <form action="/" class="modal-form">
+                            <form #site_newFichierForm="ngForm" class="modal-form" novalidate (click)='cancellMessages()'
+                                  enctype="multipart/form-data">
                                 <div class="input-wrapper">
                                     <input class="form-control" id="exampleInputEmail1" placeholder="Nom*" type="text">
                                     <p class="requred-field hidden">Champs requis</p>
                                 </div>
+
                                 <div class="input-wrapper">
-                                    <div class="image-upload">
-                                        <p>Image du site</p>
-                                        <label for="file-input">
-                                            <span></span>
-                                        </label>
-                                        <input id="file-input" type="file"/>
-                                    </div>
+                                  <div class="image-upload">
+                                    <p>{{uploadFileText}}</p>
+                                    <label for="file-input">
+                                      <span></span>
+                                    </label>
+                                    <input id="file-input" type="file"
+                                           (change)="fileChange($event)"
+                                           accept=".pdf"/>
+                                    <img *ngIf='loadingFile' style='position:absolute; bottom:12px; right:50px; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                                    <span *ngIf='uploadedFile' class="loading_ok"></span>
+                                  </div>
                                 </div>
+
                                 <div class="control-group">
                                     <p class="form-subheader">Groupe(s) d’employés*</p>
-                                    <br>
-                                    <span style=' display: block; padding-bottom: 14px;'></span>
-                                    <label class="control control--checkbox">Admin
-                                        <input type="checkbox"/>
-                                        <span class="control__indicator"></span>
-                                    </label>
-                                    <label class="control control--checkbox">Cariste
-                                        <input type="checkbox"/>
-                                        <span class="control__indicator"></span>
-                                    </label>
-                                    <label class="control control--checkbox">RH
-                                        <input type="checkbox"/>
-                                        <span class="control__indicator"></span>
-                                    </label>
+                                    <img *ngIf="loadingGroupes" style='position: absolute; left:8%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                                    <div *ngIf='!loadingGroupes' class="radio-btn-block">
+                                      <div *ngFor="let groupe of employeeGroupes" class="radio" >
+                                        <input type="radio"   id={{groupe.id}} name="employeeGroup"
+                                               [(ngModel)]="employees.employeeGroup" [value]="groupe.id" >  <!-- checked={{groupe.booleanValue}}-->
+                                        <label for={{groupe.id}} class="radio-label">{{groupe.name}}</label>
+                                      </div>
+                                    </div>
+
+                                    <!--<br>-->
+                                    <!--<span style=' display: block; padding-bottom: 14px;'></span>-->
+                                    <!--<label class="control control&#45;&#45;checkbox">Admin-->
+                                        <!--<input type="checkbox"/>-->
+                                        <!--<span class="control__indicator"></span>-->
+                                    <!--</label>-->
+                                    <!--<label class="control control&#45;&#45;checkbox">Cariste-->
+                                        <!--<input type="checkbox"/>-->
+                                        <!--<span class="control__indicator"></span>-->
+                                    <!--</label>-->
+                                    <!--<label class="control control&#45;&#45;checkbox">RH-->
+                                        <!--<input type="checkbox"/>-->
+                                        <!--<span class="control__indicator"></span>-->
+                                    <!--</label>-->
+
                                 </div>
                             </form>
-                            <div class="button-wrapper">
-                                <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
-                                        (click)="myModal.close()">Annuler</button>
-                                <button type="submit" class="form-button green-button ajouter-button" data-dismiss="modal">Ajouter</button>
+                            <div *ngIf="errorCreating" style='position: fixed; top: -40px;' class="alert alert-danger">{{errorCreating}}
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
+                                <span aria-hidden="true"></span>
+                              </button>
                             </div>
+                            <div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">{{successCreating}}</div>
 
+                          <div class="button-wrapper">
+                              <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+                                      (click)="myModal.close()">Annuler</button>
+                              <button type="submit" class="form-button green-button ajouter-button"
+                                      (click)='submitForm()'
+                                      >Ajouter</button>
+                            <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            <!--[disabled]="!site_newFichierForm.form.valid"-->
+                          </div>
                         </modal-content-SF>
 
                         <modal-footer-SF>
