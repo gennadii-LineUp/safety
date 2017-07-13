@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import {DataService} from "../../../../../services/DataService.service";
 declare var $:any;
 
 @Component({
@@ -26,7 +27,8 @@ export class ModalFooterSSAtt {}
 @Component({
   selector: 'modal-attest',
   templateUrl: './modal-attest.component.html',
-  styleUrls: ['./modal-attest.component.css']
+  styleUrls: ['./modal-attest.component.css'],
+  providers: [DataService]
 })
 export class SiteSalariesCreationEtap2ModalAttestComponent  {
     @Input()
@@ -72,7 +74,7 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
     private backdropElement: HTMLElement;
 
 
-    constructor() {
+    constructor(private dataService: DataService) {
         this.createBackDrop();
     }
 
@@ -142,7 +144,8 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
 
     public datepickerViewInit() {
         //Datepicker Popups calender to Choose date
-        $(() =>{
+        $(() => {
+            this.dataService.datepickerFranceFormat();
             $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker();
             $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
             //Pass the user selected date format

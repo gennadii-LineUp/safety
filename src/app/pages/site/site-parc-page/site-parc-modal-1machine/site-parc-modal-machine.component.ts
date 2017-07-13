@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import {DataService} from "../../../../services/DataService.service";
 declare var $:any;
 
 @Component({
@@ -25,7 +26,8 @@ export class ModalFooterSPMM {}
 @Component({
     selector: 'site-parc-modal-machine',
     templateUrl: './site-parc-modal-machine.component.html',
-    styleUrls: ['./site-parc-modal-machine.component.css']
+    styleUrls: ['./site-parc-modal-machine.component.css'],
+  providers: [DataService]
 })
 export class SiteParcModalMachineComponent  { //extends SiteParcPageComponent
     @Input()
@@ -71,7 +73,7 @@ export class SiteParcModalMachineComponent  { //extends SiteParcPageComponent
     private backdropElement: HTMLElement;
 
 
-    constructor() {
+    constructor(private dataService: DataService) {
        // super();
         this.createBackDrop();
     }
@@ -123,6 +125,7 @@ export class SiteParcModalMachineComponent  { //extends SiteParcPageComponent
     }
 
     public datepickerRun() {
+        this.dataService.datepickerFranceFormat();
         $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
         $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "changeYear", true );
 

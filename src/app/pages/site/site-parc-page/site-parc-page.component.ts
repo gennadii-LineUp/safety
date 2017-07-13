@@ -1,13 +1,14 @@
 import { Component, OnInit  } from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
 import {TableSortService} from '../../../services/table-sort.service';
+import {DataService} from "../../../services/DataService.service";
 declare var $:any;
 
 @Component({
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
   styleUrls: ['./site-parc-page.component.css'],
-    providers: [SiteService, TableSortService]
+    providers: [SiteService, TableSortService, DataService]
 })
 export class SiteParcPageComponent implements OnInit {
     emptyTable: boolean = true;
@@ -32,7 +33,8 @@ export class SiteParcPageComponent implements OnInit {
 
 
     constructor(private siteService: SiteService,
-                private tableSortService: TableSortService) {}
+                private tableSortService: TableSortService,
+                private dataService: DataService) {}
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
@@ -63,6 +65,7 @@ export class SiteParcPageComponent implements OnInit {
 
     datepickerRun() {
        // $(() => {
+            this.dataService.datepickerFranceFormat();
             $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
             $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( 'option', 'changeYear', true );
             //Pass the user selected date format

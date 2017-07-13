@@ -15,7 +15,6 @@ import {ErrorMessageHandlerService} from '../../../../services/error/error-messa
 export class AdminClientAjouterComponent implements OnInit {
     loading: boolean = false;
     errorCreating: string = '';
-    successCreating: string = '';
 
     billingAddressIsDifferent:boolean = true;
     spins = document.getElementsByClassName("spin");
@@ -37,7 +36,6 @@ export class AdminClientAjouterComponent implements OnInit {
     }
     public cancellSuccessMessage() {
         this.loading = false;
-        this.successCreating = '';
     }
 
 
@@ -63,7 +61,8 @@ export class AdminClientAjouterComponent implements OnInit {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    this.successCreating = "Well done! You've created a new client.";
+                    localStorage.setItem('successCreating', 'Bravo! Vous avez créé un nouveau client.');
+                    this.gotoAdminClientForm();
                 }
             }, (err) => {
                 this.loading = false;

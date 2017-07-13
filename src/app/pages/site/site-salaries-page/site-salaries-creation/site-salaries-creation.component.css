@@ -183,3 +183,22 @@
 input.datepicker-default:disabled{
   background-color: #d3d3d3;
 }
+.profil-form .image-upload {
+  height: 107px !important;
+}
+
+
+#birthDate {
+  float: left;
+  display: block;
+}
+#birthdayLabel {
+  margin-right: 90px;
+}
+@media (max-width: 767px) {
+  #birthDate:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

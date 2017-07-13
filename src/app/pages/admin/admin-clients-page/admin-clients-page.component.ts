@@ -20,6 +20,7 @@ export class AdminClientsPageComponent implements OnInit {
     errorLoad: string = '';
     successUpdate: string = '';
     errorUpdate: string = '';
+    successCreating = '';
 
     clients = [];
     pager: any = {};
@@ -45,12 +46,17 @@ export class AdminClientsPageComponent implements OnInit {
                 private tableSortService: TableSortService) { }
 
     ngOnInit() {
+        if (localStorage.successCreating) {
+          console.log('YES!!!');
+          this.successCreating = localStorage.successCreating;
+        }
         this.findClientByNameFunction('', 1, '');
     }
 
     ngOnDestroy() {
         localStorage.removeItem('adminClientsSearch_page');
         localStorage.removeItem('adminClientsSearch_name');
+        localStorage.removeItem('successCreating');
     }
 
 
@@ -207,6 +213,7 @@ export class AdminClientsPageComponent implements OnInit {
     private cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
+      this.successCreating = '';
     }
 
 

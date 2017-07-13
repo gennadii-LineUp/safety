@@ -50,7 +50,7 @@
         </div>
         <div class="one-column-input-wrapper">
             <div class="calendar-wrapper clearfix">
-                <p class="form-label">Date de naissance*</p>
+                <p class="form-label" id="birthdayLabel">Date de naissance*</p>
                 <input type="text" class="datepicker-default"
                        #birthDate="ngModel" id='birthDate' name='birthDate'  [(ngModel)]="employees.birthDate"/>
                 <p [hidden]=" birthDate.valid || birthDate.untouched " class="requred-field ">Champs requis</p>

@@ -171,7 +171,7 @@ showImg = false;
                     //                 this.loadingFile = false;
                     //                 this.uploadedFile = true;
                     //                 console.log(result);
-                                     this.successUpdate = "Well done! You've updated your settings.";
+                                     this.successUpdate = "Le profil a bien été mis à jour.";
                     //             }
                     //         }, (err) => {
                     //             this.loadingFile = false;

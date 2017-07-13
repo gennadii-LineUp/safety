@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import {EmployeesClass} from '../../models/const/employees-class';
 import {DrivingLicenseClass} from "../../models/const/driving-license-class";
 import {query} from "@angular/core/src/animation/dsl";
+import {EmployeesClassDates} from "../../models/const/employees-dates-class";
 
 @Injectable()
 export class SiteService {
@@ -50,7 +51,7 @@ export class SiteService {
     }
 
 
-    public addNewEmployee(newEmployee: EmployeesClass, siteId: number): Observable<any> {
+    public addNewEmployee(newEmployee: EmployeesClassDates, siteId: number): Observable<any> {
         const query = UrlParams.siteHome + siteId + '/employees';
         return this.backendService.post(query, JSON.stringify(newEmployee));
     }
@@ -174,7 +175,7 @@ export class SiteService {
         console.log('month ' + mm);
         if (mm < 10) {mm = '0' + mm; }
 
-        return mm + '/' + dd + '/' + (new Date(date)).getFullYear();
+        return dd + '/' + mm + '/' + (new Date(date)).getFullYear();
     }
 
 

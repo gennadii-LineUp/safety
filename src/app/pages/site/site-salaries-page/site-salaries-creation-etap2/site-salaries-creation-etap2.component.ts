@@ -10,13 +10,14 @@ import {TableSortService} from '../../../../services/table-sort.service';
 import {NgForm} from "@angular/forms";
 import {DrivingLicenseClass} from '../../../../models/const/driving-license-class';
 import {DrivingLicensesGlossary} from '../../../../models/const/driving-license-categories';
+import {DataService} from "../../../../services/DataService.service";
 declare var $: any;
 
 @Component({
   selector: 'app-site-salaries-creation-etap2',
   templateUrl: './site-salaries-creation-etap2.component.html',
   styleUrls: ['./site-salaries-creation-etap2.component.css'],
-    providers: [SiteService, ClientService, TableSortService, DrivingLicensesGlossary]
+    providers: [SiteService, ClientService, TableSortService, DrivingLicensesGlossary, DataService]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit {
     loading = false;
@@ -35,6 +36,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     successCreatingDrLicence = '';
     errorCreatingAttestat = '';
     successCreatingAttestat = '';
+
+    startDate = false;
+    endDate = false;
 
     loadingFile: boolean = false;
     uploadedFile: boolean = false;
@@ -97,7 +101,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                 private router: Router,
                 private route: ActivatedRoute,
                 private tableSortService: TableSortService,
-                private drivingLicensesGlossary: DrivingLicensesGlossary) { }
+                private drivingLicensesGlossary: DrivingLicensesGlossary,
+                private dataService: DataService) { }
 
 
     ngOnInit(): void {
@@ -178,7 +183,19 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.employees.endDate = result.endDate;
                     this.employees.employeeGroup = result.employeeGroup;
 
+                  console.log('************');
+                  console.log(!!result.startDate);
+
+                    if (result.startDate) {
+                      this.employees.startDate = this.siteService.convertDataForInputView(result.startDate);
+                      this.startDate = true;
+                    }
+                  if (result.endDate) {
+                      this.employees.endDate = this.siteService.convertDataForInputView(result.endDate);
+                      this.endDate = true;
+                  }
                     this.employees.birthDate = this.siteService.convertDataForInputView(result.birthDate);
+                    console.log(this.employees);
                     this.loaded = true;
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
                     this.getDatesAutorisations();
@@ -496,9 +513,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     public datepickerViewInit() {
         // Datepicker Popups calender to Choose date
         $(() => {
+            this.dataService.datepickerFranceFormat();
             $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker();
+            $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker({dateFormat: 'dd-mm-yy'});
             $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
-            // Pass the user selected date format
             $( '#format' ).change(() => {
                 $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });

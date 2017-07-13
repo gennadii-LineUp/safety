@@ -165,7 +165,7 @@ export class SiteSalariesPageComponent implements OnInit {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    // this.ngOnInit();
+                    this.checkFreeSalarieAccount();
                     this.findEmployeeByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {

@@ -13,7 +13,7 @@
 
         <button class="add-an-item-button" (click)="myModal.open()"></button>
 
-        <client-groupes-modal #myModal>
+        <client-groupes-modal #myModal >
             <modal-header-CG>
                 <h2>Ajouter un groupe</h2>
             </modal-header-CG>
@@ -96,7 +96,7 @@
                     <td>{{groupe.access | adminAccess }}</td>
                     <!--<td>{{groupe.admin_access}}</td>-->
                     <td>
-                        <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe.id)'>Modifier</a>
+                        <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe.id)'>Gérer</a>
                             /
                         <a href="javascript:void(0);" (click)='deleteFunction(groupe.id)'>Supprimer</a></td>
                 </tr>

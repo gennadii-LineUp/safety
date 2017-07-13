@@ -3,8 +3,7 @@
 </header>
 <div class="main-content">  <!--(submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"-->
     <form #admin_newClientForm="ngForm"  class="creer-un-client-form"  novalidate
-            (ngSubmit)="submitNewClientFunction(admin_newClientForm)"
-            (click)='cancellSuccessMessage()'>
+            (ngSubmit)="submitNewClientFunction(admin_newClientForm)">
         <div class="input-wrapper">
             <p [hidden]="company.invalid" class="requred-field color-valid">Entreprise</p>
             <input type="text" class="form-control" placeholder="Entreprise*"
@@ -72,7 +71,7 @@
             <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone</p>
+            <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone  (example: +7(905)678-90-12)</p>
             <input type="text" class="form-control" placeholder="Téléphone*"
                    #phone="ngModel" id="phone" name='phone' required [(ngModel)]="client.phone" />
             <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
@@ -131,6 +130,5 @@
             <p style='opacity:0; line-height:0.5;'>LineUp</p>
             <p>SAFETY: <span>{{errorCreating}}</span></p>
         </div>
-        <div *ngIf="successCreating" class="alert alert-success">{{successCreating}}</div>
     </form>
 </div>

@@ -96,6 +96,14 @@
                                             padding-top:10px;">Période de validité :
                     <span>{{employees.validityPeriod | validityPeriod}}</span>
                 </p>
+                <p *ngIf="startDate" class="form-label" style="font-family:'Open Sans',sans-serif;
+                                            font-size:14px;
+                                            padding-left:10px;
+                                            padding-top:10px;">Date de début  {{employees.startDate}}</p>
+                <p *ngIf="endDate" class="form-label" style="font-family:'Open Sans',sans-serif;
+                                            font-size:14px;
+                                            padding-left:10px;
+                                            padding-top:10px;">Date de fin  {{employees.endDate}}</p>
             </div>
         </div>
     </form>
@@ -131,7 +139,7 @@
                 <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />
             </div>
 
-            <p class="form-label" style='display: inline-block; width: auto; float: left;'>Fishier *</p>
+            <p class="form-label" style='display: inline-block; width: auto; float: left;'>Fichier *</p>
 
              <div class="input-wrapper" style='display: inline-block; width: auto;  float: right; margin-right: 12px;'>
                 <div class="image-upload"  style='display: inline-block !important;'>

@@ -5,13 +5,15 @@ import {ErrorMessageHandlerService} from 'app/services/error/error-message-handl
 import {SiteService} from '../../../../services/site/site.service';
 import {EmployeesClass} from 'app/models/const/employees-class';
 import { NgForm} from '@angular/forms';
+import {DataService} from "../../../../services/DataService.service";
+import {EmployeesClassDates} from "../../../../models/const/employees-dates-class";
 declare var $:any;
 
 @Component({
   selector: 'site-salaries-creation',
   templateUrl: './site-salaries-creation.component.html',
   styleUrls: ['./site-salaries-creation.component.css'],
-    providers: [ClientService, SiteService]
+    providers: [ClientService, SiteService, DataService]
 })
 export class SiteSalariesCreationComponent implements OnInit {
     loading: boolean = false;
@@ -25,11 +27,11 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     addNewSalariesAvailable: boolean = true;
     errorSalaries: boolean = false;
-    salariesMaxPossible:number;
-    salariesUsed:number;
+    salariesMaxPossible: number;
+    salariesUsed: number;
 
 
-    id_site:number;
+    id_site: number;
 
     public periodeDeValidite = [
         { value: 'indeterminee', booleanValue: false, display: 'Indéterminée' },
@@ -37,14 +39,15 @@ export class SiteSalariesCreationComponent implements OnInit {
     ];
 
     public employeeGroupes = []; // example: [{ access:false, id:269, name:"group 11" }]
-    employees = new EmployeesClass('','','','','','',this.periodeDeValidite[0].booleanValue,'','',0);
+    employees = new EmployeesClass('', '', '', '', '', '', this.periodeDeValidite[0].booleanValue, '', '', 0);
     //employees: EmployeesClass[] = [];
 
 
     constructor(private clientService: ClientService,
                 private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
-                private router: Router) {}
+                private router: Router,
+                private dataService: DataService) {}
 
     ngOnInit() {
         this.getEmployeeGroupes();
@@ -145,30 +148,40 @@ export class SiteSalariesCreationComponent implements OnInit {
 
 
     public submitForm(newEmployeesForm: NgForm) {
-        let datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-        let datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value || "";
-        let datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value || "";
+        const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
+        const datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value + 'T00:00:00.000' || '';
+        const datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value + 'T00:00:00.000' || '';
+
+        const _datepicker_birthDate = this.dataService.stringToDate(datepicker_birthDate, 'dd/MM/yyyy', '/');
+        const _datepicker_startDate = this.dataService.stringToDate(datepicker_startDate, 'dd/MM/yyyy', '/');
+        const _datepicker_endDate = this.dataService.stringToDate(datepicker_endDate, 'dd/MM/yyyy', '/');
+        // console.log(_datepicker_birthDate);
+        // console.log(newEmployeesForm.value);
+
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
-        // let newEmployee = new EmployeesClass(newEmployeesForm.value.name,
-        //                                         newEmployeesForm.value.surname,
-        //                                         newEmployeesForm.value.email,
-        //                                         newEmployeesForm.value.post,
-        //                                         datepicker_birthDate,
-        //                                         newEmployeesForm.value.numSecu,
-        //                                         newEmployeesForm.value.validityPeriod,
-        //                                         datepicker_startDate,
-        //                                         datepicker_endDate,
-        //                                         newEmployeesForm.value.employeeGroup);
+         const employeeDates = new EmployeesClassDates(newEmployeesForm.value.name,
+                                                       newEmployeesForm.value.surname,
+                                                       newEmployeesForm.value.email,
+                                                       newEmployeesForm.value.post,
+                                                       _datepicker_birthDate,
+                                                       newEmployeesForm.value.numSecu,
+                                                       newEmployeesForm.value.validityPeriod,
+                                                       _datepicker_startDate,
+                                                       _datepicker_endDate,
+                                                       newEmployeesForm.value.employeeGroup);
 
         this.employees.birthDate = datepicker_birthDate;
         this.employees.startDate = datepicker_startDate;
         this.employees.endDate = datepicker_endDate;
+        console.log(employeeDates);
 
-        this.siteService.addNewEmployee(this.employees, this.id_site)
+       // const date1 = new Date(datepicker_birthDate + "T00:00:00.000');
+
+        this.siteService.addNewEmployee(employeeDates, this.id_site)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -232,14 +245,13 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     datepickerRun() {
         //Datepicker Popups calender to Choose date
-        $(() =>{
+        $(() => {
+            this.dataService.datepickerFranceFormat();
             $( '#birthDate, #startDate, #endDate' ).datepicker();
             $( '#birthDate, #startDate, #endDate' ).datepicker( "option", "changeYear", true );
-            //Pass the user selected date format
             $( '#format' ).change(() => {
                 $( '#birthDate, #startDate, #endDate' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
-            //Pass the user selected date format
         });
     }
 

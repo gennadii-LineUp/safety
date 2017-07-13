@@ -22,6 +22,8 @@ export class ClientGroupesPageComponent implements OnInit {
     errorCreating: string = '';
     successCreating: string = '';
 
+    showModal = true;
+
     itemForChange: number = 0;
     saveButtonCaption: string = 'Créer';
 
@@ -146,11 +148,13 @@ export class ClientGroupesPageComponent implements OnInit {
                 if (result) {
                     this.saving = false;
                     console.log(result);
-                    this.successCreating = 'Well done! Group is saved.';
-                    if (this.itemForChange) {
-                      this.saveButtonCaption = 'Créer';
-                      this.itemForChange = 0;
-                    }
+                    this.salaryeeGroupe = new GroupeClass('', false);
+
+                    // this.successCreating = 'Well done! Group is saved.';
+                    // if (this.itemForChange) {
+                    //   this.saveButtonCaption = 'Créer';
+                    //   this.itemForChange = 0;
+                    // }
                     this.ngOnInit();
                 }
             }, (err) => {
