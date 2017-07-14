@@ -1,4 +1,4 @@
-export class VisitesClass{
+export class VisitesClass {
     medicalVisitDateExpires: string;
     cacesDateExpires: string;
 

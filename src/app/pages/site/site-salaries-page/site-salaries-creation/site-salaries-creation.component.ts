@@ -149,21 +149,22 @@ export class SiteSalariesCreationComponent implements OnInit {
 
     public submitForm(newEmployeesForm: NgForm) {
         const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-        const datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value + 'T00:00:00.000' || '';
-        const datepicker_endDate = window.document.getElementsByClassName('datepicker-default')['2'].value + 'T00:00:00.000' || '';
+        const datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value || '';
+        const datepicker_endDate   = window.document.getElementsByClassName('datepicker-default')['2'].value || '';
 
-        const _datepicker_birthDate = this.dataService.stringToDate(datepicker_birthDate, 'dd/MM/yyyy', '/');
-        const _datepicker_startDate = this.dataService.stringToDate(datepicker_startDate, 'dd/MM/yyyy', '/');
-        const _datepicker_endDate = this.dataService.stringToDate(datepicker_endDate, 'dd/MM/yyyy', '/');
-        // console.log(_datepicker_birthDate);
-        // console.log(newEmployeesForm.value);
+        // const _datepicker_birthDate = (this.dataService.stringToDate(datepicker_birthDate, 'dd/MM/yyyy', '/')).toISOString();
+        // const _datepicker_startDate = (this.dataService.stringToDate(datepicker_startDate, 'dd/MM/yyyy', '/')).toISOString();
+        // const _datepicker_endDate = (this.dataService.stringToDate(datepicker_endDate, 'dd/MM/yyyy', '/')).toISOString();
 
+        const _datepicker_birthDate = this.dataService.stringToISOString(datepicker_birthDate);
+        const _datepicker_startDate = this.dataService.stringToISOString(datepicker_startDate);
+        const _datepicker_endDate   = this.dataService.stringToISOString(datepicker_endDate);
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
-         const employeeDates = new EmployeesClassDates(newEmployeesForm.value.name,
+         const employeeDates = new EmployeesClass(newEmployeesForm.value.name,
                                                        newEmployeesForm.value.surname,
                                                        newEmployeesForm.value.email,
                                                        newEmployeesForm.value.post,
@@ -174,12 +175,10 @@ export class SiteSalariesCreationComponent implements OnInit {
                                                        _datepicker_endDate,
                                                        newEmployeesForm.value.employeeGroup);
 
-        this.employees.birthDate = datepicker_birthDate;
-        this.employees.startDate = datepicker_startDate;
-        this.employees.endDate = datepicker_endDate;
+        // this.employees.birthDate = datepicker_birthDate;
+        // this.employees.startDate = datepicker_startDate;
+        // this.employees.endDate = datepicker_endDate;
         console.log(employeeDates);
-
-       // const date1 = new Date(datepicker_birthDate + "T00:00:00.000');
 
         this.siteService.addNewEmployee(employeeDates, this.id_site)
             .subscribe(result => {

@@ -1,4 +1,4 @@
-export class AttestationClass{
+export class AttestationClass {
     name: string;
     dateIssue: string;
     dateExpires: string;

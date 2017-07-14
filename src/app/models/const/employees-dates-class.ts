@@ -3,22 +3,22 @@ export class EmployeesClassDates {
   surname: string;
   email: string;
   post: string;
-  birthDate: Date;
+  birthDate: string;
   numSecu: string;
   validityPeriod: boolean;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   employeeGroup: number;
 
   constructor(name: string,
               surname: string,
               email: string,
               post: string,
-              birthDate: Date,
+              birthDate: string,
               numSecu: string,
               validityPeriod: boolean,
-              startDate: Date,
-              endDate: Date,
+              startDate: string,
+              endDate: string,
               employeeGroup: number) {
 
     this.name = name;

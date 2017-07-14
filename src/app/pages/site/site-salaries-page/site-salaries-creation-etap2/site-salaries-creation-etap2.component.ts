@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SiteService} from '../../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
@@ -7,10 +7,10 @@ import {EmployeesClass} from 'app/models/const/employees-class';
 import {VisitesClass} from '../../../../models/const/visites-class';
 import {AttestationClass} from '../../../../models/const/attestations-class';
 import {TableSortService} from '../../../../services/table-sort.service';
-import {NgForm} from "@angular/forms";
+import {NgForm} from '@angular/forms';
 import {DrivingLicenseClass} from '../../../../models/const/driving-license-class';
 import {DrivingLicensesGlossary} from '../../../../models/const/driving-license-categories';
-import {DataService} from "../../../../services/DataService.service";
+import {DataService} from '../../../../services/DataService.service';
 declare var $: any;
 
 @Component({
@@ -19,7 +19,7 @@ declare var $: any;
   styleUrls: ['./site-salaries-creation-etap2.component.css'],
     providers: [SiteService, ClientService, TableSortService, DrivingLicensesGlossary, DataService]
 })
-export class SiteSalariesCreationEtap2Component implements OnInit {
+export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     loading = false;
     loadingDatesAutorisations = true;
     loadingAttestations = true;
@@ -28,10 +28,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     loadingSalarieUsed = false;
     loadingGroupes = true;
     loaded = false;
-    loadedSalarieUsed = false;
-    errorLoad: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+    errorLoad = '';
+    errorCreating = '';
+    successCreating = '';
     errorCreatingDrLicence = '';
     successCreatingDrLicence = '';
     errorCreatingAttestat = '';
@@ -40,18 +39,18 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     startDate = false;
     endDate = false;
 
-    loadingFile: boolean = false;
-    uploadedFile: boolean = false;
-    uploadFileText: string = 'fichier1.jpg';
+    loadingFile = false;
+    uploadedFile = false;
+    uploadFileText = 'fichier1.jpg';
 
     saveButtonCaptionAttest = 'Enregistrer';
     itemForChange = 0;
 
-    errorSalaries: boolean = false;
+    errorSalaries = false;
     salariesMaxPossible: number;
     salariesUsed: number;
 
-    emptyTable: boolean = true;
+    emptyTable = true;
 
     id_site: number;
     id_salarie: number;
@@ -77,7 +76,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     ];
 
     headers: any[] = [
-        { display: 'Nom', variable: 'name', filter: 'text' }//,
+        { display: 'Nom', variable: 'name', filter: 'text' }// ,
         // { display: 'Date de délivrance',variable: 'dateIssue',    filter: 'text' },
         // { display: 'Date d’expiration', variable: 'dateExpires',  filter: 'text' }
     ];
@@ -89,6 +88,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     public employeeAttestations = [];
     attestation = new AttestationClass('', '', '');
     drivingLicense = new DrivingLicenseClass([], 0);
+
+  file: File;
+  userHasChoosenFile = false;
 
 
   public getSortingTarget() {
@@ -122,8 +124,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.remove('active');
     }
 
-    file: File;
-    userHasChoosenFile: boolean = false;
     public fileChange(event) {
         this.loadingFile = false;
         this.uploadedFile = false;
@@ -176,31 +176,24 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.employees.surname = result.surname;
                     this.employees.email = result.email;
                     this.employees.post = result.post;
-                    this.employees.birthDate = result.birthDate;
                     this.employees.numSecu = result.numSecu;
                     this.employees.validityPeriod = result.validityPeriod;
-                    this.employees.startDate = result.startDate;
-                    this.employees.endDate = result.endDate;
                     this.employees.employeeGroup = result.employeeGroup;
 
-                  console.log('************');
-                  console.log(!!result.startDate);
-
                     if (result.startDate) {
-                      this.employees.startDate = this.siteService.convertDataForInputView(result.startDate);
+                      this.employees.startDate = this.dataService.convertDateForInputView(result.startDate);
                       this.startDate = true;
                     }
-                  if (result.endDate) {
-                      this.employees.endDate = this.siteService.convertDataForInputView(result.endDate);
-                      this.endDate = true;
-                  }
-                    this.employees.birthDate = this.siteService.convertDataForInputView(result.birthDate);
+                    if (result.endDate) {
+                        this.employees.endDate = this.dataService.convertDateForInputView(result.endDate);
+                        this.endDate = true;
+                    }
+                    this.employees.birthDate = this.dataService.convertDateForInputView(result.birthDate);
                     console.log(this.employees);
                     this.loaded = true;
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
                     this.getDatesAutorisations();
                     this.getAttestations('');
-
                 }
             }, (err) => {
                 this.loading = false;
@@ -229,23 +222,36 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    public submitModifyEtap1Form() {
+    public submitModifyEtap1Form(modifyEmployeesForm: NgForm) {
         const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
+        let _startDate = this.employees.startDate;
+        let _endDate = this.employees.endDate;
         if (this.employees.startDate) {
-          this.employees.startDate = this.siteService.convertDataForInputView(this.employees.startDate);
+          _startDate = this.dataService.convertDateFromInputeToServer(this.employees.startDate);
         }
         if (this.employees.endDate) {
-          this.employees.endDate = this.siteService.convertDataForInputView(this.employees.endDate);
+          _endDate = this.dataService.convertDateFromInputeToServer(this.employees.endDate);
         }
-        this.employees.birthDate = datepicker_birthDate;
-          console.dir(this.employees);
 
-        this.siteService.updateEmployee(this.employees, this.id_site, this.id_salarie)
+       const employeeDates = new EmployeesClass(this.employees.name,
+                                                this.employees.surname,
+                                                this.employees.email,
+                                                this.employees.post,
+                                                this.dataService.stringToISOString(datepicker_birthDate),
+                                                this.employees.numSecu,
+                                                this.employees.validityPeriod,
+                                                _startDate,
+                                                _endDate,
+                                                this.employees.employeeGroup.id);
+
+        console.dir(employeeDates);
+
+        this.siteService.updateEmployee(employeeDates, this.id_site, this.id_salarie)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -274,11 +280,12 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        this.attestation.dateExpires = dateExpires;
-        this.attestation.dateIssue = dateIssue;
-        console.dir(this.attestation);
+        const attestation = new AttestationClass(this.attestation.name,
+                                                  this.dataService.stringToISOString(dateExpires),
+                                                  this.dataService.stringToISOString(dateIssue));
+        console.dir(attestation);
 
-        this.siteService.setAttestation(this.attestation, this.id_site, this.id_salarie, urlOption)
+        this.siteService.setAttestation(attestation, this.id_site, this.id_salarie, urlOption)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
@@ -304,20 +311,21 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        let datepicker_medicalVisit = window.document.getElementsByClassName('datepicker-default')['1'].value;
-        let datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
+        const datepicker_medicalVisit = window.document.getElementsByClassName('datepicker-default')['1'].value;
+        const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
 
-        this.visites.medicalVisitDateExpires = datepicker_medicalVisit;
-        this.visites.cacesDateExpires = datepicker_caces;
-        console.log('====MedicaleCacesDates TO server:');
-        console.log(this.visites);
+        const _datepicker_medicalVisit = this.dataService.stringToISOString(datepicker_medicalVisit);
+        const _datepicker_caces = this.dataService.stringToISOString(datepicker_caces);
 
-        this.siteService.addMedicaleCacesDates(this.visites, this.id_site, this.id_salarie)
+        const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
+        console.log(visites);
+
+        this.siteService.addMedicaleCacesDates(visites, this.id_site, this.id_salarie)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    //this.successCreating = "Well done! You've saved MedicaleCacesDates.";
+                    // this.successCreating = "Well done! You've saved MedicaleCacesDates.";
 
                     // if (this.userHasChoosenFile) {
                     //     this.loadingFile = true;
@@ -353,43 +361,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-    // public getAutorisations(sort) {
-    //     this.loading = true;
-    //     this.emptyTable = false;
-    //     let _name = name;
-    //     if (name === 'lineUp') {
-    //         _name = localStorage.adminLinkSearch_name;
-    //     }
-    //
-    //     this.siteService.findLinksByName(_name, page, sort)
-    //         .subscribe(result => {
-    //             if (result) {
-    //                 this.cancellMessages();
-    //
-    //                 console.log(result);
-    //                 this.links = result.items;
-    //                 this.totalItems = +result.pagination.totalCount;
-    //                 if (this.totalItems === 0) {
-    //                     this.emptyTable = true;
-    //                 }
-    //                 console.log('ITEMS  ' + this.totalItems);
-    //                 this.currentPage = +result.pagination.current;
-    //
-    //                 this.setPage(this.currentPage);
-    //
-    //                 setTimeout(() => {
-    //                     this.adminService.siteService.tableMobileViewInit();
-    //                 }, 200);
-    //                 localStorage.setItem('adminLinkSearch_name', _name);
-    //             }
-    //         }, (err) => {
-    //             this.loading = false;
-    //             this.emptyTable = true;
-    //             console.log(err);
-    //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    //         });
-    // }
-
   public getDatesAutorisations() {
     this.loadingDatesAutorisations = true;
     this.visites = new VisitesClass('', '');
@@ -400,14 +371,13 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
           console.log('====MedicaleCacesDates from server:');
           console.dir(result);
           this.loadingDatesAutorisations = false;
+
           if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
             this.visites = new VisitesClass('', '');
           } else {
-
-            console.log(this.siteService.convertDataForInputView(result.cacesDateExpires));
-            console.log(this.siteService.convertDataForInputView(result.medicalVisitDateExpires));
-            this.visites.medicalVisitDateExpires = this.siteService.convertDataForInputView(result.medicalVisitDateExpires);
-            this.visites.cacesDateExpires = this.siteService.convertDataForInputView(result.cacesDateExpires);
+            console.log('hello');
+            this.visites.medicalVisitDateExpires = this.dataService.convertDateForInputView(result.medicalVisitDateExpires);
+            this.visites.cacesDateExpires = this.dataService.convertDateForInputView(result.cacesDateExpires);
           }
         }
       }, (err) => {
@@ -449,8 +419,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
                     this.creatingAttest = false;
                     console.log(result);
                     this.attestation.name = result.name;
-                    this.attestation.dateExpires = this.siteService.convertDataForInputView(result.dateExpires);
-                    this.attestation.dateIssue = this.siteService.convertDataForInputView(result.dateIssue);
+                    this.attestation.dateExpires = this.dataService.convertDateForInputView(result.dateExpires);
+                    this.attestation.dateIssue = this.dataService.convertDateForInputView(result.dateIssue);
                     this.saveButtonCaptionAttest = 'Modifier';
                     this.itemForChange = result.id;
                 }
@@ -550,15 +520,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
     }
 
 
-
-  public checkDrivingLicenseClicked(id: number) { console.log('hello  ' + id); }
-
-    public convertCategory(checkbox: string): number {
-      let categoryId: number;
-      return categoryId;
-    }
-
-
   public submitCategoryDrivingLicense() {
       this.cancellErrorMessage();
       this.cancellSuccessMessage();
@@ -591,7 +552,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit {
           if (result) {
             this.creatingDrivingLicense = false;
             console.log(result);
-            this.successCreatingDrLicence = "Well done! You've created new driving license.";
+            this.successCreatingDrLicence = 'Well done! You&aposve created new driving license.';
           }
         }, (err) => {
           this.creatingDrivingLicense = false;

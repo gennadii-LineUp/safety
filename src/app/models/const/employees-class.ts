@@ -8,7 +8,7 @@ export class EmployeesClass {
     validityPeriod: boolean;
     startDate: string;
     endDate: string;
-    employeeGroup: number;
+    employeeGroup: any;
 
     constructor(name: string,
                 surname: string,
@@ -19,7 +19,7 @@ export class EmployeesClass {
                 validityPeriod: boolean,
                 startDate: string,
                 endDate: string,
-                employeeGroup: number) {
+                employeeGroup: any) {
 
         this.name = name;
         this.surname = surname;

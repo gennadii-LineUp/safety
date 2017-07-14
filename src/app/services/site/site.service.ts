@@ -159,24 +159,6 @@ export class SiteService {
 
 
 
-    public convertDataForInputView(strDate: string): string {
-        const date = Date.parse(strDate);
-        console.log(date);
-
-// new Date((Date.parse("2017-01-01T00:00:00+0300")))
-
-        let dd: any;
-        dd = (new Date(date)).getDate();
-        console.log('day ' + dd);
-        if (dd < 10) {dd = '0' + dd; }
-
-        let mm: any;
-        mm = +(new Date(date)).getMonth() + 1;
-        console.log('month ' + mm);
-        if (mm < 10) {mm = '0' + mm; }
-
-        return dd + '/' + mm + '/' + (new Date(date)).getFullYear();
-    }
 
 
     public logout(): void {

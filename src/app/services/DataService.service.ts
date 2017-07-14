@@ -43,4 +43,45 @@ export class DataService {
   // stringToDate("9-17-2014","mm-dd-yyyy","-")
 
 
+  public convertDateFromInputeToServer(date: string) {
+    const str = date.split('/').reverse().join('-');
+    const newDate = new Date(str + 'T00:00:00.000');
+    return newDate.toISOString();
+  }
+
+
+  public stringToISOString(date: string) {
+    let str = date.split('/').reverse().join('-');
+    str += 'T00:00:00.000';
+    return str;
+  }
+  // 25/12/2017 --> 2017-12-25
+
+
+//  var t1 = new Date("2017-11-10T01:00:00+03:00"); console.log('"2017-11-10T01:00:00+03:00": '+t1.getDate()+'/'+t1.getMonth()+'/'+t1.getFullYear());
+  public convertDateFromServerToInput(strDate: string): string {
+    const t1 = new Date(strDate);
+
+    return t1.getDate() + '/' + t1.getMonth() + 1 + '/' + t1.getFullYear();
+  }
+
+
+  public convertDateForInputView(strDate: string): string {
+    const date = Date.parse(strDate);
+    // console.log(date);
+    // new Date((Date.parse("2017-01-01T00:00:00+0300")))
+
+    let dd: any;
+    dd = (new Date(date)).getDate();
+    // console.log('day ' + dd);
+    if (dd < 10) {dd = '0' + dd; }
+
+    let mm: any;
+    mm = +(new Date(date)).getMonth() + 1;
+    // console.log('month ' + mm);
+    if (mm < 10) {mm = '0' + mm; }
+
+    return dd + '/' + mm + '/' + (new Date(date)).getFullYear();
+  }
+
 }
