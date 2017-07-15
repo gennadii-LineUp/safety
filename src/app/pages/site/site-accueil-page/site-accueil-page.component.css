@@ -1,0 +1,12 @@
+#loadedImg {
+  display: block;
+  height: 500px;
+  background-position: center !important;
+  background-size: cover !important;
+  z-index: 100;
+  position: relative;
+}
+
+.main-content {
+  min-height: calc(100vh - 160px);
+}
