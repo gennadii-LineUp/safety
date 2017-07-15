@@ -181,14 +181,14 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.employees.employeeGroup = result.employeeGroup;
 
                     if (result.startDate) {
-                      this.employees.startDate = this.dataService.convertDateForInputView(result.startDate);
+                      this.employees.startDate = this.dataService.convertDateFromServerToInput(result.startDate);
                       this.startDate = true;
                     }
                     if (result.endDate) {
-                        this.employees.endDate = this.dataService.convertDateForInputView(result.endDate);
+                        this.employees.endDate = this.dataService.convertDateFromServerToInput(result.endDate);
                         this.endDate = true;
                     }
-                    this.employees.birthDate = this.dataService.convertDateForInputView(result.birthDate);
+                    this.employees.birthDate = this.dataService.convertDateFromServerToInput(result.birthDate);
                     console.log(this.employees);
                     this.loaded = true;
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
@@ -242,7 +242,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                                                 this.employees.surname,
                                                 this.employees.email,
                                                 this.employees.post,
-                                                this.dataService.stringToISOString(datepicker_birthDate),
+                                                this.dataService.convertDateFromInputeToServer(datepicker_birthDate),
                                                 this.employees.numSecu,
                                                 this.employees.validityPeriod,
                                                 _startDate,
@@ -281,8 +281,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.loading = true;
 
         const attestation = new AttestationClass(this.attestation.name,
-                                                  this.dataService.stringToISOString(dateExpires),
-                                                  this.dataService.stringToISOString(dateIssue));
+                                                  this.dataService.convertDateFromInputeToServer(dateExpires),
+                                                  this.dataService.convertDateFromInputeToServer(dateIssue));
         console.dir(attestation);
 
         this.siteService.setAttestation(attestation, this.id_site, this.id_salarie, urlOption)
@@ -314,8 +314,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         const datepicker_medicalVisit = window.document.getElementsByClassName('datepicker-default')['1'].value;
         const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
 
-        const _datepicker_medicalVisit = this.dataService.stringToISOString(datepicker_medicalVisit);
-        const _datepicker_caces = this.dataService.stringToISOString(datepicker_caces);
+        const _datepicker_medicalVisit = this.dataService.convertDateFromInputeToServer(datepicker_medicalVisit);
+        const _datepicker_caces = this.dataService.convertDateFromInputeToServer(datepicker_caces);
 
         const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
         console.log(visites);

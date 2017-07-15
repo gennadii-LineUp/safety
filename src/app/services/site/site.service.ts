@@ -6,6 +6,7 @@ import {EmployeesClass} from '../../models/const/employees-class';
 import {DrivingLicenseClass} from "../../models/const/driving-license-class";
 import {query} from "@angular/core/src/animation/dsl";
 import {EmployeesClassDates} from "../../models/const/employees-dates-class";
+import {FichiersClass} from "../../models/const/site-fichiers-class";
 
 @Injectable()
 export class SiteService {
@@ -34,6 +35,16 @@ export class SiteService {
       console.log(query);
       return this.backendService.get(UrlParams.siteHome + query);
     }
+    public addFichier(newFichier: FichiersClass, siteId: number, fichierId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/files/' + fichierId + '/properties';
+      return this.backendService.post(query, JSON.stringify(newFichier));
+    }
+    public getOneFichier(siteId: number, fichierId: number): Observable<any> {
+      const query = siteId + '/files/' + fichierId + '/properties';
+      console.log(query);
+      return this.backendService.get(UrlParams.siteHome + query);
+    }
+// /sites/44/files/4/properties
 
     public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
@@ -66,12 +77,12 @@ export class SiteService {
     }
     public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-        console.log(MedicaleCacesDates);
+        // console.log(MedicaleCacesDates);
         return this.backendService.post(url, JSON.stringify(MedicaleCacesDates));
     }
   public getMedicaleCacesDates(siteId: number, employeeId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-    console.log('======getMedicaleCacesDates url:' + url);
+    // console.log('======getMedicaleCacesDates url:' + url);
     return this.backendService.get(url);
   }
 
@@ -114,8 +125,17 @@ export class SiteService {
         formData.append('image', file, file.name);
         const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
         console.log(query);
-
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
+    }
+
+  public getAccueilInfo(siteId: number): Observable<any> {
+    const query = siteId;
+    return this.backendService.get(UrlParams.siteHome + query);
+  }
+
+    public getFromServerAccueilImage(siteId: number): Observable<any> {
+      const query = siteId + '/image' + '?encoded=1';
+      return this.backendService.loadImage_get(UrlParams.siteHome + query);
     }
 
     public sendPDFtoServer(file: any, content: any, siteId: number): Observable<any> {

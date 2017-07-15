@@ -10,7 +10,7 @@
 </header>
 <div class="main-content" style="padding-top: 22px;">
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="myModal.open()"></button>
+        <button class="add-an-item-button" (click)="myModal.open(); setEmptyFichiers();"></button>
 
                     <site-fichiers-modal #myModal style='min-width: 454px; max-width: 454px;' tabindex="-1">
                         <modal-header-SF>
@@ -66,7 +66,7 @@
                                           [(ngModel)]="employeeGroup"-->
                                       <input type="checkbox"
                                                id={{groupe.id}} name={{groupe.id}}
-                                                [value]="groupe.id"
+                                                [value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'
                                                (change)='addSubcategory($event); false'/>
                                         <span class="control__indicator"></span>
                                     </label>
@@ -76,10 +76,10 @@
 
                           <div class="button-wrapper">
                               <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
-                                      (click)="myModal.close()">Annuler</button>
+                                      (click)="myModal.close(); setEmptyFichiers();">Annuler</button>
                               <button type="submit" class="form-button green-button ajouter-button"
                                       (click)='submitForm(name.value)'
-                                      [disabled]="!(!categoryDrivingLicense_nullData && site_newFichierForm.form.valid)">Ajouter</button>
+                                      [disabled]="!(!categoryDrivingLicense_nullData && site_newFichierForm.form.valid)">{{saveButtonCaption}}</button>
                               <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                           </div>
                         </modal-content-SF>
@@ -125,7 +125,10 @@
                   <td>{{fichier.name}}</td>
                   <td>{{fichier.employeeGroups}}</td>
                   <td>
-                    <a href="javascript:void(0);" (click)='modifierSalarieFunction(fichier.id)'>{{fichier.id}}Modifier</a>
+                    <a href="javascript:void(0);"
+                          (click)='myModal.open();
+                                  setEmptyFichiers();
+                                  modifierFunction(fichier.id);'>{{fichier.id}}Modifier</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(fichier.id)'>Supprimer</a></td>
                 </tr>

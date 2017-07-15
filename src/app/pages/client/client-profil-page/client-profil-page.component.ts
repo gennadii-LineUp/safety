@@ -12,21 +12,21 @@ import {ClientProfileClass} from '../../../models/const/client-profile-class';
     providers: [ClientService]
 })
 export class ClientProfilPageComponent implements OnInit {
-    loading: boolean = true;
-    updating: boolean = false;
-    errorLoad: string = '';
-    successUpdate: string = '';
-    errorUpdate: string = '';
+    loading = true;
+    updating = false;
+    errorLoad = '';
+    successUpdate = '';
+    errorUpdate = '';
 
-    loadingFile: boolean = false;
-    uploadedFile: boolean = false;
+    loadingFile = false;
+    uploadedFile = false;
 
     imgServer: any;
 
-    billingAddressIsDifferent: boolean = true;
+    billingAddressIsDifferent = true;
 
     file: File;
-    userHasChoosenFile: boolean = false;
+    userHasChoosenFile = false;
 
   client = new ClientProfileClass('', '', '', '', '', false, '', '', '', '', '', '', '', '', '', '', '', '');
 
@@ -69,11 +69,11 @@ export class ClientProfilPageComponent implements OnInit {
 
                     this.client = currentClient;
 
-                    // this.loadingFile = true;
-
+                  //    this.loadingFile = true;
+                  //
                   // setTimeout(() => {
                   //     this.getFromServerProfileImageFunction();
-                  // }, 5000);
+                  // }, 100);
                 }
             }, (err) => {
                 this.loading = false;
@@ -82,7 +82,7 @@ export class ClientProfilPageComponent implements OnInit {
 
     }
 
-showImg = false;
+    showImg = false;
     public fileChange(event) {
         this.uploadedFile = false;
         const fileList: FileList = event.target.files;
@@ -128,7 +128,7 @@ showImg = false;
                         this.loadingFile = false;
                       this.showImg = true;
                         console.log(result);
-                        let src = 'data:' + result.contentType + ';base64,';
+                        const src = 'data:' + result.contentType + ';base64,';
                         console.log(src);
                          this.imgServer = src + result.content;
                       // let blob = new Blob([new Uint8Array(result._body)], {
@@ -138,7 +138,7 @@ showImg = false;
                       // let url = urlCreator.createObjectURL(blob);
                       // this.imgServer = url;
 
-                      //this.imgServer = atob(result._body);
+                      // this.imgServer = atob(result._body);
 
                       // this.imgServer = atob(String.fromCharCode.apply(null, new Uint8Array(result._body)));
                       // this.successUpdate = "Well done! You've updated your settings.";
@@ -171,7 +171,7 @@ showImg = false;
                     //                 this.loadingFile = false;
                     //                 this.uploadedFile = true;
                     //                 console.log(result);
-                                     this.successUpdate = "Le profil a bien été mis à jour.";
+                                     this.successUpdate = 'Le profil a bien été mis à jour.';
                     //             }
                     //         }, (err) => {
                     //             this.loadingFile = false;

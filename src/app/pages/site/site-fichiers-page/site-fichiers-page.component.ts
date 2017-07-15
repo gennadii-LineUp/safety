@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TableSortService} from '../../../services/table-sort.service';
-import {ErrorMessageHandlerService} from "../../../services/error/error-message-handler.service";
-import {PaginationService} from "../../../services/pagination/pagination.service";
-import {FichiersClass} from "../../../models/const/site-fichiers-class";
-import {ClientService} from "../../../services/client/client.service";
+import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
+import {PaginationService} from '../../../services/pagination/pagination.service';
+import {FichiersClass} from '../../../models/const/site-fichiers-class';
+import {ClientService} from '../../../services/client/client.service';
 
 @Component({
   selector: 'site-fichiers-page',
@@ -25,14 +25,16 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     errorSalaries = '';
     errorCreating = '';
     successCreating = '';
+    saveButtonCaption = 'Ajouter';
 
     id_site: number;
+    id_fichier = 0;
 
     loadingFile = false;
     uploadedFile = false;
     uploadFileText = '.pdf fichier';
 
-    id_newFichier: number;
+    checkedGroups = [];
 
     pager: any = {};
     totalItems = 0;
@@ -69,8 +71,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
         this.id_site = localStorage.id_site;
         this.findFichiersByNameFunction('', 1, '');
         this.siteService.tableMobileViewInit();
-        this.id_site = localStorage.id_site;
-        console.log('get from LS ' + this.id_site);
     }
     ngOnDestroy() {
       localStorage.removeItem('search_name');
@@ -82,7 +82,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.clientService.getGroupList()
       .subscribe(result => {
         if (result) {
-          console.log(result);
           this.loadingGroupes = false;
           this.cancellMessages();
           this.employeeGroupes = result;
@@ -151,8 +150,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         if (result) {
           this.loading = false;
-
-          console.log(result.items);
           let res = [];
           res = result.items;
           res.forEach((item, index, array) => {
@@ -161,18 +158,16 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
             let gr_name = '';
             if (ar.length === 1) {
                   gr_name = ar[0].name + '; ';
-                  console.log(gr_name);
+                  // console.log(gr_name);
               } else if (ar.length >= 2) {
                     ar.forEach((it, ind, arrr) => {
                         gr_name += arrr[ind].name + '; ';
                     });
-                     console.log(gr_name);
+                     // console.log(gr_name);
             }
             array[index].employeeGroups = gr_name;
           });
-
           this.fichiers = res;
-          console.log(this.fichiers);
 
           this.totalItems = +result.pagination.totalCount;
           if (this.totalItems === 0) {
@@ -218,6 +213,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
         this.content = e.target;
        // console.log(this.file);
 
+        // this.sendFileToServer();
       }
 
       const res = reader.readAsDataURL(event.target.files[0]);
@@ -249,7 +245,30 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
       //     data => console.log('success'),
       //     error => console.log(error)
       //   )
+
+     // this.sendFileToServer();
     }
+  }
+
+  public sendFileToServer() {
+    console.log(this.content.result);
+    // if (this.userHasChoosenFile) {
+       this.loadingFile = true;
+       this.siteService.sendPDFtoServer(this.file, this.content, this.id_site)
+         .subscribe(result => {
+           if (result) {
+             console.log(result);
+             this.loadingFile = false;
+             this.uploadedFile = true;
+             this.id_fichier = result.id;
+      }
+    }, (err) => {
+      this.loadingFile = false;
+      this.uploadFileText = '  error  error  error';
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+   // }
   }
 
 
@@ -261,34 +280,27 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     } else {
       this.categoryNewFichier_nullData = false;
     }
+    let urlOption: number;
 
     this.cancellMessages();
     this.creating = true;
     console.log(this.newFichier);
 
-    // console.log(this.content.result);
-
-   // if (this.userHasChoosenFile) {
-   //    this.loadingFile = true;
-   //    this.siteService.sendPDFtoServer(this.file, this.content, this.id_site)
-   //      .subscribe(result => {
-   //        if (result) {
-   //          console.log(result);
-   //          this.loadingFile = false;
-   //          this.uploadedFile = true;
-   //          this.id_newFichier = result.id;
-
-            this.siteService.addNewFichier(this.newFichier, this.id_site, 4)
+            this.siteService.addFichier(this.newFichier, this.id_site, this.id_fichier) // , this.id_fichier
               .subscribe(result => {
                 if (result) {
                   this.cancellMessages();
                   console.log(result);
 
-                  this.successCreating = "Well done! You've created a new client.";
+                  this.successCreating = "Well done! You've added a new fichier.";
+                  if (this.id_fichier) {
+                    this.saveButtonCaption = 'Ajouter';
+                    this.id_fichier = 0;
+                  }
 
                   this.creating = false;
                   this.userHasChoosenFile = false;
-                  this.newFichier = new FichiersClass('', []);
+                  this.setEmptyFichiers();
                   this.findFichiersByNameFunction('', 1, '');
                 }
               }, (err) => {
@@ -297,17 +309,48 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
 
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
               });
-
-        //   }
-        // }, (err) => {
-        //   this.loadingFile = false;
-        //   this.uploadFileText = '  error  error  error';
-        //   console.log(err);
-        //   this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-        // });
-   // }
-
   }
+
+
+  get _checkedGroups() { // right now: ['1','3']
+    return this.checkedGroups
+      .map(opt => opt.id);
+  }
+
+  public setEmptyFichiers() {
+    this.newFichier = new FichiersClass('', []);
+    this.newFichier.employeeGroups = [];
+    this.checkedGroups = [];
+    return;
+  }
+
+  public modifierFunction(id_itemForUpdate: number) {
+    this.cancellMessages();
+    this.creating = true;
+    this.setEmptyFichiers();
+
+    this.siteService.getOneFichier(this.id_site, id_itemForUpdate)
+      .subscribe(result => {
+        if (result) {
+          this.creating = false;
+          console.log(result);
+          this.newFichier.name = result.name;
+          this.newFichier.employeeGroups = result.employeeGroups;
+          this.checkedGroups = result.employeeGroups;
+          this.saveButtonCaption = 'Modifier';
+          this.id_fichier = result.id;
+          console.log(this.newFichier);
+          console.log(this.checkedGroups);
+
+          console.log(this._checkedGroups);
+        }
+      }, (err) => {
+        this.creating = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
 
   public deleteFunction(id_itemForDelete: number) {
     this.cancellMessages();
