@@ -51,6 +51,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     ];
 
     fichiers = [];
+    original_fichiers = [];  // using for having original fichiers from server, without filtering groups name for view
     newFichier = new FichiersClass('', []);
     categoryNewFichier_active = 3;
     categoryNewFichier_nullData = true;
@@ -58,8 +59,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   public getSortingTarget() {
       this.sortingTarget = this.tableSortService._getSortingTarget();
     }
-
-
 
   constructor (private siteService: SiteService,
                  private clientService: ClientService,
@@ -149,6 +148,8 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.siteService.findFichiersByName(_name, page, this.id_site, sort)
       .subscribe(result => {
         if (result) {
+          console.log('------------');
+          this.original_fichiers = result.items;
           this.loading = false;
           let res = [];
           res = result.items;
@@ -158,16 +159,15 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
             let gr_name = '';
             if (ar.length === 1) {
                   gr_name = ar[0].name + '; ';
-                  // console.log(gr_name);
               } else if (ar.length >= 2) {
                     ar.forEach((it, ind, arrr) => {
                         gr_name += arrr[ind].name + '; ';
                     });
-                     // console.log(gr_name);
             }
             array[index].employeeGroups = gr_name;
           });
           this.fichiers = res;
+
 
           this.totalItems = +result.pagination.totalCount;
           if (this.totalItems === 0) {
@@ -213,13 +213,10 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
         this.content = e.target;
        // console.log(this.file);
 
-        // this.sendFileToServer();
+         this.sendFileToServer();
       }
 
       const res = reader.readAsDataURL(event.target.files[0]);
-     // console.log(res);          // undefined
-
-
     }
   }
 
@@ -280,7 +277,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     } else {
       this.categoryNewFichier_nullData = false;
     }
-    let urlOption: number;
 
     this.cancellMessages();
     this.creating = true;
@@ -321,6 +317,10 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.newFichier = new FichiersClass('', []);
     this.newFichier.employeeGroups = [];
     this.checkedGroups = [];
+    const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
+    for (let i = 0; i < checkedI.length; i++) {
+      (<HTMLInputElement>checkedI[i]).checked = false;
+    }
     return;
   }
 
@@ -329,16 +329,25 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.creating = true;
     this.setEmptyFichiers();
 
+    // let result = (this.original_fichiers.filter(obj => {
+    //   return obj.id === id_itemForUpdate;
+    // }))[0];
+
     this.siteService.getOneFichier(this.id_site, id_itemForUpdate)
       .subscribe(result => {
         if (result) {
           this.creating = false;
           console.log(result);
           this.newFichier.name = result.name;
-          this.newFichier.employeeGroups = result.employeeGroups;
           this.checkedGroups = result.employeeGroups;
           this.saveButtonCaption = 'Modifier';
           this.id_fichier = result.id;
+          this.newFichier.employeeGroups = this._checkedGroups;
+
+          if (this.newFichier.employeeGroups.length > 0) {
+            this.categoryNewFichier_nullData = false;
+          }
+
           console.log(this.newFichier);
           console.log(this.checkedGroups);
 

@@ -63,7 +63,7 @@
                                     <label class="control control--checkbox">{{groupe.name}}
                                       <!--[checked]='client.billingAddressIfDifferent'
                                           (click)='toggleDifferentBillingAddress($event)'
-                                          [(ngModel)]="employeeGroup"-->
+                                          [(ngModel)]="newFichier.employeeGroups"-->
                                       <input type="checkbox"
                                                id={{groupe.id}} name={{groupe.id}}
                                                 [value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'
@@ -79,7 +79,7 @@
                                       (click)="myModal.close(); setEmptyFichiers();">Annuler</button>
                               <button type="submit" class="form-button green-button ajouter-button"
                                       (click)='submitForm(name.value)'
-                                      [disabled]="!(!categoryDrivingLicense_nullData && site_newFichierForm.form.valid)">{{saveButtonCaption}}</button>
+                                      [disabled]="!(!categoryNewFichier_nullData && site_newFichierForm.form.valid)">{{saveButtonCaption}}</button>
                               <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                           </div>
                         </modal-content-SF>
@@ -101,8 +101,8 @@
             <thead>
                 <tr>
                     <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
-                                                                    getSortingTarget();
-                                                                    findFichiersByNameFunction(findByName.value, 1, sortingTarget);">
+                                                                getSortingTarget();
+                                                                findFichiersByNameFunction(findByName.value, 1, sortingTarget);">
                       <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                       {{header.display}}
                     </th>
