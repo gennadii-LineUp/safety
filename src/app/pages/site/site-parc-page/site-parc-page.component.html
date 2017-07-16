@@ -1,21 +1,37 @@
 <header class="main-header">
-    <h1>Parc Machines</h1>
-    <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+  <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
+      <span aria-hidden="true"></span>
+    </button>
+    <p>SAFETY: <span>{{errorLoad}}</span></p>
+  </div>
+
+  <h1>Parc Machines</h1>
+  <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
 <div class="main-content">
     <div class="search-panel clearfix">
         <button class="add-an-item-button" (click)="modal_Machine.open()"></button>
 
-        <div class="search-wrapper">
-            <button class="search-button" type="button"></button>
-            <input type="text" class="form-control search-input" placeholder="Rechercher">
-        </div>
+      <div class="search-wrapper">
+        <button class="search-button" type="button" (click)='findByNameFunction(findByName.value, 1, "")'></button>
+        <input #findByName id="findByName" name='findByName' type="text"
+               class="form-control search-input" placeholder="Rechercher"
+               (keyup.enter)='findByNameFunction(findByName.value, 1, "")'>
+      </div>
     </div>
     <div class="table-wrapper">
         <table class="table-default parc-machine-table">
             <thead>
             <tr>
-                <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+              <!--<th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);-->
+                                                                <!--getSortingTarget();-->
+                                                                <!--findByNameFunction(findByName.value, 1, sortingTarget);">-->
+                <!--<button [class]="tableSortService.selectedClass(header.variable)" ></button>-->
+                <!--{{header.display}}-->
+              <!--</th>-->
+
+              <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
                     <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                     {{header.display}}
                 </th>
@@ -34,57 +50,59 @@
                     <td>-</td>
                 </tr>
 
-                <tr>
-                    <td>AA-123-AA</td>
-                    <td>255-100-200</td>
-                    <td>VL</td>
-                    <td>Modèle 1</td>
-                    <td>Marque 1</td>
-                    <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-                </tr>
-                <tr>
-                    <td>BB-456-BB</td>
-                    <td>NP à 20 lettres max...</td>
-                    <td>PL</td>
-                    <td>Mod 20 lettres max...</td>
-                    <td>Marq 20 lettres max...</td>
-                    <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
-                </tr>
-                <tr>
-                    <td>CC-789-CC</td>
-                    <td>-</td>
-                    <td>Remorque</td>
-                    <td>Modèle 1</td>
-                    <td>Marque 1</td>
-                    <td><a href="javascript:void(0);" (click)="modal_detailsRemorque.open();">Gérer</a> / <a href="javascript:void(0);">Supprimer</a></td>
+                <tr *ngFor="let machine of machines" >
+                  <td class="error-message">TODO: immatriculation</td>
+                  <td>{{machine.parkNumber}}</td>
+                  <td class="error-message">TODO: type</td>
+                  <td>{{machine.model}}</td>
+                  <td>{{machine.mark}}</td>
+                  <td>
+                    <a href="javascript:void(0);"
+                       (click)='modal_detailsRemorque.open();
+                                setEmptyMachines();
+                                modifierFunction(machine.id);'>{{machine.id}}Gérer</a>
+                    /
+                    <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
-        <ul class="pagination">
-            <li>
-                <a href="javascript:void(0);" aria-label="Previous" class="prev-link">
-                                <span aria-hidden="true">
-                                <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
-                                </span>
-                </a>
-            </li>
-            <li class="active"><a href="javascript:void(0);">1</a></li>
-            <li><a href="javascript:void(0);">2</a></li>
-            <li><a href="javascript:void(0);">3</a></li>
-            <li><a href="javascript:void(0);">...</a></li>
-            <li><a href="javascript:void(0);">998</a></li>
-            <li><a href="javascript:void(0);">999</a></li>
-            <li>
-                <a href="javascript:void(0);" aria-label="Next" class="next-link">
-                                <span aria-hidden="true">
-                                <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
-                                </span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+  <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li *ngIf="!(pager.currentPage === 1)">
+        <a class="prev-link" (click)="findByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
+                  <span aria-hidden="true">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+        </a>
+      </li>
+      <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
+        <a href="javascript:void(0);"  (click)="findByNameFunction('lineUp', 1, '')" >1</a>
+      </li>
+      <li *ngIf="pager.hiddenAtStart">
+        <a (click)="findByNameFunction('lineUp', pager.startPage-1, '')"  >...</a>
+      </li>
+
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="findByNameFunction('lineUp', page, '')">{{page}}</a>
+      </li>
+
+      <li *ngIf="pager.hiddenAtEnd">
+        <a (click)="findByNameFunction('lineUp', pager.endPage+1, '')" >...</a>
+      </li>
+      <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
+        <a (click)="findByNameFunction('lineUp', pager.totalPages, '')">{{pager.totalPages}}</a>
+      </li>
+      <li *ngIf="!(pager.currentPage === pager.totalPages)" >
+        <a href="javascript:void(0);" aria-label="Next" class="next-link"
+           (click)="findByNameFunction('lineUp', pager.currentPage + 1, '')">
+                  <span aria-hidden="true">
+                    <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
+                  </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>
 
 
@@ -116,14 +134,23 @@
         <h2>Ajouter un véhicule</h2>
     </modal-header-SPMM>
     <modal-content-SPMM>
-        <div role="tabpanel" class="tab-pane fade in active" id="type-vehicule">
+      <div role="tabpanel" class="tab-pane fade in active" id="type-vehicule">
             <p class="form-subheader">Choisissez un type</p>
-            <a class="green-button form-button" href="javascript:void(0);"
-                        (click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();" role="button">VL</a>
-            <a class="green-button form-button" href="javascript:void(0);"
-                        (click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();" role="button">PL</a>
-            <a class="green-button form-button" href="javascript:void(0);"
-                       (click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();" role="button">Remorque</a>
+
+        <div *ngFor="let machine of machinesGlossary.types_1_vehicule"
+             style="display: block; position: relative;">
+          <a class="green-button form-button" href="javascript:void(0);"
+             id={{machine.id}} name={{machine.id}}
+             (click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();
+                      addSubcategory($event, machine.display); false" role="button">{{machine.display}}</a>
+        </div>
+
+            <!--<a class="green-button form-button" href="javascript:void(0);"-->
+                        <!--(click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();" role="button">VL</a>-->
+            <!--<a class="green-button form-button" href="javascript:void(0);"-->
+                        <!--(click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();" role="button">PL</a>-->
+            <!--<a class="green-button form-button" href="javascript:void(0);"-->
+                       <!--(click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();" role="button">Remorque</a>-->
             <a class="navigation-back-button" href="javascript:void(0);" role="button"
                        (click)="modal_Machine_1Vehicule.close(); modal_Machine.open();"></a>
         </div>
@@ -134,7 +161,7 @@
 
 <site-parc-modal-machine #modal_Machine_1Vehicule_3Remorque style='min-width: 454px; max-width: 454px;' tabindex="-1">
     <modal-header-SPMM>
-        <h2>Ajouter une remorque</h2>
+        <h2>Ajouter une véhicule: {{currentTypeMachine}}</h2>
     </modal-header-SPMM>
     <modal-content-SPMM>
         <div role="tabpanel" class="tab-pane fade in active" id="remorque">
@@ -154,7 +181,7 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration* </p>
-                <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" (focus)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
+                <input type="text" name="selected_date" #datepicker1 id="datepicker1" class="datepicker-default" (click)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
                 <div class="clearfix"></div>
                 <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
             </div>
@@ -165,6 +192,23 @@
         </div>
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
+  <script>
+//    function datepickerRun() {
+//      $(document).ready(function () {
+//        //Datepicker Popups calender to Choose date
+//        $(function () {
+////          $('#datepicker1, #datepicker2, #datepicker3').datepicker();
+//          $('#datepicker1, #datepicker2, #datepicker3').datepicker('option', 'changeYear', true);
+//          //Pass the user selected date format
+//          $("#format").change(function () {
+//            $('#datepicker1, #datepicker2, #datepicker3').datepicker("option", "dateFormat", $(this).val());
+//          });
+//        });
+//
+//      });
+//    }
+  </script>
+
 </site-parc-modal-machine>
 
 

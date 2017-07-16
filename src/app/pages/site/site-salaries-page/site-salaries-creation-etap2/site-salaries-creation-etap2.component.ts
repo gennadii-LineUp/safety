@@ -116,7 +116,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.getEmployeeGroupes();
 
         window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
-        this.datepickerViewInit();
+
+        $(document).ready(() => {
+          this.datepickerViewInit();
+        });
     }
 
 
@@ -481,16 +484,15 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
 
     public datepickerViewInit() {
-        // Datepicker Popups calender to Choose date
-        $(() => {
+        // $(() => {
             this.dataService.datepickerFranceFormat();
             $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker();
-            $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker({dateFormat: 'dd-mm-yy'});
+            // $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker({dateFormat: 'dd-mm-yy'});
             $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
-            $( '#format' ).change(() => {
+            $( '#format' ).change(function () {
                 $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
-        });
+        // });
     }
 
 

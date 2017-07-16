@@ -1,4 +1,4 @@
-export class GroupeClass{
+export class GroupeClass {
     name: string;
     adminAccess: boolean;
 

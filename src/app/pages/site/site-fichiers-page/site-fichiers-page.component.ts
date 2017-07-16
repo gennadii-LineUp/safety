@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';

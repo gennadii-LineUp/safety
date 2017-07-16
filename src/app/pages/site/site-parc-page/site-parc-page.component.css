@@ -27,14 +27,14 @@ a:hover, a:focus {
 
 /* PARC MACHINE MODAL */
 
-.parc-machine-modal .modal-content {
+div.tab-pane .modal-content {
     padding: 0;
     padding-left: 22px;
     padding-top: 19px;
     padding-right: 23px;
 }
 
-.parc-machine-modal .modal-form {
+div.tab-pane .modal-form {
     overflow: auto;
 }
 
@@ -42,25 +42,25 @@ a:hover, a:focus {
     margin-bottom: 15px;
 }
 
-.parc-machine-modal .form-subheader {
+div.tab-pane .form-subheader {
     margin-bottom: 19px;
     text-align: left;
 }
 
-.parc-machine-modal .tab-content {
+div.tab-pane .tab-content {
     overflow: auto;
 }
 
-.parc-machine-modal .tab-pane {
+.tab-pane {
     display: none;
 }
 
-.parc-machine-modal .tab-pane.active {
+.tab-pane.active {
     display: block;
 }
 
-.parc-machine-modal a:hover,
-.parc-machine-modal a:focus {
+a:hover,
+a:focus {
     text-decoration: none;
     color: inherit;
 }
@@ -88,7 +88,7 @@ a:hover, a:focus {
 
 #type-vehicule .form-subheader,
 #type-engin .form-subheader {
-    padding-left: 68px;
+  margin-bottom: 19px;
 }
 
 #type-vehicule a:not(.navigation-back-button) {
@@ -252,4 +252,32 @@ a:hover, a:focus {
 
 .engine-detailed-info p span {
     font-weight: bold;
+}
+td, th {
+  padding-left: 20px;
+}
+
+div.tab-pane .form-control,
+textarea {
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  color: #8d8d8d;
+  padding-left: 11px;
+  padding-top: 4px;
+  margin-bottom: 20px;
+}
+
+div.tab-pane .form-control {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  border-radius: 0;
+  color: #8d8d8d;
+  width: 100%;
+  height: 42px !important;
+}
+
+textarea {
+  padding-top: 10px;
+  font-size: 15px;
+  min-height: 160px;
 }

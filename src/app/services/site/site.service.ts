@@ -44,9 +44,22 @@ export class SiteService {
       console.log(query);
       return this.backendService.get(UrlParams.siteHome + query);
     }
-// /sites/44/files/4/properties
 
-    public clientList(page): Observable<any> {
+
+    public findMachineByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
+      const query =  + siteId + '/machines' + '?q=' + name + sort + '&page=' + page;
+      console.log(query);
+      return this.backendService.get(UrlParams.siteHome + query);
+    }
+    public deleteMachine(siteId: number, machineId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/machines/' + machineId;
+      console.log(query);
+      return this.backendService.deleteData(query);
+    }
+
+
+
+  public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
         return this.backendService.get(UrlParams.adminClients + query + page);
     }
