@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-//import { NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {SiteClass} from '../../../models/const/site-class';
@@ -13,39 +12,45 @@ import {TableSortService} from '../../../services/table-sort.service';
   styleUrls: ['./client-sites-page.component.css'],
     providers: [ClientService, PaginationService, TableSortService]
 })
-export class ClientSitesPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = true;
-    creating: boolean = false;
-    errorLoad: string = '';
-    errorSalaries: boolean = false;
-    errorCreating: string = '';
-    successCreating: string = '';
+export class ClientSitesPageComponent implements OnInit, OnDestroy {
+    emptyTable = true;
+    loading = true;
+    creating = false;
+    errorLoad = '';
+    errorSalaries = false;
+    errorCreating = '';
+    successCreating = '';
 
-    loadingFile: boolean = false;
-    uploadedFile: boolean = false;
-    uploadFileText: string = 'Image du site';
+    loadingFile = false;
+    uploadedFile = false;
+    uploadFileText = 'Image du site';
 
     site: SiteClass[] = [];
     newSite_id: number;
 
-    _cacesSiege: boolean = false;
-    _cacesSite: boolean = false;
-    _medicalVisitSiege: boolean = false;
-    _medicalVisitSite: boolean = false;
-    _techControlSiege: boolean = false;
-    _techControlSite: boolean = false;
+    _cacesSiege = false;
+    _cacesSite = false;
+    _medicalVisitSiege = false;
+    _medicalVisitSite = false;
+    _techControlSiege = false;
+    _techControlSite = false;
 
     salariesMaxPossible: number;
     salariesUsed: number;
 
     sites = [];
     pager: any = {};
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    totalItems =  0;
+    activePage =  1;
+    searchName = '';
     currentPage: any;
 
+  headers: any[] = [
+    { display: 'Nom du site',       variable: 'name',       filter: 'text' },
+    { display: 'Adresse',           variable: 'address',    filter: 'text' },
+    { display: 'Responsable site',  variable: 'responsible', filter: 'text' }
+  ];
+  sortingTarget = '';
 
     modalHeaders: any[] = [
         { display: 'Règle de notification', variable: 'name', filter: 'text' }
@@ -71,12 +76,6 @@ export class ClientSitesPageComponent implements OnInit {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
-    headers: any[] = [
-        { display: 'Nom du site',       variable: 'name',       filter: 'text' },
-        { display: 'Adresse',           variable: 'address',    filter: 'text' },
-        { display: 'Responsable site',  variable: 'responsible', filter: 'text' }
-    ];
-    sortingTarget: string = '';
     public getSortingTarget() {
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }
@@ -90,7 +89,7 @@ export class ClientSitesPageComponent implements OnInit {
             console.log('== from local storage ==');
             this.findSiteByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findSiteByNameFunction('',1, '');
+            this.findSiteByNameFunction('', 1, '');
         }
         console.log('====' + this.searchName);
     }
@@ -161,7 +160,7 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
     file: File;
-    userHasChoosenFile: boolean = false;
+    userHasChoosenFile = false;
     public fileChange(event) {
         this.loadingFile = false;
         this.uploadedFile = false;
@@ -185,7 +184,7 @@ export class ClientSitesPageComponent implements OnInit {
         this.cancellMessages();
         this.creating = true;
 
-        let newSite = new SiteClass(name, address, postalCode, city, notificationEmails,
+        const newSite = new SiteClass(name, address, postalCode, city, notificationEmails,
                                     this._cacesSiege,
                                     this._cacesSite,
                                     this._medicalVisitSiege,
@@ -250,22 +249,22 @@ export class ClientSitesPageComponent implements OnInit {
     }
 
 
-    public cacesSiegeClicked(e:any) {
+    public cacesSiegeClicked(e: any) {
         this._cacesSiege = e.target.checked;
     }
-    public cacesSiteClicked(e:any) {
+    public cacesSiteClicked(e: any) {
         this._cacesSite = e.target.checked;
     }
-    public medicalVisitSiegeClicked(e:any) {
+    public medicalVisitSiegeClicked(e: any) {
         this._medicalVisitSiege = e.target.checked;
     }
-    public medicalVisitSiteClicked(e:any) {
+    public medicalVisitSiteClicked(e: any) {
         this._medicalVisitSite = e.target.checked;
     }
-    public techControlSiegeClicked(e:any) {
+    public techControlSiegeClicked(e: any) {
         this._techControlSiege = e.target.checked;
     }
-    public techControlSiteClicked(e:any) {
+    public techControlSiteClicked(e: any) {
         this._techControlSite = e.target.checked;
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router}    from '@angular/router';
 import {AdminService} from '../../../services/admin/admin.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
@@ -12,23 +12,23 @@ import {TableSortService} from '../../../services/table-sort.service';
   styleUrls: ['./admin-clients-page.component.css'],
     providers: [AdminService, PaginationService, TableSortService]
 })
-export class AdminClientsPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = true;
-    loaded: boolean = false;
-    updating: boolean = false;
-    errorLoad: string = '';
-    successUpdate: string = '';
-    errorUpdate: string = '';
+export class AdminClientsPageComponent implements OnInit, OnDestroy {
+    emptyTable = true;
+    loading = true;
+    loaded = false;
+    updating = false;
+    errorLoad = '';
+    successUpdate = '';
+    errorUpdate = '';
     successCreating = '';
 
     clients = [];
     pager: any = {};
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    totalItems =  0;
+    activePage =  1;
+    searchName = '';
     currentPage: any;
-    sortingTarget: string = '';
+    sortingTarget = '';
 
 
     sorting: any = { column: 'company',  descending: false };

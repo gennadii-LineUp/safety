@@ -11,17 +11,17 @@ declare var $:any;
     providers: [SiteService, TableSortService, DataService]
 })
 export class SiteParcPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = false;
-    loadingSalarieUsed: boolean = false;
-    loaded: boolean = false;
-    loadedSalarieUsed: boolean = false;
-    errorLoad: string = '';
-    errorSalaries: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+    emptyTable = true;
+    loading = false;
+    loadingSalarieUsed = false;
+    loaded = false;
+    loadedSalarieUsed = false;
+    errorLoad = '';
+    errorSalaries = '';
+    errorCreating = '';
+    successCreating = '';
 
-    id_site: number = 0;
+    id_site =  0;
 
     headers: any[] = [
         { display: 'Immatriculation', variable: 'name',         filter: 'text' },

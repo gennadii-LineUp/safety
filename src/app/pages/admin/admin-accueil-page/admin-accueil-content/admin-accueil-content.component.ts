@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProgressBarFillService} from '../../../../services/progress-bar-fill.service';
 import {ProgressBarTESTclass} from 'app/models/const/progress-bar-test-class';
 import {AdminService} from '../../../../services/admin/admin.service';
@@ -10,20 +10,19 @@ import {ErrorMessageHandlerService} from '../../../../services/error/error-messa
   styleUrls: ['./admin-accueil-content.component.css'],
     providers: [AdminService, ProgressBarFillService],
 })
-export class AdminAccueilContentComponent implements OnInit {
-    loading: boolean = true;
-    errorLoad: string = '';
+export class AdminAccueilContentComponent implements OnInit, OnDestroy {
+    loading = true;
+    errorLoad = '';
+    progressBarValues = [];
 
-    private cancellErrorMessage() {
+  private cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
     }
 
-    progressBarValues = [];
-
     constructor(private adminService: AdminService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
-                private progressBarFillService: ProgressBarFillService){}
+                private progressBarFillService: ProgressBarFillService) {}
 
     ngOnInit(): void {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');

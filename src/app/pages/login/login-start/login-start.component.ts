@@ -10,8 +10,8 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
     providers: [LoginService, ErrorMessageHandlerService]
 })
 export class LoginStartComponent implements OnInit {
-    loading: boolean = false;
-    errorLoad: string = '';
+    loading = false;
+    errorLoad = '';
 
     constructor(private loginService: LoginService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,

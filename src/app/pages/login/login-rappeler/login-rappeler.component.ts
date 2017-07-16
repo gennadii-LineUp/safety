@@ -7,8 +7,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./login-rappeler.component.css']
 })
 export class RappelerLeMotDePasseComponent implements OnInit {
-    loading: boolean = false;
-    errorLoad: string = '';
+    loading = false;
+    errorLoad = '';
 
   constructor(private router: Router) { }
 

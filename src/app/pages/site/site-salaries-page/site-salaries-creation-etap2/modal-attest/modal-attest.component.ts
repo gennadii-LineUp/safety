@@ -35,10 +35,10 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
     public modalClass: string;
 
     @Input()
-    public closeOnEscape: boolean = true;
+    public closeOnEscape = true;
 
     @Input()
-    public closeOnOutsideClick: boolean = true;
+    public closeOnOutsideClick = true;
 
     @Input()
     public title: string;
@@ -68,7 +68,7 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
 
     public isOpened = false;
 
-    @ViewChild("modalRoot")
+    @ViewChild('modalRoot')
     public modalRoot: ElementRef;
 
     private backdropElement: HTMLElement;
@@ -86,7 +86,7 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
         if (document.querySelector('table')) {
             for(let i = 0; i < headers.length; i++) {
                 let current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/,''));
+                headertext.push(current.textContent.replace(/\r?\n|\r/, ''));
             }
             for (let i = 0, row; row = tablebody.rows[i]; i++) {
                 for (let j = 0, col; col = row.cells[j]; j++) {
@@ -98,9 +98,10 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
 
 
     ngOnDestroy() {
-        document.body.className = document.body.className.replace(/modal-open\b/, "");
-        if (this.backdropElement && this.backdropElement.parentNode === document.body)
-            document.body.removeChild(this.backdropElement);
+        document.body.className = document.body.className.replace(/modal-open\b/, '');
+        if (this.backdropElement && this.backdropElement.parentNode === document.body) {
+          document.body.removeChild(this.backdropElement);
+        }
     }
 
 

@@ -93,7 +93,7 @@
                     <td (click)="openLinkInNewWindowFunction(link.link)"><span style='cursor: pointer;'>{{link.link}}</span></td>
                     <td>
                         <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(link.id)'>
-                            Modifier
+                          Gérer
                         </a>
                             /
                         <a href="javascript:void(0);" (click)='deleteFunction(link.id)'>Supprimer</a></td>
@@ -102,7 +102,7 @@
         </table>
     </div>
 
-    <nav aria-label="Page navigation" class="pagination-wrapper">
+    <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">

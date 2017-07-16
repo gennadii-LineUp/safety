@@ -11,14 +11,14 @@ import {NgForm} from '@angular/forms';
     providers: [AdminService, ErrorMessageHandlerService]
 })
 export class AdminReglagesPageComponent implements OnInit {
-    loading: boolean = false;
-    loadingGroupes: boolean = true;
-    noGroups: boolean = false;
-    loaded: boolean = false;
-    errorCreating: string = '';
-    successCreating: string = '';
+    loading = false;
+    loadingGroupes = true;
+    noGroups = false;
+    loaded = false;
+    errorCreating = '';
+    successCreating = '';
 
-    errorLoad: string = '';
+    errorLoad = '';
 
     reglages = new AdminReglagesClass('','','','');
 

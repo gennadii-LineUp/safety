@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 
 @Component({
@@ -7,7 +7,7 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
   styleUrls: ['./salarie-profil.component.css'],
     providers: [SalariesService]
 })
-export class SalarieProfilComponent implements OnInit {
+export class SalarieProfilComponent implements OnInit, OnDestroy {
 
     constructor(private salariesService: SalariesService) { }
 

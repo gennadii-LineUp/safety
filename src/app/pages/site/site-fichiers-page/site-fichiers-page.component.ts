@@ -195,7 +195,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
 
   file: File;
   content: any;
-  userHasChoosenFile: boolean = false;
+  userHasChoosenFile = false;
   public fileChange(event) {
     this.loadingFile = false;
     this.uploadedFile = false;

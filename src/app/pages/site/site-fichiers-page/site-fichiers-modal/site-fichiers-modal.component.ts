@@ -32,10 +32,10 @@ export class SiteFichiersModalComponent  {
     public modalClass: string;
 
     @Input()
-    public closeOnEscape: boolean = true;
+    public closeOnEscape = true;
 
     @Input()
-    public closeOnOutsideClick: boolean = true;
+    public closeOnOutsideClick = true;
 
     @Input()
     public title: string;
@@ -77,7 +77,7 @@ export class SiteFichiersModalComponent  {
 
 
     ngOnDestroy() {
-        document.body.className = document.body.className.replace(/modal-open\b/, "");
+        document.body.className = document.body.className.replace(/modal-open\b/, '');
         if (this.backdropElement && this.backdropElement.parentNode === document.body)
             document.body.removeChild(this.backdropElement);
     }

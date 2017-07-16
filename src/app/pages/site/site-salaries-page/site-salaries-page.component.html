@@ -68,7 +68,7 @@
             </tbody>
         </table>
     </div>
-    <nav aria-label="Page navigation" class="pagination-wrapper">
+    <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li *ngIf="!(pager.currentPage === 1)">
                 <a class="prev-link" (click)="findEmployeeByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >

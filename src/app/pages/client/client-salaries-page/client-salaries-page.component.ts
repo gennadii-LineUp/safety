@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ClientService} from '../../../services/client/client.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
@@ -12,24 +12,24 @@ import {TableSortService} from '../../../services/table-sort.service';
   styleUrls: ['./client-salaries-page.component.css'],
     providers: [ClientService, AdminService, PaginationService, TableSortService]
 })
-export class ClientSalariesPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = false;
-    loadingSalarieUsed: boolean = false;
-    loaded: boolean = false;
-    errorLoad: string = '';
-    errorSalaries: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+export class ClientSalariesPageComponent implements OnInit, OnDestroy {
+    emptyTable = true;
+    loading = false;
+    loadingSalarieUsed = false;
+    loaded = false;
+    errorLoad = '';
+    errorSalaries = '';
+    errorCreating = '';
+    successCreating = '';
 
-    salariesMaxPossible: number = 1;
-    salariesUsed: number = 0;
+    salariesMaxPossible =  1;
+    salariesUsed =  0;
 
     salaries = [];
     pager: any = {};
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    totalItems =  0;
+    activePage =  1;
+    searchName = '';
     currentPage: any;
 
     headers: any[] = [
@@ -40,7 +40,7 @@ export class ClientSalariesPageComponent implements OnInit {
         { display: 'Groupe',    variable: 'groupName',      filter: 'text' },
         { display: 'Validité',  variable: 'validityPeriod', filter: 'text' },
     ];
-    sortingTarget: string = '';
+    sortingTarget = '';
     public getSortingTarget(){
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }

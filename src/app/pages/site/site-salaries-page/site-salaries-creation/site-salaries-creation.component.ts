@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import { Router}    from '@angular/router';
 import {ClientService} from '../../../../services/client/client.service';
 import {ErrorMessageHandlerService} from 'app/services/error/error-message-handler.service';
@@ -15,18 +15,18 @@ declare var $:any;
   styleUrls: ['./site-salaries-creation.component.css'],
     providers: [ClientService, SiteService, DataService]
 })
-export class SiteSalariesCreationComponent implements OnInit {
-    loading: boolean = false;
-    loadingGroupes: boolean = true;
-    noGroups: boolean = false;
-    loaded: boolean = false;
-    errorCreating: string = '';
-    successCreating: string = '';
+export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
+    loading = false;
+    loadingGroupes = true;
+    noGroups = false;
+    loaded = false;
+    errorCreating = '';
+    successCreating = '';
 
-    errorLoad: string = '';
+    errorLoad = '';
 
-    addNewSalariesAvailable: boolean = true;
-    errorSalaries: boolean = false;
+    addNewSalariesAvailable = true;
+    errorSalaries = false;
     salariesMaxPossible: number;
     salariesUsed: number;
 
@@ -97,10 +97,10 @@ export class SiteSalariesCreationComponent implements OnInit {
     //     console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
     // }
 
-    loadingFile: boolean = false;
-    uploadedFile: boolean = false;
+    loadingFile = false;
+    uploadedFile = false;
     file: File;
-    userHasChoosenFile: boolean = false;
+    userHasChoosenFile = false;
     public fileChange(event) {
         // this.loadingFile = true;
         this.uploadedFile = false;
@@ -197,7 +197,7 @@ export class SiteSalariesCreationComponent implements OnInit {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
-    hideIndetermineeDates: boolean = true;
+    hideIndetermineeDates = true;
     public hideIndetermineeDatesFunction(e: any) {
         console.dir(e.target.previousElementSibling.id);
         this.hideIndetermineeDates = false;

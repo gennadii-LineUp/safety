@@ -10,7 +10,7 @@ declare var $:any;
     providers: [SalariesService, TableSortService]
 })
 export class SalarieAttestationsComponent implements OnInit {
-    emptyTable: boolean = true;
+    emptyTable = true;
 
     headers: any[] = [
         { display: 'Nom du fichier', variable: 'name', filter: 'text' }

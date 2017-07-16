@@ -521,7 +521,7 @@ h2 {
     margin-bottom: 3px;
 }
 th {
-    text-align: center !important;
+    text-align: left !important;
 }
 .sort-button-true,
 .sort-button-false,
@@ -2327,12 +2327,12 @@ th {
         table-layout: fixed;
     }
     table th {
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     table th {
         height: 56px;
-        text-align: center !important;
+        text-align: left !important;
         /*padding-top: 10px;*/
         /*padding-bottom: 25px;*/
     }
@@ -2342,6 +2342,7 @@ th {
         white-space: nowrap;
         text-align: left !important;
     }
+    table th:last-of-type,
     table td:last-of-type {
         text-align: center !important;
     }
@@ -2370,7 +2371,7 @@ th {
     }
     table th {
         height: 56px;
-        text-align: center !important;
+        text-align: left !important;
     }
     table td {
         overflow: hidden;
@@ -2378,8 +2379,9 @@ th {
         white-space: nowrap;
         text-align: left !important;
     }
+    table th:last-of-type,
     table td:last-of-type {
-        text-align: center !important;
+      text-align: center !important;
     }
     .table-default td:last-of-type {
         padding-left: 8px;
@@ -2411,11 +2413,15 @@ th {
     }
     table th,
     table td {
-        text-align: center !important;
+        text-align: left !important;
     }
 
     .fichiers-table tbody td:before {
         min-width: 150px !important;
+    }
+    table th:last-of-type,
+    table td:last-of-type {
+      text-align: center !important;
     }
 }
 

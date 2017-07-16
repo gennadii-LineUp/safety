@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SiteService} from '../../services/site/site.service';
 import {DataService} from '../../services/DataService.service';
@@ -10,7 +10,7 @@ declare var $:any;
   styleUrls: ['./site.component.css'],
     providers: [SiteService]
 })
-export class SiteComponent implements OnInit {
+export class SiteComponent implements OnInit, OnDestroy {
 
     id_site: number;
     private sub: any;

@@ -10,7 +10,7 @@ declare var $:any;
     providers: [SalariesService, TableSortService]
 })
 export class SalarieFichesMachinesComponent implements OnInit {
-    emptyTable: boolean = true;
+    emptyTable = true;
 
     headers: any[] = [
         { display: 'Type',              variable: 'name',  filter: 'text' },

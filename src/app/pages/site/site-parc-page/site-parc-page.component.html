@@ -61,7 +61,7 @@
             </tbody>
         </table>
     </div>
-    <nav aria-label="Page navigation" class="pagination-wrapper">
+    <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
         <ul class="pagination">
             <li>
                 <a href="javascript:void(0);" aria-label="Previous" class="prev-link">

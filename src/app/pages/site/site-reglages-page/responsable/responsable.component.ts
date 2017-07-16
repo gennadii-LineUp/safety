@@ -9,15 +9,15 @@ import {SiteService} from '../../../../services/site/site.service';
     providers: [ SiteService, TableSortService]
 })
 export class ResponsableSiteComponent implements OnInit {
-    emptyTableMobile: boolean = true;
-    loading: boolean = false;
-    loadingSalarieUsed: boolean = false;
-    loaded: boolean = false;
-    loadedSalarieUsed: boolean = false;
-    errorLoad: string = '';
-    errorSalaries: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+    emptyTableMobile = true;
+    loading = false;
+    loadingSalarieUsed = false;
+    loaded = false;
+    loadedSalarieUsed = false;
+    errorLoad = '';
+    errorSalaries = '';
+    errorCreating = '';
+    successCreating = '';
 
     headers: any[] = [
         { display: 'Nom du salarié', variable: 'name',    filter: 'text' },

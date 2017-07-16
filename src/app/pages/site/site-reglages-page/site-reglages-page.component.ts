@@ -12,19 +12,19 @@ import {TableSortService} from '../../../services/table-sort.service';
     providers: [SiteService, AuthGuard, AdminGuard, TableSortService]
 })
 export class SiteReglagesPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = false;
-    loadingSalarieUsed: boolean = false;
-    loaded: boolean = false;
-    loadedSalarieUsed: boolean = false;
-    errorLoad: string = '';
-    errorSalaries: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+    emptyTable = true;
+    loading = false;
+    loadingSalarieUsed = false;
+    loaded = false;
+    loadedSalarieUsed = false;
+    errorLoad = '';
+    errorSalaries = '';
+    errorCreating = '';
+    successCreating = '';
 
-    showAdminData : boolean = false;
+    showAdminData  = false;
 
-    id_site: number = 0;
+    id_site =  0;
 
 
     notificationHeaders: any[] = [

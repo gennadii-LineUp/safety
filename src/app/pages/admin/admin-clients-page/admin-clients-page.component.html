@@ -47,7 +47,7 @@
                     <td>{{client.company}}</td>
                     <td>{{client.sites}}</td>
                     <td>{{client.employees}}</td>
-                    <td><a href="javascript:void(0);" (click)='gotoClientMenu(client.id)'>Gérer {{client.id}}</a>
+                    <td><a href="javascript:void(0);" (click)='gotoClientMenu(client.id)'>Gérer</a>
                         /
                         <a href="javascript:void(0);" (click)='deleteFunction(client.id)'>Supprimer</a></td>
                 </tr>
@@ -56,7 +56,7 @@
     </div>
 
 
-    <nav aria-label="Page navigation" class="pagination-wrapper">
+    <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">

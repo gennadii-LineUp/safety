@@ -10,7 +10,7 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
     providers: [SalariesService, TableSortService]
 })
 export class SalarieAutorisComponent implements OnInit {
-    emptyTable: boolean = true;
+    emptyTable = true;
 
     headers: any[] = [
         { display: 'Type', variable: 'name', filter: 'text' }

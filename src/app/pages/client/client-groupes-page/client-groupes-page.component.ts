@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import { NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
@@ -13,38 +13,38 @@ import {TableSortService} from '../../../services/table-sort.service';
   styleUrls: ['./client-groupes-page.component.css'],
     providers: [ClientService, PaginationService, TableSortService]
 })
-export class ClientGroupesPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = false;
-    saving: boolean = false;
-    loaded: boolean = false;
-    errorSalaries: string = 'error';
-    errorCreating: string = '';
-    successCreating: string = '';
+export class ClientGroupesPageComponent implements OnInit, OnDestroy {
+    emptyTable = true;
+    loading = false;
+    saving = false;
+    loaded = false;
+    errorSalaries = 'error';
+    errorCreating = '';
+    successCreating = '';
 
     showModal = true;
 
-    itemForChange: number = 0;
-    saveButtonCaption: string = 'Créer';
+    itemForChange =  0;
+    saveButtonCaption = 'Créer';
 
     groupes = [];
     salaryeeGroupe = new GroupeClass('', false);
 
     pager: any = {};
 
-    errorLoad: string = '';
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    errorLoad = '';
+    totalItems =  0;
+    activePage =  1;
+    searchName = '';
     currentPage: any;
 
-    _adminAccess: boolean = false;
+    _adminAccess = false;
 
     headers: any[] = [
         { display: 'Nom du groupe', variable: 'name',  filter: 'text' },
         { display: 'Accès',         variable: 'access', filter: 'text' }
     ];
-    sortingTarget: string = '';
+    sortingTarget = '';
     public getSortingTarget(){
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }

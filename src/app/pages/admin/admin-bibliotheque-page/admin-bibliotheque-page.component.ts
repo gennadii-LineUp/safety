@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TableSortService} from '../../../services/table-sort.service';
 import {AdminService} from '../../../services/admin/admin.service';
 import {AdminBibliothequeClass} from '../../../models/const/admin-biblioth-class';
@@ -12,33 +12,33 @@ import {PaginationService} from '../../../services/pagination/pagination.service
   styleUrls: ['./admin-bibliotheque-page.component.css'],
     providers: [ AdminService, PaginationService, TableSortService]
 })
-export class AdminBibliothequePageComponent implements OnInit {
-    loading: boolean = true;
-    creating: boolean = false;
-    errorLoad: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
+    loading = true;
+    creating = false;
+    errorLoad = '';
+    errorCreating = '';
+    successCreating = '';
 
     links = [];
     pager: any = {};
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    totalItems =  0;
+    activePage =  1;
+    searchName = '';
     currentPage: any;
 
-    emptyTable: boolean = true;
+    emptyTable = true;
 
-    itemForChange: number = 0;
-    saveButtonCaption: string = 'Créer';
+    itemForChange =  0;
+    saveButtonCaption = 'Créer';
 
-    sortingTarget: string = '';
+    sortingTarget = '';
     sorting: any = { column: 'name',  descending: false };
     headers: any[] = [
         { display: 'Nom',  variable: 'name',  filter: 'text' },
         { display: 'Lien', variable: 'link',  filter: 'text' }
     ];
 
-    adminBibliotheque = new AdminBibliothequeClass('','','http://www.');
+    adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
 
     //  AdminBibliothequeClass
     // name: string;
@@ -65,14 +65,14 @@ export class AdminBibliothequePageComponent implements OnInit {
 
 
     public selectedClass(columnName): string {
-        return columnName == this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+        return columnName === this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }
     public changeSorting(columnName: string, e: any): void {
         let sortingDirection: string;
         let thClass: string;
 
-        let sort = this.sorting;
-        if (sort.column == columnName) {
+        const sort = this.sorting;
+        if (sort.column === columnName) {
             sort.descending = !sort.descending;
         } else {
             sort.column = columnName;
@@ -91,7 +91,7 @@ export class AdminBibliothequePageComponent implements OnInit {
             sortingDirection = '-'; // up
         }
 
-        //let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
+        // let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
     }
 
@@ -144,7 +144,7 @@ export class AdminBibliothequePageComponent implements OnInit {
     public getItemForUpdateFunction(id_itemForUpdate: number) {
         this.cancellMessages();
         this.creating = true;
-        this.adminBibliotheque = new AdminBibliothequeClass('','','');
+        this.adminBibliotheque = new AdminBibliothequeClass('', '', '');
 
         this.adminService.getLinkForUpdate('/' + id_itemForUpdate)
             .subscribe(result => {
@@ -179,7 +179,7 @@ export class AdminBibliothequePageComponent implements OnInit {
                 if (result) {
                     this.creating = false;
                     console.log(result);
-                    this.successCreating = "Well done! Link is saved.";
+                    this.successCreating = 'Well done! Link is saved.';
                     if (this.itemForChange) {
                         this.saveButtonCaption = 'Créer';
                         this.itemForChange = 0;

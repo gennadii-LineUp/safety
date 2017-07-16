@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router}    from '@angular/router';
 import {SiteService} from '../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
@@ -13,16 +13,16 @@ import {ClientService} from '../../../services/client/client.service';
   styleUrls: ['./site-salaries-page.component.css'],
     providers: [ClientService, SiteService, PaginationService, TableSortService]
 })
-export class SiteSalariesPageComponent implements OnInit {
-    emptyTable: boolean = true;
-    loading: boolean = false;
-    loaded: boolean = false;
-    errorLoad: string = '';
-    errorCreating: string = '';
-    successCreating: string = '';
+export class SiteSalariesPageComponent implements OnInit, OnDestroy {
+    emptyTable = true;
+    loading = false;
+    loaded = false;
+    errorLoad = '';
+    errorCreating = '';
+    successCreating = '';
 
-    addNewSalariesAvailable: boolean = true;
-    errorSalaries: boolean = false;
+    addNewSalariesAvailable = true;
+    errorSalaries = false;
     salariesMaxPossible:number;
     salariesUsed:number;
 
@@ -31,9 +31,9 @@ export class SiteSalariesPageComponent implements OnInit {
 
     salaries = [];
     pager: any = {};
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    totalItems =  0;
+    activePage =  1;
+    searchName = '';
     currentPage: any;
 
     headers: any[] = [
@@ -44,7 +44,7 @@ export class SiteSalariesPageComponent implements OnInit {
         { display: 'Accès',   variable: 'access',         filter: 'text' },
         { display: 'Validité', variable: 'validityPeriod', filter: 'text' }
     ];
-    sortingTarget: string = '';
+    sortingTarget = '';
     public getSortingTarget() {
       this.sortingTarget = this.tableSortService._getSortingTarget();
     }

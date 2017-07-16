@@ -33,10 +33,10 @@ export class SiteSalariesCreationEtap2ModalAutorComponent  {
     public modalClass: string;
 
     @Input()
-    public closeOnEscape: boolean = true;
+    public closeOnEscape = true;
 
     @Input()
-    public closeOnOutsideClick: boolean = true;
+    public closeOnOutsideClick = true;
 
     @Input()
     public title: string;

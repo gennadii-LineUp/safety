@@ -9,8 +9,8 @@ import {ClientService} from '../../../services/client/client.service';
   providers: [ClientService]
 })
 export class ClientBibliothequePageComponent implements OnInit {
-    loading: boolean = true;
-    errorLoad: string = '';
+    loading = true;
+    errorLoad = '';
     links = [];
 
   constructor(private errorMessageHandlerService: ErrorMessageHandlerService,

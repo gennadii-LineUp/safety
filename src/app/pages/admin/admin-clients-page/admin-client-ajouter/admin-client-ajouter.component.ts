@@ -13,15 +13,15 @@ import {ErrorMessageHandlerService} from '../../../../services/error/error-messa
     providers: [AdminService, ErrorMessageHandlerService ]
 })
 export class AdminClientAjouterComponent implements OnInit {
-    loading: boolean = false;
-    errorCreating: string = '';
+    loading = false;
+    errorCreating = '';
 
     billingAddressIsDifferent:boolean = true;
     spins = document.getElementsByClassName("spin");
 
     client = new ClientClass('','','','','',false,'','','','','','','','','',1);
     myForm: NgForm;
-    newValue: number = 1;
+    newValue =  1;
 
     constructor(private adminService: AdminService,
                 private router: Router,
