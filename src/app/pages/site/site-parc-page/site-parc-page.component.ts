@@ -27,7 +27,14 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
     id_site =  0;
     id_machine = 0;
-    currentTypeMachine = '';
+    choosenType_id = 0;
+    choosenType_caption = '';
+    choosenType_10 = false;
+    machineWithEquipement = false;
+    choosenMachine_id = 0;
+    choosenMachine_caption = '';
+    subcategoryEquipement: number;
+    equipementChecked = 1;
 
     pager: any = {};
     totalItems = 0;
@@ -204,12 +211,24 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.errorCreating = '';
   }
 
-  // id_machine = 0;
-  // currentTypeMachine = '';
-  public addSubcategory(e: any, caption: string) {
+
+  public addType(e: any, caption: string) {
     const userInput = e.target;
-    console.log(userInput.name);
-    this.currentTypeMachine = caption;
+    if (+userInput.id === 10) {
+      this.choosenType_10 = true;
+      this.choosenMachine_caption = '';
+    } else {
+      this.choosenType_10 = false;
+    }
+    if (+userInput.id === 12) {
+      this.machineWithEquipement = true;
+    } else {
+      this.machineWithEquipement = false;
+    }
+    this.choosenType_id = userInput.id;
+    console.log(this.choosenType_id);
+
+    this.choosenType_caption = caption;
 
     // if (userInput.checked) {
     //   this.drivingLicense.categories.push(+userInput.name);
@@ -228,15 +247,31 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     // }
   }
 
+  public addMachine(e: any, caption: string) {
+    const userInput = e.target;
+    this.choosenMachine_id = userInput.id;
+    console.log(this.choosenMachine_id);
+    this.choosenMachine_caption = caption;
+  }
+  public addSubcategoryEquipement(e: any) {
+    this.subcategoryEquipement = +e.target.id;
+    console.log(this.subcategoryEquipement);
+    // this.drivingLicense.equipment = this.subcategoryEquipement;
+    // this.categoryDrivingLicense_nullData = false;
+  }
+
+
 
   datepickerRun() {
        $(() => {
             this.dataService.datepickerFranceFormat();
-            $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker();
-            $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "changeYear", true );
+          //  $.datepicker.run();
+           // $( '#ui-datepicker-div' ).datepicker();
+            $( '#ui-datepicker-div, #datepicker1, #datepicker2, #datepicker3' ).datepicker();
+            $( '#ui-datepicker-div, #datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'changeYear', true );
 
-            $( "#format" ).change(function() {
-                $( "#datepicker1, #datepicker2, #datepicker3" ).datepicker( "option", "dateFormat", $(this).val() );
+            $( '#format' ).change(function() {
+                $( '#ui-datepicker-div, #datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }

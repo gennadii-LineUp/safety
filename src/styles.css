@@ -611,6 +611,7 @@ th {
 .table-default th,
 .table-default td {
     border-right: 1px solid #007863;
+  overflow: hidden;
 }
 
 .table-default th,
@@ -2199,7 +2200,7 @@ th {
         margin-bottom: 15px;
     }
 
-    #type-machine a, #type-engin a, #category-chariot-elevateur-r389 a, #category-grue-mobile-r383 a {
+    #type-machine a, #type-engin a, #category-chariot-grue a, #category-grue-mobile-r383 a {
         line-height: inherit;
         padding: 10px;
         height: auto;

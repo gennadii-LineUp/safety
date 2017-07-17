@@ -1,7 +1,11 @@
 a {
     text-decoration: none;
 }
-#type-machine a, #type-vehicule a, #type-engin a, #category-chariot-elevateur-r389 a, #category-grue-mobile-r383 a {
+.modal-content h2 {
+  font-size: 30px;
+  text-align: center;
+}
+#type-machine a, #type-vehicule a, #type-engin a, #category-chariot-grue a, #category-grue-mobile-r383 a {
     min-width: 84px;
     min-height: 42px;
     line-height: 42px;
@@ -44,7 +48,7 @@ div.tab-pane .modal-form {
 
 div.tab-pane .form-subheader {
     margin-bottom: 19px;
-    text-align: left;
+    text-align: center;
 }
 
 div.tab-pane .tab-content {
@@ -68,7 +72,7 @@ a:focus {
 #type-machine a,
 #type-vehicule a,
 #type-engin a,
-#category-chariot-elevateur-r389 a,
+#category-chariot-grue a,
 #category-grue-mobile-r383 a {
     min-width: 84px;
     min-height: 42px;
@@ -114,11 +118,11 @@ a:focus {
     margin-left: 3px;
 }
 
-#category-chariot-elevateur-r389 {
+#category-chariot-grue {
     text-align: center;
 }
 
-#category-chariot-elevateur-r389 .form-subheader,
+#category-chariot-grue .form-subheader,
 #category-grue-mobile-r383 .form-subheader {
     text-align: center;
 }
@@ -140,13 +144,13 @@ a:focus {
     margin-left: auto;margin-right: auto;
 }
 
-#category-chariot-elevateur-r389 a:not(.navigation-back-button) {
+#category-chariot-grue a:not(.navigation-back-button) {
     width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
 
-#category-chariot-elevateur-r389-details .telecharger-button {
+#category-chariot-grue-details .telecharger-button {
     margin-left: 2px;
 }
 
@@ -160,7 +164,7 @@ a:focus {
 
 .autres-fichiers-wrapper {
     padding-top: 21px;
-    margin-bottom: 23px;
+    margin-bottom: 20px;
 }
 
 .autres-fichiers-wrapper button {
@@ -199,7 +203,7 @@ a:focus {
 }
 
 .equipment-wrapper {
-    padding-top: 20px;
+    /*padding-top: 20px;*/
     text-align: left;
     margin-bottom: 3px;
 }

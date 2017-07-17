@@ -9,15 +9,21 @@ export class MachinesGlossary {
     { id: 5,  display: 'Remorque' }
   ];
 
-  types_2_engins = [
+
+  types_2_engins_6_9 = [
     { id: 6,  display: 'Chariots élévateurs R.389' },
     { id: 7,  display: 'PEMP (nacelle) R.386' },
     { id: 8,  display: 'Ponts roulants R.318/423' },
-    { id: 9,  display: 'Engins de chantier R.372m' },
-    { id: 10,  display: 'Grues auxiliaire R.390' },
+    { id: 9,  display: 'Engins de chantier R.372m' }
+  ];
+  types_2_engins_10 = [
+    { id: 10,  display: 'Grues auxiliaire R.390' }
+  ];
+  types_2_engins_11_12 = [
     { id: 11,  display: 'Grues à tour R.377m' },
     { id: 12,  display: 'Grues mobiles R.383m' }
   ];
+
 
   types_2_engins_6 = [
     { id: 13, parent: 6,  display: 'Catégorie 1 : transpalette à conducteur porté' },
@@ -66,14 +72,24 @@ export class MachinesGlossary {
     { id: 40, parent: 11,  display: 'Grue à montage par éléments' }
   ];
 
-  types_2_engins_12 = [
+
+  types_2_engins_12_routier = [
     { id: 41, parent: 12,  display: 'Automotrice immatriculée' },
     { id: 42, parent: 12,  display: 'Automotrice non immatriculée' },
     { id: 43, parent: 12,  display: 'Sur porteur automoteur' },
-    { id: 44, parent: 12,  display: 'Tractée' },
+    { id: 44, parent: 12,  display: 'Tractée' }
+  ];
+  types_2_engins_12_nonRoutier = [
     { id: 45, parent: 12,  display: 'Sur chenilles' },
     { id: 46, parent: 12,  display: 'Sur bandage ou rail' },
     { id: 47, parent: 12,  display: 'Sur ponton' }
   ];
+  types_2_engins_12_equipement = [
+    { id: 1,  parent: 12,  display: 'A - Treillis' },
+    { id: 2,  parent: 12,  display: 'B - Télescopique avec fléchette' },
+    { id: 3,  parent: 12,  display: 'B - Télescopique sans fléchette' },
+    { id: 4,  parent: 12,  display: 'C - Spécial' }
+  ];
+
 
 }
