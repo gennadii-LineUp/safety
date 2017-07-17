@@ -340,7 +340,7 @@
             <span class="caret"></span>
             <div class="select-wrapper" style="margin-bottom: 24px;">
                 <select name="role" [(ngModel)]="activeSelect"  (change)="ShowType(activeSelect)">
-                  <option *ngFor="let type of TypeM" [value]="type.value">
+                  <option *ngFor="let type of machinesGlossary.TypeM" [value]="type.value">
                         {{type.display}}
                     </option>
                 </select>
@@ -367,7 +367,7 @@
                   <div *ngIf="activeSelect==='6'" class="control-group">
                     <p class="form-subheader">Chariots élévateurs R.389</p>
                     <br><br><br>
-                    <label *ngFor="let type of drivingLicensesGlossary.types_6" class="control control--checkbox">{{type.display}}
+                    <label *ngFor="let type of machinesGlossary.types_2_engins_6" class="control control--checkbox">{{type.display}}
                       <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
@@ -376,7 +376,7 @@
                   <div *ngIf="activeSelect==='7'" class="control-group">
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
-                    <label *ngFor="let type of drivingLicensesGlossary.types_7" class="control control--checkbox">{{type.display}}
+                    <label *ngFor="let type of machinesGlossary.types_2_engins_7" class="control control--checkbox">{{type.display}}
                       <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
@@ -385,7 +385,7 @@
                   <div *ngIf="activeSelect==='8'" class="control-group">
                       <p class="form-subheader">Ponts roulants R.318/423</p>
                       <br><br><br>
-                      <label *ngFor="let type of drivingLicensesGlossary.types_8" class="control control--checkbox">{{type.display}}
+                      <label *ngFor="let type of machinesGlossary.types_2_engins_8" class="control control--checkbox">{{type.display}}
                           <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                           <span class="control__indicator"></span>
                       </label>
@@ -394,7 +394,7 @@
                   <div *ngIf="activeSelect==='9'" class="control-group">
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
-                    <label *ngFor="let type of drivingLicensesGlossary.types_9" class="control control--checkbox">{{type.display}}
+                    <label *ngFor="let type of machinesGlossary.types_2_engins_9" class="control control--checkbox">{{type.display}}
                       <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
@@ -408,7 +408,7 @@
                   <div *ngIf="activeSelect==='11'" class="control-group">
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br>
-                    <label *ngFor="let type of drivingLicensesGlossary.types_11" class="control control--checkbox">{{type.display}}
+                    <label *ngFor="let type of machinesGlossary.types_2_engins_11" class="control control--checkbox">{{type.display}}
                       <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
@@ -419,21 +419,21 @@
                     <br>
 
                     <p class="vehicle-type">Type 1 : Routier</p>
-                    <label *ngFor="let type of drivingLicensesGlossary.types_12_routier" class="control control--checkbox">{{type.display}}
+                    <label *ngFor="let type of machinesGlossary.types_2_engins_12_routier" class="control control--checkbox">{{type.display}}
                       <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
 
                     <br>
                     <p class="vehicle-type">Type 2 : Non routier</p>
-                    <label *ngFor="let type of drivingLicensesGlossary.types_12_nonRoutier" class="control control--checkbox">{{type.display}}
+                    <label *ngFor="let type of machinesGlossary.types_2_engins_12_nonRoutier" class="control control--checkbox">{{type.display}}
                       <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
 
                     <br>
                     <p class="vehicle-type">Equipement</p>
-                    <div *ngFor="let equipement of drivingLicensesGlossary.types_12_equipement" class="radio" >
+                    <div *ngFor="let equipement of machinesGlossary.types_2_engins_12_equipement" class="radio" >
                       <input type="radio"   id={{equipement.id}} name="equipementGroup"
                              [value]="equipement.id" (change)='addSubcategoryEquipement($event); false'>  <!-- checked={{equipement.booleanValue}}-->
                       <label for={{equipement.id}} class="radio-label">{{equipement.display}}</label>

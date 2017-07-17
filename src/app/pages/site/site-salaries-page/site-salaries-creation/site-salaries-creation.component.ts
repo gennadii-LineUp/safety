@@ -156,9 +156,9 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         // const _datepicker_startDate = (this.dataService.stringToDate(datepicker_startDate, 'dd/MM/yyyy', '/')).toISOString();
         // const _datepicker_endDate = (this.dataService.stringToDate(datepicker_endDate, 'dd/MM/yyyy', '/')).toISOString();
 
-        const _datepicker_birthDate = this.dataService.convertDateFromInputeToServer(datepicker_birthDate);
-        const _datepicker_startDate = this.dataService.convertDateFromInputeToServer(datepicker_startDate);
-        const _datepicker_endDate   = this.dataService.convertDateFromInputeToServer(datepicker_endDate);
+        const _datepicker_birthDate = this.dataService.stringToISOString(datepicker_birthDate);
+        const _datepicker_startDate = this.dataService.stringToISOString(datepicker_startDate);
+        const _datepicker_endDate   = this.dataService.stringToISOString(datepicker_endDate);
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();

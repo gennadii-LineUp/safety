@@ -9,15 +9,15 @@ import {AttestationClass} from '../../../../models/const/attestations-class';
 import {TableSortService} from '../../../../services/table-sort.service';
 import {NgForm} from '@angular/forms';
 import {DrivingLicenseClass} from '../../../../models/const/driving-license-class';
-import {DrivingLicensesGlossary} from '../../../../models/const/driving-license-categories';
 import {DataService} from '../../../../services/DataService.service';
+import {MachinesGlossary} from '../../../../models/const/machine-categorie';
 declare var $: any;
 
 @Component({
   selector: 'app-site-salaries-creation-etap2',
   templateUrl: './site-salaries-creation-etap2.component.html',
   styleUrls: ['./site-salaries-creation-etap2.component.css'],
-    providers: [SiteService, ClientService, TableSortService, DrivingLicensesGlossary, DataService]
+    providers: [SiteService, ClientService, TableSortService, MachinesGlossary, DataService]
 })
 export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     loading = false;
@@ -103,7 +103,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                 private router: Router,
                 private route: ActivatedRoute,
                 private tableSortService: TableSortService,
-                private drivingLicensesGlossary: DrivingLicensesGlossary,
+                private machinesGlossary: MachinesGlossary,
                 private dataService: DataService) { }
 
 
@@ -144,17 +144,17 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       console.log(userChoice);
 
       switch (userChoice) {
-        case  '3':  this.activeSelect = this.TypeM[0].value;  break;
-        case  '4':  this.activeSelect = this.TypeM[1].value;  break;
-        case  '5':  this.activeSelect = this.TypeM[2].value;  break;
-        case  '6':  this.activeSelect = this.TypeM[3].value;  break;
-        case  '7':  this.activeSelect = this.TypeM[4].value;  break;
-        case  '8':  this.activeSelect = this.TypeM[5].value;  break;
-        case  '9':  this.activeSelect = this.TypeM[6].value;  break;
-        case '10':  this.activeSelect = this.TypeM[7].value;  break;
-        case '11':  this.activeSelect = this.TypeM[8].value;  break;
-        case '12':  this.activeSelect = this.TypeM[9].value;  break;
-        default:    this.activeSelect = this.TypeM[0].value;
+        case  '3':  this.activeSelect = this.machinesGlossary.TypeM[0].value;  break;
+        case  '4':  this.activeSelect = this.machinesGlossary.TypeM[1].value;  break;
+        case  '5':  this.activeSelect = this.machinesGlossary.TypeM[2].value;  break;
+        case  '6':  this.activeSelect = this.machinesGlossary.TypeM[3].value;  break;
+        case  '7':  this.activeSelect = this.machinesGlossary.TypeM[4].value;  break;
+        case  '8':  this.activeSelect = this.machinesGlossary.TypeM[5].value;  break;
+        case  '9':  this.activeSelect = this.machinesGlossary.TypeM[6].value;  break;
+        case '10':  this.activeSelect = this.machinesGlossary.TypeM[7].value;  break;
+        case '11':  this.activeSelect = this.machinesGlossary.TypeM[8].value;  break;
+        case '12':  this.activeSelect = this.machinesGlossary.TypeM[9].value;  break;
+        default:    this.activeSelect = this.machinesGlossary.TypeM[0].value;
       }
       this.categoryDrivingLicense_nullData = true;
       this.categoryDrivingLicense_active = +userChoice;
@@ -554,7 +554,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           if (result) {
             this.creatingDrivingLicense = false;
             console.log(result);
-            this.successCreatingDrLicence = 'Well done! You&aposve created new driving license.';
+            this.successCreatingDrLicence = "Well done! You've created new driving license.";
           }
         }, (err) => {
           this.creatingDrivingLicense = false;

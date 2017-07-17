@@ -370,3 +370,6 @@ div.control-group {
   min-height: 295px;
 }
 
+.modal-sm .modal-content {
+  padding-bottom: 24px !important;
+}

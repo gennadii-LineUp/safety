@@ -285,3 +285,7 @@ textarea {
   font-size: 15px;
   min-height: 160px;
 }
+
+.modal-sm .modal-content {
+  padding-bottom: 0;
+}

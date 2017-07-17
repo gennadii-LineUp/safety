@@ -52,7 +52,7 @@ export class DataService {
       + 'T' + date.toTimeString().slice(0,5);
   }
 
-  public convertDateFromInputeToServer(datepicker: string): string {
+  public convertDateFromInputeToServer(datepicker: string): string {   // doesn't work properly, but MUST be used !
     // const str = datepicker.split('/').reverse().join('-');
     // console.log(typeof str + ' ' + str);
     // const aa = str + 'T00:00:00.000';

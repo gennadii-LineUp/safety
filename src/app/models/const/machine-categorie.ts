@@ -3,6 +3,19 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class MachinesGlossary {
 
+  TypeM = [
+    { value: '3', display: 'VL' },
+    { value: '4', display: 'PL' },
+    { value: '5', display: 'Remorque' },
+    { value: '6', display: 'Chariots élévateurs R.389' },
+    { value: '7', display: 'PEMP (nacelle) R.386' },
+    { value: '8', display: 'Ponts roulants R.318/423' },
+    { value: '9', display: 'Engins de chantier R.372m' },
+    { value: '10', display: 'Grues auxiliaire R.390' },
+    { value: '11', display: 'Grues à tour R.377m' },
+    { value: '12', display: 'Grues mobiles R.383m' }
+  ];
+
   types_1_vehicule = [
     { id: 3,  display: 'VL' },
     { id: 4,  display: 'PL' },
