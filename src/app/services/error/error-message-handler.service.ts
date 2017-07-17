@@ -117,15 +117,18 @@ export class ErrorMessageHandlerService {
             case 'file':                      key='*Fishier*';  break;
             case 'dateIssue':                 key='*Date de délivrance*';  break;
             case 'dateExpires':               key='*Date d’expiration*';  break;
+            case 'category':                  key='*Category*';  break;
+            case 'mark':                      key='*Marque*';  break;
+            case 'model':                     key='*Modèle*';  break;
+            case 'parkNumber':                key='*N° de parc*';  break;
+            case 'equipment':                 key='*Equipement*';  break;
+            case 'vgp':                       key='*VGP*';  break;
             // case '':         key='';  break;
             default:
                 key;
-
-
         }
         return key;
     }
-
 
   public getMessageEquivalent(message: string) {
     switch (message) {
