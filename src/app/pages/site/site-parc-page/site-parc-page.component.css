@@ -4,6 +4,10 @@ a {
 .modal-content h2 {
   font-size: 30px;
   text-align: center;
+  /*min-width: 420px;*/
+}
+#modal_Machine__dataInput h2 {
+  min-width: 420px;
 }
 #type-machine a, #type-vehicule a, #type-engin a, #category-chariot-grue a, #category-grue-mobile-r383 a {
     min-width: 84px;
@@ -163,10 +167,12 @@ a:focus {
 }
 
 .autres-fichiers-wrapper {
-    padding-top: 21px;
+    /*padding-top: 21px;*/
     margin-bottom: 20px;
 }
-
+.calendar-wrapper {
+  margin-bottom: 23px;
+}
 .autres-fichiers-wrapper button {
     margin-top: 24px;
 }

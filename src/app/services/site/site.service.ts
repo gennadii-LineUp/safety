@@ -7,6 +7,7 @@ import {DrivingLicenseClass} from "../../models/const/driving-license-class";
 import {query} from "@angular/core/src/animation/dsl";
 import {EmployeesClassDates} from "../../models/const/employees-dates-class";
 import {FichiersClass} from "../../models/const/site-fichiers-class";
+import {MachineClass} from "../../models/const/machine-class";
 
 @Injectable()
 export class SiteService {
@@ -56,7 +57,12 @@ export class SiteService {
       console.log(query);
       return this.backendService.deleteData(query);
     }
-
+    public createMachine(newMachine: MachineClass, siteId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines';
+      console.log(url);
+      return this.backendService.post(url, JSON.stringify(newMachine));
+    }
+ // /sites/44/machines
 
 
   public clientList(page): Observable<any> {

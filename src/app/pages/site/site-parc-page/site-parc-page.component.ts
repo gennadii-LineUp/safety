@@ -17,6 +17,7 @@ declare var $: any;
 export class SiteParcPageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
+    creating = false;
     loadingSalarieUsed = false;
     loaded = false;
     loadedSalarieUsed = false;
@@ -29,8 +30,11 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     id_machine = 0;
     choosenType_id = 0;
     choosenType_caption = '';
-    choosenType_10 = false;
-    machineWithEquipement = false;
+    choosen_engine_10_back = false;
+    choosen_engine_back = false;
+    choosen_engine = false;
+    choosen_vehicule_back = false;
+    choosen_engineWithEquipement = false;
     choosenMachine_id = 0;
     choosenMachine_caption = '';
     subcategoryEquipement: number;
@@ -99,7 +103,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.siteService.findMachineByName(_name, page, this.id_site, sort)
       .subscribe(result => {
         if (result) {
-          console.log('------------');
+          console.log(result);
           this.loading = false;
           this.machines = result.items;
 
@@ -183,6 +187,50 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     //   });
   }
 
+  // category: number;
+  // mark: string;
+  // model: string;
+  // parkNumber: string;
+  // vgp: string;
+  // equipment: number;
+
+  public submitForm() {
+    this.cancellMessages();
+    // if (this.drivingLicense.categories.length === 0) {
+    //   this.categoryDrivingLicense_nullData = true;
+    //   this.errorCreatingDrLicence = 'SAFETY:  At least 1 category have to be choosen.';
+    //   return false;
+    // } else {
+    //   this.categoryDrivingLicense_nullData = false;
+    // }
+    //
+    // if (this.categoryDrivingLicense_active === 12) {
+    //   if (this.drivingLicense.equipment === 0) {
+    //     this.categoryDrivingLicense_nullData = true;
+    //     this.errorCreatingDrLicence = 'SAFETY:  At least 1 equipement have to be choosen.';
+    //     console.log(this.drivingLicense.equipment);
+    //     console.log(this.subcategoryEquipement);
+    //     return false;
+    //   }
+    // }
+
+    this.creating = true;
+    console.log(this.machine);
+
+    this.siteService.createMachine(this.machine, this.id_site)
+      .subscribe(result => {
+        if (result) {
+          this.creating = false;
+          console.log(result);
+          this.successCreating = "Well done! You've created new machine.";
+        }
+      }, (err) => {
+        this.creating = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
 
   public deleteFunction(id_itemForDelete: number) {
     this.cancellMessages();
@@ -206,6 +254,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   public cancellMessages() {
     this.loading = false;
+    this.creating = false;
     this.successCreating = '';
     this.errorLoad = '';
     this.errorCreating = '';
@@ -214,16 +263,33 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   public addType(e: any, caption: string) {
     const userInput = e.target;
-    if (+userInput.id === 10) {
-      this.choosenType_10 = true;
-      this.choosenMachine_caption = '';
+    if (+userInput.id === 3 ||
+        +userInput.id === 4 ||
+        +userInput.id === 5) {
+          this.choosen_vehicule_back = true;
+          this.choosen_engine_back = false;
+          this.choosen_engine_10_back = false;
+          this.choosen_engine = false;
+          this.choosen_engineWithEquipement = false;
+    } else if (+userInput.id === 10) {
+          this.choosen_vehicule_back = false;
+          this.choosen_engine_10_back = true;
+          this.choosen_engine_back = false;
+          this.choosen_engine = true;
+          this.choosen_engineWithEquipement = false;
+          this.choosenMachine_caption = '';
+    } else if (+userInput.id === 12) {
+          this.choosen_vehicule_back = false;
+          this.choosen_engine_10_back = false;
+          this.choosen_engine_back = true;
+          this.choosen_engine = true;
+          this.choosen_engineWithEquipement = true;
     } else {
-      this.choosenType_10 = false;
-    }
-    if (+userInput.id === 12) {
-      this.machineWithEquipement = true;
-    } else {
-      this.machineWithEquipement = false;
+          this.choosen_vehicule_back = false;
+          this.choosen_engine_back = true;
+          this.choosen_engine_10_back = false;
+          this.choosen_engine = true;
+          this.choosen_engineWithEquipement = false;
     }
     this.choosenType_id = userInput.id;
     console.log(this.choosenType_id);

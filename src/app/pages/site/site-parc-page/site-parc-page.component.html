@@ -51,9 +51,9 @@
                 </tr>
 
                 <tr *ngFor="let machine of machines" >
-                  <td class="error-message">TODO: immatriculation</td>
+                  <td>{{machine.registration | valueNull }}</td>
                   <td>{{machine.parkNumber}}</td>
-                  <td class="error-message">TODO: type</td>
+                  <td>{{machine.type}}</td>
                   <td>{{machine.model}}</td>
                   <td>{{machine.mark}}</td>
                   <td>
@@ -143,7 +143,7 @@
                  style="display: block; position: relative;">
               <a class="green-button form-button" href="javascript:void(0);"
                  id={{machine.id}} name={{machine.id}}
-                 (click)="modal_Machine_1Vehicule.close(); modal_Machine_1Vehicule_3Remorque.open();
+                 (click)="modal_Machine_1Vehicule.close(); modal_Machine__dataInput.open();
                           addType($event, machine.display); false" role="button">{{machine.display}}
               </a>
             </div>
@@ -157,56 +157,40 @@
 
 <!--============================================ data input =======================================================-->
 <!--============================================ data input =======================================================-->
-<site-parc-modal-machine #modal_Machine_1Vehicule_3Remorque style='min-width: 454px; max-width: 454px;' tabindex="-1">
-    <modal-header-SPMM>
-        <h2>Ajouter une véhicule: {{currentTypeMachineCaption}}</h2>
-    </modal-header-SPMM>
-    <modal-content-SPMM>
-        <div role="tabpanel" class="tab-pane fade in active" id="remorque">
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText1" placeholder="Marque*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText2" placeholder="Modèle*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText3" placeholder="N° de parc*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
-            <p class="form-subheader text-center">Contrôle Technique</p>
-            <div class="calendar-wrapper clearfix">
-                <div class="clearfix"></div>
-                <p>Date d’expiration* </p>
-                <input type="text" name="selected_date" #datepicker1 id="datepicker1" class="datepicker-default" (click)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
-                <div class="clearfix"></div>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <a class="navigation-back-button" role="button" href="javascript:void(0);"
-                            (click)="modal_Machine_1Vehicule_3Remorque.close(); modal_Machine_1Vehicule.open();"></a>
-            <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                            (click)="modal_Machine_1Vehicule_3Remorque.close();">Enregistrer</button>
-        </div>
-    </modal-content-SPMM>
-    <modal-footer-SPMM></modal-footer-SPMM>
-  <script>
-//    function datepickerRun() {
-//      $(document).ready(function () {
-//        //Datepicker Popups calender to Choose date
-//        $(function () {
-////          $('#datepicker1, #datepicker2, #datepicker3').datepicker();
-//          $('#datepicker1, #datepicker2, #datepicker3').datepicker('option', 'changeYear', true);
-//          //Pass the user selected date format
-//          $("#format").change(function () {
-//            $('#datepicker1, #datepicker2, #datepicker3').datepicker("option", "dateFormat", $(this).val());
-//          });
-//        });
-//
-//      });
-//    }
-  </script>
-</site-parc-modal-machine>
+<!--<site-parc-modal-machine #modal_Machine_1Vehicule_3Remorque style='min-width: 454px; max-width: 454px;' tabindex="-1">-->
+    <!--<modal-header-SPMM>-->
+        <!--<h2>Ajouter une véhicule: {{currentTypeMachineCaption}}</h2>-->
+    <!--</modal-header-SPMM>-->
+    <!--<modal-content-SPMM>-->
+        <!--<div role="tabpanel" class="tab-pane fade in active" id="remorque">-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputText1" placeholder="Marque*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputText2" placeholder="Modèle*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputText3" placeholder="N° de parc*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<p class="form-subheader text-center">Contrôle Technique</p>-->
+            <!--<div class="calendar-wrapper clearfix">-->
+                <!--<div class="clearfix"></div>-->
+                <!--<p>Date d’expiration* </p>-->
+                <!--<input type="text" name="selected_date" #datepicker1 id="datepicker1" class="datepicker-default" (click)='datepickerRun()'  />  &lt;!&ndash; (focus)='datepickerRun()' &ndash;&gt;-->
+                <!--<div class="clearfix"></div>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<a class="navigation-back-button" role="button" href="javascript:void(0);"-->
+                            <!--(click)="modal_Machine_1Vehicule_3Remorque.close(); modal_Machine_1Vehicule.open();"></a>-->
+            <!--<button type="submit" class="form-button green-button enregistrer-button pull-right"-->
+                            <!--(click)="modal_Machine_1Vehicule_3Remorque.close();">Enregistrer</button>-->
+        <!--</div>-->
+    <!--</modal-content-SPMM>-->
+    <!--<modal-footer-SPMM></modal-footer-SPMM>-->
+<!--</site-parc-modal-machine>-->
 
 
 <site-parc-modal-machine #modal_Machine_2Engine style='min-width: 327px; max-width: 327px;' tabindex="-1">
@@ -228,7 +212,7 @@
                  style="display: block; position: relative;">
               <a class="green-button form-button" href="javascript:void(0);"
                  id={{machine.id}} name={{machine.id}}
-                 (click)="modal_Machine_2Engine.close(); modal_Machine_2Engine__dataInput.open();
+                 (click)="modal_Machine_2Engine.close(); modal_Machine__dataInput.open();
                               addType($event, machine.display); false" role="button">{{machine.display}}</a>
             </div>
             <div *ngFor="let machine of machinesGlossary.types_2_engins_11_12"
@@ -259,7 +243,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -272,7 +256,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -285,7 +269,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -298,7 +282,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -311,7 +295,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -325,7 +309,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <p class="form-subheader form-subheader-type">Type 2 : Non routier</p>
@@ -333,7 +317,7 @@
                style="display: block; position: relative;">
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
-               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine__dataInput.open();
+               (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
                               addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -344,37 +328,45 @@
     <modal-footer-SPMM></modal-footer-SPMM>
 </site-parc-modal-machine>
 
-
-<site-parc-modal-machine #modal_Machine_2Engine_Grue style='min-width: 489px; max-width: 489px;' tabindex="-1">
-  <modal-header-SPMM>
-    <h2>Ajouter </h2>
-  </modal-header-SPMM>
-  <modal-content-SPMM>
-    <div role="tabpanel" class="tab-pane fade in active" id="category-grue-mobile-r383">
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button">Automotrice immatriculée</a>-->
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button">Automotrice non immatriculée</a>-->
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button">Sur porteur automoteur</a>-->
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button">Tractée</a>-->
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button">Sur chenilles</a>-->
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button"-->
-         <!--(click)="modal_Machine_2Engine_Grue.close(); modal_Machine_2Engine_Grue_6surBandage.open();">Sur bandage ou rail</a>-->
-      <!--<a class="green-button form-button" href="javascript:void(0);" role="button">Sur ponton</a>-->
-      <!--<a class="navigation-back-button" role="button" href="javascript:void(0);"-->
-         <!--(click)="modal_Machine_2Engine_Grue.close(); modal_Machine_2Engine.open();"></a>-->
-    </div>
-  </modal-content-SPMM>
-  <modal-footer-SPMM></modal-footer-SPMM>
-</site-parc-modal-machine>
-
+<!--<site-parc-modal-machine #modal_Machine_2Engine_Grue style='min-width: 489px; max-width: 489px;' tabindex="-1">-->
+  <!--<modal-header-SPMM>-->
+    <!--<h2>Ajouter </h2>-->
+  <!--</modal-header-SPMM>-->
+  <!--<modal-content-SPMM>-->
+    <!--<div role="tabpanel" class="tab-pane fade in active" id="category-grue-mobile-r383">-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button">Automotrice immatriculée</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button">Automotrice non immatriculée</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button">Sur porteur automoteur</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button">Tractée</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button">Sur chenilles</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button"&ndash;&gt;-->
+         <!--&lt;!&ndash;(click)="modal_Machine_2Engine_Grue.close(); modal_Machine_2Engine_Grue_6surBandage.open();">Sur bandage ou rail</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="green-button form-button" href="javascript:void(0);" role="button">Sur ponton</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a class="navigation-back-button" role="button" href="javascript:void(0);"&ndash;&gt;-->
+         <!--&lt;!&ndash;(click)="modal_Machine_2Engine_Grue.close(); modal_Machine_2Engine.open();"></a>&ndash;&gt;-->
+    <!--</div>-->
+  <!--</modal-content-SPMM>-->
+  <!--<modal-footer-SPMM></modal-footer-SPMM>-->
+<!--</site-parc-modal-machine>-->
 
 <!--============================================ data input =======================================================-->
 <!--============================================ data input =======================================================-->
-<site-parc-modal-machine #modal_Machine_2Engine__dataInput style='min-width: 532px; max-width: 532px;' tabindex="-1">
+<site-parc-modal-machine #modal_Machine__dataInput style='min-width: 532px !important; max-width: 532px;' tabindex="-1">
     <modal-header-SPMM>
-        <h2>Ajouter {{choosenType_caption}}</h2>
+        <h2 style='min-width: 420px !important'>Ajouter: {{choosenType_caption}}</h2>
     </modal-header-SPMM>
     <modal-content-SPMM>
-        <div role="tabpanel" class="tab-pane fade in active" id="category-chariot-grue-details">
+      <div *ngIf="errorCreating" style='position: fixed; top: -40px !important;' class="alert alert-danger">
+        {{errorCreating}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">
+        {{successCreating}}
+      </div>
+
+      <div role="tabpanel" class="tab-pane fade in active" id="category-chariot-grue-details">
             <p id="modal_dataInput_choosenMachine_caption"
                class="form-subheader text-left" style="text-align: left;">{{choosenMachine_caption}}</p>
             <div class="input-wrapper">
@@ -393,12 +385,12 @@
                 <p class="form-subheader text-center">Vérification Générale Périodique</p>
                 <div class="clearfix"></div>
                 <p>Date d’expiration* </p>
-                <input type="text" name="selected_date" id="datepicker3" class="datepicker-default" (focus)='datepickerRun()'  />
+                <input type="text" name="selected_date" id="datepicker3" class="datepicker-default" (click)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
                 <div class="clearfix"></div>
                 <button class="form-button dark-green-button telecharger-button pull-left"
                         style="text-align: left;">Télécharger</button>
             </div>
-            <div class="autres-fichiers-wrapper clearfix">
+            <div *ngIf="choosen_engine" class="autres-fichiers-wrapper clearfix">
                 <p class="form-subheader text-center" style="text-align: left;">Autres fichiers</p>
                 <div class="image-upload">
                     <p>Fichier 1</p>
@@ -409,7 +401,7 @@
                 </div>
                 <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
             </div>
-            <div *ngIf="machineWithEquipement" class="equipment-wrapper clearfix">
+            <div *ngIf="choosen_engine && choosen_engineWithEquipement" class="equipment-wrapper clearfix">
                 <p class="form-subheader text-center" style="text-align: left;">Equipement</p>
 
               <div *ngFor="let equipement of machinesGlossary.types_2_engins_12_equipement" class="radio" >
@@ -418,32 +410,33 @@
                 <label for={{equipement.id}} class="radio-label">{{equipement.display}}</label>
               </div>
 
-
-              <!--<div class="radio">-->
-                  <!--<input id="radio-11" name="radio1" checked="checked" type="radio">-->
-                  <!--<label for="radio-11" class="radio-label">A - Treillis</label>-->
-                <!--</div>-->
-                <!--<div class="radio">-->
-                  <!--<input id="radio-12" name="radio1" checked="" type="radio">-->
-                  <!--<label for="radio-12" class="radio-label">B - Télescopique avec fléchette</label>-->
-                <!--</div>-->
-                <!--<div class="radio">-->
-                  <!--<input id="radio-13" name="radio1" checked="" type="radio">-->
-                  <!--<label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>-->
-                <!--</div>-->
-                <!--<div class="radio">-->
-                  <!--<input id="radio-14" name="radio1" checked="" type="radio">-->
-                  <!--<label for="radio-14" class="radio-label">C - Spécial</label>-->
-                <!--</div>-->
             </div>
-
-          <a *ngIf="!choosenType_10" class="navigation-back-button" role="button" href="javascript:void(0);"
-                                (click)="modal_Machine_2Engine__dataInput.close(); modal_Machine_2Engine_chariotGrue.open();"></a>
-            <a *ngIf="choosenType_10"  class="navigation-back-button" role="button" href="javascript:void(0);"
-                                (click)="modal_Machine_2Engine__dataInput.close(); modal_Machine_2Engine.open();"></a>
+            <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a *ngIf="choosen_vehicule_back" class="navigation-back-button" role="button" href="javascript:void(0);"
+                                (click)="modal_Machine__dataInput.close(); modal_Machine_1Vehicule.open();"></a>
+            <a *ngIf="choosen_engine_back" class="navigation-back-button" role="button" href="javascript:void(0);"
+                                (click)="modal_Machine__dataInput.close(); modal_Machine_2Engine_chariotGrue.open();"></a>
+            <a *ngIf="choosen_engine_10_back"  class="navigation-back-button" role="button" href="javascript:void(0);"
+                                (click)="modal_Machine__dataInput.close(); modal_Machine_2Engine.open();"></a>
             <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                                (click)="modal_Machine_2Engine__dataInput.close();">Enregistrer</button>
+                                (click)="modal_Machine__dataInput.close();">Enregistrer</button>
         </div>
+      <script>
+        //    function datepickerRun() {
+        //      $(document).ready(function () {
+        //        //Datepicker Popups calender to Choose date
+        //        $(function () {
+        ////          $('#datepicker1, #datepicker2, #datepicker3').datepicker();
+        //          $('#datepicker1, #datepicker2, #datepicker3').datepicker('option', 'changeYear', true);
+        //          //Pass the user selected date format
+        //          $("#format").change(function () {
+        //            $('#datepicker1, #datepicker2, #datepicker3').datepicker("option", "dateFormat", $(this).val());
+        //          });
+        //        });
+        //
+        //      });
+        //    }
+      </script>
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
 </site-parc-modal-machine>
@@ -451,163 +444,163 @@
 
 <!--============================================ data input =======================================================-->
 <!--============================================ data input =======================================================-->
-<site-parc-modal-machine #modal_Machine_2Engine_Grue_6surBandage style='min-width: 532px; max-width: 532px;' tabindex="-1">
-    <modal-header-SPMM>
-        <h2>Ajouter une grue mobile R383m</h2>
-    </modal-header-SPMM>
-    <modal-content-SPMM>
-        <div role="tabpanel" class="tab-pane fade in active" id="category-grue-mobile-r383-details">
-            <p class="form-subheader text-center">Non routier - Sur bandage ou rail</p>
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText4" placeholder="Marque*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText5" placeholder="Modèle*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText6" placeholder="N° de parc*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
-            <div class="calendar-wrapper clearfix">
-                <p class="form-subheader text-center">Vérification Générale Périodique</p>
-                <div class="clearfix"></div>
-                <p>Date d’expiration* </p>
-                <input type="text" name="selected_date" id="datepicker2" class="datepicker-default" (focus)='datepickerRun()'  />
-                <div class="clearfix"></div>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <div class="autres-fichiers-wrapper clearfix">
-                <p class="form-subheader text-center">Autres fichiers</p>
-                <div class="image-upload">
-                    <p>Fichier 1</p>
-                    <label for="file-input1">
-                        <span></span>
-                    </label>
-                    <input id="file-input1" type="file">
-                </div>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <div class="equipment-wrapper clearfix">
-                <p class="form-subheader text-center">Equipement</p>
-                <div class="radio">
-                    <input id="radio-11" name="radio1" checked="checked" type="radio">
-                    <label for="radio-11" class="radio-label">A - Treillis</label>
-                </div>
-                <div class="radio">
-                    <input id="radio-12" name="radio1" checked="" type="radio">
-                    <label for="radio-12" class="radio-label">B - Télescopique avec fléchette</label>
-                </div>
-                <div class="radio">
-                    <input id="radio-13" name="radio1" checked="" type="radio">
-                    <label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>
-                </div>
-                <div class="radio">
-                    <input id="radio-14" name="radio1" checked="" type="radio">
-                    <label for="radio-14" class="radio-label">C - Spécial</label>
-                </div>
-            </div>
-            <a class="navigation-back-button" role="button" href="javascript:void(0);"
-                                (click)="modal_Machine_2Engine_Grue_6surBandage.close(); modal_Machine_2Engine_chariotGrue.open();"></a>
-            <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                                (click)="modal_Machine_2Engine_Grue_6surBandage.close();">Enregistrer</button>
-        </div>
-    </modal-content-SPMM>
-    <modal-footer-SPMM></modal-footer-SPMM>
-</site-parc-modal-machine>
+<!--<site-parc-modal-machine #modal_Machine_2Engine_Grue_6surBandage style='min-width: 532px; max-width: 532px;' tabindex="-1">-->
+    <!--<modal-header-SPMM>-->
+        <!--<h2>Ajouter une grue mobile R383m</h2>-->
+    <!--</modal-header-SPMM>-->
+    <!--<modal-content-SPMM>-->
+        <!--<div role="tabpanel" class="tab-pane fade in active" id="category-grue-mobile-r383-details">-->
+            <!--<p class="form-subheader text-center">Non routier - Sur bandage ou rail</p>-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputText4" placeholder="Marque*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputText5" placeholder="Modèle*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputText6" placeholder="N° de parc*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<div class="calendar-wrapper clearfix">-->
+                <!--<p class="form-subheader text-center">Vérification Générale Périodique</p>-->
+                <!--<div class="clearfix"></div>-->
+                <!--<p>Date d’expiration* </p>-->
+                <!--<input type="text" name="selected_date" id="datepicker2" class="datepicker-default" (focus)='datepickerRun()'  />-->
+                <!--<div class="clearfix"></div>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<div class="autres-fichiers-wrapper clearfix">-->
+                <!--<p class="form-subheader text-center">Autres fichiers</p>-->
+                <!--<div class="image-upload">-->
+                    <!--<p>Fichier 1</p>-->
+                    <!--<label for="file-input1">-->
+                        <!--<span></span>-->
+                    <!--</label>-->
+                    <!--<input id="file-input1" type="file">-->
+                <!--</div>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<div class="equipment-wrapper clearfix">-->
+                <!--<p class="form-subheader text-center">Equipement</p>-->
+                <!--<div class="radio">-->
+                    <!--<input id="radio-11" name="radio1" checked="checked" type="radio">-->
+                    <!--<label for="radio-11" class="radio-label">A - Treillis</label>-->
+                <!--</div>-->
+                <!--<div class="radio">-->
+                    <!--<input id="radio-12" name="radio1" checked="" type="radio">-->
+                    <!--<label for="radio-12" class="radio-label">B - Télescopique avec fléchette</label>-->
+                <!--</div>-->
+                <!--<div class="radio">-->
+                    <!--<input id="radio-13" name="radio1" checked="" type="radio">-->
+                    <!--<label for="radio-13" class="radio-label">B - Télescopique sans fléchette</label>-->
+                <!--</div>-->
+                <!--<div class="radio">-->
+                    <!--<input id="radio-14" name="radio1" checked="" type="radio">-->
+                    <!--<label for="radio-14" class="radio-label">C - Spécial</label>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<a class="navigation-back-button" role="button" href="javascript:void(0);"-->
+                                <!--(click)="modal_Machine_2Engine_Grue_6surBandage.close(); modal_Machine_2Engine_chariotGrue.open();"></a>-->
+            <!--<button type="submit" class="form-button green-button enregistrer-button pull-right"-->
+                                <!--(click)="modal_Machine_2Engine_Grue_6surBandage.close();">Enregistrer</button>-->
+        <!--</div>-->
+    <!--</modal-content-SPMM>-->
+    <!--<modal-footer-SPMM></modal-footer-SPMM>-->
+<!--</site-parc-modal-machine>-->
 
 
 <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<site-parc-modal-machine #modal_detailsEngine style='min-width: 532px; max-width: 532px;' tabindex="-1">
-    <modal-header-SPMM>
-        <h2>Détails de l’engin</h2>
-    </modal-header-SPMM>
-    <modal-content-SPMM>
-        <div role="tabpanel" class="tab-pane fade in active" id="details-engine">
-            <div class="engine-detailed-info">
-                <p class="form-subheader text-center">Chariot élévateur R.389</p>
-                <p><span>Catégorie :</span> 1 Transpalette à conducteur porté</p>
-                <p><span>Marque :</span> Nom de la Marque</p>
-                <p><span>Modèle :</span> Nom du Modèle</p>
-                <p><span>N° Parc :</span> numéro de parc</p>
-                <p><span>Date d’expiration VGP :</span> 00/00/0000</p>
-            </div>
-            <div class="qr-code-wrapper">
-                <p class="form-subheader text-center">QR Code</p>
-                <img src="../../../../assets/img/qr-code-img.png" alt="qr-code-img">
-            </div>
-            <div class="clearfix"></div>
-            <div class="verification-generale-periodique">
-                <p class="form-subheader text-center">Vérification Générale Périodique</p>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <div class="immat-n-parc">
-                <p class="form-subheader text-center">immat - n° parc</p>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <div class="clearfix"></div>
-            <div class="autres-fichiers-wrapper button-file-input-wrapper">
-                <p class="form-subheader text-center">Autres fichiers</p>
-                <div class="image-upload">
-                    <p>Fichier 1</p>
-                    <label for="file-input2">
-                        <span>Télécharger</span>
-                    </label>
-                    <input id="file-input2" type="file">
-                </div>
-            </div>
-            <button type="submit" class="form-button green-button modifier-button pull-right"
-                            (click)="modal_detailsEngine.close();">Modifier</button>
-        </div>
-    </modal-content-SPMM>
-    <modal-footer-SPMM></modal-footer-SPMM>
-</site-parc-modal-machine>
+<!--<site-parc-modal-machine #modal_detailsEngine style='min-width: 532px; max-width: 532px;' tabindex="-1">-->
+    <!--<modal-header-SPMM>-->
+        <!--<h2>Détails de l’engin</h2>-->
+    <!--</modal-header-SPMM>-->
+    <!--<modal-content-SPMM>-->
+        <!--<div role="tabpanel" class="tab-pane fade in active" id="details-engine">-->
+            <!--<div class="engine-detailed-info">-->
+                <!--<p class="form-subheader text-center">Chariot élévateur R.389</p>-->
+                <!--<p><span>Catégorie :</span> 1 Transpalette à conducteur porté</p>-->
+                <!--<p><span>Marque :</span> Nom de la Marque</p>-->
+                <!--<p><span>Modèle :</span> Nom du Modèle</p>-->
+                <!--<p><span>N° Parc :</span> numéro de parc</p>-->
+                <!--<p><span>Date d’expiration VGP :</span> 00/00/0000</p>-->
+            <!--</div>-->
+            <!--<div class="qr-code-wrapper">-->
+                <!--<p class="form-subheader text-center">QR Code</p>-->
+                <!--<img src="../../../../assets/img/qr-code-img.png" alt="qr-code-img">-->
+            <!--</div>-->
+            <!--<div class="clearfix"></div>-->
+            <!--<div class="verification-generale-periodique">-->
+                <!--<p class="form-subheader text-center">Vérification Générale Périodique</p>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<div class="immat-n-parc">-->
+                <!--<p class="form-subheader text-center">immat - n° parc</p>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<div class="clearfix"></div>-->
+            <!--<div class="autres-fichiers-wrapper button-file-input-wrapper">-->
+                <!--<p class="form-subheader text-center">Autres fichiers</p>-->
+                <!--<div class="image-upload">-->
+                    <!--<p>Fichier 1</p>-->
+                    <!--<label for="file-input2">-->
+                        <!--<span>Télécharger</span>-->
+                    <!--</label>-->
+                    <!--<input id="file-input2" type="file">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<button type="submit" class="form-button green-button modifier-button pull-right"-->
+                            <!--(click)="modal_detailsEngine.close();">Modifier</button>-->
+        <!--</div>-->
+    <!--</modal-content-SPMM>-->
+    <!--<modal-footer-SPMM></modal-footer-SPMM>-->
+<!--</site-parc-modal-machine>-->
 
 
-<site-parc-modal-machine #modal_detailsRemorque style='min-width: 532px; max-width: 532px;' tabindex="-1">
-    <modal-header-SPMM>
-        <h2>Détails du véhicule</h2>
-    </modal-header-SPMM>
-    <modal-content-SPMM>
-        <div role="tabpanel" class="tab-pane fade in active" id="details-remorque">
-            <div class="engine-detailed-info">
-                <p class="form-subheader text-center">Remorque</p>
-                <p><span>Marque :</span> Nom de la Marque</p>
-                <p><span>Modèle :</span> Nom du Modèle</p>
-                <p><span>N° Parc :</span> numéro de parc</p>
-                <p><span>Date d’expiration CT :</span> 00/00/0000</p>
-            </div>
-            <div class="qr-code-wrapper">
-                <p class="form-subheader text-center">QR Code</p>
-                <img src="../../../../assets/img/qr-code-img.png" alt="qr-code-img">
-            </div>
-            <div class="clearfix"></div>
-            <div class="verification-generale-periodique">
-                <p class="form-subheader text-center">Contrôle Technique</p>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <div class="immat-n-parc">
-                <p class="form-subheader text-center">immat - n° parc</p>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-            </div>
-            <div class="clearfix"></div>
-            <div class="autres-fichiers-wrapper button-file-input-wrapper">
-                <p class="form-subheader text-center">Autres fichiers</p>
-                <div class="image-upload">
-                    <p>Fichier 1</p>
-                    <label for="file-input3">
-                        <span>Télécharger</span>
-                    </label>
-                    <input id="file-input3" type="file">
-                </div>
-            </div>
-            <button type="submit" class="form-button green-button modifier-button pull-right"
-                    (click)="modal_detailsRemorque.close();">Modifier</button>
-        </div>
-    </modal-content-SPMM>
-    <modal-footer-SPMM></modal-footer-SPMM>
-</site-parc-modal-machine>
+<!--<site-parc-modal-machine #modal_detailsRemorque style='min-width: 532px; max-width: 532px;' tabindex="-1">-->
+    <!--<modal-header-SPMM>-->
+        <!--<h2>Détails du véhicule</h2>-->
+    <!--</modal-header-SPMM>-->
+    <!--<modal-content-SPMM>-->
+        <!--<div role="tabpanel" class="tab-pane fade in active" id="details-remorque">-->
+            <!--<div class="engine-detailed-info">-->
+                <!--<p class="form-subheader text-center">Remorque</p>-->
+                <!--<p><span>Marque :</span> Nom de la Marque</p>-->
+                <!--<p><span>Modèle :</span> Nom du Modèle</p>-->
+                <!--<p><span>N° Parc :</span> numéro de parc</p>-->
+                <!--<p><span>Date d’expiration CT :</span> 00/00/0000</p>-->
+            <!--</div>-->
+            <!--<div class="qr-code-wrapper">-->
+                <!--<p class="form-subheader text-center">QR Code</p>-->
+                <!--<img src="../../../../assets/img/qr-code-img.png" alt="qr-code-img">-->
+            <!--</div>-->
+            <!--<div class="clearfix"></div>-->
+            <!--<div class="verification-generale-periodique">-->
+                <!--<p class="form-subheader text-center">Contrôle Technique</p>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<div class="immat-n-parc">-->
+                <!--<p class="form-subheader text-center">immat - n° parc</p>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+            <!--</div>-->
+            <!--<div class="clearfix"></div>-->
+            <!--<div class="autres-fichiers-wrapper button-file-input-wrapper">-->
+                <!--<p class="form-subheader text-center">Autres fichiers</p>-->
+                <!--<div class="image-upload">-->
+                    <!--<p>Fichier 1</p>-->
+                    <!--<label for="file-input3">-->
+                        <!--<span>Télécharger</span>-->
+                    <!--</label>-->
+                    <!--<input id="file-input3" type="file">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<button type="submit" class="form-button green-button modifier-button pull-right"-->
+                    <!--(click)="modal_detailsRemorque.close();">Modifier</button>-->
+        <!--</div>-->
+    <!--</modal-content-SPMM>-->
+    <!--<modal-footer-SPMM></modal-footer-SPMM>-->
+<!--</site-parc-modal-machine>-->
 
 
 
