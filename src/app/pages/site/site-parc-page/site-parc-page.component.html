@@ -205,7 +205,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
@@ -218,7 +218,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
@@ -231,7 +231,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
@@ -244,7 +244,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
@@ -257,7 +257,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
@@ -271,7 +271,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <p class="form-subheader form-subheader-type">Type 2 : Non routier</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_12_nonRoutier"
@@ -279,7 +279,7 @@
             <a class="green-button form-button" href="javascript:void(0);"
                id={{machine.id}} name={{machine.id}}
                (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine__dataInput.open();
-                              addMachine($event, machine.display); false" role="button">{{machine.display}}</a>
+                              addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
@@ -299,7 +299,7 @@
     <modal-content-SPMM>
       <div *ngIf="errorCreating" style='position: fixed; top: -40px !important;' class="alert alert-danger">
         {{errorCreating}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
           <span aria-hidden="true"></span>
         </button>
       </div>
@@ -313,76 +313,148 @@
                 <p id="modal_dataInput_choosenMachine_caption"
                    class="form-subheader text-left" style="text-align: left;">{{choosenMachine_caption}}</p>
 
-            <!--<p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>-->
-            <!--<input type="text" class="form-control"  placeholder="Nom*"-->
-                   <!--#name="ngModel" id="name" name='name' required [(ngModel)]="employees.name" />-->
-            <!--<p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>-->
+            <!--this.t3 = false;-->
+            <!--this.t4_t5 = false;-->
+            <!--this.t7 = false;-->
+            <!--this.t10 = false;-->
+            <!--this.t12_41 = false;-->
+            <!--this.t12_rest = false;-->
+            <!--this.t6_t8_t9_t11 = false;-->
 
-             <!--// vgp: string;-->
-            <!--// equipment: number;-->
                 <div class="input-wrapper">
                     <p [hidden]="mark.invalid" class="requred-field color-valid">Marque*</p>
                     <input class="form-control" placeholder="Marque*" type="text"
                               #mark="ngModel" id="mark" name='mark' required [(ngModel)]="machine.mark" />
                     <p [hidden]="mark.valid || mark.untouched " class="requred-field ">Champs requis</p>
                 </div>
-
-            <!--<div class="input-wrapper">-->
-              <!--<input class="form-control" id="exampleInputText2" placeholder="Modèle*" type="text">-->
-              <!--<p class="requred-field hidden">Champs requis</p>-->
-            <!--</div>-->
-
                 <div class="input-wrapper">
                     <p [hidden]="model.invalid" class="requred-field color-valid">Modèle*</p>
                         <input class="form-control" placeholder="Modèle*" type="text"
                               #model="ngModel" id="model" name='model' required [(ngModel)]="machine.model" />
                     <p [hidden]="model.valid || model.untouched " class="requred-field ">Champs requis</p>
                 </div>
+
+
                 <div class="input-wrapper">
                     <p [hidden]="parkNumber.invalid" class="requred-field color-valid">N° de parc*</p>
                         <input class="form-control" placeholder="N° de parc*" type="text"
                               #parkNumber="ngModel" id="parkNumber" name='parkNumber' required [(ngModel)]="machine.parkNumber" />
                     <p [hidden]="parkNumber.valid || parkNumber.untouched " class="requred-field ">Champs requis</p>
                 </div>
-                <div class="calendar-wrapper clearfix">
-                    <p class="form-subheader text-center">Vérification Générale Périodique</p>
-                    <div class="clearfix"></div>
-                    <p>Date d’expiration* </p>
-                    <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" (click)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
-                    <div class="clearfix"></div>
-                    <button class="form-button dark-green-button telecharger-button pull-left"
-                            style="text-align: left;">Télécharger</button>
+                <div class="input-wrapper">
+                  <p [hidden]="registration.invalid" class="requred-field color-valid">Immatriculation*</p>
+                  <input class="form-control" placeholder="Immatriculation*" type="text"
+                         #registration="ngModel" id="registration" name='registration' required [(ngModel)]="machine.registration" />
+                  <p [hidden]="registration.valid || registration.untouched " class="requred-field ">Champs requis</p>
                 </div>
-                <div *ngIf="choosen_engine" class="autres-fichiers-wrapper clearfix">
-                    <p class="form-subheader text-center" style="text-align: left;">Autres fichiers</p>
-                    <div class="image-upload">
-                        <p>Fichier 1</p>
-                        <label for="file-input0">
-                            <span></span>
-                        </label>
-                        <input id="file-input0" type="file">
-                    </div>
-                    <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
-                </div>
-                <div *ngIf="choosen_engine && choosen_engineWithEquipement" class="equipment-wrapper clearfix">
-                    <p class="form-subheader text-center" style="text-align: left;">Equipement</p>
 
-                  <div *ngFor="let equipement of machinesGlossary.types_2_engins_12_equipement" class="radio" >
-                    <input type="radio"   id={{equipement.id}} name="equipement"  [checked]='equipementChecked===equipement.id'
-                           [value]="equipement.id" (change)='addSubcategoryEquipement($event); false'>
-                    <label for={{equipement.id}} class="radio-label">{{equipement.display}}</label>
-                  </div>
+              <div class="calendar-wrapper clearfix">
+                  <p class="form-subheader text-center">Vérification Générale Périodique</p>
+                  <div class="clearfix"></div>
+                  <p>Date d’expiration* </p>
+                  <input type="text" class="datepicker-default" (click)='datepickerRun()'
+                         #vgp="ngModel" id='vgp' name='vgp'  [(ngModel)]="machine.vgp"/>  <!-- (focus)='datepickerRun()' -->
+                  <div class="clearfix"></div>
+                  <button class="form-button dark-green-button telecharger-button pull-left"
+                          style="text-align: left;">Télécharger</button>
+              </div>
 
+              <div class="calendar-wrapper clearfix">
+                  <p class="form-subheader text-center">Contrôle technique</p>
+                  <div class="clearfix"></div>
+                  <p>Date d’expiration* </p>
+                  <input type="text" class="datepicker-default" (click)='datepickerRun()'
+                         #techControl="ngModel" id='techControl' name='techControl'  [(ngModel)]="machine.techControl"/>  <!-- (focus)='datepickerRun()' -->
+                  <div class="clearfix"></div>
+                  <button class="form-button dark-green-button telecharger-button pull-left"
+                          style="text-align: left;">Télécharger</button>
+              </div>
+
+              <div class="autres-fichiers-wrapper clearfix">
+                <p class="form-subheader text-center" style="text-align: left;">Autres fichiers</p>
+                <div class="image-upload">
+                  <p>Fichier 1</p>
+                  <label for="file-input0">
+                    <span></span>
+                  </label>
+                  <input id="file-input0" type="file">
                 </div>
+                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
+              </div>
+
+            <div *ngIf="t3" class="groupe-wrapper">
+              <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0; text-align: left;'>Groupe de salariés</p>
+              <img *ngIf="loadingGroupes" style='left:18%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <div *ngIf='!loadingGroupes' class="radio-btn-block">
+                <label *ngFor="let groupe of employeeGroupes_view" class="control control--checkbox">{{groupe.name}}
+                  <input type="checkbox" id={{groupe.id}} name={{groupe.id}} (change)='addSubcategory($event); false'>
+                  <span class="control__indicator"></span>
+                </label>
+                <!--<div *ngFor="let groupe of employeeGroupes_view" class="radio"  style="text-align: left;">-->
+                  <!--<input type="radio"   id={{groupe.id}} name="employeeGroup"-->
+                         <!--[(ngModel)]="machine.employeeGroups" [value]="groupe.id"-->
+                         <!--[checked]='checkedGroup==groupe.id'>  -->
+                  <!--<label for={{groupe.id}} class="radio-label">{{groupe.id}} {{groupe.name}}</label>-->
+                <!--</div>-->
+              </div>
+            </div>
+
+            <div class="remoteControl-wrapper">
+              <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0; text-align: left;'>Case à cocher télécommande</p>
+              <div class="radio-btn-block">
+                <div *ngFor="let remoteControl of remoteControls" class="radio" style="text-align: left;">
+                    <input type="radio"  id={{remoteControl.id}} name="machine_remoteControl"
+                         [(ngModel)]="machine.remoteControl" [value]="remoteControl.value"
+                         [checked]='checkedRemoteControl===remoteControl.value' />
+                    <label for={{remoteControl.id}} class="radio-label">{{remoteControl.display}}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="equipment-wrapper clearfix" style="margin-top: 19px;">
+              <p class="form-subheader text-center" style="text-align: left; margin-bottom: 14px;">Equipement</p>
+              <div *ngFor="let equipement of machinesGlossary.types_2_engins_12_equipement" class="radio">
+                <input type="radio"   id={{equipement.id}} name="machine_equipement"  [checked]='equipementChecked===equipement.id'
+                       [value]="equipement.id" (change)='addEquipement($event, equipementChecked, equipement.id); false'
+                       [(ngModel)]="machine.equipment" />
+                <label for={{equipement.id}} class="radio-label">{{equipement.display}}</label>
+              </div>
+            </div>
+
+            <!--// category: number;-->
+            <!--// mark: string;-->
+            <!--// model: string;-->
+            <!--// parkNumber: string;-->
+            <!--// registration: string;-->
+            <!--// vgp: string; date-->
+            <!--// techControl: string;-->
+            <!--// employeeGroups: number;-->
+            <!--// remoteControl: boolean;-->
+            <!--// equipment: number;-->
+
+            <!--Immatriculation - registration  - стр-->
+            <!--Contrôle technique - techControl  - дата + файл-->
+            <!--Groupe d'employé - employeeGroups  - чекбокс, массив-->
+            <!--N° de parc - parkNumber  - стр-->
+            <!--VGP - vgp  - дата + файл-->
+            <!--Fichier(s) - files - файл-->
+            <!--Case à cocher télécommande - remoteControl - boolean-->
+            <!--Equipement - equipment - radiobutton []-->
+
+
                 <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 <a *ngIf="choosen_vehicule_back" class="navigation-back-button" role="button" href="javascript:void(0);"
-                                    (click)="modal_Machine__dataInput.close(); modal_Machine_1Vehicule.open();"></a>
+                                    (click)="modal_Machine__dataInput.close();
+                                    setEmptyMachines();  modal_Machine_1Vehicule.open();"></a>
                 <a *ngIf="choosen_engine_back" class="navigation-back-button" role="button" href="javascript:void(0);"
-                                    (click)="modal_Machine__dataInput.close(); modal_Machine_2Engine_chariotGrue.open();"></a>
+                                    (click)="modal_Machine__dataInput.close();
+                                    setEmptyMachines();  modal_Machine_2Engine_chariotGrue.open();"></a>
                 <a *ngIf="choosen_engine_10_back"  class="navigation-back-button" role="button" href="javascript:void(0);"
-                                    (click)="modal_Machine__dataInput.close(); modal_Machine_2Engine.open();"></a>
+                                    (click)="modal_Machine__dataInput.close();
+                                    setEmptyMachines();  modal_Machine_2Engine.open();"></a>
                 <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                                    (click)="modal_Machine__dataInput.close();">Enregistrer</button>
+                        [disabled]="groupes_nullData">Enregistrer
+                </button>
             </div>
         <!--mark model parkNumber-->
       </form>

@@ -23,9 +23,7 @@ import { SiteReglagesModalComponent, ModalHeaderSRM, ModalContentSRM, ModalFoote
 import { SiteFichiersPageComponent } from './site/site-fichiers-page/site-fichiers-page.component';
 import { SiteFichiersModalComponent, ModalHeaderSF, ModalContentSF, ModalFooterSF } from './site/site-fichiers-page/site-fichiers-modal/site-fichiers-modal.component';
 import { SiteParcPageComponent } from './site/site-parc-page/site-parc-page.component';
-import { SiteParcModalMachineComponent, ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM } from './site/site-parc-page/site-parc-modal-1machine/site-parc-modal-machine.component';
-import { SiteParcModalEnginComponent, ModalHeaderSPME, ModalContentSPME, ModalFooterSPME } from './site/site-parc-page/site-parc-modal-engin/site-parc-modal-engin.component';
-import { SiteParcModalDetailsComponent, ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD } from './site/site-parc-page/site-parc-modal-details/site-parc-modal-details.component';
+import { SiteParcModalMachineComponent, ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM } from './site/site-parc-page/site-parc-modal-machine/site-parc-modal-machine.component';
 import { SiteSalariesPageComponent } from './site/site-salaries-page/site-salaries-page.component';
 import { SiteSalariesCreationComponent } from './site/site-salaries-page/site-salaries-creation/site-salaries-creation.component';
 import { LoginStartComponent } from './login/login-start/login-start.component';
@@ -73,8 +71,6 @@ import {DataService} from '../services/DataService.service';
         SiteFichiersPageComponent,        SiteFichiersModalComponent, ModalHeaderSF, ModalContentSF, ModalFooterSF,
         SiteParcPageComponent,
         SiteParcModalMachineComponent,    ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM,
-        SiteParcModalEnginComponent,      ModalHeaderSPME, ModalContentSPME, ModalFooterSPME,
-        SiteParcModalDetailsComponent,    ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD,
         SiteSalariesPageComponent,        SiteSalariesCreationComponent, SiteSalariesCreationEtap2Component,
         LoginStartComponent,
         RappelerLeMotDePasseComponent,
@@ -109,8 +105,6 @@ import {DataService} from '../services/DataService.service';
         SiteFichiersPageComponent,        SiteFichiersModalComponent, ModalHeaderSF, ModalContentSF, ModalFooterSF,
         SiteParcPageComponent,
         SiteParcModalMachineComponent,    ModalHeaderSPMM, ModalContentSPMM, ModalFooterSPMM,
-        SiteParcModalEnginComponent, ModalHeaderSPME, ModalContentSPME, ModalFooterSPME,
-        SiteParcModalDetailsComponent,    ModalHeaderSPMD, ModalContentSPMD, ModalFooterSPMD,
         SiteSalariesPageComponent,        SiteSalariesCreationComponent, SiteSalariesCreationEtap2Component,
         LoginStartComponent,
         RappelerLeMotDePasseComponent,

@@ -7,17 +7,19 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 import {MachineClass} from '../../../models/const/machine-class';
 import {MachinesGlossary} from '../../../models/const/machine-categorie';
 import {NgForm} from '@angular/forms';
+import {ClientService} from "../../../services/client/client.service";
 declare var $: any;
 
 @Component({
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
   styleUrls: ['./site-parc-page.component.css'],
-    providers: [SiteService, TableSortService, DataService, PaginationService, MachinesGlossary]
+    providers: [SiteService, ClientService, TableSortService, DataService, PaginationService, MachinesGlossary]
 })
 export class SiteParcPageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
+    loadingGroupes = false;
     creating = false;
     loadingSalarieUsed = false;
     loaded = false;
@@ -36,10 +38,20 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     choosen_engine = false;
     choosen_vehicule_back = false;
     choosen_engineWithEquipement = false;
-    choosenMachine_id = 0;
+    choosenCategory_id = 0;
     choosenMachine_caption = '';
     subcategoryEquipement: number;
     equipementChecked = 1;
+    equipment_nullData = false;
+    groupes_nullData = false;
+
+    t3 = false;
+    t4_t5 = false;
+    t6_t8_t9_t11 = false;
+    t7 = false;
+    t10 = false;
+    t12_41 = false;
+    t12_rest = false;
 
     pager: any = {};
     totalItems = 0;
@@ -50,7 +62,26 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     saveButtonCaption = 'Ajouter';
 
     machines = [];
-    machine = new MachineClass(0, '', '', '', '', 0);
+    machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
+    employeeGroupes_view = [];
+    employeeGroupes = [];
+    checkedGroups = [];
+    public remoteControls = [
+        { value: true,  id: 'control1', display: 'oui' },
+        { value: false, id: 'control2', display: 'non' }
+    ];
+    checkedRemoteControl = false;
+  // category: number;
+  // mark: string;
+  // model: string;
+  // registration: string;
+  // techControl: string;
+  // employeeGroups: Array<number>;
+  // remoteControl: boolean;
+  // parkNumber: string;
+  // vgp: string;
+  // equipment: number;
+
 
   sortingTarget = '';
     headers: any[] = [
@@ -63,6 +94,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
 
     constructor(private siteService: SiteService,
+                public clientService: ClientService,
                 private tableSortService: TableSortService,
                 private dataService: DataService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
@@ -74,6 +106,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         this.id_site = localStorage.id_site;
         this.findByNameFunction('', 1, '');
         this.siteService.tableMobileViewInit();
+
 
         // $(document).ready(() => {
         //     this.datepickerRun();
@@ -122,6 +155,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           }, 200);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
+          this.getEmployeeGroupes();
         }
       }, (err) => {
         this.loading = false;
@@ -139,17 +173,41 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.pager = this.paginationService.getPager(this.totalItems, page);
   }
 
+  public addSubcategory(e: any) {
+    const userInput = e.target;
+    if (userInput.checked) {
+      this.machine.employeeGroups.push(+userInput.name);
+      this.machine.employeeGroups = this.machine.employeeGroups.filter((elem, index, self) => {
+        return index === self.indexOf(elem);
+      });
+    }
+    if (!userInput.checked) {
+      this.machine.employeeGroups = this.machine.employeeGroups.filter(val => val !== +userInput.name);
+    }
 
-  public setEmptyMachines() {
-    this.machine = new MachineClass(0, '', '', '', '', 0);
-    this.machines = [];
-    // const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
-    // for (let i = 0; i < checkedI.length; i++) {
-    //   (<HTMLInputElement>checkedI[i]).checked = false;
-    // }
-    return;
+
   }
 
+  get _checkedGroups() { // right now: ['1','3']
+    return this.checkedGroups
+      .map(opt => opt.id);
+  }
+
+  public getEmployeeGroupes() {
+    this.loadingGroupes = true;
+    this.clientService.getGroupList()
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.loadingGroupes = false;
+          this.employeeGroupes = result;
+        }
+      }, (err) => {
+        this.loadingGroupes = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
 
   public modifierFunction(id_itemForUpdate: number) {
     this.cancellMessages();
@@ -172,11 +230,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     //       this.id_machine = result.id;
     //       //this.machine.employeeGroups = this._checkedGroups;
     //
-    //       if (this.newFichier.employeeGroups.length > 0) {
-    //         this.categoryNewFichier_nullData = false;
-    //       }
+    //       this.checkForEmptyEmployeeGroup();
     //
-    //       console.log(this.newFichier);
+    //       console.log(this.machine);
     //       console.log(this.checkedGroups);
     //
     //       console.log(this._checkedGroups);
@@ -191,24 +247,29 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   // category: number;
   // mark: string;
   // model: string;
+  // registration: string;
+  // techControl: string;
+  // employeeGroups: Array<number>;
+  // remoteControl: boolean;
   // parkNumber: string;
   // vgp: string;
   // equipment: number;
 
-  public submitForm(ff: NgForm) {
-      console.log(ff);
+  public submitForm() {
     this.cancellMessages();
-    // if (this.drivingLicense.categories.length === 0) {
-    //   this.categoryDrivingLicense_nullData = true;
-    //   this.errorCreatingDrLicence = 'SAFETY:  At least 1 category have to be choosen.';
-    //   return false;
-    // } else {
-    //   this.categoryDrivingLicense_nullData = false;
-    // }
-    //
+    if (this.machine.employeeGroups.length === 0  &&  this.choosenCategory_id === 3) {
+      this.groupes_nullData = true;
+      this.errorCreating = "SAFETY:  Au moins 1 groupe de salariés doit être choisi.";
+      return false;
+    } else {
+      this.equipment_nullData = false;
+    }
+    // equipment_nullData = false;
+    // groupes_nullData = false;
+
     // if (this.categoryDrivingLicense_active === 12) {
     //   if (this.drivingLicense.equipment === 0) {
-    //     this.categoryDrivingLicense_nullData = true;
+    //     this.equipment_nullData = true;
     //     this.errorCreatingDrLicence = 'SAFETY:  At least 1 equipement have to be choosen.';
     //     console.log(this.drivingLicense.equipment);
     //     console.log(this.subcategoryEquipement);
@@ -216,6 +277,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     //   }
     // }
 
+    this.machine.category = this.choosenCategory_id;
     this.creating = true;
     console.log(this.machine);
 
@@ -254,78 +316,124 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   }
 
 
+  public checkForEmptyEmployeeGroup() {
+    if (this.machine.employeeGroups.length === 0) {
+      this.groupes_nullData = true;
+    } else {
+      this.groupes_nullData = false;
+    }
+  }
+
   public cancellMessages() {
     this.loading = false;
     this.creating = false;
+    this.loadingGroupes = false;
     this.successCreating = '';
     this.errorLoad = '';
     this.errorCreating = '';
   }
 
+  public setEmptyType() {
+    this.cancellMessages();
+    this.t3 = false;
+    this.t4_t5 = false;
+    this.t7 = false;
+    this.t10 = false;
+    this.t12_41 = false;
+    this.t12_rest = false;
+    this.t6_t8_t9_t11 = false;
+    this.choosen_vehicule_back = false;
+    this.choosen_engine_back = false;
+    this.choosen_engine_10_back = false;
+    this.groupes_nullData = false;
+  }
+
+  public setEmptyMachines() {
+    this.cancellMessages();
+    this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
+    this.machines = [];
+    this.checkedGroups = [];
+    const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
+    for (let i = 0; i < checkedI.length; i++) {
+      (<HTMLInputElement>checkedI[i]).checked = false;
+    }
+    return;
+  }
 
   public addType(e: any, caption: string) {
-    const userInput = e.target;
-    if (+userInput.id === 3 ||
-        +userInput.id === 4 ||
-        +userInput.id === 5) {
+    const choosenType = e.target.id;
+    if (+choosenType === 3) {
+      console.log('333333333');
+          this.setEmptyType();
+          this.t3 = true;
           this.choosen_vehicule_back = true;
-          this.choosen_engine_back = false;
-          this.choosen_engine_10_back = false;
-          this.choosen_engine = false;
-          this.choosen_engineWithEquipement = false;
-    } else if (+userInput.id === 10) {
-          this.choosen_vehicule_back = false;
+          this.choosenCategory_id = +choosenType;      /////
+          this.checkForEmptyEmployeeGroup();
+    } else if (+choosenType === 4 ||
+               +choosenType === 5) {
+          this.setEmptyType();
+          this.t4_t5 = true;
+          this.choosen_vehicule_back = true;
+          this.choosenCategory_id = +choosenType;      /////
+    } else if (+choosenType === 7) {
+          this.setEmptyType();
+          this.t7 = true;
+          this.choosen_engine_back = true;
+    } else if (+choosenType === 10) {
+          this.setEmptyType();
+          this.t10 = true;
           this.choosen_engine_10_back = true;
-          this.choosen_engine_back = false;
-          this.choosen_engine = true;
-          this.choosen_engineWithEquipement = false;
           this.choosenMachine_caption = '';
-    } else if (+userInput.id === 12) {
-          this.choosen_vehicule_back = false;
-          this.choosen_engine_10_back = false;
-          this.choosen_engine_back = true;
-          this.choosen_engine = true;
-          this.choosen_engineWithEquipement = true;
+    } else if (+choosenType === 12) {
+          this.setEmptyType();
+          this.t12_rest = true;
+          this.choosen_engine_10_back = true;
     } else {
-          this.choosen_vehicule_back = false;
+          this.setEmptyType();
+          this.t6_t8_t9_t11 = true;
           this.choosen_engine_back = true;
-          this.choosen_engine_10_back = false;
-          this.choosen_engine = true;
-          this.choosen_engineWithEquipement = false;
     }
-    this.choosenType_id = userInput.id;
+    this.choosenType_id = choosenType;
     console.log(this.choosenType_id);
-
+    this.setEmptyMachines();
     this.choosenType_caption = caption;
-
-    // if (userInput.checked) {
-    //   this.drivingLicense.categories.push(+userInput.name);
+    this.employeeGroupes_view = this.employeeGroupes;
+    // if (choosenType.checked) {
+    //   this.drivingLicense.categories.push(+choosenType.name);
     //   this.drivingLicense.categories = this.drivingLicense.categories.filter((elem, index, self) => {
     //     return index === self.indexOf(elem);
     //   });
     // }
-    // if (!userInput.checked) {
-    //   this.drivingLicense.categories = this.drivingLicense.categories.filter(val => val !== +userInput.name);
+    // if (!choosenType.checked) {
+    //   this.drivingLicense.categories = this.drivingLicense.categories.filter(val => val !== +choosenType.name);
     // }
     //
     // if (this.drivingLicense.categories.length === 0) {
-    //   this.categoryDrivingLicense_nullData = true;
+    //   this.equipment_nullData = true;
     // } else {
-    //   this.categoryDrivingLicense_nullData = false;
+    //   this.equipment_nullData = false;
     // }
   }
 
-  public addMachine(e: any, caption: string) {
-    const userInput = e.target;
-    this.choosenMachine_id = userInput.id;
-    console.log(this.choosenMachine_id);
+  public addCategory(e: any, caption: string) {
+    const choosenCategory = e.target.id;
+    if (+choosenCategory === 41) {
+          this.setEmptyType();
+          this.t12_41 = true;
+          this.choosen_engine_back = true;
+    }
+    this.setEmptyMachines();
+    this.choosenCategory_id = choosenCategory;
+    console.log(this.choosenCategory_id);
     this.choosenMachine_caption = caption;
   }
-  public addSubcategoryEquipement(e: any) {
+
+  public addEquipement(e: any, equipementChecked: any, equipement_id: any) {
+    console.log(typeof equipementChecked + ' equipementChecked,  equipement_id ' + typeof equipement_id);
     this.subcategoryEquipement = +e.target.id;
     console.log(this.subcategoryEquipement);
-    // this.drivingLicense.equipment = this.subcategoryEquipement;
-    // this.categoryDrivingLicense_nullData = false;
+    this.machine.equipment = this.subcategoryEquipement;
+    this.equipment_nullData = false;
   }
 
 

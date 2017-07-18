@@ -214,9 +214,14 @@ a:focus {
     margin-bottom: 3px;
 }
 
+.groupe-wrapper .radio,
+.groupe-wrapper label,
+.remoteControl-wrapper .radio,
 .equipment-wrapper .radio {
-    margin-top: 15px;
-    margin-bottom: 19px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+    text-align: left;
+  font-weight: 400;
 }
 
 .equipment-wrapper .radio input[type="radio"] + .radio-label::before {
