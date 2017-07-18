@@ -4,8 +4,9 @@ import {TableSortService} from '../../../services/table-sort.service';
 import {DataService} from '../../../services/DataService.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
-import {MachineClass} from "../../../models/const/machine-class";
-import {MachinesGlossary} from "../../../models/const/machine-categorie";
+import {MachineClass} from '../../../models/const/machine-class';
+import {MachinesGlossary} from '../../../models/const/machine-categorie';
+import {NgForm} from '@angular/forms';
 declare var $: any;
 
 @Component({
@@ -194,7 +195,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   // vgp: string;
   // equipment: number;
 
-  public submitForm() {
+  public submitForm(ff: NgForm) {
+      console.log(ff);
     this.cancellMessages();
     // if (this.drivingLicense.categories.length === 0) {
     //   this.categoryDrivingLicense_nullData = true;
@@ -333,11 +335,11 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
             this.dataService.datepickerFranceFormat();
           //  $.datepicker.run();
            // $( '#ui-datepicker-div' ).datepicker();
-            $( '#ui-datepicker-div, #datepicker1, #datepicker2, #datepicker3' ).datepicker();
-            $( '#ui-datepicker-div, #datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'changeYear', true );
+            $( '#ui-datepicker-div, #datepicker1' ).datepicker();
+            $( '#ui-datepicker-div, #datepicker1' ).datepicker( 'option', 'changeYear', true );
 
             $( '#format' ).change(function() {
-                $( '#ui-datepicker-div, #datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'dateFormat', $(this).val() );
+                $( '#ui-datepicker-div, #datepicker1' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }

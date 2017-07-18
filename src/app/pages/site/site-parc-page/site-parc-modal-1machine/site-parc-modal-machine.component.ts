@@ -22,10 +22,10 @@ export class ModalContentSPMM implements OnInit {
   }
   // public datepickerRun() {
   //   this.dataService.datepickerFranceFormat();
-  //   $( '#datepicker1, #datepicker2, #datepicker3' ).datepicker();
-  //   $( '#datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'changeYear', true );
+  //   $( '#datepicker1' ).datepicker();
+  //   $( '#datepicker1' ).datepicker( 'option', 'changeYear', true );
   //   $( '#format' ).change(function() {
-  //     $( '#datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'dateFormat', $(this).val() );
+  //     $( '#datepicker1' ).datepicker( 'option', 'dateFormat', $(this).val() );
   //   });
   // }
 }
@@ -143,11 +143,11 @@ export class SiteParcModalMachineComponent implements OnInit, OnDestroy { // ext
 
     // public datepickerRun() {
     //     this.dataService.datepickerFranceFormat();
-    //     $( '#datepicker1, #datepicker2, #datepicker3' ).datepicker();
-    //     $( '#datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'changeYear', true );
+    //     $( '#datepicker1' ).datepicker();
+    //     $( '#datepicker1' ).datepicker( 'option', 'changeYear', true );
     //
     //     $( '#format' ).change(function() {
-    //         $( '#datepicker1, #datepicker2, #datepicker3' ).datepicker( 'option', 'dateFormat', $(this).val() );
+    //         $( '#datepicker1' ).datepicker( 'option', 'dateFormat', $(this).val() );
     //     });
     // }
 

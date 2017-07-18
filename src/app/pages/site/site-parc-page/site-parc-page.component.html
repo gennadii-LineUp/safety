@@ -307,7 +307,7 @@
         {{successCreating}}
       </div>
 
-      <form #site_parcForm="ngForm"  novalidate  class="profil-form" (click)='cancellSuccessMessage()'
+      <form #site_parcForm="ngForm"  novalidate
             (ngSubmit)="submitForm(site_parcForm)"  enctype="multipart/form-data">
           <div role="tabpanel" class="tab-pane fade in active" id="category-chariot-grue-details">
                 <p id="modal_dataInput_choosenMachine_caption"
@@ -320,29 +320,35 @@
 
              <!--// vgp: string;-->
             <!--// equipment: number;-->
-            <div class="input-wrapper">
+                <div class="input-wrapper">
                     <p [hidden]="mark.invalid" class="requred-field color-valid">Marque*</p>
                     <input class="form-control" placeholder="Marque*" type="text"
-                              #mark="ngModel" id="mark" name='mark' required [(ngModel)]="employees.mark" />
+                              #mark="ngModel" id="mark" name='mark' required [(ngModel)]="machine.mark" />
                     <p [hidden]="mark.valid || mark.untouched " class="requred-field ">Champs requis</p>
                 </div>
+
+            <!--<div class="input-wrapper">-->
+              <!--<input class="form-control" id="exampleInputText2" placeholder="Modèle*" type="text">-->
+              <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+
                 <div class="input-wrapper">
                     <p [hidden]="model.invalid" class="requred-field color-valid">Modèle*</p>
                         <input class="form-control" placeholder="Modèle*" type="text"
-                              #model="ngModel" id="model" name='model' required [(ngModel)]="employees.model" />
+                              #model="ngModel" id="model" name='model' required [(ngModel)]="machine.model" />
                     <p [hidden]="model.valid || model.untouched " class="requred-field ">Champs requis</p>
                 </div>
                 <div class="input-wrapper">
                     <p [hidden]="parkNumber.invalid" class="requred-field color-valid">N° de parc*</p>
                         <input class="form-control" placeholder="N° de parc*" type="text"
-                              #parkNumber="ngModel" id="parkNumber" name='parkNumber' required [(ngModel)]="employees.parkNumber" />
+                              #parkNumber="ngModel" id="parkNumber" name='parkNumber' required [(ngModel)]="machine.parkNumber" />
                     <p [hidden]="parkNumber.valid || parkNumber.untouched " class="requred-field ">Champs requis</p>
                 </div>
                 <div class="calendar-wrapper clearfix">
                     <p class="form-subheader text-center">Vérification Générale Périodique</p>
                     <div class="clearfix"></div>
                     <p>Date d’expiration* </p>
-                    <input type="text" name="selected_date" id="datepicker3" class="datepicker-default" (click)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
+                    <input type="text" name="selected_date" id="datepicker1" class="datepicker-default" (click)='datepickerRun()'  />  <!-- (focus)='datepickerRun()' -->
                     <div class="clearfix"></div>
                     <button class="form-button dark-green-button telecharger-button pull-left"
                             style="text-align: left;">Télécharger</button>
@@ -378,17 +384,18 @@
                 <button type="submit" class="form-button green-button enregistrer-button pull-right"
                                     (click)="modal_Machine__dataInput.close();">Enregistrer</button>
             </div>
+        <!--mark model parkNumber-->
       </form>
       <script>
         //    function datepickerRun() {
         //      $(document).ready(function () {
         //        //Datepicker Popups calender to Choose date
         //        $(function () {
-        ////          $('#datepicker1, #datepicker2, #datepicker3').datepicker();
-        //          $('#datepicker1, #datepicker2, #datepicker3').datepicker('option', 'changeYear', true);
+        ////          $('#datepicker1').datepicker();
+        //          $('#datepicker1').datepicker('option', 'changeYear', true);
         //          //Pass the user selected date format
         //          $("#format").change(function () {
-        //            $('#datepicker1, #datepicker2, #datepicker3').datepicker("option", "dateFormat", $(this).val());
+        //            $('#datepicker1').datepicker("option", "dateFormat", $(this).val());
         //          });
         //        });
         //
