@@ -7,10 +7,9 @@ export class ValueNullPipe implements PipeTransform {
   transform(value: any, args?: any): string {
 
     if (value === null) {
-      return 'pas défini';
-    } else {
       return '-';
+    } else {
+      return value;
     }
-
   }
 }

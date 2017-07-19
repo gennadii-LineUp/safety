@@ -184,8 +184,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     if (!userInput.checked) {
       this.machine.employeeGroups = this.machine.employeeGroups.filter(val => val !== +userInput.name);
     }
-
-
+    this.checkForEmptyEmployeeGroup();
   }
 
   get _checkedGroups() { // right now: ['1','3']
@@ -244,26 +243,31 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     //   });
   }
 
-  // category: number;
-  // mark: string;
-  // model: string;
-  // registration: string;
-  // techControl: string;
-  // employeeGroups: Array<number>;
-  // remoteControl: boolean;
-  // parkNumber: string;
-  // vgp: string;
-  // equipment: number;
 
   public submitForm() {
     this.cancellMessages();
+    this.creating = true;
+
     if (this.machine.employeeGroups.length === 0  &&  this.choosenCategory_id === 3) {
       this.groupes_nullData = true;
-      this.errorCreating = "SAFETY:  Au moins 1 groupe de salariés doit être choisi.";
+      this.errorCreating = 'SAFETY:  Au moins 1 groupe de salariés doit être choisi.';
       return false;
     } else {
       this.equipment_nullData = false;
     }
+    let datepicker_techControl = '';
+    let datepicker_vgp = '';
+    if (this.t3 || this.t4_t5 || this.t7 || this.t10 || this.t12_41) {
+      datepicker_techControl = (<HTMLInputElement>window.document.querySelectorAll('#techControl')[0]).value;
+      console.dir(datepicker_techControl);
+    }
+    if (this.t6_t8_t9_t11 || this.t7 || this.t10 || this.t12_41 || this.t12_rest) {
+      datepicker_vgp = (<HTMLInputElement>window.document.querySelectorAll('#vgp')[0]).value;
+      console.dir(datepicker_vgp);
+    }
+
+   // const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
+
     // equipment_nullData = false;
     // groupes_nullData = false;
 
@@ -278,15 +282,51 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     // }
 
     this.machine.category = this.choosenCategory_id;
-    this.creating = true;
+    this.machine.techControl = datepicker_techControl;
+    this.machine.vgp = datepicker_vgp;
     console.log(this.machine);
+    let _datepicker_techControl = '';
+    if (datepicker_techControl !== '') {
+      _datepicker_techControl = this.dataService.convertDateFromInputeToServer(this.machine.techControl);
+    }
+    let _datepicker_vgp = '';
+    if (datepicker_vgp !== '') {
+      _datepicker_vgp = this.dataService.convertDateFromInputeToServer(this.machine.vgp);
+    }
 
-    this.siteService.createMachine(this.machine, this.id_site)
+    // category: number;
+    // mark: string;
+    // model: string;
+    // registration: string;
+    // techControl: string;
+    // employeeGroups: Array<number>;
+    // remoteControl: boolean;
+    // parkNumber: string;
+    // vgp: string;
+    // equipment: number;
+
+    const _machine = new MachineClass(this.machine.category,
+                                      this.machine.mark,
+                                      this.machine.model,
+                                      this.machine.registration,
+                                      _datepicker_techControl,
+                                      this.machine.employeeGroups,
+                                      this.machine.remoteControl,
+                                      this.machine.parkNumber,
+                                      _datepicker_vgp,
+                                      this.machine.equipment);
+    console.log(_machine);
+
+    this.siteService.createMachine(_machine, this.id_site)
       .subscribe(result => {
         if (result) {
           this.creating = false;
           console.log(result);
-          this.successCreating = "Well done! You've created new machine.";
+          this.setEmptyMachines();
+          this.findByNameFunction('', 1, '');
+          setTimeout(() => {
+              this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
+          }, 100);
         }
       }, (err) => {
         this.creating = false;
@@ -443,11 +483,11 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
             this.dataService.datepickerFranceFormat();
           //  $.datepicker.run();
            // $( '#ui-datepicker-div' ).datepicker();
-            $( '#ui-datepicker-div, #datepicker1' ).datepicker();
-            $( '#ui-datepicker-div, #datepicker1' ).datepicker( 'option', 'changeYear', true );
+            $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker();
+            $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
 
             $( '#format' ).change(function() {
-                $( '#ui-datepicker-div, #datepicker1' ).datepicker( 'option', 'dateFormat', $(this).val() );
+                $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }

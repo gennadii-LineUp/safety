@@ -52,7 +52,7 @@
 
                 <tr *ngFor="let machine of machines" >
                   <td>{{machine.registration | valueNull }}</td>
-                  <td>{{machine.parkNumber}}</td>
+                  <td>{{machine.parkNumber | valueNull }}</td>
                   <td>{{machine.type}}</td>
                   <td>{{machine.model}}</td>
                   <td>{{machine.mark}}</td>
@@ -60,7 +60,7 @@
                     <a href="javascript:void(0);"
                        (click)='modal_detailsRemorque.open();
                                 setEmptyMachines();
-                                modifierFunction(machine.id);'>{{machine.id}}Gérer</a>
+                                modifierFunction(machine.id);'>Gérer</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
                 </tr>
@@ -312,15 +312,6 @@
           <div role="tabpanel" class="tab-pane fade in active" id="category-chariot-grue-details">
                 <p id="modal_dataInput_choosenMachine_caption"
                    class="form-subheader text-left" style="text-align: left;">{{choosenMachine_caption}}</p>
-
-            <!--this.t3 = false;-->
-            <!--this.t4_t5 = false;-->
-            <!--this.t7 = false;-->
-            <!--this.t10 = false;-->
-            <!--this.t12_41 = false;-->
-            <!--this.t12_rest = false;-->
-            <!--this.t6_t8_t9_t11 = false;-->
-
                 <div class="input-wrapper">
                     <p [hidden]="mark.invalid" class="requred-field color-valid">Marque*</p>
                     <input class="form-control" placeholder="Marque*" type="text"
@@ -334,32 +325,32 @@
                     <p [hidden]="model.valid || model.untouched " class="requred-field ">Champs requis</p>
                 </div>
 
-
-                <div class="input-wrapper">
+                <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="input-wrapper">
                     <p [hidden]="parkNumber.invalid" class="requred-field color-valid">N° de parc*</p>
                         <input class="form-control" placeholder="N° de parc*" type="text"
                               #parkNumber="ngModel" id="parkNumber" name='parkNumber' required [(ngModel)]="machine.parkNumber" />
                     <p [hidden]="parkNumber.valid || parkNumber.untouched " class="requred-field ">Champs requis</p>
                 </div>
-                <div class="input-wrapper">
+
+                <div *ngIf="t3 || t4_t5 || t7 || t10 || t12_41" class="input-wrapper">
                   <p [hidden]="registration.invalid" class="requred-field color-valid">Immatriculation*</p>
                   <input class="form-control" placeholder="Immatriculation*" type="text"
                          #registration="ngModel" id="registration" name='registration' required [(ngModel)]="machine.registration" />
                   <p [hidden]="registration.valid || registration.untouched " class="requred-field ">Champs requis</p>
                 </div>
 
-              <div class="calendar-wrapper clearfix">
-                  <p class="form-subheader text-center">Vérification Générale Périodique</p>
-                  <div class="clearfix"></div>
-                  <p>Date d’expiration* </p>
-                  <input type="text" class="datepicker-default" (click)='datepickerRun()'
-                         #vgp="ngModel" id='vgp' name='vgp'  [(ngModel)]="machine.vgp"/>  <!-- (focus)='datepickerRun()' -->
-                  <div class="clearfix"></div>
-                  <button class="form-button dark-green-button telecharger-button pull-left"
-                          style="text-align: left;">Télécharger</button>
-              </div>
+                <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="calendar-wrapper clearfix">
+                    <p class="form-subheader text-center">Vérification Générale Périodique</p>
+                    <div class="clearfix"></div>
+                    <p>Date d’expiration* </p>
+                    <input type="text" class="datepicker-default" (click)='datepickerRun()'
+                           #vgp="ngModel" id='vgp' name='vgp'  [(ngModel)]="machine.vgp"/>  <!-- (focus)='datepickerRun()' -->
+                    <div class="clearfix"></div>
+                    <button class="form-button dark-green-button telecharger-button pull-left"
+                            style="text-align: left;">Télécharger</button>
+                </div>
 
-              <div class="calendar-wrapper clearfix">
+              <div *ngIf="t3 || t4_t5 || t7 || t10 || t12_41" class="calendar-wrapper clearfix">
                   <p class="form-subheader text-center">Contrôle technique</p>
                   <div class="clearfix"></div>
                   <p>Date d’expiration* </p>
@@ -370,7 +361,7 @@
                           style="text-align: left;">Télécharger</button>
               </div>
 
-              <div class="autres-fichiers-wrapper clearfix">
+              <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">
                 <p class="form-subheader text-center" style="text-align: left;">Autres fichiers</p>
                 <div class="image-upload">
                   <p>Fichier 1</p>
@@ -399,7 +390,7 @@
               </div>
             </div>
 
-            <div class="remoteControl-wrapper">
+            <div *ngIf="t10" class="remoteControl-wrapper">
               <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0; text-align: left;'>Case à cocher télécommande</p>
               <div class="radio-btn-block">
                 <div *ngFor="let remoteControl of remoteControls" class="radio" style="text-align: left;">
@@ -411,7 +402,8 @@
               </div>
             </div>
 
-            <div class="equipment-wrapper clearfix" style="margin-top: 19px;">
+
+            <div *ngIf="t12_41 || t12_rest" class="equipment-wrapper clearfix" style="margin-top: 19px;">
               <p class="form-subheader text-center" style="text-align: left; margin-bottom: 14px;">Equipement</p>
               <div *ngFor="let equipement of machinesGlossary.types_2_engins_12_equipement" class="radio">
                 <input type="radio"   id={{equipement.id}} name="machine_equipement"  [checked]='equipementChecked===equipement.id'
@@ -421,26 +413,13 @@
               </div>
             </div>
 
-            <!--// category: number;-->
-            <!--// mark: string;-->
-            <!--// model: string;-->
-            <!--// parkNumber: string;-->
-            <!--// registration: string;-->
-            <!--// vgp: string; date-->
-            <!--// techControl: string;-->
-            <!--// employeeGroups: number;-->
-            <!--// remoteControl: boolean;-->
-            <!--// equipment: number;-->
-
-            <!--Immatriculation - registration  - стр-->
-            <!--Contrôle technique - techControl  - дата + файл-->
-            <!--Groupe d'employé - employeeGroups  - чекбокс, массив-->
-            <!--N° de parc - parkNumber  - стр-->
-            <!--VGP - vgp  - дата + файл-->
-            <!--Fichier(s) - files - файл-->
-            <!--Case à cocher télécommande - remoteControl - boolean-->
-            <!--Equipement - equipment - radiobutton []-->
-
+            <!--this.t3 = false;-->
+            <!--this.t4_t5 = false;-->
+            <!--this.t7 = false;-->
+            <!--this.t10 = false;-->
+            <!--this.t12_41 = false;-->
+            <!--this.t12_rest = false;-->
+            <!--this.t6_t8_t9_t11 = false;-->
 
                 <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 <a *ngIf="choosen_vehicule_back" class="navigation-back-button" role="button" href="javascript:void(0);"
@@ -463,11 +442,11 @@
         //      $(document).ready(function () {
         //        //Datepicker Popups calender to Choose date
         //        $(function () {
-        ////          $('#datepicker1').datepicker();
-        //          $('#datepicker1').datepicker('option', 'changeYear', true);
+        ////          $('#vgp, #techControl').datepicker();
+        //          $('#vgp, #techControl').datepicker('option', 'changeYear', true);
         //          //Pass the user selected date format
         //          $("#format").change(function () {
-        //            $('#datepicker1').datepicker("option", "dateFormat", $(this).val());
+        //            $('#vgp, #techControl').datepicker("option", "dateFormat", $(this).val());
         //          });
         //        });
         //

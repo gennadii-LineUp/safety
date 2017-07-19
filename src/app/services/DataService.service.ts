@@ -32,7 +32,6 @@ export class DataService {
     const dateItems = _date.split(_delimiter);
     const monthIndex = formatItems.indexOf('mm');
     const dayIndex = formatItems.indexOf('dd');
-    debugger;
     const yearIndex = formatItems.indexOf('yyyy');
     let month = parseInt(dateItems[monthIndex], 10);
     month -= 1;

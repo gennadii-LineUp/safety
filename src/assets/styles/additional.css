@@ -7,10 +7,10 @@ p.color-valid {
     font-size: 10px !important;
 }
 input.form-control.ng-invalid {
-    border: 1px solid #f32938;
+    border: 1px solid #f32938 !important;
 }
 input.datepicker-default.ng-invalid {
-    border: 1px solid #f32938 ;
+    border: 1px solid #f32938;
 }
 button.green-button[disabled] {
     background-color: #d3d3d3;
