@@ -82,16 +82,20 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   // vgp: string;
   // equipment: number;
 
-
-  sortingTarget = '';
+    sortingTarget = '';
+    sorting: any = { column: 'type',  descending: false };
     headers: any[] = [
-          { display: 'Immatriculation', variable: 'name',         filter: 'text' },
+          { display: 'Immatriculation', variable: 'registration', filter: 'text' },
           { display: 'N° de parc',      variable: 'parkNumber',   filter: 'text' },
-          { display: 'Type',            variable: 'category',     filter: 'text' },
+          { display: 'Type',            variable: 'type',         filter: 'text' },
           { display: 'Modèle',          variable: 'model',        filter: 'text' },
           { display: 'Marque',          variable: 'mark',         filter: 'text' }
       ];
-
+  // model
+  // mark
+  // registration
+  // parkNumber
+  // type.
 
     constructor(private siteService: SiteService,
                 public clientService: ClientService,
@@ -101,12 +105,10 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                 private paginationService: PaginationService,
                 private machinesGlossary: MachinesGlossary) {}
 
-
   ngOnInit() {
         this.id_site = localStorage.id_site;
         this.findByNameFunction('', 1, '');
         this.siteService.tableMobileViewInit();
-
 
         // $(document).ready(() => {
         //     this.datepickerRun();
@@ -118,8 +120,35 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   }
 
 
-  public getSortingTarget() {
-    this.sortingTarget = this.tableSortService._getSortingTarget();
+  public selectedClass(columnName): string {
+    return columnName === this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
+  }
+  public changeSorting(columnName: string, e: any): void {
+    let sortingDirection: string;
+    let thClass: string;
+
+    const sort = this.sorting;
+    if (sort.column === columnName) {
+      sort.descending = !sort.descending;
+    } else {
+      sort.column = columnName;
+      sort.descending = false;
+    }
+
+    if (e.target.firstElementChild) {
+      thClass = e.target.firstElementChild.className;
+    } else {
+      thClass = e.target.className;
+    }
+    if ((thClass === 'double-sort-button') || (thClass === 'sort-button-true')) {
+      sortingDirection = '';  // down
+    }
+    if (thClass === 'sort-button-false') {
+      sortingDirection = '-'; // up
+    }
+
+    // let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
+    this.sortingTarget = '&sort=' + sortingDirection + columnName;
   }
 
 
@@ -208,47 +237,12 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  public modifierFunction(id_itemForUpdate: number) {
-    this.cancellMessages();
-    // this.creating = true;
-    this.setEmptyMachines();
-    console.log(id_itemForUpdate);
-
-    // let result = (this.original_fichiers.filter(obj => {
-    //   return obj.id === id_itemForUpdate;
-    // }))[0];
-
-    // this.siteService.getOneFichier(this.id_site, id_itemForUpdate)
-    //   .subscribe(result => {
-    //     if (result) {
-    //       // this.creating = false;
-    //       console.log(result);
-    //       this.machine.name = result.name;
-    //       this.checkedGroups = result.employeeGroups;
-    //       this.saveButtonCaption = 'Modifier';
-    //       this.id_machine = result.id;
-    //       //this.machine.employeeGroups = this._checkedGroups;
-    //
-    //       this.checkForEmptyEmployeeGroup();
-    //
-    //       console.log(this.machine);
-    //       console.log(this.checkedGroups);
-    //
-    //       console.log(this._checkedGroups);
-    //     }
-    //   }, (err) => {
-    //     this.creating = false;
-    //     console.log(err);
-    //     this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-    //   });
-  }
-
 
   public submitForm() {
     this.cancellMessages();
     this.creating = true;
 
-    if (this.machine.employeeGroups.length === 0  &&  this.choosenCategory_id === 3) {
+    if (this.choosenCategory_id === 3 && this.machine.employeeGroups.length === 0) {
       this.groupes_nullData = true;
       this.errorCreating = 'SAFETY:  Au moins 1 groupe de salariés doit être choisi.';
       return false;
@@ -373,6 +367,58 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.errorCreating = '';
   }
 
+
+  public modifierFunction(id_itemForUpdate: number) {
+    this.cancellMessages();
+    this.setEmptyMachines();
+    console.log(id_itemForUpdate);
+    this.creating = true;
+
+    this.siteService.getOneMachine(this.id_site, id_itemForUpdate)
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.machine.category = result.categoryId;
+          this.choosenCategory_id = result.categoryId;
+          this.choosenType_caption = result.categoryName;
+          this.machine.mark = result.mark;
+          this.machine.model = result.model;
+
+          if (result.registration) { this.machine.registration = result.registration; }
+          if (result.employeeGroups) { this.machine.employeeGroups = result.employeeGroups; }
+
+          //   "techControl": "2019-10-06T21:00:00+03:00",
+          //   "id": 4,
+          //   "": [
+          //
+          // const _machine = new MachineClass(,
+          //   ,
+          //   _datepicker_techControl,
+          //   ,
+          //   this.machine.remoteControl,
+          //   this.machine.parkNumber,
+          //   _datepicker_vgp,
+          //   this.machine.equipment);
+          //
+          // this.machine.name = result.name;
+          // this.checkedGroups = result.employeeGroups;
+          // this.saveButtonCaption = 'Modifier';
+          // this.id_machine = result.id;
+          //this.machine.employeeGroups = this._checkedGroups;
+
+          console.log(this.machine);
+          console.log(this.checkedGroups);
+
+          console.log(this._checkedGroups);
+          this.creating = false;
+        }
+      }, (err) => {
+        this.creating = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
   public setEmptyType() {
     this.cancellMessages();
     this.t3 = false;
@@ -402,36 +448,38 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   public addType(e: any, caption: string) {
     const choosenType = e.target.id;
-    if (+choosenType === 3) {
-      console.log('333333333');
-          this.setEmptyType();
-          this.t3 = true;
-          this.choosen_vehicule_back = true;
-          this.choosenCategory_id = +choosenType;      /////
-          this.checkForEmptyEmployeeGroup();
-    } else if (+choosenType === 4 ||
-               +choosenType === 5) {
-          this.setEmptyType();
-          this.t4_t5 = true;
-          this.choosen_vehicule_back = true;
-          this.choosenCategory_id = +choosenType;      /////
-    } else if (+choosenType === 7) {
-          this.setEmptyType();
-          this.t7 = true;
-          this.choosen_engine_back = true;
-    } else if (+choosenType === 10) {
-          this.setEmptyType();
-          this.t10 = true;
-          this.choosen_engine_10_back = true;
-          this.choosenMachine_caption = '';
-    } else if (+choosenType === 12) {
-          this.setEmptyType();
-          this.t12_rest = true;
-          this.choosen_engine_10_back = true;
+    this._addType(choosenType, caption);
+  }
+  public _addType(choosenType: number, caption: string) {
+    if (choosenType === 3) {
+      this.setEmptyType();
+      this.t3 = true;
+      this.choosen_vehicule_back = true;
+      this.choosenCategory_id = +choosenType;      /////
+      this.checkForEmptyEmployeeGroup();
+    } else if (choosenType === 4 ||
+                choosenType === 5) {
+      this.setEmptyType();
+      this.t4_t5 = true;
+      this.choosen_vehicule_back = true;
+      this.choosenCategory_id = choosenType;      /////
+    } else if (choosenType === 7) {
+      this.setEmptyType();
+      this.t7 = true;
+      this.choosen_engine_back = true;
+    } else if (choosenType === 10) {
+      this.setEmptyType();
+      this.t10 = true;
+      this.choosen_engine_10_back = true;
+      this.choosenMachine_caption = '';
+    } else if (choosenType === 12) {
+      this.setEmptyType();
+      this.t12_rest = true;
+      this.choosen_engine_10_back = true;
     } else {
-          this.setEmptyType();
-          this.t6_t8_t9_t11 = true;
-          this.choosen_engine_back = true;
+      this.setEmptyType();
+      this.t6_t8_t9_t11 = true;
+      this.choosen_engine_back = true;
     }
     this.choosenType_id = choosenType;
     console.log(this.choosenType_id);
@@ -454,6 +502,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     //   this.equipment_nullData = false;
     // }
   }
+
 
   public addCategory(e: any, caption: string) {
     const choosenCategory = e.target.id;

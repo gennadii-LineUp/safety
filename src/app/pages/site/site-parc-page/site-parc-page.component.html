@@ -23,22 +23,16 @@
     <div class="table-wrapper">
         <table class="table-default parc-machine-table">
             <thead>
-            <tr>
-              <!--<th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);-->
-                                                                <!--getSortingTarget();-->
-                                                                <!--findByNameFunction(findByName.value, 1, sortingTarget);">-->
-                <!--<button [class]="tableSortService.selectedClass(header.variable)" ></button>-->
-                <!--{{header.display}}-->
-              <!--</th>-->
-
-              <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
-                    <button [class]="tableSortService.selectedClass(header.variable)" ></button>
-                    {{header.display}}
+              <tr>
+                <th *ngFor="let header of headers"  (click)="changeSorting(header.variable, $event);
+                                                             findByNameFunction(findByName.value, 1, sortingTarget);">
+                  <button [class]="selectedClass(header.variable)" ></button>
+                  {{header.display}}
                 </th>
                 <th>
                     <span>Action</span>
                 </th>
-            </tr>
+              </tr>
             </thead>
             <tbody>
                 <tr *ngIf='emptyTable'>
@@ -58,9 +52,10 @@
                   <td>{{machine.mark}}</td>
                   <td>
                     <a href="javascript:void(0);"
-                       (click)='modal_detailsRemorque.open();
-                                setEmptyMachines();
-                                modifierFunction(machine.id);'>Gérer</a>
+                       (click)='modal_Machine__dataInput.open();
+                                _addType(machine.id, machine.type);
+                                modifierFunction(machine.id);
+                                findByNameFunction("", 1, "");'>Gérer</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
                 </tr>

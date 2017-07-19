@@ -62,8 +62,11 @@ export class SiteService {
       console.log(url);
       return this.backendService.post(url, JSON.stringify(newMachine));
     }
- // /sites/44/machines
-
+    public getOneMachine(siteId: number, machineId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machineId;
+      console.log(url);
+      return this.backendService.get(url);
+    }
 
   public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
