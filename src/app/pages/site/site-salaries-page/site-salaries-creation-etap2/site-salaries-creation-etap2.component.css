@@ -373,3 +373,6 @@ div.control-group {
 .modal-sm .modal-content {
   padding-bottom: 24px !important;
 }
+.profil-form {
+  float: none;
+}

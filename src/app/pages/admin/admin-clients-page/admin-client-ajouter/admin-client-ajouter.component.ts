@@ -112,12 +112,6 @@ export class AdminClientAjouterComponent implements OnInit {
               return false;
           }
 
-          // const regex = /^[0-9]+$/;
-          // if (input.value.match(regex)) {
-          //   this.newValue = 1;
-          //   this.client.employeesLimit = 1;
-          //   return false;
-          // }
            // if (+input.value < 0)    input.value = '1';
             input.value = Math.max(1, +input.value) + '';
             this.newValue = +input.value;

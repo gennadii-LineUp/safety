@@ -54,7 +54,7 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date de naissance*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
                        #birthDate="ngModel" id='birthDate' name='birthDate'  [(ngModel)]="employees.birthDate"/>
                 <p [hidden]=" birthDate.valid || birthDate.untouched " class="requred-field ">Champs requis</p>
                 <div class="clearfix"></div>  <!--#birthDate="ngModel"  [(ngModel)]="employees.birthDate"-->
@@ -120,7 +120,7 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
                        #visiteMedicale="ngModel" id='visiteMedicale' name='visiteMedicale'  [(ngModel)]="visites.medicalVisitDateExpires"/>
                 <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 20%;' />
             </div>
@@ -134,15 +134,15 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
                        #caces="ngModel" id='caces' name='caces'  [(ngModel)]="visites.cacesDateExpires"/>
                 <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />
             </div>
 
             <p class="form-label" style='display: inline-block; width: auto; float: left;'>Fichier *</p>
 
-             <div class="input-wrapper" style='display: inline-block; width: auto;  float: right; margin-right: 12px;'>
-                <div class="image-upload"  style='display: inline-block !important;'>
+             <div class="input-wrapper" style='display: inline-block; width: auto;  margin-right: 12px;'>
+                <div class="image-upload"  style='display: inline-block !important; float: left; margin-left: 90px;'>
                     <p>{{uploadFileText}}</p>
                     <label for="file-input">
                         <span></span>
@@ -202,8 +202,8 @@
 
                     <tr *ngFor="let employeeAttestation of employeeAttestations">
                         <td>{{employeeAttestation.name}}</td>
-                        <td>{{employeeAttestation.dateIssue | date:'MM/dd/y'}}</td>
-                        <td>{{employeeAttestation.dateExpires | date:'MM/dd/y'}}</td>
+                        <td>{{employeeAttestation.dateIssue | date:'dd/MM/y'}}</td>
+                        <td>{{employeeAttestation.dateExpires | date:'dd/MM/y'}}</td>
                         <td>
                             <a href="javascript:void(0);" (click)='attestModal.open(); getAttestForUpdateFunction(employeeAttestation.id)'>
                                 Modifier
@@ -220,8 +220,12 @@
         </div>
         <div class="form-divider clearfix"></div>
         <div class="search-panel clearfix">
-            <p><span>Autorisations de conduite</span></p>
-            <button type="button" class="add-an-item-button" (click)="autorModal.open()"></button>
+            <p>
+              <span>Autorisations de conduite</span>
+              <img *ngIf="loadingDrLicences" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='position: absolute; left: 10%;' />
+            </p>
+
+            <button type="button" class="add-an-item-button" (click)="autorModal.open(); setEmptyDrivingLicense();"></button>
 
             <!-- M O D A L -->
 
@@ -237,14 +241,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Nom du fichier</td>
-                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-                </tr>
-                <tr>
-                    <td>Le nom du fichier fait max 35 lettres...</td>
-                    <td><a href="javascript:void(0);">Gérer / Supprimer</a></td>
-                </tr>
+                  <tr *ngIf='emptyTable_drLicences'>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+
+                  <tr *ngFor="let drivingLicense of drivingLicenses">
+                    <td>{{drivingLicense.type}}</td>
+                    <td>
+                          <a href="javascript:void(0);" (click)='autorModal.open(); getDrLicenseForUpdateFunction(drivingLicense.id, drivingLicense.machineCategoryId)'>
+                            Modifier
+                          </a>
+                          /
+                          <a href="javascript:void(0);" (click)='deleteDrLicenseFunction(drivingLicense.id)'>
+                            Supprimer
+                          </a>
+                    </td>
+                  </tr>
                 </tbody>
             </table>
         </div>
@@ -268,20 +281,22 @@
                 <p [hidden]="attest_name.invalid" class="requred-field color-valid">Nom*</p>
                 <input type="text" class="form-control"  placeholder="Nom*"
                        #attest_name="ngModel" id="attest_name" name='attest_name' required [(ngModel)]="attestation.name" />
-                <p [hidden]="attest_name.valid || attest_name.untouched " class="requred-field ">Champs requis</p>
+                <p [hidden]="attest_name.valid " class="requred-field ">Champs requis</p>
             </div>
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date de délivrance*</p>
-                <input type="text" class="datepicker-default"
-                       #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance' [(ngModel)]="attestation.dateIssue"/>
+                <input type="text" class="datepicker-default" (click)='datepickerViewInit()'
+                       #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance'
+                       [(ngModel)]="attestation.dateIssue"/>
                 <div class="clearfix"></div>
             </div>
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration*</p>
-                <input type="text" class="datepicker-default"
-                       #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir' [(ngModel)]="attestation.dateExpires"/>
+                <input type="text" class="datepicker-default"  (click)='datepickerViewInit()'
+                       #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir'
+                       [(ngModel)]="attestation.dateExpires"/>
                 <div class="clearfix"></div>
             </div>
             <div class="autres-fichiers-wrapper clearfix">
@@ -368,7 +383,9 @@
                     <p class="form-subheader">Chariots élévateurs R.389</p>
                     <br><br><br>
                     <label *ngFor="let type of machinesGlossary.types_2_engins_6" class="control control--checkbox">{{type.display}}
-                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                      <input type="checkbox" id={{type.id}} name={{type.id}}
+                             [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                             (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
@@ -377,7 +394,9 @@
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
                     <label *ngFor="let type of machinesGlossary.types_2_engins_7" class="control control--checkbox">{{type.display}}
-                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                      <input type="checkbox" id={{type.id}} name={{type.id}}
+                             [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                             (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
@@ -386,7 +405,9 @@
                       <p class="form-subheader">Ponts roulants R.318/423</p>
                       <br><br><br>
                       <label *ngFor="let type of machinesGlossary.types_2_engins_8" class="control control--checkbox">{{type.display}}
-                          <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                          <input type="checkbox" id={{type.id}} name={{type.id}}
+                                 [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                                 (change)='addSubcategory($event); false'>
                           <span class="control__indicator"></span>
                       </label>
                   </div>
@@ -395,7 +416,9 @@
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br><br><br>
                     <label *ngFor="let type of machinesGlossary.types_2_engins_9" class="control control--checkbox">{{type.display}}
-                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                      <input type="checkbox" id={{type.id}} name={{type.id}}
+                             [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                             (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
@@ -409,7 +432,9 @@
                     <p class="form-subheader">Ponts roulants R.318/423</p>
                     <br>
                     <label *ngFor="let type of machinesGlossary.types_2_engins_11" class="control control--checkbox">{{type.display}}
-                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                      <input type="checkbox" id={{type.id}} name={{type.id}}
+                             [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                             (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
                   </div>
@@ -417,17 +442,21 @@
                   <div *ngIf="activeSelect==='12'" class="control-group">
                     <p class="form-subheader">Grues mobiles R.383m</p>
                     <br>
-
                     <p class="vehicle-type">Type 1 : Routier</p>
                     <label *ngFor="let type of machinesGlossary.types_2_engins_12_routier" class="control control--checkbox">{{type.display}}
-                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                      <input type="checkbox"
+                             id={{type.id}} name={{type.id}}
+                             [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                             (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
 
                     <br>
                     <p class="vehicle-type">Type 2 : Non routier</p>
                     <label *ngFor="let type of machinesGlossary.types_2_engins_12_nonRoutier" class="control control--checkbox">{{type.display}}
-                      <input type="checkbox" id={{type.id}} name={{type.id}} (change)='addSubcategory($event); false'>
+                      <input type="checkbox" id={{type.id}} name={{type.id}}
+                             [value]="type.id" [checked]='checkedDrLicenses.indexOf(+type.id) != -1'
+                             (change)='addSubcategory($event); false'>
                       <span class="control__indicator"></span>
                     </label>
 

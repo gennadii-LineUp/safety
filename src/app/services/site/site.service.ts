@@ -57,8 +57,8 @@ export class SiteService {
       console.log(query);
       return this.backendService.deleteData(query);
     }
-    public createMachine(newMachine: MachineClass, siteId: number): Observable<any> {
-      const url = UrlParams.siteHome + siteId + '/machines';
+    public createMachine(newMachine: MachineClass, siteId: number, urlOption: string): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines' + urlOption;
       console.log(url);
       return this.backendService.post(url, JSON.stringify(newMachine));
     }
@@ -119,7 +119,6 @@ export class SiteService {
         console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
-    // {{siteId}}/employees/{{employeeId}}/attestations/{{employeeAttestationId}}
 
     public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
         const query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
@@ -133,7 +132,21 @@ export class SiteService {
     console.log(url);
     return this.backendService.post(url, JSON.stringify(newDrivingLicense));
   }
-  // /sites/{{siteId}}/employees/{{employeeId}}/driving_licenses
+
+  public getDrivingLicenses(siteId: number, employeeId: number, sort: string): Observable<any> {
+    const query = siteId + '/employees/' + employeeId + '/driving_licenses' + '?q=' + sort;
+    console.log(query);
+    return this.backendService.get(UrlParams.siteHome + query);
+  }
+  deleteDrLicense(siteId: number, employeeId: number, drLicenseId: string): Observable<any> {
+    const query = siteId + '/employees/' + employeeId + '/driving_licenses' + drLicenseId;
+    return this.backendService.deleteData(UrlParams.siteHome + query);
+  }
+  public getOneDrLicense(siteId: number, employeeId: number, id_itemForUpdate: number): Observable<any> {
+    const query = siteId + '/employees/' + employeeId + '/driving_licenses/' +  id_itemForUpdate;
+    console.log(query);
+    return this.backendService.get(UrlParams.siteHome + query);
+  }
 
 
     deleteAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {

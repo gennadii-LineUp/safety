@@ -79,8 +79,14 @@ export class DataService {
 //  var t1 = new Date("2017-11-10T01:00:00+03:00"); console.log('"2017-11-10T01:00:00+03:00": '+t1.getDate()+'/'+t1.getMonth()+'/'+t1.getFullYear());
   public convertDateFromServerToInput(strDate: string): string {
     const t1 = new Date(strDate);
-    const month = 1 + +t1.getMonth();
-    return t1.getDate() + '/' + month + '/' + t1.getFullYear();
+    const _month = 1 + +t1.getMonth();
+    let month: string;
+    if (+_month < 10) { month = '0' + _month; }
+    let day: any;
+    day = t1.getDate();
+    if (day < 10) {day = '0' + day; }
+
+    return day + '/' + month + '/' + t1.getFullYear();
   }
 
 

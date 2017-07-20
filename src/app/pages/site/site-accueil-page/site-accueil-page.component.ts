@@ -1,7 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
-import {DataService} from '../../../services/DataService.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 
 @Component({
@@ -39,7 +37,6 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         if (result) {
           this.loading = false;
-          console.log(result);
           this.siteName = result.name;
         }
       }, (err) => {
@@ -57,10 +54,7 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
         if (result) {
           this.loading = false;
           this.showImg = true;
-          console.log(result);
-          const src = 'data:image/jpeg;base64,';
-          // const src = 'data:' + result.contentType + ';base64,';
-          console.log(src);
+          const src = 'data:' + result['Content-type'] + ';base64,';
           this.imgServer = src + result.content;
 
         }

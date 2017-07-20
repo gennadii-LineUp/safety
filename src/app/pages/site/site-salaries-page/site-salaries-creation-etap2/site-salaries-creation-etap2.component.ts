@@ -23,6 +23,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     loading = false;
     loadingDatesAutorisations = true;
     loadingAttestations = true;
+    loadingDrLicences = true;
     creatingAttest = false;
     creatingDrivingLicense = false;
     loadingSalarieUsed = false;
@@ -51,6 +52,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     salariesUsed: number;
 
     emptyTable = true;
+    emptyTable_drLicences = true;
 
     id_site: number;
     id_salarie: number;
@@ -62,18 +64,19 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     categoryDrivingLicense_active = 3;
     categoryDrivingLicense_nullData = false;
     subcategoryEquipement: number;
-    TypeM = [
-        { value: '3', display: 'VL' },
-        { value: '4', display: 'PL' },
-        { value: '5', display: 'Remorque' },
-        { value: '6', display: 'Chariots élévateurs R.389' },
-        { value: '7', display: 'PEMP (nacelle) R.386' },
-        { value: '8', display: 'Ponts roulants R.318/423' },
-        { value: '9', display: 'Engins de chantier R.372m' },
-        { value: '10', display: 'Grues auxiliaire R.390' },
-        { value: '11', display: 'Grues à tour R.377m' },
-        { value: '12', display: 'Grues mobiles R.383m' }
-    ];
+    checkedDrLicenses = [];
+    // TypeM = [
+    //     { value: '3', display: 'VL' },
+    //     { value: '4', display: 'PL' },
+    //     { value: '5', display: 'Remorque' },
+    //     { value: '6', display: 'Chariots élévateurs R.389' },
+    //     { value: '7', display: 'PEMP (nacelle) R.386' },
+    //     { value: '8', display: 'Ponts roulants R.318/423' },
+    //     { value: '9', display: 'Engins de chantier R.372m' },
+    //     { value: '10', display: 'Grues auxiliaire R.390' },
+    //     { value: '11', display: 'Grues à tour R.377m' },
+    //     { value: '12', display: 'Grues mobiles R.383m' }
+    // ];
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }// ,
@@ -88,6 +91,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     public employeeAttestations = [];
     attestation = new AttestationClass('', '', '');
     drivingLicense = new DrivingLicenseClass([], 0);
+    drivingLicenses = [];
 
   file: File;
   userHasChoosenFile = false;
@@ -197,6 +201,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
                     this.getDatesAutorisations();
                     this.getAttestations('');
+                    this.getDrivingLicenses('');
                 }
             }, (err) => {
                 this.loading = false;
@@ -299,6 +304,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     }
                     this.attestation = new AttestationClass('', '', '');
                     this.getAttestations('');
+                    (<HTMLInputElement>window.document.querySelectorAll('#attest_dateDelivrance')[0]).value = '';
+                    (<HTMLInputElement>window.document.querySelectorAll('#attest_dateExpir')[0]).value = '';
                 }
             }, (err) => {
                 this.loading = false;
@@ -513,6 +520,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       } else {
         this.categoryDrivingLicense_nullData = false;
       }
+      console.log(this.drivingLicense.categories);
     }
     public addSubcategoryEquipement(e: any) {
         this.subcategoryEquipement = +e.target.id;
@@ -554,7 +562,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           if (result) {
             this.creatingDrivingLicense = false;
             console.log(result);
-            this.successCreatingDrLicence = "Well done! You've created new driving license.";
+            this.successCreatingDrLicence = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
+            this.getDrivingLicenses('');
           }
         }, (err) => {
           this.creatingDrivingLicense = false;
@@ -562,6 +571,86 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           this.errorCreatingDrLicence = this.errorMessageHandlerService.checkErrorStatus(err);
         });
     }
+
+  public getDrivingLicenses(sort: string) {
+    this.loadingDrLicences = true;
+    this.siteService.getDrivingLicenses(this.id_site, this.id_salarie, sort)
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.loadingDrLicences = false;
+          this.drivingLicenses = result.items;
+          this.emptyTable_drLicences = false;
+          if (result.items.length === 0) {
+            this.emptyTable_drLicences = true;
+          }
+        }
+      }, (err) => {
+        this.loadingDrLicences = false;
+        this.emptyTable_drLicences = true;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public setEmptyDrivingLicense() {
+    this.drivingLicense = new DrivingLicenseClass([], 0);
+    this.checkedDrLicenses = [];
+    const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
+    for (let i = 0; i < checkedI.length; i++) {
+      (<HTMLInputElement>checkedI[i]).checked = false;
+    }
+    return;
+  }
+
+  public getDrLicenseForUpdateFunction(id_itemForUpdate: number, activeSelect: number) {
+    this.cancellErrorMessage();
+    this.creatingDrivingLicense = true;
+    // this.setEmptyDrivingLicense();
+    console.log(id_itemForUpdate);
+    this.activeSelect = '' + activeSelect;
+
+    this.siteService.getOneDrLicense(this.id_site, this.id_salarie, id_itemForUpdate)
+      .subscribe(result => {
+        if (result) {
+          this.creatingDrivingLicense = false;
+          console.log(result);
+          // this.attestation.name = result.name;
+          // this.attestation.dateExpires = this.dataService.convertDateForInputView(result.dateExpires);
+          // this.attestation.dateIssue = this.dataService.convertDateForInputView(result.dateIssue);
+          // this.saveButtonCaptionAttest = 'Modifier';
+          // this.itemForChange = result.id;
+          this.drivingLicense.categories = result.categories;
+          this.checkedDrLicenses = result.categories;
+          console.log(this.checkedDrLicenses);
+        }
+      }, (err) => {
+        this.creatingDrivingLicense = false;
+        console.log(err);
+        this.errorCreatingDrLicence = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public deleteDrLicenseFunction(id_itemForDelete: number) {
+    this.loadingDrLicences = true;
+    this.emptyTable_drLicences = false;
+    console.log(id_itemForDelete);
+    this.siteService.deleteDrLicense(this.id_site, this.id_salarie, '/' + id_itemForDelete)
+      .subscribe(result => {
+        if (result) {
+          this.loadingDrLicences = false;
+          this.cancellErrorMessage();
+          console.log(result);
+          this.getDrivingLicenses('');
+        }
+      }, (err) => {
+        this.loadingDrLicences = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+
 
 
 }

@@ -13,7 +13,5 @@
     <h2>{{siteName}}</h2>
     <!--<div id="loadedImg" *ngIf="showImg"-->
        <!--[ngStyle]="{'background': 'url(' + imgServer + ') no-repeat'}"></div>-->
-  <img [src]="imgServer" class="img-responsive" alt="site-img-min"/>
-
-  <!--<img src="../../../../assets/img/site-img-min.jpg" class="img-responsive" alt="site-img-min">-->
+  <img *ngIf="showImg" [src]="imgServer" class="img-responsive" alt="site-img-min"/>
 </div>
