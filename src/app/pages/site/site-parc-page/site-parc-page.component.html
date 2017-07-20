@@ -11,7 +11,7 @@
 </header>
 <div class="main-content">
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="modal_Machine.open()"></button>
+        <button class="add-an-item-button" (click)="modal_Machine.open(); setEmptyCategory();"></button>
 
       <div class="search-wrapper">
         <button class="search-button" type="button" (click)='findByNameFunction(findByName.value, 1, "")'></button>
@@ -52,10 +52,9 @@
                   <td>{{machine.mark}}</td>
                   <td>
                     <a href="javascript:void(0);"
-                       (click)='modal_Machine__dataInput.open();
-                                _addType(machine.id, machine.type);
+                       (click)='_addType(+machine.machineCategoryId, machine.type);
                                 modifierFunction(machine.id);
-                                findByNameFunction("", 1, "");'>Gérer</a>
+                                modal_Machine__dataInput.open();'>Gérer</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
                 </tr>
@@ -193,7 +192,7 @@
     </modal-header-SPMM>
     <modal-content-SPMM>
       <div id="category-chariot-grue">
-        <div *ngIf="choosenType_id==='6'" role="tabpanel" class="tab-pane fade in active">
+        <div *ngIf="choosenType_id===6" role="tabpanel" class="tab-pane fade in active">
           <p class="form-subheader text-center">Choisissez une catégorie</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_6"
                style="display: block; position: relative;">
@@ -206,7 +205,7 @@
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
         </div>
 
-        <div *ngIf="choosenType_id==='7'" role="tabpanel" class="tab-pane fade in active">
+        <div *ngIf="choosenType_id===7" role="tabpanel" class="tab-pane fade in active">
           <p class="form-subheader text-center">Choisissez une catégorie</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_7"
                style="display: block; position: relative;">
@@ -219,7 +218,7 @@
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
         </div>
 
-        <div *ngIf="choosenType_id==='8'" role="tabpanel" class="tab-pane fade in active">
+        <div *ngIf="choosenType_id===8" role="tabpanel" class="tab-pane fade in active">
           <p class="form-subheader text-center">Choisissez une catégorie</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_8"
                style="display: block; position: relative;">
@@ -232,7 +231,7 @@
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
         </div>
 
-        <div *ngIf="choosenType_id==='9'" role="tabpanel" class="tab-pane fade in active">
+        <div *ngIf="choosenType_id===9" role="tabpanel" class="tab-pane fade in active">
           <p class="form-subheader text-center">Choisissez une catégorie</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_9"
                style="display: block; position: relative;">
@@ -245,7 +244,7 @@
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
         </div>
 
-        <div *ngIf="choosenType_id==='11'" role="tabpanel" class="tab-pane fade in active">
+        <div *ngIf="choosenType_id===11" role="tabpanel" class="tab-pane fade in active">
           <p class="form-subheader text-center">Choisissez une catégorie</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_11"
                style="display: block; position: relative;">
@@ -258,7 +257,7 @@
              (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
         </div>
 
-        <div *ngIf="choosenType_id==='12'" role="tabpanel" class="tab-pane fade in active">
+        <div *ngIf="choosenType_id===12" role="tabpanel" class="tab-pane fade in active">
           <p class="form-subheader text-center">Choisissez une catégorie</p>
           <p class="form-subheader form-subheader-type">Type 1 : Routier</p>
           <div *ngFor="let machine of machinesGlossary.types_2_engins_12_routier"
@@ -311,27 +310,27 @@
                     <p [hidden]="mark.invalid" class="requred-field color-valid">Marque*</p>
                     <input class="form-control" placeholder="Marque*" type="text"
                               #mark="ngModel" id="mark" name='mark' required [(ngModel)]="machine.mark" />
-                    <p [hidden]="mark.valid || mark.untouched " class="requred-field ">Champs requis</p>
+                    <p [hidden]="mark.valid " class="requred-field ">Champs requis</p>
                 </div>
                 <div class="input-wrapper">
                     <p [hidden]="model.invalid" class="requred-field color-valid">Modèle*</p>
                         <input class="form-control" placeholder="Modèle*" type="text"
                               #model="ngModel" id="model" name='model' required [(ngModel)]="machine.model" />
-                    <p [hidden]="model.valid || model.untouched " class="requred-field ">Champs requis</p>
+                    <p [hidden]="model.valid" class="requred-field ">Champs requis</p>
                 </div>
 
                 <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="input-wrapper">
                     <p [hidden]="parkNumber.invalid" class="requred-field color-valid">N° de parc*</p>
                         <input class="form-control" placeholder="N° de parc*" type="text"
                               #parkNumber="ngModel" id="parkNumber" name='parkNumber' required [(ngModel)]="machine.parkNumber" />
-                    <p [hidden]="parkNumber.valid || parkNumber.untouched " class="requred-field ">Champs requis</p>
+                    <p [hidden]="parkNumber.valid" class="requred-field ">Champs requis</p>
                 </div>
 
                 <div *ngIf="t3 || t4_t5 || t7 || t10 || t12_41" class="input-wrapper">
                   <p [hidden]="registration.invalid" class="requred-field color-valid">Immatriculation*</p>
                   <input class="form-control" placeholder="Immatriculation*" type="text"
                          #registration="ngModel" id="registration" name='registration' required [(ngModel)]="machine.registration" />
-                  <p [hidden]="registration.valid || registration.untouched " class="requred-field ">Champs requis</p>
+                  <p [hidden]="registration.valid" class="requred-field ">Champs requis</p>
                 </div>
 
                 <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="calendar-wrapper clearfix">
@@ -373,7 +372,10 @@
               <img *ngIf="loadingGroupes" style='left:18%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
               <div *ngIf='!loadingGroupes' class="radio-btn-block">
                 <label *ngFor="let groupe of employeeGroupes_view" class="control control--checkbox">{{groupe.name}}
-                  <input type="checkbox" id={{groupe.id}} name={{groupe.id}} (change)='addSubcategory($event); false'>
+                  <input type="checkbox"
+                         id={{groupe.id}} name={{groupe.id}}
+                         [value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'
+                         (change)='addSubcategory($event); false'>
                   <span class="control__indicator"></span>
                 </label>
                 <!--<div *ngFor="let groupe of employeeGroupes_view" class="radio"  style="text-align: left;">-->
@@ -408,14 +410,6 @@
               </div>
             </div>
 
-            <!--this.t3 = false;-->
-            <!--this.t4_t5 = false;-->
-            <!--this.t7 = false;-->
-            <!--this.t10 = false;-->
-            <!--this.t12_41 = false;-->
-            <!--this.t12_rest = false;-->
-            <!--this.t6_t8_t9_t11 = false;-->
-
                 <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 <a *ngIf="choosen_vehicule_back" class="navigation-back-button" role="button" href="javascript:void(0);"
                                     (click)="modal_Machine__dataInput.close();
@@ -427,10 +421,9 @@
                                     (click)="modal_Machine__dataInput.close();
                                     setEmptyMachines();  modal_Machine_2Engine.open();"></a>
                 <button type="submit" class="form-button green-button enregistrer-button pull-right"
-                        [disabled]="groupes_nullData">Enregistrer
+                        [disabled]="groupes_nullData">{{saveButtonCaption}}
                 </button>
             </div>
-        <!--mark model parkNumber-->
       </form>
       <script>
         //    function datepickerRun() {

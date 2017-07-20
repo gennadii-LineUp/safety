@@ -17,24 +17,24 @@ export class MachinesGlossary {
   ];
 
   types_1_vehicule = [
-    { id: 3,  display: 'VL' },
-    { id: 4,  display: 'PL' },
-    { id: 5,  display: 'Remorque' }
+    { id: 3, parent: 3,  display: 'VL' },
+    { id: 4, parent: 4,  display: 'PL' },
+    { id: 5, parent: 5,  display: 'Remorque' }
   ];
 
 
   types_2_engins_6_9 = [
-    { id: 6,  display: 'Chariots élévateurs R.389' },
-    { id: 7,  display: 'PEMP (nacelle) R.386' },
-    { id: 8,  display: 'Ponts roulants R.318/423' },
-    { id: 9,  display: 'Engins de chantier R.372m' }
+    { id: 6, parent: 6,  display: 'Chariots élévateurs R.389' },
+    { id: 7, parent: 7,  display: 'PEMP (nacelle) R.386' },
+    { id: 8, parent: 8,  display: 'Ponts roulants R.318/423' },
+    { id: 9, parent: 9,  display: 'Engins de chantier R.372m' }
   ];
   types_2_engins_10 = [
-    { id: 10,  display: 'Grues auxiliaire R.390' }
+    { id: 10, parent: 10,  display: '10         Grues auxiliaire R.390' }
   ];
   types_2_engins_11_12 = [
-    { id: 11,  display: 'Grues à tour R.377m' },
-    { id: 12,  display: 'Grues mobiles R.383m' }
+    { id: 11, parent: 11,  display: 'Grues à tour R.377m' },
+    { id: 12, parent: 12,  display: 'Grues mobiles R.383m' }
   ];
 
 

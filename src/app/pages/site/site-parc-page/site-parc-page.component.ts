@@ -31,6 +31,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
     id_site =  0;
     id_machine = 0;
+    itemForChange = 0;
     choosenType_id = 0;
     choosenType_caption = '';
     choosen_engine_10_back = false;
@@ -59,7 +60,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     searchName = '';
     currentPage: any;
 
-    saveButtonCaption = 'Ajouter';
+    saveButtonCaption = 'Enregistrer';
 
     machines = [];
     machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
@@ -108,6 +109,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
         this.id_site = localStorage.id_site;
         this.findByNameFunction('', 1, '');
+        this.getEmployeeGroupes();
         this.siteService.tableMobileViewInit();
 
         // $(document).ready(() => {
@@ -162,6 +164,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       _name = localStorage.search_name;
     }
     this.activePage = page;
+    this.searchName = _name;
 
     this.siteService.findMachineByName(_name, page, this.id_site, sort)
       .subscribe(result => {
@@ -184,7 +187,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           }, 200);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-          this.getEmployeeGroupes();
+
         }
       }, (err) => {
         this.loading = false;
@@ -214,6 +217,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       this.machine.employeeGroups = this.machine.employeeGroups.filter(val => val !== +userInput.name);
     }
     this.checkForEmptyEmployeeGroup();
+    console.log(this.machine.employeeGroups);
   }
 
   get _checkedGroups() { // right now: ['1','3']
@@ -241,6 +245,11 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   public submitForm() {
     this.cancellMessages();
     this.creating = true;
+    let urlOption = '';
+    if (this.itemForChange) {
+      urlOption = '/' + this.itemForChange;
+      this.saveButtonCaption = 'Modifier';
+    }
 
     if (this.choosenCategory_id === 3 && this.machine.employeeGroups.length === 0) {
       this.groupes_nullData = true;
@@ -275,7 +284,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     //   }
     // }
 
-    this.machine.category = this.choosenCategory_id;
+    this.machine.category = +this.choosenCategory_id;
     this.machine.techControl = datepicker_techControl;
     this.machine.vgp = datepicker_vgp;
     console.log(this.machine);
@@ -288,18 +297,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       _datepicker_vgp = this.dataService.convertDateFromInputeToServer(this.machine.vgp);
     }
 
-    // category: number;
-    // mark: string;
-    // model: string;
-    // registration: string;
-    // techControl: string;
-    // employeeGroups: Array<number>;
-    // remoteControl: boolean;
-    // parkNumber: string;
-    // vgp: string;
-    // equipment: number;
-
-    const _machine = new MachineClass(this.machine.category,
+    const _machine = new MachineClass(+this.machine.category,
                                       this.machine.mark,
                                       this.machine.model,
                                       this.machine.registration,
@@ -311,16 +309,22 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                                       this.machine.equipment);
     console.log(_machine);
 
-    this.siteService.createMachine(_machine, this.id_site)
+    this.siteService.createMachine(_machine, this.id_site, urlOption)
       .subscribe(result => {
         if (result) {
-          this.creating = false;
           console.log(result);
           this.setEmptyMachines();
-          this.findByNameFunction('', 1, '');
-          setTimeout(() => {
+          if (this.itemForChange) {
+            this.saveButtonCaption = 'Enregistrer';
+            this.itemForChange = 0;
+            this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
+          } else {
+            // setTimeout(() => {
               this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
-          }, 100);
+           // }, 100);
+          }
+          this.creating = false;
+          this.findByNameFunction(this.searchName, this.activePage, '');
         }
       }, (err) => {
         this.creating = false;
@@ -367,7 +371,13 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.errorCreating = '';
   }
 
-
+  public setEmptyCategory() {
+      console.log('ggggg');
+    this.itemForChange = 0;
+    this.machine.category = 0;
+    this.choosenCategory_id = 0;
+    this.saveButtonCaption = 'Enregistrer';
+  }
   public modifierFunction(id_itemForUpdate: number) {
     this.cancellMessages();
     this.setEmptyMachines();
@@ -378,38 +388,40 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         if (result) {
           console.log(result);
+          this._addType(result.parentCategoryId, '');
+          this.itemForChange = result.id;
           this.machine.category = result.categoryId;
           this.choosenCategory_id = result.categoryId;
-          this.choosenType_caption = result.categoryName;
+          this.choosenType_caption = result.parentCategoryName;
+          this.choosenMachine_caption = result.categoryName;
           this.machine.mark = result.mark;
           this.machine.model = result.model;
 
           if (result.registration) { this.machine.registration = result.registration; }
-          if (result.employeeGroups) { this.machine.employeeGroups = result.employeeGroups; }
+          if (result.employeeGroups) {
+              if (result.employeeGroups.length !== 0) {
+                this.machine.employeeGroups = result.employeeGroups;
+                this.checkedGroups = result.employeeGroups;
+                this.checkForEmptyEmployeeGroup();
+              }
+          }
 
-          //   "techControl": "2019-10-06T21:00:00+03:00",
-          //   "id": 4,
-          //   "": [
-          //
-          // const _machine = new MachineClass(,
-          //   ,
-          //   _datepicker_techControl,
-          //   ,
-          //   this.machine.remoteControl,
-          //   this.machine.parkNumber,
-          //   _datepicker_vgp,
-          //   this.machine.equipment);
-          //
-          // this.machine.name = result.name;
-          // this.checkedGroups = result.employeeGroups;
-          // this.saveButtonCaption = 'Modifier';
+          if (result.equipment) { this.machine.equipment = result.equipment; }
+          if (result.parkNumber) { this.machine.parkNumber = result.parkNumber; }
+          if (result.remoteControl) {
+              this.machine.remoteControl = result.remoteControl;
+              this.checkedRemoteControl = result.remoteControl;
+          }
+          if (result.techControl) {
+            this.machine.techControl = this.dataService.convertDateFromServerToInput(result.techControl);
+          }
+          if (result.vgp) {
+            this.machine.vgp = this.dataService.convertDateFromServerToInput(result.vgp);
+          }
+
+          this.saveButtonCaption = 'Modifier';
           // this.id_machine = result.id;
-          //this.machine.employeeGroups = this._checkedGroups;
-
-          console.log(this.machine);
-          console.log(this.checkedGroups);
-
-          console.log(this._checkedGroups);
+          this.machine.employeeGroups = this._checkedGroups;
           this.creating = false;
         }
       }, (err) => {
@@ -437,8 +449,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   public setEmptyMachines() {
     this.cancellMessages();
     this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
-    this.machines = [];
     this.checkedGroups = [];
+    // this.itemForChange = 0;
     const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
     for (let i = 0; i < checkedI.length; i++) {
       (<HTMLInputElement>checkedI[i]).checked = false;
@@ -451,28 +463,33 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this._addType(choosenType, caption);
   }
   public _addType(choosenType: number, caption: string) {
-    if (choosenType === 3) {
+    // let result = (this.original_fichiers.filter(obj => {
+    //   return obj.id === id_itemForUpdate;
+    // }))[0];
+
+    if (+choosenType === 3) {
       this.setEmptyType();
       this.t3 = true;
       this.choosen_vehicule_back = true;
       this.choosenCategory_id = +choosenType;      /////
       this.checkForEmptyEmployeeGroup();
-    } else if (choosenType === 4 ||
-                choosenType === 5) {
+    } else if (+choosenType === 4 ||
+                +choosenType === 5) {
       this.setEmptyType();
       this.t4_t5 = true;
       this.choosen_vehicule_back = true;
-      this.choosenCategory_id = choosenType;      /////
-    } else if (choosenType === 7) {
+      this.choosenCategory_id = +choosenType;      /////
+    } else if (+choosenType === 7) {
       this.setEmptyType();
       this.t7 = true;
       this.choosen_engine_back = true;
-    } else if (choosenType === 10) {
+    } else if (+choosenType === 10) {
       this.setEmptyType();
       this.t10 = true;
       this.choosen_engine_10_back = true;
       this.choosenMachine_caption = '';
-    } else if (choosenType === 12) {
+      this.choosenCategory_id = +choosenType;
+    } else if (+choosenType === 12) {
       this.setEmptyType();
       this.t12_rest = true;
       this.choosen_engine_10_back = true;
@@ -481,7 +498,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       this.t6_t8_t9_t11 = true;
       this.choosen_engine_back = true;
     }
-    this.choosenType_id = choosenType;
+    this.choosenType_id = +choosenType;
     console.log(this.choosenType_id);
     this.setEmptyMachines();
     this.choosenType_caption = caption;
