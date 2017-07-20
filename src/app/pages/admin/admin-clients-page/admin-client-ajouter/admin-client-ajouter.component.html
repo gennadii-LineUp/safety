@@ -108,7 +108,7 @@
             <span (click)="increaseSpinEmployees()"  >
                 <img src="../../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
             </span>
-            <input value='1' (change)="checkSpinForNegativeNumber()" type='number'
+            <input value='1' (change)="checkSpinForNegativeNumber()" (blur)="checkSpinForNegativeNumber()" type='text'
                         #employeesLimit id="employeesLimit" name='employeesLimit' required
                         [(ngModel)]="client.employeesLimit" />
             <span (click)="decreaseSpinEmployees()" >

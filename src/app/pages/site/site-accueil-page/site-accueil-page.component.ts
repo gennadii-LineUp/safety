@@ -58,7 +58,8 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
           this.loading = false;
           this.showImg = true;
           console.log(result);
-          const src = 'data:' + result.contentType + ';base64,';
+          const src = 'data:image/jpeg;base64,';
+          // const src = 'data:' + result.contentType + ';base64,';
           console.log(src);
           this.imgServer = src + result.content;
 

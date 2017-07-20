@@ -16,10 +16,10 @@ export class AdminClientAjouterComponent implements OnInit {
     loading = false;
     errorCreating = '';
 
-    billingAddressIsDifferent:boolean = true;
-    spins = document.getElementsByClassName("spin");
+    billingAddressIsDifferent = true;
+    spins = document.getElementsByClassName('spin');
 
-    client = new ClientClass('','','','','',false,'','','','','','','','','',1);
+    client = new ClientClass('', '', '', '', '', false, '', '', '', '', '', '', '', '', '', 1);
     myForm: NgForm;
     newValue =  1;
 
@@ -83,32 +83,44 @@ export class AdminClientAjouterComponent implements OnInit {
 
     public increaseSpinEmployees() {
         for (let i = 0; i < this.spins.length; i++) {
-            let spin = this.spins[i];
-            let input = spin.getElementsByTagName("input")[0];
+          const spin = this.spins[i];
+          const input = spin.getElementsByTagName('input')[0];
 
             input.value = +input.value + 1 + '';
-            this.newValue =+input.value;
+            this.newValue = +input.value;
         }
     }
 
     public decreaseSpinEmployees() {
          for (let i = 0; i < this.spins.length; i++) {
-            let spin = this.spins[i];
-            let input = spin.getElementsByTagName("input")[0];
+           const spin = this.spins[i];
+           const input = spin.getElementsByTagName('input')[0];
 
-            input.value = Math.max(0, +input.value - 1) +'';
+            input.value = Math.max(1, +input.value - 1) + '';
             this.newValue = +input.value;
         }
     }
 
     public checkSpinForNegativeNumber() {
         for (let i = 0; i < this.spins.length; i++) {
-            let spin = this.spins[i];
-            let input = spin.getElementsByTagName("input")[0];
+            const spin = this.spins[i];
+            const input = spin.getElementsByTagName('input')[0];
 
+          if (isNaN(+input.value))  {
+              this.newValue = 1;
+              this.client.employeesLimit = 1;
+              return false;
+          }
+
+          // const regex = /^[0-9]+$/;
+          // if (input.value.match(regex)) {
+          //   this.newValue = 1;
+          //   this.client.employeesLimit = 1;
+          //   return false;
+          // }
            // if (+input.value < 0)    input.value = '1';
             input.value = Math.max(1, +input.value) + '';
-            this.newValue = +input.value
+            this.newValue = +input.value;
         }
     }
 
