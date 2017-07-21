@@ -4,7 +4,6 @@ import {TableSortService} from '../../../services/table-sort.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {MachineClass} from '../../../models/const/machine-class';
-import {DataService} from '../../../services/DataService.service';
 declare var $: any;
 
 @Component({
@@ -42,7 +41,6 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
   constructor(private salariesService: SalariesService,
               private tableSortService: TableSortService,
               private errorMessageHandlerService: ErrorMessageHandlerService,
-              private dataService: DataService,
               private paginationService: PaginationService) { }
 
   ngOnInit() {
@@ -168,12 +166,8 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
             if (result.registration)  {this.machine.registration = result.registration; }
             if (result.equipment)     {this.machine.equipment = result.equipment; }
             if (result.remoteControl) {this.machine.remoteControl = result.remoteControl; }
-            if (result.techControl) {
-              this.machine.techControl = this.dataService.convertDateFromServerToInput(result.techControl);
-            }
-            if (result.vgp) {
-              this.machine.vgp = this.dataService.convertDateFromServerToInput(result.vgp);
-            }
+            if (result.techControl)   {this.machine.techControl = result.techControl; }
+            if (result.vgp)           {this.machine.vgp = result.vgp; }
         }
       }, (err) => {
         this.loading = false;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SalariesService} from '../../../services/salaries/salaries.service';
+import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 
 @Component({
   selector: 'app-salarie-visite-medic',
@@ -8,10 +9,36 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
     providers: [SalariesService]
 })
 export class SalarieVisiteMedicComponent implements OnInit {
+  loading = false;
+  errorLoad = '';
+  visite_medical: string;
 
-    constructor(private salariesService: SalariesService) { }
+  constructor(private salariesService: SalariesService,
+              private errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
+    this.getDataFunction();
+  }
+
+  public getDataFunction() {
+    this.loading = true;
+    this.salariesService.getMedicalVisit()
+      .subscribe(result => {
+        if (result) {
+          this.loading = false;
+          console.log(result);
+          this.visite_medical = result.medicalVisitDateExpires;
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  private cancellMessages() {
+    this.loading = false;
+    this.errorLoad = '';
   }
 
 }

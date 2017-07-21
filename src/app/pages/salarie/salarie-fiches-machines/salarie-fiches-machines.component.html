@@ -108,8 +108,8 @@
           <p *ngIf="machine.model"><span>Modèle : </span>{{machine.model}}</p>
           <p *ngIf="machine.parkNumber"><span>N° Parc : </span>{{machine.parkNumber}}</p>
           <p *ngIf="machine.registration"><span>Immatriculation : </span>{{machine.registration}}</p>
-          <p *ngIf="machine.vgp"><span>Date d’expiration VGP : </span>{{machine.vgp}}</p>
-          <p *ngIf="machine.techControl"><span>Contrôle technique : </span>{{machine.techControl}}</p>
+          <p *ngIf="machine.vgp"><span>Date d’expiration VGP : </span>{{machine.vgp | date: 'dd/MM/yyyy'}}</p>
+          <p *ngIf="machine.techControl"><span>Contrôle technique : </span>{{machine.techControl | date: 'dd/MM/yyyy'}}</p>
         </div>
         <div class="qr-code-wrapper">
           <p class="form-subheader text-center">QR Code</p>

@@ -39,6 +39,17 @@ export class SalariesService {
       return this.backendService.get(query);
     }
 
+    public getMedicalVisit(): Observable<any> {
+      return this.backendService.get(UrlParams.employeeHome + 'medical_visit');
+    }
+    public getCacesVisit(): Observable<any> {
+      return this.backendService.get(UrlParams.employeeHome + 'caces');
+    }
+    public getFromServerCacesImage(): Observable<any> {
+      return this.backendService.loadImage_get(UrlParams.employeeHome + 'caces/file');
+    }
+
+
 
   public tableMobileViewInit() {
     const headertext = [],
