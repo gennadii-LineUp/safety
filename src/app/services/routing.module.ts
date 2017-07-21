@@ -60,7 +60,7 @@ const routes: Routes = [
       { path: 'bibliotheque', component: ClientBibliothequePageComponent }
     ]
   },
-  { path: 'site/:id_site', component: SiteComponent, //canActivate: [AuthGuard, ClientGuard],
+  { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard, ClientGuard],
     children: [
       { path: '', component: SiteAccueilPageComponent },
       { path: 'reglages', component: SiteReglagesPageComponent },
