@@ -22,14 +22,22 @@ export class SalariesService {
       return this.backendService.get(UrlParams.employeeHome + 'files');
     }
 
-  public findFichiersByName(name: string, page: any, sort: string): Observable<any> {
-    const query =  UrlParams.employeeHome + 'files' + '?q=' + name + sort + '&page=' + page;
-    console.log(query);
-    return this.backendService.get(query);
+    public findFichiersByName(name: string, page: any, sort: string): Observable<any> {
+      const query =  UrlParams.employeeHome + 'files' + '?q=' + name + sort + '&page=' + page;
+      console.log(query);
+      return this.backendService.get(query);
+    }
 
-   // return this.backendService.get(UrlParams.clientEmployees + query);
-  }
-// employee/files
+    public findMachinesByName(name: string, page: any, sort: string): Observable<any> {
+      const query =  UrlParams.employeeHome + 'machines' + '?q=' + name + sort + '&page=' + page;
+      console.log(query);
+      return this.backendService.get(query);
+    }
+    public findOneMachine(machine_id: number): Observable<any> {
+      const query =  UrlParams.employeeHome + 'machines/' + machine_id;
+      console.log(query);
+      return this.backendService.get(query);
+    }
 
 
   public tableMobileViewInit() {

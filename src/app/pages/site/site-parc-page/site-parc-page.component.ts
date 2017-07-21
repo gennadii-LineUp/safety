@@ -72,16 +72,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         { value: false, id: 'control2', display: 'non' }
     ];
     checkedRemoteControl = false;
-  // category: number;
-  // mark: string;
-  // model: string;
-  // registration: string;
-  // techControl: string;
-  // employeeGroups: Array<number>;
-  // remoteControl: boolean;
-  // parkNumber: string;
-  // vgp: string;
-  // equipment: number;
 
     sortingTarget = '';
     sorting: any = { column: 'type',  descending: false };
@@ -92,11 +82,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           { display: 'Modèle',          variable: 'model',        filter: 'text' },
           { display: 'Marque',          variable: 'mark',         filter: 'text' }
       ];
-  // model
-  // mark
-  // registration
-  // parkNumber
-  // type.
 
     constructor(private siteService: SiteService,
                 public clientService: ClientService,

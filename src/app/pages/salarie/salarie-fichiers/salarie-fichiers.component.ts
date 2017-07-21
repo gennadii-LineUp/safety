@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
-import {PaginationService} from "../../../services/pagination/pagination.service";
+import {PaginationService} from '../../../services/pagination/pagination.service';
 declare var $: any;
 
 @Component({
@@ -11,7 +11,7 @@ declare var $: any;
   styleUrls: ['./salarie-fichiers.component.css'],
     providers: [SalariesService, TableSortService, PaginationService]
 })
-export class SalarieFichiersComponent implements OnInit {
+export class SalarieFichiersComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -40,27 +40,14 @@ export class SalarieFichiersComponent implements OnInit {
     ngOnInit() {
         this.findFichiersByNameFunction('', 1, '');
     }
+    ngOnDestroy() {
+      localStorage.removeItem('search_name');
+      localStorage.removeItem('search_page');
+    }
 
   public getSortingTarget() {
     this.sortingTarget = this.tableSortService._getSortingTarget();
   }
-
-  // public getFichiersDataFunction() {
-  //   this.loading = true;
-  //   this.salariesService.getFichiersData()
-  //     .subscribe(result => {
-  //       if (result) {
-  //         this.loading = false;
-  //         console.log(result);
-  //         this.salariesService.tableMobileViewInit();
-  //       }
-  //     }, (err) => {
-  //       this.loading = false;
-  //       console.log(err);
-  //       this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-  //     });
-  // }
-
 
   public onInitChecking() {
     this.searchName = localStorage.search_name;
