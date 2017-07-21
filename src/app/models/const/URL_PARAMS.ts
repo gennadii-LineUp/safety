@@ -24,6 +24,12 @@ export class UrlParams {
         //  return `http://api.lab.sygma-online.fr/admin/settings`;
     }
 
+    public static get monCompteFormationLink(): string {
+      return `http://sfapi:8000/app_dev.php/mon_compte_formation_link`;
+      // return `http://82.117.251.13/api/mon_compte_formation_link`;
+      //  return `http://api.lab.sygma-online.fr/mon_compte_formation_link`;
+    }
+
     public static get adminHome(): string {
         return `http://sfapi:8000/app_dev.php/admin/home`;
       //  return `http://82.117.251.13/api/admin/home`;

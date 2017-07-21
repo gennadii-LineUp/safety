@@ -16,11 +16,15 @@ export class AdminService {
     }
 
 
+    public getMonCompteFormation(): Observable<any> {
+        return this.backendService.get(UrlParams.monCompteFormationLink);
+    }
     public getExistingReglages(): Observable<any> {
-        return this.backendService.get(UrlParams.adminReglages);
+      return this.backendService.get(UrlParams.adminReglages);
     }
 
-    public updateReglages(newReglages: AdminReglagesClass): Observable<any> {
+
+  public updateReglages(newReglages: AdminReglagesClass): Observable<any> {
         return this.backendService.post(UrlParams.adminReglages, JSON.stringify(newReglages));
     }
 

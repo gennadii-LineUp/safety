@@ -18,8 +18,41 @@ export class SalariesService {
         return this.backendService.post(UrlParams.employeeHome + 'profile', JSON.stringify(newProfile));
     }
 
+    public getFichiersData(): Observable<any> {
+      return this.backendService.get(UrlParams.employeeHome + 'files');
+    }
 
-    public employeeCount(): Observable<any> {
+  public findFichiersByName(name: string, page: any, sort: string): Observable<any> {
+    const query =  UrlParams.employeeHome + 'files' + '?q=' + name + sort + '&page=' + page;
+    console.log(query);
+    return this.backendService.get(query);
+
+   // return this.backendService.get(UrlParams.clientEmployees + query);
+  }
+// employee/files
+
+
+  public tableMobileViewInit() {
+    const headertext = [],
+      headers = document.querySelectorAll('th'),
+      tablerows = document.querySelectorAll('th'),
+      tablebody = document.querySelector('tbody');
+    if (document.querySelector('table')) {
+      for (let i = 0; i < headers.length; i++) {
+        const current = headers[i];
+        headertext.push(current.textContent.replace(/\r?\n|\r/, ''));
+      }
+      for (let i = 0, row; row = tablebody.rows[i]; i++) {
+        for (let j = 0, col; col = row.cells[j]; j++) {
+          col.setAttribute('data-th', headertext[j]);
+        }
+      }
+    }
+  }
+
+/////////////////////////////////////////////
+
+  public employeeCount(): Observable<any> {
         console.log('==client service started==');
         return this.backendService.get(UrlParams.employeeCount);
     }
@@ -79,25 +112,6 @@ export class SalariesService {
         // clear token remove user from local storage to log user out
         localStorage.removeItem('role');
         localStorage.removeItem('token');
-    }
-
-
-    public tableMobileViewInit() {
-      const headertext = [],
-            headers = document.querySelectorAll('th'),
-            tablerows = document.querySelectorAll('th'),
-            tablebody = document.querySelector('tbody');
-        if (document.querySelector('table')) {
-            for (let i = 0; i < headers.length; i++) {
-                const current = headers[i];
-                headertext.push(current.textContent.replace(/\r?\n|\r/, ''));
-            }
-            for (let i = 0, row; row = tablebody.rows[i]; i++) {
-                for (let j = 0, col; col = row.cells[j]; j++) {
-                    col.setAttribute('data-th', headertext[j]);
-                }
-            }
-        }
     }
 
 }
