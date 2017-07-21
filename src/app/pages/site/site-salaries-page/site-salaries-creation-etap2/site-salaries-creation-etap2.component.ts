@@ -45,7 +45,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     uploadFileText = 'fichier1.jpg';
 
     saveButtonCaptionAttest = 'Enregistrer';
+    saveButtonCaption_DrLicense = 'Enregistrer';
     itemForChange = 0;
+    itemForChange_DrLicense = 0;
 
     errorSalaries = false;
     salariesMaxPossible: number;
@@ -60,23 +62,12 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     checkedGroupFromEtap1: any;
 
+
     activeSelect = '3';
     categoryDrivingLicense_active = 3;
     categoryDrivingLicense_nullData = false;
     subcategoryEquipement: number;
     checkedDrLicenses = [];
-    // TypeM = [
-    //     { value: '3', display: 'VL' },
-    //     { value: '4', display: 'PL' },
-    //     { value: '5', display: 'Remorque' },
-    //     { value: '6', display: 'Chariots élévateurs R.389' },
-    //     { value: '7', display: 'PEMP (nacelle) R.386' },
-    //     { value: '8', display: 'Ponts roulants R.318/423' },
-    //     { value: '9', display: 'Engins de chantier R.372m' },
-    //     { value: '10', display: 'Grues auxiliaire R.390' },
-    //     { value: '11', display: 'Grues à tour R.377m' },
-    //     { value: '12', display: 'Grues mobiles R.383m' }
-    // ];
 
     headers: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }// ,
@@ -264,7 +255,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                 if (result) {
                     this.loading = false;
                     console.log(result);
-                    this.successCreating = "Well done! You've updated this employee.";
+                    this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
                 }
             }, (err) => {
                 this.loading = false;
@@ -297,7 +288,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-                    this.successCreatingAttestat = 'Well done! You saved this Attestation.';
+                    this.successCreatingAttestat = 'Bien joué! Vous avez enregistré cette attestation.';
                     if (this.itemForChange) {
                       this.saveButtonCaptionAttest = 'Enregistrer';
                       this.itemForChange = 0;
@@ -345,7 +336,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     //                 this.loadingFile = false;
                     //                 this.uploadedFile = true;
                     //                 console.log(result);
-                    //                 this.successCreating = "Well done! You've uploaded file.";
+                    //                 this.successCreating = 'Votre fichier est téléchargé.';
                     //             }
                     //         }, (err) => {
                     //             this.loadingFile = false;
@@ -534,9 +525,15 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       this.cancellErrorMessage();
       this.cancellSuccessMessage();
 
-      if (this.drivingLicense.categories.length === 0) {
+      let urlOption = '';
+      if (this.itemForChange_DrLicense) {
+        urlOption = '/' + this.itemForChange_DrLicense;
+        this.saveButtonCaption_DrLicense = 'Modifier';
+      }
+
+    if (this.drivingLicense.categories.length === 0) {
         this.categoryDrivingLicense_nullData = true;
-        this.errorCreatingDrLicence = 'SAFETY:  At least 1 category have to be choosen.';
+        this.errorCreatingDrLicence = 'SAFETY:  Au moins 1 catégorie doit être choisie.';
         return false;
       } else {
         this.categoryDrivingLicense_nullData = false;
@@ -545,7 +542,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       if (this.categoryDrivingLicense_active === 12) {
         if (this.drivingLicense.equipment === 0) {
           this.categoryDrivingLicense_nullData = true;
-          this.errorCreatingDrLicence = 'SAFETY:  At least 1 equipement have to be choosen.';
+          this.errorCreatingDrLicence = 'SAFETY:  Au moins 1 équipement doit être choisi.';
           console.log(this.drivingLicense.equipment);
           console.log(this.subcategoryEquipement);
           return false;
@@ -557,13 +554,22 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       this.drivingLicense.categories = this.drivingLicense.categories.sort((a, b) => a - b);
       console.log(this.drivingLicense);
 
-      this.siteService.setCategoryDrivingLicense(this.drivingLicense, this.id_site, this.id_salarie)
+      this.siteService.setCategoryDrivingLicense(this.drivingLicense, this.id_site, this.id_salarie, urlOption)
         .subscribe(result => {
           if (result) {
-            this.creatingDrivingLicense = false;
             console.log(result);
-            this.successCreatingDrLicence = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
             this.getDrivingLicenses('');
+            this.setEmptyDrivingLicense();
+            if (this.itemForChange_DrLicense) {
+              this.saveButtonCaption_DrLicense = 'Enregistrer';
+              this.itemForChange_DrLicense = 0;
+              this.successCreatingDrLicence = 'Bravo! Vos modifications sont enregistrées.';
+            } else {
+              // setTimeout(() => {
+              this.successCreatingDrLicence = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
+              // }, 100);
+            }
+            this.creatingDrivingLicense = false;
           }
         }, (err) => {
           this.creatingDrivingLicense = false;
@@ -593,6 +599,12 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       });
   }
 
+  public setEmptySelect() {
+    this.activeSelect = '3';
+    this.categoryDrivingLicense_active = 3;
+    this.setEmptyDrivingLicense();
+    return;
+  }
   public setEmptyDrivingLicense() {
     this.drivingLicense = new DrivingLicenseClass([], 0);
     this.checkedDrLicenses = [];
@@ -600,13 +612,14 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     for (let i = 0; i < checkedI.length; i++) {
       (<HTMLInputElement>checkedI[i]).checked = false;
     }
+    this.saveButtonCaption_DrLicense = 'Enregistrer';
     return;
   }
 
   public getDrLicenseForUpdateFunction(id_itemForUpdate: number, activeSelect: number) {
+    this.setEmptyDrivingLicense();
     this.cancellErrorMessage();
     this.creatingDrivingLicense = true;
-    // this.setEmptyDrivingLicense();
     console.log(id_itemForUpdate);
     this.activeSelect = '' + activeSelect;
 
@@ -615,11 +628,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         if (result) {
           this.creatingDrivingLicense = false;
           console.log(result);
-          // this.attestation.name = result.name;
-          // this.attestation.dateExpires = this.dataService.convertDateForInputView(result.dateExpires);
-          // this.attestation.dateIssue = this.dataService.convertDateForInputView(result.dateIssue);
-          // this.saveButtonCaptionAttest = 'Modifier';
-          // this.itemForChange = result.id;
+          this.saveButtonCaption_DrLicense = 'Modifier';
+          this.itemForChange_DrLicense = id_itemForUpdate;
           this.drivingLicense.categories = result.categories;
           this.checkedDrLicenses = result.categories;
           console.log(this.checkedDrLicenses);
@@ -649,8 +659,5 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
-
-
-
 
 }

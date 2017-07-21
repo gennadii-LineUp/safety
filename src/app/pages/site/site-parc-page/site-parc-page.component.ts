@@ -269,21 +269,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       console.dir(datepicker_vgp);
     }
 
-   // const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-
-    // equipment_nullData = false;
-    // groupes_nullData = false;
-
-    // if (this.categoryDrivingLicense_active === 12) {
-    //   if (this.drivingLicense.equipment === 0) {
-    //     this.equipment_nullData = true;
-    //     this.errorCreatingDrLicence = 'SAFETY:  At least 1 equipement have to be choosen.';
-    //     console.log(this.drivingLicense.equipment);
-    //     console.log(this.subcategoryEquipement);
-    //     return false;
-    //   }
-    // }
-
     this.machine.category = +this.choosenCategory_id;
     this.machine.techControl = datepicker_techControl;
     this.machine.vgp = datepicker_vgp;
@@ -378,12 +363,12 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.choosenCategory_id = 0;
     this.saveButtonCaption = 'Enregistrer';
   }
+
   public modifierFunction(id_itemForUpdate: number) {
     this.cancellMessages();
     this.setEmptyMachines();
     console.log(id_itemForUpdate);
     this.creating = true;
-
     this.siteService.getOneMachine(this.id_site, id_itemForUpdate)
       .subscribe(result => {
         if (result) {

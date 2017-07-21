@@ -127,8 +127,8 @@ export class SiteService {
     }
 
 
-  public setCategoryDrivingLicense(newDrivingLicense: DrivingLicenseClass, siteId: number, employeeId: number): Observable<any> {
-    const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/driving_licenses';
+  public setCategoryDrivingLicense(newDrivingLicense: DrivingLicenseClass, siteId: number, employeeId: number, urlOption: string): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/driving_licenses' + urlOption;
     console.log(url);
     return this.backendService.post(url, JSON.stringify(newDrivingLicense));
   }
