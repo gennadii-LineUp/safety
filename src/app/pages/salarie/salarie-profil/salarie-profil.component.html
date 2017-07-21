@@ -1,9 +1,20 @@
 <header class="main-header">
-    <h1>Mon profil</h1>
+  <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
+      <span aria-hidden="true"></span>
+    </button>
+    <p>SAFETY: <span>{{errorLoad}}</span></p>
+  </div>
+  <div *ngIf="successUpdate" style='position: fixed;' class="alert alert-success">{{successUpdate}}</div>
+
+  <h1>Mon profil</h1>
+  <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
 <div class="main-content" style="padding-top: 20px;">
-    <form action="/" class="mon-profil-form">
-        <p>Photo</p>
+    <form #employee_profilForm="ngForm"  novalidate  class="mon-profil-form"
+          (ngSubmit)="submitFunction(employee_profilForm)"  enctype="multipart/form-data">
+
+      <p>Photo</p>
         <div class="mon-profil-detailed-info">
             <div class="mon-profil-image-wrapper"  style='margin-right: 20px;'>
                 <img src="../../../../assets/img/default_progile_image-min.jpg" alt="default_progile_image-min" class="img-responsive">
@@ -16,29 +27,46 @@
             </div>
             <div class="clearfix"></div>
             <div class="detailed-info-wrapper">
-                <p>Nom</p>
-                <p>Prénom</p>
-                <p>Né(e) le 00/00/0000</p>
-                <p>N° sécurité sociale 101010122233344</p>
-                <p>Poste : Cariste</p>
+                <p>Nom {{employee.name | capitalize}}</p>
+                <p>Prénom {{employee.surname | capitalize}}</p>
+                <p>Né(e) le {{employee.birthDate | date: 'dd/MM/yyyy'}}</p>
+                <p>N° sécurité sociale {{employee.numSecu | uppercase}}</p>
+                <p>Poste : {{employee.post | lowercase}}</p>
             </div>
         </div>
         <div class="mon-profil-fields">
             <div class="input-wrapper">
-                <input class="form-control" id="exampleInputEmail1" placeholder="Email*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="email.invalid" class="requred-field color-valid">Email*</p>
+              <input type="email" class="form-control"  placeholder="Email*"
+                     #email="ngModel" id="email" name='email' required email [(ngModel)]="employee.email" />
+              <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
+            </div>
+
+            <div class="input-wrapper">
+              <p [hidden]="email.touched" class="requred-field color-valid">Nouveau mot de passe*</p>
+              <input type="password" class="form-control" placeholder="Nouveau mot de passe*"
+                     #password="ngModel" id="password" name='password'  [(ngModel)]="employeesPasswordClass.password" />
             </div>
             <div class="input-wrapper">
-                <input class="form-control" id="exampleInputPassword1" placeholder="Nouveau mot de passe*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="email.touched" class="requred-field color-valid">Confirmer nouveau mot de passe*</p>
+              <input type="password" class="form-control" placeholder="Confirmer nouveau mot de passe*"
+                     #confirmPassword="ngModel" id="confirmPassword" name='confirmPassword'  [(ngModel)]="employeesPasswordClass.confirmPassword" />
             </div>
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputPassword2" placeholder="Confirmer nouveau mot de passe*" type="text">
-                <p class="requred-field hidden">Champs requis</p>
-            </div>
+
+
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputPassword1" placeholder="Nouveau mot de passe*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
+            <!--<div class="input-wrapper">-->
+                <!--<input class="form-control" id="exampleInputPassword2" placeholder="Confirmer nouveau mot de passe*" type="text">-->
+                <!--<p class="requred-field hidden">Champs requis</p>-->
+            <!--</div>-->
             <div class="button-wrapper">
-                <button type="submit" class="form-button red-button annuler-button">Annuler</button>
-                <button type="submit" class="form-button green-button sauvegarder-button">Sauvegarder</button>
+              <img *ngIf="updating" style='position: absolute; left:49.3%;'  src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <button *ngIf="false" type="button" class="form-button red-button annuler-button">Annuler</button>
+              <button type="submit" class="form-button green-button sauvegarder-button"
+                      [disabled]="!employee_profilForm.form.valid">Sauvegarder</button>
             </div>
         </div>
         <div class="clearfix"></div>

@@ -79,73 +79,11 @@ export class UrlParams {
         //  return `http://api.lab.sygma-online.fr/sites/`;
     }
 
-///////////////////////////////////////////////////////////////////////////////////////
-//
-//   public static get LOGIN(): string {
-//       return `http://82.117.251.13/api/login`;
-//     //  return `http://api.lab.sygma-online.fr/login`;
-//   }
-//
-//   public static get adminClients(): string {
-//      return `http://82.117.251.13/api/admin/clients`;
-//     //  return `http://api.lab.sygma-online.fr/admin/clients`;
-//   }
-//
-//   public static get adminClientHome(): string {
-//      return `http://82.117.251.13/api/admin/clients/`;
-//     //  return `http://api.lab.sygma-online.fr/admin/clients/`;
-//   }
-//
-//   public static get adminReglages(): string {
-//      return `http://82.117.251.13/api/admin/settings`;
-//     //  return `http://api.lab.sygma-online.fr/admin/settings`;
-//   }
-//
-//   public static get adminHome(): string {
-//       return `http://82.117.251.13/api/admin/home`;
-//     //  return `http://api.lab.sygma-online.fr/admin/home`;
-//   }
-//
-//   public static get adminLink(): string {
-//       return `http://82.117.251.13/api/library_links`;
-//     //  return `http://api.lab.sygma-online.fr/library_links`;
-//   }
-//
-//
-//   public static get clientSites(): string {
-//       return `http://82.117.251.13/api/sites`;
-//     //  return `http://api.lab.sygma-online.fr/sites`;
-//   }
-//
-//   public static get employeesGroupsList(): string {
-//       return `http://82.117.251.13/api/client/employees-groups-list`;
-//     //  return `http://api.lab.sygma-online.fr/client/employees-groups-list`;
-//   }
-//
-//   public static get clientGroupes(): string {
-//       return `http://82.117.251.13/api/client/employees-groups`;
-//     //  return `http://api.lab.sygma-online.fr/client/employees-groups`;
-//   }
-//
-//   public static get clientEmployees(): string {
-//        return `http://82.117.251.13/api/client/employees`;
-//     //  return `http://api.lab.sygma-online.fr/client/employees`;
-//   }
-//
-//   public static get employeeCount(): string {
-//        return `http://82.117.251.13/api/client/employee_count`;
-//     //  return `http://api.lab.sygma-online.fr/client/employee_count`;
-//   }
-//
-//   public static get clientProfilData(): string {
-//      return `http://82.117.251.13/api/client/profile`;
-//     //  return `http://api.lab.sygma-online.fr/client/profile`;
-//   }
-//
-//   public static get siteHome(): string {
-//      return `http://82.117.251.13/api/sites/`;
-//     //  return `http://api.lab.sygma-online.fr/sites/`;
-//   }
+    public static get employeeHome(): string {
+      return `http://sfapi:8000/app_dev.php/employee/`;
+      // return `http://82.117.251.13/api/employee/`;
+      //  return `http://api.lab.sygma-online.fr/employee/`;
+    }
+
 
 }
-

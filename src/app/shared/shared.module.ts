@@ -24,6 +24,7 @@ import { NavbarSalariesComponent } from './navbar/navbar-salaries/navbar-salarie
 import { PaginationComponent } from './pagination/pagination.component';
 import {ValidityPeriodPipe} from '../services/pipes/validityPeriodSalarie.pipe';
 import {ValueNullPipe} from '../services/pipes/valueNull.pipe';
+import {CapitalizePipe} from "../services/pipes/capitalize.pipe";
 
 // import {ModalModule} from "ng2-modal";
 
@@ -56,6 +57,7 @@ import {ValueNullPipe} from '../services/pipes/valueNull.pipe';
         NavbarSalariesComponent,
         PaginationComponent,
         ValidityPeriodPipe,
+      CapitalizePipe
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -74,6 +76,7 @@ import {ValueNullPipe} from '../services/pipes/valueNull.pipe';
         NavbarSalariesComponent,
         PaginationComponent,
         ValidityPeriodPipe,
+      CapitalizePipe
     ],
     providers: [
         BackendService,

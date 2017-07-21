@@ -3,6 +3,7 @@ import {UrlParams} from '../../models/const/URL_PARAMS';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend/backend.service';
 import {SiteClass} from '../../models/const/site-class';
+import {EmployeesPasswordClass} from '../../models/const/employee-psw-class';
 
 @Injectable()
 export class SalariesService {
@@ -10,9 +11,11 @@ export class SalariesService {
     constructor(private backendService: BackendService) {}
 
 
-    public getClientProfilData(): Observable<any> {
-        console.log('==client service started==');
-        return this.backendService.get(UrlParams.clientProfilData);
+    public getProfilData(): Observable<any> {
+        return this.backendService.get(UrlParams.employeeHome + 'profile');
+    }
+    public updateProfilData(newProfile: EmployeesPasswordClass): Observable<any> {
+        return this.backendService.post(UrlParams.employeeHome + 'profile', JSON.stringify(newProfile));
     }
 
 

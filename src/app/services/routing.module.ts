@@ -44,7 +44,7 @@ const routes: Routes = [
     { path: 'rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
     { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
         children: [
-                { path: '', component: AdminAccueilContentComponent }, //AdminAccueilPageComponent
+                { path: '', component: AdminAccueilContentComponent },
                 { path: 'reglages', component: AdminReglagesPageComponent },
                 { path: 'client', component: AdminClientsPageComponent},
                 { path: 'client/ajouter-un-client', component: AdminClientAjouterComponent },
@@ -55,12 +55,12 @@ const routes: Routes = [
         children: [
                 { path: '', component: ClientSitesPageComponent  },
                 { path: 'groupes', component: ClientGroupesPageComponent },
-                { path: 'employees', component: ClientSalariesPageComponent },//salarie
+                { path: 'employees', component: ClientSalariesPageComponent },
                 { path: 'profil', component: ClientProfilPageComponent },
                 { path: 'bibliotheque', component: ClientBibliothequePageComponent }
         ]
     },
-    { path: 'site/:id_site', component: SiteComponent, //canActivate: [AuthGuard, ClientGuard],
+    { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard, ClientGuard],
         children: [
                 { path: '', component: SiteAccueilPageComponent },
                 { path: 'reglages', component: SiteReglagesPageComponent },
@@ -68,7 +68,7 @@ const routes: Routes = [
                 { path: 'parc', component: SiteParcPageComponent },
                 { path: 'salaries', component: SiteSalariesPageComponent },
                 { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent },
-                { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component } //path: 'salarie/ajouter-un-salarie-etap2'
+                { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component }
         ]
     },
     { path: 'sfsalarie', component: SalarieComponent, canActivate: [AuthGuard, EmployeeNullGuard],

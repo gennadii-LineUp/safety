@@ -21,7 +21,7 @@ export class LoginStartComponent implements OnInit {
         console.log(localStorage);
     }
 
-    login(userEmail:string, password: string) {
+    login(userEmail: string, password: string) {
         this.cancellErrorMessage();
 
         this.loading = true;
@@ -30,10 +30,13 @@ export class LoginStartComponent implements OnInit {
                 if (result.token) {
                         localStorage.setItem('role', result.roles);
                         localStorage.setItem('token', result.token);
+                        if (result.employeeAccess) {
+                          localStorage.setItem('employeeAccess', result.employeeAccess);
+                        }
                         console.log('true, ' + localStorage.role);
-                        if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']);}
-                        if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']);}
-                        if (localStorage.role === 'ROLE_EMPLOYEE') {this.router.navigate(['/sfsalarie']);}
+                        if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']); }
+                        if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']); }
+                        if (localStorage.role === 'ROLE_EMPLOYEE') {this.router.navigate(['/sfsalarie']); }
                         this.loading = false;
                 }
             }, (err) => {
@@ -43,7 +46,7 @@ export class LoginStartComponent implements OnInit {
                     return;
                 };
 
-                let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus_old(err);
+                const errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus_old(err);
                 if (errorStatusKnown) {
                     this.errorLoad = errorStatusKnown;
                     return;

@@ -201,7 +201,6 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
                     this.salaryeeGroupe.adminAccess = result.adminAccess;
                     this.itemForChange = result.id;
                     this.saveButtonCaption = 'Modifier';
-                    this.salaryeeGroupe = new GroupeClass('', false);
                 }
             }, (err) => {
                 this.saving = false;

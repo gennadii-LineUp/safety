@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-//import {AuthGuard} from '../../../guards/auth-guards.service';
-//import {AdminGuard} from '../../../guards/admin-guard.service';
+// import {AuthGuard} from '../../../guards/auth-guards.service';
+// import {AdminGuard} from '../../../guards/admin-guard.service';
 import {AdminAsClientGuard} from '../../../guards/admin-as-client-guard.service';
 
 @Component({
@@ -9,10 +9,10 @@ import {AdminAsClientGuard} from '../../../guards/admin-as-client-guard.service'
   styleUrls: ['./navbar-client.component.css']
 })
 export class NavbarClientComponent implements OnInit {
-    showAdminData : boolean = false;
+    showAdminData = false;
 
-    //id_site: number = 0;
-    //private sub: any;
+    // id_site: number = 0;
+    // private sub: any;
 
 
     constructor(private adminAsClientGuard: AdminAsClientGuard){}
@@ -24,8 +24,8 @@ export class NavbarClientComponent implements OnInit {
 
         // this.sub = this.route.params.subscribe(params => {
         //     this.id_site = +params['id_site'];
-            //console.log(this.id_site);
-        //});
+            // console.log(this.id_site);
+        // });
     }
 
     // ngOnDestroy() {
