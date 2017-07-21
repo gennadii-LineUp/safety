@@ -14,7 +14,7 @@ export class EmployeeAdminGuard implements CanActivate {
     }
 
     // not logged in as employee, so redirect to login page
-    this.router.navigate(['']);
+    // this.router.navigate(['']);
     return false;
 
   }
