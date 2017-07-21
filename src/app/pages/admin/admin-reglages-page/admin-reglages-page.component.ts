@@ -20,9 +20,9 @@ export class AdminReglagesPageComponent implements OnInit {
 
     errorLoad = '';
 
-    reglages = new AdminReglagesClass('','','','');
+    reglages = new AdminReglagesClass('', '', '', '');
 
-    defaultReglages = new AdminReglagesClass('https://lab.sygma-online.fr/','','','');
+    defaultReglages = new AdminReglagesClass('http://www.moncompteformation.gouv.fr/', '', '', '');
 
 
     constructor(private adminService: AdminService,
@@ -32,7 +32,7 @@ export class AdminReglagesPageComponent implements OnInit {
         this.getExistingReglages();
     }
 
-    public getExistingReglages(){
+    public getExistingReglages() {
         this.loading = true;
 
         this.adminService.getExistingReglages()
