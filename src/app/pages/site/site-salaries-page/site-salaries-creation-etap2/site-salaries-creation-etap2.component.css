@@ -208,6 +208,9 @@ modal-content-SSAtt .form-control {
     margin-bottom: 24px;
 }
 
+.table-default {
+  margin-bottom: 24px;
+}
 .autorisation-de-conduite-modal .button-wrapper {
     margin-top: -4px;
 }
@@ -218,6 +221,14 @@ modal-content-SSAtt .form-control {
 
 .autorisation-de-conduite-modal .control-group .form-subheader {
     margin-bottom: 20px;
+}
+
+.button-wrapper {
+  text-align: right;
+}
+.button-wrapper button{
+  margin-top: 22px;
+  margin-left: 20px;
 }
 
 .autorisation-de-conduite-modal .control {
