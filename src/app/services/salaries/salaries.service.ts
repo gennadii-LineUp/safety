@@ -49,6 +49,28 @@ export class SalariesService {
       return this.backendService.loadImage_get(UrlParams.employeeHome + 'caces/file');
     }
 
+    public findAttestationByName(name: string, page: any, sort: string): Observable<any> {
+      const query =  UrlParams.employeeHome + 'attestations' + '?q=' + name + sort + '&page=' + page;
+      console.log(query);
+      return this.backendService.get(query);
+    }
+    public getFromServerAttestationImage(attestation_Id: number): Observable<any> {
+      const query = UrlParams.employeeHome + 'attestations/' + attestation_Id + '/file?encoded=1';
+      console.log(query);
+      return this.backendService.loadImage_get(query);
+    }
+
+    public findDriving_licensesByName(name: string, page: any, sort: string): Observable<any> {
+      const query =  UrlParams.employeeHome + 'driving_licenses' + '?q=' + name + sort + '&page=' + page;
+      console.log(query);
+      return this.backendService.get(query);
+    }
+    public getFromServerDriving_licenseImage(drLicense_Id: number): Observable<any> {
+      const query = UrlParams.employeeHome + 'driving_licenses/' + drLicense_Id + '/file?encoded=1';
+      console.log(query);
+      return this.backendService.loadImage_get(query);
+    }
+
 
 
   public tableMobileViewInit() {

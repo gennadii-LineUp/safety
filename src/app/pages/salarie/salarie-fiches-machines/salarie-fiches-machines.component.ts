@@ -51,10 +51,6 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     localStorage.removeItem('search_page');
   }
 
-  public getSortingTarget() {
-    this.sortingTarget = this.tableSortService._getSortingTarget();
-  }
-
   public onInitChecking() {
     this.searchName = localStorage.search_name;
     this.activePage = +localStorage.search_page;

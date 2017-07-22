@@ -47,8 +47,9 @@ export class SalarieCacesComponent implements OnInit {
           console.log(result);
           this.loading = false;
           this.showImg = true;
-          const src = 'data:' + result['Content-type'] + ';base64,';
-          this.imgServer = src + result.content;
+          const src = 'data:' + result.headers._headers['[[Entries]]']['0'].value['0'] + ';base64,';
+          console.log(src);
+          this.imgServer = src + result._body;
 
         }
       }, (err) => {
