@@ -1,0 +1,8 @@
+.notifications-table th:nth-of-type(2),
+.notifications-table th:nth-of-type(3),
+.notifications-table td:nth-of-type(2),
+.notifications-table td:nth-of-type(3){
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+  text-align: center !important;
+}

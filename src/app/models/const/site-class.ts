@@ -1,4 +1,4 @@
-export class SiteClass{
+export class SiteClass {
     name: string;
     address: string;
     postalCode: string;

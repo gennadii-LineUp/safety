@@ -78,7 +78,8 @@
                 <div *ngFor="let groupe of employeeGroupes" class="radio" >
                   <input type="radio"   id={{groupe.id}} name="employeeGroup"
                            [(ngModel)]="employees.employeeGroup" [value]="groupe.id"
-                           [checked]='checkedGroupFromEtap1==groupe.id'>  <!-- checked={{groupe.booleanValue}}-->
+                           [checked]='checkedGroupFromEtap1==groupe.id'
+                            (click)="showCurrentGroupeSalaries($event)">  <!-- checked={{groupe.booleanValue}}-->
                   <label for={{groupe.id}} class="radio-label">{{groupe.id}} {{groupe.name}}</label>
                 </div>
             </div>

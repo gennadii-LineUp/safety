@@ -1,37 +1,60 @@
 <header class="main-header">
-    <h1>Réglages</h1>
-    <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+  <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
+      <span aria-hidden="true"></span>
+    </button>
+    <p>SAFETY: <span>{{errorLoad}}</span></p>
+  </div>
+  <div *ngIf="successUpdate" style='position: fixed;' class="alert alert-success">{{successUpdate}}</div>
+
+  <h1>Réglages</h1>
+  <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
-<div class="main-content">
-    <form action="/" class="settings-form">
+<div *ngIf="siteReglages.name" class="main-content">
+    <form #site_reglagesForm="ngForm" class="settings-form" novalidate (click)='cancellMessages()'
+          enctype="multipart/form-data"
+          (ngSubmit)="submitNewReglagesForm(site_reglagesForm)">
         <div class="settings-form-left-content-part">
             <h2>Site</h2>
+
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText1" placeholder="Nom*">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
+              <input type="text" class="form-control" placeholder="Nom*"
+                     #name="ngModel" id="name" name='name' required [(ngModel)]="siteReglages.name" />
+              <p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText2" placeholder="Adresse*">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="address.invalid" class="requred-field color-valid">Adresse*</p>
+              <input type="text" class="form-control"  placeholder="Adresse*"
+                    #address="ngModel" id="address" name='address' required [(ngModel)]="siteReglages.address" />
+              <p [hidden]="address.valid || address.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText3" placeholder="Code postal*">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="postalCode.invalid" class="requred-field color-valid">Code postal*</p>
+              <input type="text" class="form-control"  placeholder="Code postal*"
+                     #postalCode="ngModel" id="postalCode" name='postalCode' required [(ngModel)]="siteReglages.postalCode" />
+              <p [hidden]="postalCode.valid || postalCode.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText4" placeholder="Ville*">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="city.invalid" class="requred-field color-valid">Ville*</p>
+              <input type="text" class="form-control"  placeholder="Ville*"
+                     #city="ngModel" id="city" name='city' required [(ngModel)]="siteReglages.city" />
+              <p [hidden]="city.valid || city.untouched " class="requred-field ">Champs requis</p>
             </div>
         </div>
         <div class="settings-form-right-content-part">
             <h2>Personne qui autorise</h2>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText5" placeholder="Nom du signataire*">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="signatoryName.invalid" class="requred-field color-valid">Nom du signataire*</p>
+              <input type="text" class="form-control"  placeholder="Nom du signataire*"
+                     #signatoryName="ngModel" id="signatoryName" name='signatoryName' required [(ngModel)]="siteReglages.signatoryName" />
+              <p [hidden]="signatoryName.valid || signatoryName.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
-                <input type="text" class="form-control" id="exampleInputText6" placeholder="Prénom du signataire*">
-                <p class="requred-field hidden">Champs requis</p>
+              <p [hidden]="signatorySurname.invalid" class="requred-field color-valid">Prénom du signataire*</p>
+              <input type="text" class="form-control"  placeholder="Prénom du signataire*"
+                     #signatorySurname="ngModel" id="signatorySurname" name='signatorySurname' required [(ngModel)]="siteReglages.signatorySurname" />
+              <p [hidden]="signatorySurname.valid || signatorySurname.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="signature-upload">
                 <label for="file-input1">Ajouter signature
@@ -64,95 +87,108 @@
         <div class="form-divider clearfix"></div>
         <h2  class="pull-left">Notifications par email</h2>
         <div class="input-wrapper pull-left">
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email(s) de notification du site">
+            <p [hidden]="notificationEmails.invalid" class="requred-field color-valid">Email(s) de notification du site</p>
+            <input class="form-control"  placeholder="Email(s) de notification du site*" type="email"
+                   #notificationEmails="ngModel" id="notificationEmails" name='notificationEmails' required
+                   [(ngModel)]="siteReglages.notificationEmails" /><!-- required email -->
+            <p [hidden]="notificationEmails.valid || notificationEmails.untouched" class="requred-field ">Champs requis</p>
         </div>
-        <div class="table-wrapper">
-            <table class="table-default notifications-table">
-                <thead>
-                <tr>
-                    <th *ngFor="let notification of notificationHeaders" (click)="tableSortService.changeSorting(notification.variable)">
-                        <button [class]="tableSortService.selectedClass(notification.variable)" ></button>
-                        {{notification.display}}
-                    </th>
-                    <th>
-                        <span>Siège</span>
-                    </th>
-                    <th>
-                        <span>Site</span>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                    <!--<tr *ngIf='emptyTable'>-->
-                        <!--<td>-</td>-->
-                        <!--<td>-</td>-->
-                        <!--<td>-</td>-->
-                    <!--</tr>-->
+      <div class="table-wrapper">
+        <table class="table-default notifications-table">
+          <thead>
+              <tr>
+                  <th style='cursor:default;'>
+                      <span>Règle de notification</span>
+                  </th>
+                  <th style='cursor:default;'>
+                      <span>Siège</span>
+                  </th>
+                  <th>
+                      <span>Site</span>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Caces</td>
+            <td>
+              <div class="control-group">
+                <label class="control control--checkbox">
+                  <input type="checkbox"
+                         #cacesSiege="ngModel" id="cacesSiege"
+                         name='cacesSiege' [(ngModel)]="siteReglages.cacesSiege" />
+                  <span class="control__indicator"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control control--checkbox">
+                  <input type="checkbox"
+                         #cacesSite="ngModel" id="cacesSite"
+                         name='cacesSite' [(ngModel)]="siteReglages.cacesSite" />
+                  <span class="control__indicator"></span>
+                </label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Visite médicale</td>
+            <td>
+              <div class="control-group">
+                <label class="control control--checkbox">
+                  <input type="checkbox"
+                         #medicalVisitSiege="ngModel" id="medicalVisitSiege"
+                         name='medicalVisitSiege' [(ngModel)]="siteReglages.medicalVisitSiege" />
+                  <span class="control__indicator"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control control--checkbox">
+                  <input type="checkbox"
+                         #medicalVisitSite="ngModel" id="medicalVisitSite"
+                         name='medicalVisitSite' [(ngModel)]="siteReglages.medicalVisitSite" />
+                  <span class="control__indicator"></span>
+                </label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Contrôle technique et VGP</td>
+            <td>
+              <div class="control-group">
+                <label class="control control--checkbox">
+                  <input type="checkbox"
+                         #techControlSiege="ngModel" id="techControlSiege"
+                         name='techControlSiege' [(ngModel)]="siteReglages.techControlSiege" />
+                  <span class="control__indicator"></span>
+                </label>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control control--checkbox">
+                  <input type="checkbox"
+                         #techControlSite="ngModel" id="techControlSite"
+                         name='techControlSite' [(ngModel)]="siteReglages.techControlSite" />
+                  <span class="control__indicator"></span>
+                </label>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-                    <tr>
-                        <td>Caces</td>
-                        <td>
-                            <div class="control-group">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox" checked="checked"/>
-                                    <span class="control__indicator"></span>
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="control-group">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox" checked="checked"/>
-                                    <span class="control__indicator"></span>
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Visite médicale</td>
-                        <td>
-                            <div class="control-group">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox"/>
-                                    <span class="control__indicator"></span>
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="control-group">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox"/>
-                                    <span class="control__indicator"></span>
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Contrôle technique et VGP</td>
-                        <td>
-                            <div class="control-group">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox" checked="checked"/>
-                                    <span class="control__indicator"></span>
-                                </label>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="control-group">
-                                <label class="control control--checkbox">
-                                    <input type="checkbox"/>
-                                    <span class="control__indicator"></span>
-                                </label>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="button-wrapper">
-            <button type="submit" class="form-button red-button annuler-button">Annuler</button>
-            <button type="submit" class="form-button green-button sauvegarder-button">Sauvegarder</button>
-        </div>
+      <div class="button-wrapper">
+            <button type="button" class="form-button red-button annuler-button"
+                  (click)="getReglagesFunction();">Annuler</button>
+            <button type="submit" class="form-button green-button sauvegarder-button"
+                    [disabled]="!site_reglagesForm.form.valid">Sauvegarder</button>
+
+      </div>
     </form>
 </div>
 

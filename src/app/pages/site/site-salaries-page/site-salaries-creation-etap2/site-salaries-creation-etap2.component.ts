@@ -60,7 +60,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     id_salarie: number;
     private sub: any;
 
-    checkedGroupFromEtap1: any;
+    checkedGroupFromEtap1: number;
 
 
     activeSelect = '3';
@@ -176,7 +176,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.employees.post = result.post;
                     this.employees.numSecu = result.numSecu;
                     this.employees.validityPeriod = result.validityPeriod;
-                    this.employees.employeeGroup = result.employeeGroup;
+                    console.log(result.employeeGroup.id);
+                    this.employees.employeeGroup = result.employeeGroup.id;
 
                     if (result.startDate) {
                       this.employees.startDate = this.dataService.convertDateFromServerToInput(result.startDate);
@@ -189,7 +190,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.employees.birthDate = this.dataService.convertDateFromServerToInput(result.birthDate);
                     console.log(this.employees);
                     this.loaded = true;
-                    window.setTimeout(() => this.checkedGroupFromEtap1 = result.employeeGroup.id, 100);
+                    window.setTimeout(() => this.checkedGroupFromEtap1 = this.employees.employeeGroup, 100);
                     this.getDatesAutorisations();
                     this.getAttestations('');
                     this.getDrivingLicenses('');
@@ -220,6 +221,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             });
     }
 
+    public showCurrentGroupeSalaries(e: any) {
+      console.log(e.target.id);
+     // this.employees.employeeGroup = +e.target.id;
+      return true;
+    }
 
     public submitModifyEtap1Form(modifyEmployeesForm: NgForm) {
         const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
@@ -246,7 +252,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                                                 this.employees.validityPeriod,
                                                 _startDate,
                                                 _endDate,
-                                                this.employees.employeeGroup.id);
+                                                this.employees.employeeGroup);
 
         console.dir(employeeDates);
 
@@ -376,7 +382,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
             this.visites = new VisitesClass('', '');
           } else {
-            console.log('hello');
             this.visites.medicalVisitDateExpires = this.dataService.convertDateForInputView(result.medicalVisitDateExpires);
             this.visites.cacesDateExpires = this.dataService.convertDateForInputView(result.cacesDateExpires);
           }

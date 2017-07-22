@@ -1307,16 +1307,22 @@ th {
 
 .notifications-table th:first-of-type,
 .notifications-table td:first-of-type {
-    width: 80.9%;
+    width: 80%;
 }
 
 .notifications-table th:nth-of-type(2),
 .notifications-table td:nth-of-type(2) {
-    width: 10.25%;
+    width: 10%;
 }
 
 .notifications-table th:nth-of-type(2) {
     padding-left: 22px;
+}
+.notifications-table th:nth-of-type(2),
+.notifications-table th:nth-of-type(3) {
+  padding-left: 22px;
+  padding-right: 22px;
+  text-align: center;
 }
 
 .notifications-table td:nth-of-type(2) {
@@ -1325,7 +1331,7 @@ th {
 
 .notifications-table th:nth-of-type(3),
 .notifications-table td:nth-of-type(3) {
-    width: 8.85%;
+    width: 10%;
 }
 
 .notifications-table td:nth-of-type(3) {

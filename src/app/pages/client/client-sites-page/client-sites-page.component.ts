@@ -200,7 +200,7 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                     this.cancellMessages();
                     console.log(result);
                     this.newSite_id = result.siteId;
-                    this.successCreating = "Well done! You've created a new client.";
+                    this.successCreating = 'Bien joué! Vous avez créé un nouveau client.';
                     if (this.userHasChoosenFile) {
                         this.loadingFile = true;
                         this.clientService.uploadImage(this.file, this.newSite_id)

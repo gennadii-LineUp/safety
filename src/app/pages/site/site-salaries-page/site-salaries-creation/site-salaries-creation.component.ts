@@ -5,9 +5,9 @@ import {ErrorMessageHandlerService} from 'app/services/error/error-message-handl
 import {SiteService} from '../../../../services/site/site.service';
 import {EmployeesClass} from 'app/models/const/employees-class';
 import { NgForm} from '@angular/forms';
-import {DataService} from "../../../../services/DataService.service";
-import {EmployeesClassDates} from "../../../../models/const/employees-dates-class";
-declare var $:any;
+import {DataService} from '../../../../services/DataService.service';
+import {EmployeesClassDates} from '../../../../models/const/employees-dates-class';
+declare var $: any;
 
 @Component({
   selector: 'site-salaries-creation',

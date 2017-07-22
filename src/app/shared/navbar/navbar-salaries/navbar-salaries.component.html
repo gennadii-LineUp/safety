@@ -16,7 +16,24 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li [routerLink]="['/sfsalarie']">
+
+          <div *ngIf="showEmployee_Admin" style="display: inline-block; width: 100%;">
+              <li *ngFor="let menu of menu_admin" routerLinkActive="active" [routerLink]="[menu.router]">
+                <a href="javascript:void(0);">
+                  {{menu.display}}
+                </a>
+              </li>
+              <li role="separator" class="divider"></li>
+          </div>
+
+          <li *ngIf='showEmployee_responsable_parcMachine' routerLinkActive="active" [routerLink]="['/sfsalarie/fichiers']">
+            <a href="javascript:void(0);">
+              Parc Machines
+            </a>
+          </li>
+          <li role="separator" class="divider"></li>
+
+          <li routerLinkActive="active" [routerLink]="['/sfsalarie']">
                 <a href="javascript:void(0);">
                     Mon profil
                 </a>

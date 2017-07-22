@@ -8,6 +8,7 @@ import {query} from "@angular/core/src/animation/dsl";
 import {EmployeesClassDates} from "../../models/const/employees-dates-class";
 import {FichiersClass} from "../../models/const/site-fichiers-class";
 import {MachineClass} from "../../models/const/machine-class";
+import {SiteReglagesClass} from "../../models/const/site-reglages-class";
 
 @Injectable()
 export class SiteService {
@@ -24,6 +25,16 @@ export class SiteService {
     public getIdSite(): number {
         console.log('getting... ' + this.id_site);
         return this.id_site;
+    }
+
+    public getReglages(siteId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId;
+      console.log(query);
+      return this.backendService.get(query);
+    }
+    public addNewReglages(newReglages: SiteReglagesClass, siteId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId ;
+      return this.backendService.post(query, JSON.stringify(newReglages));
     }
 
 
