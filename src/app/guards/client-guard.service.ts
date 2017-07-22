@@ -8,7 +8,7 @@ export class ClientGuard implements CanActivate {
 
   canActivate() {
 
-    if (localStorage.role === 'ROLE_CLIENT') {
+    if (localStorage.role === 'ROLE_CLIENT' || localStorage.employeeAccess === 'admin') {
       // logged as ClientClass
       return true;
     }

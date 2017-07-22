@@ -15,11 +15,11 @@ export class NavbarSalariesComponent implements OnInit {
     showEmployee_Admin = false;
     showEmployee_responsable_parcMachine = false;
     menu_admin: any[] = [
-      { id: 1,  display: 'Sites',               router: 'type' },
-      { id: 2,  display: 'Groupes de salariés', router: 'type' },
-      { id: 3,  display: 'Salariés',            router: 'type' },
-      { id: 4,  display: 'Profil',              router: 'type' },
-      { id: 5,  display: 'Bibliothèque',        router: 'type' },
+      { id: 1,  display: 'Sites',               router: '/client' },
+      { id: 2,  display: 'Groupes de salariés', router: '/client/groupes' },
+      { id: 3,  display: 'Salariés',            router: '/client/employees' },
+      // { id: 4,  display: 'Profil',              router: '/client/profil' },
+      { id: 5,  display: 'Bibliothèque',        router: '/client/bibliotheque' },
     ];
 
     constructor(private authGuard: AuthGuard,
