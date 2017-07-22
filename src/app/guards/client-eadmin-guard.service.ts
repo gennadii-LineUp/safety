@@ -2,13 +2,13 @@ import { Injectable }     from '@angular/core';
 import {CanActivate, Router}    from '@angular/router';
 
 @Injectable()
-export class ClientGuard implements CanActivate {
+export class ClientOrEmployeeAdminGuard implements CanActivate {
 
   constructor(private router: Router) {}
 
   canActivate() {
 
-    if (localStorage.role === 'ROLE_CLIENT') {
+    if (localStorage.role === 'ROLE_CLIENT' || localStorage.employeeAccess === 'admin') {
       // logged as ClientClass
       return true;
     }

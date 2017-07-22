@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthGuard} from '../../../guards/auth-guards.service';
 import {AdminGuard} from '../../../guards/admin-guard.service';
 import {ClientGuard} from '../../../guards/client-guard.service';
 import {ActivatedRoute} from '@angular/router';
 import {AdminAsClientGuard} from '../../../guards/admin-as-client-guard.service';
+import {EmployeeAdminGuard} from '../../../guards/employee-admin-guard.service';
 
 @Component({
   selector: 'navbar-site',
   templateUrl: './navbar-site.component.html',
   styleUrls: ['./navbar-site.component.css']
 })
-export class NavbarSiteComponent implements OnInit {
-    showAdminData : boolean = false;
-    showClientData : boolean = false;
-    showLogin : boolean = false;
+export class NavbarSiteComponent implements OnInit, OnDestroy {
+    showAdminData = false;
+    showClientData = false;
+    showLogin = false;
+    showEmployee_Admin = false;
 
-    id_site: number = 0;
+    id_site = 0;
     private sub: any;
 
 
@@ -23,15 +25,15 @@ export class NavbarSiteComponent implements OnInit {
                 private adminGuard: AdminGuard,
                 private adminAsClientGuard: AdminAsClientGuard,
                 private clientGuard: ClientGuard,
-                private route: ActivatedRoute){}
+                private employeeAdminGuard: EmployeeAdminGuard,
+                private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.verifyUserRole();
 
         this.sub = this.route.params.subscribe(params => {
             this.id_site = +params['id_site'];
-
-            //console.log(this.id_site);
+            console.log('id_site.subscribe = ' + this.id_site);
         });
     }
 
@@ -43,14 +45,19 @@ export class NavbarSiteComponent implements OnInit {
     public verifyUserRole() {
         this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate() && this.adminAsClientGuard.canActivate();
         this.showClientData = this.authGuard.canActivate() && this.clientGuard.canActivate();
-        if (this.showAdminData || this.showClientData) {
-            this.showLogin = false;
-            return;
-        }
-        else {
-            this.showLogin = true;
-        }
+        this.showEmployee_Admin = this.authGuard.canActivate() && this.employeeAdminGuard.canActivate();
+        // if (this.showAdminData || this.showClientData) {
+        //     this.showLogin = false;
+        //     return;
+        // }
+        // else {
+        //     this.showLogin = true;
+        // }
     }
+
+  public logoutFunction() {
+    localStorage.clear();
+  }
 
 
 }

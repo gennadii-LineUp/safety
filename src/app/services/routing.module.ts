@@ -34,8 +34,7 @@ import {SalarieCacesComponent} from '../pages/salarie/salarie-caces/salarie-cace
 import {SalarieAutorisComponent} from '../pages/salarie/salarie-autoris/salarie-autoris.component';
 import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestations/salarie-attestations.component';
 import {EmployeeNullGuard} from '../guards/employee-null-guard.service';
-import {DataService} from './DataService.service';
-import {AdminAsClientGuard} from '../guards/admin-as-client-guard.service';
+import {ClientOrEmployeeAdminGuard} from '../guards/client-eadmin-guard.service';
 
 
 const routes: Routes = [
@@ -44,31 +43,31 @@ const routes: Routes = [
   { path: 'rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
   { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
     children: [
-      { path: '', component: AdminAccueilContentComponent }, //AdminAccueilPageComponent
+      { path: '', component: AdminAccueilContentComponent },
       { path: 'reglages', component: AdminReglagesPageComponent },
       { path: 'client', component: AdminClientsPageComponent},
       { path: 'client/ajouter-un-client', component: AdminClientAjouterComponent },
       { path: 'bibliotheque', component: AdminBibliothequePageComponent }
     ]
   },
-  { path: 'client', component: ClientComponent, canActivate: [AuthGuard, ClientGuard],
+  { path: 'client', component: ClientComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', component: ClientSitesPageComponent  },
-      { path: 'groupes', component: ClientGroupesPageComponent },
-      { path: 'employees', component: ClientSalariesPageComponent },//salarie
-      { path: 'profil', component: ClientProfilPageComponent },
-      { path: 'bibliotheque', component: ClientBibliothequePageComponent }
+      { path: '',          component: ClientSitesPageComponent,    canActivate: [AuthGuard, ClientOrEmployeeAdminGuard]  },
+      { path: 'groupes',   component: ClientGroupesPageComponent,  canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'employees', component: ClientSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'profil',    component: ClientProfilPageComponent,   canActivate: [AuthGuard, ClientGuard] },
+      { path: 'bibliotheque', component: ClientBibliothequePageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] }
     ]
   },
-  { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard, ClientGuard],
+  { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', component: SiteAccueilPageComponent },
-      { path: 'reglages', component: SiteReglagesPageComponent },
-      { path: 'fichiers', component: SiteFichiersPageComponent },
-      { path: 'parc', component: SiteParcPageComponent },
-      { path: 'salaries', component: SiteSalariesPageComponent },
-      { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent },
-      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component } //path: 'salarie/ajouter-un-salarie-etap2'
+      { path: '',         component: SiteAccueilPageComponent,  canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'reglages', component: SiteReglagesPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'fichiers', component: SiteFichiersPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'parc',     component: SiteParcPageComponent,     canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'salaries', component: SiteSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] }
     ]
   },
   { path: 'sfsalarie', component: SalarieComponent, canActivate: [AuthGuard, EmployeeNullGuard],
@@ -90,7 +89,7 @@ const routes: Routes = [
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ],
   providers: [
-    //    AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, DataService
+        // AuthGuard, AdminGuard, ClientGuard, AdminAsClientGuard, EmployeeNullGuard, ClientOrEmployeeAdminGuard
   ]
 })
 export class AppRoutingModule {}

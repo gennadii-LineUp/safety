@@ -42,12 +42,12 @@
                 </a>
             </li>
 
-            <li *ngIf='showLogin' class="back-to-admin-link" [routerLink]="['/login']">
-                <a href="javascript:void(0);">
-                    &lt; Retour à login
-                </a>
-            </li>
-            <li *ngIf='showClientData' class="back-to-admin-link" [routerLink]="['/client']">
+            <!--<li *ngIf='showLogin' class="back-to-admin-link" [routerLink]="['/login']">-->
+                <!--<a href="javascript:void(0);">-->
+                    <!--&lt; Retour à login-->
+                <!--</a>-->
+            <!--</li>-->
+            <li *ngIf='showClientData || showEmployee_Admin' class="back-to-admin-link" [routerLink]="['/client']">
                 <a href="javascript:void(0);">
                     &lt; Retour au client
                 </a>
@@ -57,6 +57,16 @@
                     &lt; Retour à l’admin
                 </a>
             </li>
+            <li *ngIf='showEmployee_Admin' class="back-to-admin-link" [routerLink]="['/sfsalarie']">
+              <a href="javascript:void(0);">
+                &lt; Retour au salarié
+              </a>
+            </li>
+          <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['']">
+            <a href="javascript:void(0);">
+              &lt; Logout
+            </a>
+          </li>
         </ul>
     </nav>
 </div>

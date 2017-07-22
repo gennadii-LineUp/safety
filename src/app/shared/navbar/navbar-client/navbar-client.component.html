@@ -31,7 +31,7 @@
                     Salariés
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/client/profil']">
+            <li *ngIf='!showEmployee_Admin' routerLinkActive="active" [routerLink]="['/client/profil']">
                 <a href="javascript:void(0);">
                     Profil
                 </a>
