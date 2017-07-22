@@ -5,6 +5,8 @@ import {ErrorMessageHandlerService} from 'app/services/error/error-message-handl
 import {SiteService} from '../../../services/site/site.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {SiteReglagesClass} from '../../../models/const/site-reglages-class';
+import {EmployeeAdminGuard} from '../../../guards/employee-admin-guard.service';
+import {ClientGuard} from '../../../guards/client-guard.service';
 
 @Component({
   selector: 'site-reglages-page',
@@ -19,7 +21,9 @@ export class SiteReglagesPageComponent implements OnInit {
 
     emptyTable = true;
 
-    showAdminData  = false;
+    showAdminData = false;
+    showEmployee_Admin = false;
+    showClientData = false;
 
     id_site =  0;
 
@@ -30,17 +34,23 @@ export class SiteReglagesPageComponent implements OnInit {
 
     constructor(private authGuard: AuthGuard,
                 private adminGuard: AdminGuard,
+                private employeeAdminGuard: EmployeeAdminGuard,
+                private clientGuard: ClientGuard,
                 private siteService: SiteService,
                 private errorMessageHandlerService: ErrorMessageHandlerService,
-                private tableSortService: TableSortService){}
+                private tableSortService: TableSortService) {}
 
   ngOnInit() {
-      this.siteService.tableMobileViewInit();
+      this.verifyUserRole();
       this.id_site = localStorage.id_site;
       this.getReglagesFunction();
-      this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
   }
 
+  public verifyUserRole() {
+    this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();
+    this.showEmployee_Admin =  this.employeeAdminGuard.canActivate();
+    this.showClientData =  this.clientGuard.canActivate();
+  }
 
   public getReglagesFunction() {
     this.cancellMessages();
@@ -65,8 +75,6 @@ export class SiteReglagesPageComponent implements OnInit {
           this.siteReglages.techControlSite = result.techControlSite;
           this.siteReglages.signatoryName = result.signatoryName;
           this.siteReglages.signatorySurname = result.signatorySurname;
-          this.siteReglages_copy = this.siteReglages;
-          console.log(this.siteReglages_copy);
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);

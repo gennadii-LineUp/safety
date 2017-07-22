@@ -6,3 +6,11 @@
   padding-right: 22px !important;
   text-align: center !important;
 }
+.ajouter-responsables-table th:nth-of-type(3),
+.ajouter-responsables-table th:nth-of-type(4),
+.ajouter-responsables-table td:nth-of-type(3),
+.ajouter-responsables-table td:nth-of-type(4){
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+  text-align: center !important;
+}

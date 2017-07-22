@@ -1,6 +1,6 @@
 <div class="form-divider clearfix" style="margin-bottom: 20px;"></div>
 <h2 class="pull-left">Responsable(s) du site</h2>
-<button class="add-an-item-button" (click)="myModal.open()"></button>
+<button class="add-an-item-button" (click)="setEmptyData(); myModal.open()"></button>
 
 <site-reglages-modal #myModal tabindex="-1">
     <modal-header-SRM>
@@ -9,13 +9,46 @@
 
     <modal-content-SRM>
         <form action="/" class="modal-form">
-            <div class="input-wrapper">
-                <input class="form-control" id="exampleInputText7" placeholder="Nom*" type="text">
-                <button>
+            <div class="input-wrapper" >
+                <input class="form-control"  placeholder="Nom*" style="margin-bottom: 2px;"
+                       #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
+                       (keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
+                <button (click)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
                     <span></span>
                 </button>
             </div>
-            <div class="table-wrapper">
+
+          <!--<div class="search-wrapper">-->
+            <!--<button class="search-button" type="button" ></button>-->
+            <!--<input #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"-->
+                   <!--class="form-control search-input" placeholder="Rechercher"-->
+                   <!--&gt;-->
+          <!--</div>-->
+
+          <div *ngIf="loaded" class="table-wrapper"  style="margin-top: 4px;">
+            <table class="table-default salaries-site-table">
+              <thead>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let employee of employee_search" style="height: 40px;">
+                    <td>Nom: {{employee.name}}</td>
+                    <td>Prénom: {{employee.surname}}</td>
+                    <td>N° sécu: {{employee.numSecu}}</td>
+                    <td style="padding: 0 0 0 0 !important;">
+                      <div class="input-wrapper">
+                        <!--<input class="form-control" id="exampleInputText7" placeholder="Nom*" type="text">-->
+                        <button style="margin-top: -9px;">
+                          <span></span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="table-wrapper" style="margin-top: 24px !important;">
                 <table class="table-default ajouter-responsables-table">
                     <thead>
                         <tr>

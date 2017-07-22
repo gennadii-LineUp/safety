@@ -23,8 +23,8 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
 
     addNewSalariesAvailable = true;
     errorSalaries = false;
-    salariesMaxPossible:number;
-    salariesUsed:number;
+    salariesMaxPossible: number;
+    salariesUsed: number;
 
     id_site: number;
     site: EmployeesClass[] = [];
