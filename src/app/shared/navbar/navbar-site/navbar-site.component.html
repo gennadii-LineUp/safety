@@ -21,7 +21,7 @@
                     Accueil
                 </a>
             </li>
-            <li *ngIf='!showEmployee_Admin || !showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
+            <li *ngIf='!(showEmployee_Admin || showEmployee_parcMachine)' routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
                 <a href="javascript:void(0);">
                     Réglages
                 </a>
