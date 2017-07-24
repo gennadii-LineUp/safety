@@ -26,14 +26,14 @@
               <li role="separator" class="divider"></li>
           </div>
 
-          <li *ngIf='showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site, 'parc']">
+          <li *ngIf='showEmployee_parcMachine'  [routerLink]="['/site', id_site, 'parc']">
             <a href="javascript:void(0);">
               Parc Machines
             </a>
           </li>
           <li role="separator" class="divider"></li>
 
-          <li id="monProfil" [routerLink]="['/sfsalarie']">
+            <li id="monProfil" [routerLink]="['/sfsalarie']">
                 <a href="javascript:void(0);">
                     Mon profil
                 </a>
@@ -86,6 +86,7 @@
             <!--</a>-->
           <!--</li>-->
 
+          <li role="separator" class="divider"></li>
           <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['']">
                 <a href="javascript:void(0);">
                     &lt; Logout

@@ -16,12 +16,12 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li *ngIf='!showEmployee_parcMachine' [routerLink]="['/site', id_site]">
+            <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site]">
                 <a href="javascript:void(0);">
                     Accueil
                 </a>
             </li>
-            <li *ngIf='!(showEmployee_Admin || showEmployee_parcMachine)' routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
+            <li *ngIf='!(showEmployee_Admin || showEmployee_parcMachine || showEmployee_general)' routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
                 <a href="javascript:void(0);">
                     Réglages
                 </a>
@@ -42,11 +42,58 @@
                 </a>
             </li>
 
+
+            <div *ngIf="!showClientData" style="display: inline-block; width: 100%;">
+              <li role="separator" class="divider"></li>
+              <li id="monProfil" [routerLink]="['/sfsalarie']">
+                <a href="javascript:void(0);">
+                  Mon profil
+                </a>
+              </li>
+              <li  >
+                <a href="javascript:void(0);" (click)="openLinkInNewWindowFunction()">
+                  Mon compte formation
+                </a>
+              </li>
+              <li routerLinkActive="active" [routerLink]="['/sfsalarie/fichiers']">
+                <a href="javascript:void(0);">
+                  Fichiers
+                </a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/fiches-machines']">
+                <a href="javascript:void(0);">
+                  Fiches Machines
+                </a>
+              </li>
+              <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/visite-medicale']">
+                <a href="javascript:void(0);">
+                  Visite médicale
+                </a>
+              </li>
+              <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/caces']">
+                <a href="javascript:void(0);">
+                  Caces
+                </a>
+              </li>
+              <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/attestations']">
+                <a href="javascript:void(0);">
+                  Attestations / Habilit.
+                </a>
+              </li>
+              <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/autorisations-conduite']">
+                <a href="javascript:void(0);">
+                  Autorisations conduite
+                </a>
+              </li>
+            </div>
+
             <!--<li *ngIf='showLogin' class="back-to-admin-link" [routerLink]="['/login']">-->
                 <!--<a href="javascript:void(0);">-->
                     <!--&lt; Retour à login-->
                 <!--</a>-->
             <!--</li>-->
+            <li role="separator" class="divider"></li>
             <li *ngIf='showClientData || showEmployee_Admin' class="back-to-admin-link" [routerLink]="['/client']">
                 <a href="javascript:void(0);">
                     &lt; Retour au client
@@ -57,7 +104,7 @@
                     &lt; Retour à l’admin
                 </a>
             </li>
-            <li *ngIf='showEmployee_Admin' class="back-to-admin-link" [routerLink]="['/sfsalarie']">
+            <li *ngIf='showEmployee_Admin || showEmployee_general' class="back-to-admin-link" [routerLink]="['/sfsalarie']">
               <a href="javascript:void(0);">
                 &lt; Retour au salarié
               </a>
