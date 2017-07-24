@@ -93,6 +93,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
         this.id_site = localStorage.id_site;
+        console.log('parc  id_site ' + this.id_site);
         this.findByNameFunction('', 1, '');
         this.getEmployeeGroupes();
         this.siteService.tableMobileViewInit();

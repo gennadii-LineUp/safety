@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AuthGuard} from '../../../guards/auth-guards.service';
 import {EmployeeAdminGuard} from '../../../guards/employee-admin-guard.service';
 import {AdminService} from '../../../services/admin/admin.service';
+import {EmployeeGeneralGuard} from '../../../guards/employee-general-guard.service';
+import {EmployeeTechGuard} from '../../../guards/employee-technical-guard.service';
 
 @Component({
   selector: 'navbar-salaries',
@@ -11,9 +13,11 @@ import {AdminService} from '../../../services/admin/admin.service';
 })
 export class NavbarSalariesComponent implements OnInit {
   myCompteFormation = '';
+  id_site = 0;
 
     showEmployee_Admin = false;
-    showEmployee_responsable_parcMachine = false;
+    showEmployee_parcMachine = false;
+    showEmployee_general = false;
     menu_admin: any[] = [
       { id: 1,  display: 'Sites',               router: '/client' },
       { id: 2,  display: 'Groupes de salariés', router: '/client/groupes' },
@@ -24,17 +28,23 @@ export class NavbarSalariesComponent implements OnInit {
 
     constructor(private authGuard: AuthGuard,
                 private employeeAdminGuard: EmployeeAdminGuard,
+                private employeeGeneralGuard: EmployeeGeneralGuard,
+                private employeeTechGuard: EmployeeTechGuard,
                 private adminService: AdminService) {}
 
     ngOnInit() {
+        this.id_site = localStorage.id_site;
+        console.log('navbar salaryee  id_site ' + this.id_site);
         this.verifyUserRole();
         this.getExistingCompteFormation();
+      // localStorage.setItem('id_site', ''+this.id_site);
     }
 
     public verifyUserRole() {
         this.showEmployee_Admin = this.authGuard.canActivate() && this.employeeAdminGuard.canActivate();
         console.log('showEmployee_Admin ' + this.showEmployee_Admin);
-        // showEmployee_responsable_parcMachine
+        this.showEmployee_parcMachine = this.authGuard.canActivate() && this.employeeTechGuard.canActivate();
+        this.showEmployee_general = this.authGuard.canActivate() && this.employeeGeneralGuard.canActivate();
     }
 
     logoutFunction() {

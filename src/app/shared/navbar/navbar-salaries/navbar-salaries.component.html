@@ -26,14 +26,14 @@
               <li role="separator" class="divider"></li>
           </div>
 
-          <li *ngIf='showEmployee_responsable_parcMachine' routerLinkActive="active" [routerLink]="['/sfsalarie/fichiers']">
+          <li *ngIf='showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site, 'parc']">
             <a href="javascript:void(0);">
               Parc Machines
             </a>
           </li>
           <li role="separator" class="divider"></li>
 
-          <li routerLinkActive="active" [routerLink]="['/sfsalarie']">
+          <li id="monProfil" [routerLink]="['/sfsalarie']">
                 <a href="javascript:void(0);">
                     Mon profil
                 </a>

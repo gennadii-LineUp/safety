@@ -5,6 +5,8 @@ import {ClientGuard} from '../../../guards/client-guard.service';
 import {ActivatedRoute} from '@angular/router';
 import {AdminAsClientGuard} from '../../../guards/admin-as-client-guard.service';
 import {EmployeeAdminGuard} from '../../../guards/employee-admin-guard.service';
+import {EmployeeGeneralGuard} from '../../../guards/employee-general-guard.service';
+import {EmployeeTechGuard} from '../../../guards/employee-technical-guard.service';
 
 @Component({
   selector: 'navbar-site',
@@ -16,8 +18,10 @@ export class NavbarSiteComponent implements OnInit, OnDestroy {
     showClientData = false;
     showLogin = false;
     showEmployee_Admin = false;
+    showEmployee_parcMachine = false;
+    showEmployee_general = false;
 
-    id_site = 0;
+  id_site = 0;
     private sub: any;
 
 
@@ -26,6 +30,8 @@ export class NavbarSiteComponent implements OnInit, OnDestroy {
                 private adminAsClientGuard: AdminAsClientGuard,
                 private clientGuard: ClientGuard,
                 private employeeAdminGuard: EmployeeAdminGuard,
+                private employeeGeneralGuard: EmployeeGeneralGuard,
+                private employeeTechGuard: EmployeeTechGuard,
                 private route: ActivatedRoute) {}
 
     ngOnInit() {
@@ -46,7 +52,10 @@ export class NavbarSiteComponent implements OnInit, OnDestroy {
         this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate() && this.adminAsClientGuard.canActivate();
         this.showClientData = this.authGuard.canActivate() && this.clientGuard.canActivate();
         this.showEmployee_Admin = this.authGuard.canActivate() && this.employeeAdminGuard.canActivate();
-        // if (this.showAdminData || this.showClientData) {
+      this.showEmployee_parcMachine = this.authGuard.canActivate() && this.employeeTechGuard.canActivate();
+      this.showEmployee_general = this.authGuard.canActivate() && this.employeeGeneralGuard.canActivate();
+
+      // if (this.showAdminData || this.showClientData) {
         //     this.showLogin = false;
         //     return;
         // }

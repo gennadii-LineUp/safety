@@ -27,8 +27,8 @@
             </div>
             <div class="clearfix"></div>
             <div class="detailed-info-wrapper">
-                <p>Nom {{employee.name | capitalize}}</p>
-                <p>Prénom {{employee.surname | capitalize}}</p>
+                <p>Nom {{employee.name | capitalizeFirstLetter}}</p>
+                <p>Prénom {{employee.surname | capitalizeFirstLetter}}</p>
                 <p>Né(e) le {{employee.birthDate | date: 'dd/MM/yyyy'}}</p>
                 <p>N° sécurité sociale {{employee.numSecu | uppercase}}</p>
                 <p>Poste : {{employee.post | lowercase}}</p>

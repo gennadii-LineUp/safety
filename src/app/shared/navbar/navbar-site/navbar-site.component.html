@@ -16,17 +16,17 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li [routerLink]="['/site', id_site]">
+            <li *ngIf='!showEmployee_parcMachine' [routerLink]="['/site', id_site]">
                 <a href="javascript:void(0);">
                     Accueil
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
+            <li *ngIf='!showEmployee_Admin || !showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
                 <a href="javascript:void(0);">
                     Réglages
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site', id_site, 'fichiers']">
+            <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site, 'fichiers']">
                 <a href="javascript:void(0);">
                     Fichiers
                 </a>
@@ -36,7 +36,7 @@
                     Parc Machines
                 </a>
             </li>
-            <li routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site', id_site, 'salaries']">
+            <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site', id_site, 'salaries']">
                 <a href="javascript:void(0);">
                     Salariés
                 </a>

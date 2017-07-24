@@ -22,11 +22,11 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
                 private errorMessageHandlerService: ErrorMessageHandlerService) { }
 
     ngOnInit() {
-      // window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
+      window.document.querySelectorAll('#monProfil')['0'].classList.add('active');
       this.getProfileDataFunction();
     }
     ngOnDestroy() {
-        // window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
+        window.document.querySelectorAll('#monProfil')['0'].classList.remove('active');
     }
 
 
