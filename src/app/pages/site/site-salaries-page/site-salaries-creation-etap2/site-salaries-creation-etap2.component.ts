@@ -413,7 +413,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             });
     }
 
-    public getAttestForUpdateFunction(id_itemForUpdate: number) {
+    public getAttestForUpdateFunction(id_itemForUpdate) {
         this.cancellErrorMessage();
         this.creatingAttest = true;
         this.attestation = new AttestationClass('', '', '');

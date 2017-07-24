@@ -16,12 +16,14 @@
     </div>
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
-            <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active" [routerLink]="['/site', id_site]">
+            <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/site', id_site]">
                 <a href="javascript:void(0);">
                     Accueil
                 </a>
             </li>
-            <li *ngIf='!(showEmployee_Admin || showEmployee_parcMachine || showEmployee_general)' routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
+            <li *ngIf='!(showEmployee_Admin || showEmployee_parcMachine || showEmployee_general)'
+                routerLinkActive="active" [routerLink]="['/site', id_site, 'reglages']">
                 <a href="javascript:void(0);">
                     Réglages
                 </a>
@@ -31,7 +33,7 @@
                     Fichiers
                 </a>
             </li>
-            <li routerLinkActive="active" [routerLink]="['/site', id_site, 'parc']">
+            <li  routerLinkActive="active" [routerLink]="['/site', id_site, 'parc']">
                 <a href="javascript:void(0);">
                     Parc Machines
                 </a>
@@ -104,7 +106,7 @@
                     &lt; Retour à l’admin
                 </a>
             </li>
-            <li *ngIf='showEmployee_Admin || showEmployee_general' class="back-to-admin-link" [routerLink]="['/sfsalarie']">
+            <li *ngIf='showEmployee_Admin ' class="back-to-admin-link" [routerLink]="['/sfsalarie']">
               <a href="javascript:void(0);">
                 &lt; Retour au salarié
               </a>

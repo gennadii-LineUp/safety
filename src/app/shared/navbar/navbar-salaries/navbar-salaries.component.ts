@@ -25,6 +25,13 @@ export class NavbarSalariesComponent implements OnInit {
       // { id: 4,  display: 'Profil',              router: '/client/profil' },
       { id: 5,  display: 'Bibliothèque',        router: '/client/bibliotheque' },
     ];
+    menu_employee_general: any[] = [
+    { id: 1,  display: 'Accueil',  router1: '["/site", ', router2: ', "reglages"]' },
+    { id: 2,  display: 'Réglages', router1: '["/site", ', router2: ', "reglages"]' },
+    { id: 3,  display: 'Fichiers', router1: '["/site", ', router2: ', "fichiers"]' },
+    { id: 4,  display: 'Parc Machines', router1: '["/site", ', router2: ', "parc"]' },
+    { id: 5,  display: 'Salariés', router1: '["/site", ', router2: ', "salaries"]' }
+  ];
 
     constructor(private authGuard: AuthGuard,
                 private employeeAdminGuard: EmployeeAdminGuard,

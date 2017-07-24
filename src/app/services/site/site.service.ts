@@ -32,17 +32,26 @@ export class SiteService {
       console.log(query);
       return this.backendService.get(query);
     }
+    public getResponsables(siteId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/responsible';
+      console.log(query);
+      return this.backendService.get(query);
+    }
     public addNewReglages(newReglages: SiteReglagesClass, siteId: number): Observable<any> {
       const query = UrlParams.siteHome + siteId ;
       return this.backendService.post(query, JSON.stringify(newReglages));
     }
     public addEmployeeAccess(newAccess: any, siteId: number): Observable<any> {
-    const query = UrlParams.siteHome + siteId + '/responsible';
+      const query = UrlParams.siteHome + siteId + '/responsible';
     return this.backendService.post(query, JSON.stringify(newAccess));
-  }
+    }
+    deleteResponsable(siteId: number, responsableId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/responsible/' + responsableId;
+      return this.backendService.deleteData(query);
+    }
 
 
-    public homeData(): Observable<any> {
+  public homeData(): Observable<any> {
         return this.backendService.get(UrlParams.adminHome);
     }
 

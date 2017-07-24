@@ -19,6 +19,7 @@ import {EmployeeAdminGuard} from './guards/employee-admin-guard.service';
 import {EmployeeTechGuard} from './guards/employee-technical-guard.service';
 import {EmployeeGeneralGuard} from './guards/employee-general-guard.service';
 import {ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard} from './guards/client-eadmin-egener-etech-guard.service';
+import {ClientOrEmplAdminOrEmplGeneralGuard} from './guards/client-eadmin-egener-guard.service';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import {ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard} from './guards/client-
     exports: [ ],
     providers: [
         AuthGuard, AdminGuard, ClientGuard, EmployeeTechGuard, EmployeeGeneralGuard, ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard,
-        AdminAsClientGuard, EmployeeNullGuard, ClientOrEmployeeAdminGuard, EmployeeAdminGuard,
+        AdminAsClientGuard, EmployeeNullGuard, ClientOrEmployeeAdminGuard, EmployeeAdminGuard, ClientOrEmplAdminOrEmplGeneralGuard,
         ErrorMessageHandlerService, BackendService, DataService
     ],
     bootstrap: [AppComponent]

@@ -36,6 +36,7 @@ import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestation
 import {EmployeeNullGuard} from '../guards/employee-null-guard.service';
 import {ClientOrEmployeeAdminGuard} from '../guards/client-eadmin-guard.service';
 import {ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard} from '../guards/client-eadmin-egener-etech-guard.service';
+import {ClientOrEmplAdminOrEmplGeneralGuard} from "../guards/client-eadmin-egener-guard.service";
 
 
 const routes: Routes = [
@@ -62,13 +63,13 @@ const routes: Routes = [
   },
   { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard],
     children: [
-      { path: '',         component: SiteAccueilPageComponent,  canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: '',         component: SiteAccueilPageComponent,  canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: 'reglages', component: SiteReglagesPageComponent, canActivate: [AuthGuard, ClientGuard] },
-      { path: 'fichiers', component: SiteFichiersPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'fichiers', component: SiteFichiersPageComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: 'parc',     component: SiteParcPageComponent,     canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard] },
-      { path: 'salaries', component: SiteSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
-      { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
-      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] }
+      { path: 'salaries', component: SiteSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] }
     ]
   },
   { path: 'sfsalarie', component: SalarieComponent, canActivate: [AuthGuard, EmployeeNullGuard],
