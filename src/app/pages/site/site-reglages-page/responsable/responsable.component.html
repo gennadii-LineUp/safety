@@ -8,8 +8,8 @@
     </modal-header-SRM>
 
     <modal-content-SRM>
-        <form action="/" class="modal-form">
-            <div class="input-wrapper" >
+
+          <div class="input-wrapper" >
                 <input class="form-control"  placeholder="Nom*" style="margin-bottom: 2px;"
                        #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
                        (keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
@@ -30,14 +30,15 @@
               <thead>
               </thead>
               <tbody>
-                  <tr *ngFor="let employee of employee_search" style="height: 40px;">
-                    <td>Nom: {{employee.name}}</td>
-                    <td>Prénom: {{employee.surname}}</td>
-                    <td>N° sécu: {{employee.numSecu}}</td>
-                    <td style="padding: 0 0 0 0 !important;">
+                  <tr *ngFor="let employee of employee_fromSearch" style="height: 40px;">
+                    <td style="width: 44%;">Nom: {{employee.name | capitalizeFirstLetter}}</td>
+                    <td style="width: 26%;">Prénom: {{employee.surname | capitalizeFirstLetter}}</td>
+                    <td style="width: 25.6%;">N° sécu: {{employee.numSecu | uppercase}}</td>
+                    <td style="padding: 0 0 0 0 !important; width: 4.4%;">
                       <div class="input-wrapper">
                         <!--<input class="form-control" id="exampleInputText7" placeholder="Nom*" type="text">-->
-                        <button style="margin-top: -9px;">
+                        <button style="margin-top: -9px;"
+                                (click)="takeEmployee_forSettingAccessFunction(employee);">
                           <span></span>
                         </button>
                       </div>
@@ -47,7 +48,8 @@
             </table>
           </div>
 
-
+      <form #site_employeeAccessForm="ngForm"  novalidate  class="modal-form" (click)='cancellMessages()'
+            (ngSubmit)="submitForm(site_employeeAccessForm)">
           <div class="table-wrapper" style="margin-top: 24px !important;">
                 <table class="table-default ajouter-responsables-table">
                     <thead>
@@ -68,57 +70,37 @@
                         <tr *ngIf='emptyTableMobile'>
                             <td>-</td>
                             <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
+                          <td>
+                            <div class="radio">
+                              <input id="radio-11" name="radio1" type="radio" checked>
+                              <label for="radio-11" class="radio-label"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="radio">
+                              <input id="radio-12" name="radio1" type="radio">
+                              <label  for="radio-12" class="radio-label"></label>
+                            </div>
+                          </td>
                         </tr>
 
-                        <tr>
-                            <td>Nom du salarié 1</td>
-                            <td>201010100011133</td>
-                            <td>
-                                <div class="radio">
-                                    <input id="radio-11" name="radio1" type="radio" checked>
-                                    <label for="radio-11" class="radio-label"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="radio">
-                                    <input id="radio-12" name="radio1" type="radio">
-                                    <label  for="radio-12" class="radio-label"></label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Nom du salarié 2</td>
-                            <td>201010100011133</td>
-                            <td>
-                                <div class="radio">
-                                    <input id="radio-21" name="radio2" type="radio">
-                                    <label for="radio-21" class="radio-label"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="radio">
-                                    <input id="radio-22" name="radio2" type="radio" checked>
-                                    <label  for="radio-22" class="radio-label"></label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Nom du salarié 3</td>
-                            <td>201010100011133</td>
-                            <td>
-                                <div class="radio">
-                                    <input id="radio-31" name="radio3" type="radio">
-                                    <label for="radio-31" class="radio-label"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="radio">
-                                    <input id="radio-32" name="radio3" type="radio" checked>
-                                    <label  for="radio-32" class="radio-label"></label>
-                                </div>
-                            </td>
+                        <tr *ngFor="let employeeAccess of employee_forAccess" style="height: 40px;">
+                          <td>{{employeeAccess.name | capitalizeFirstLetter}}</td>
+                          <td>{{employeeAccess.numSecu | uppercase}}</td>
+                          <td *ngFor="let type of types_employeeAccess" >
+                            <div class="radio" >
+                              <input type="radio"   id={{type.id}} name="employeeGroup"
+                                     [(ngModel)]="employeeAccess.responsible" [value]="type.id" >  <!-- checked={{groupe.booleanValue}}-->
+                              <label for={{type.id}} class="radio-label"></label>
+                            </div>
+
+                            <!--<div *ngFor="let equipement of machinesGlossary.types_2_engins_12_equipement" class="radio" >-->
+                              <!--<input type="radio"   id={{equipement.id}} name="equipementGroup"-->
+                                     <!--[value]="equipement.id" (change)='addSubcategoryEquipement($event); false'>  &lt;!&ndash; checked={{equipement.booleanValue}}&ndash;&gt;-->
+                              <!--<label for={{equipement.id}} class="radio-label">{{equipement.display}}</label>-->
+                            <!--</div>-->
+
+
                         </tr>
                     </tbody>
                 </table>
@@ -126,7 +108,8 @@
             <div class="button-wrapper">
                 <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
                         (click)="myModal.close()">Annuler</button>
-                <button type="submit" class="form-button green-button creer-button" data-dismiss="modal">Ajouter</button>
+                <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
+                    [disabled]="!employee_forAccess.length">Ajouter</button>
             </div>
         </form>
     </modal-content-SRM>
