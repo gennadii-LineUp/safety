@@ -3,12 +3,12 @@ import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import { Observable } from 'rxjs/Observable';
 import {EmployeesClass} from '../../models/const/employees-class';
-import {DrivingLicenseClass} from "../../models/const/driving-license-class";
-import {query} from "@angular/core/src/animation/dsl";
-import {EmployeesClassDates} from "../../models/const/employees-dates-class";
-import {FichiersClass} from "../../models/const/site-fichiers-class";
-import {MachineClass} from "../../models/const/machine-class";
-import {SiteReglagesClass} from "../../models/const/site-reglages-class";
+import {DrivingLicenseClass} from '../../models/const/driving-license-class';
+import {query} from '@angular/core/src/animation/dsl';
+import {EmployeesClassDates} from '../../models/const/employees-dates-class';
+import {FichiersClass} from '../../models/const/site-fichiers-class';
+import {MachineClass} from '../../models/const/machine-class';
+import {SiteReglagesClass} from '../../models/const/site-reglages-class';
 
 @Injectable()
 export class SiteService {
@@ -36,6 +36,10 @@ export class SiteService {
       const query = UrlParams.siteHome + siteId ;
       return this.backendService.post(query, JSON.stringify(newReglages));
     }
+    public addEmployeeAccess(newAccess: any, siteId: number): Observable<any> {
+    const query = UrlParams.siteHome + siteId + '/responsible';
+    return this.backendService.post(query, JSON.stringify(newAccess));
+  }
 
 
     public homeData(): Observable<any> {
@@ -138,7 +142,8 @@ export class SiteService {
     }
 
 
-  public setCategoryDrivingLicense(newDrivingLicense: DrivingLicenseClass, siteId: number, employeeId: number, urlOption: string): Observable<any> {
+  public setCategoryDrivingLicense(newDrivingLicense: DrivingLicenseClass, siteId: number,
+                                    employeeId: number, urlOption: string): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/driving_licenses' + urlOption;
     console.log(url);
     return this.backendService.post(url, JSON.stringify(newDrivingLicense));
@@ -187,11 +192,11 @@ export class SiteService {
     public sendPDFtoServer(file: any, content: any, siteId: number): Observable<any> {
       console.log('====================');
       const url = UrlParams.siteHome + siteId + '/files';
-      let formData: FormData = new FormData();
+      const formData: FormData = new FormData();
       formData.append('file', file.name);
       formData.append('uploadFile', content.result);
 
-      let fileToServer = {
+      const fileToServer = {
         file: file.name,
         uploadFile: content.result
       };

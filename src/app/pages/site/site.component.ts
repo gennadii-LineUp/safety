@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SiteService} from '../../services/site/site.service';
 import {DataService} from '../../services/DataService.service';
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'site',
@@ -16,17 +16,17 @@ export class SiteComponent implements OnInit, OnDestroy {
     private sub: any;
 
     constructor(private route: ActivatedRoute) {}
-//private siteService: SiteService,
+// private siteService: SiteService,
 
 
-    ngOnInit():void {
+    ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
             this.id_site = +params['id_site'];
         });
 
-        localStorage.setItem('id_site', ''+this.id_site);
+        localStorage.setItem('id_site', '' + this.id_site);
 
-        console.log('from site '+this.id_site);
+        console.log('from site ' + this.id_site);
         this.tableMobileViewInit();
     }
 
@@ -47,11 +47,11 @@ export class SiteComponent implements OnInit, OnDestroy {
         $(window).resize(function(){
             var windowWidth = window.innerWidth;
             if (windowWidth > 991) {
-                $(".sidebar-nav").slideDown();
+                $('.sidebar-nav').slideDown();
             }
             else {
-                $("#nav-icon1").removeClass('open');
-                $(".sidebar-nav").slideUp();
+                $('#nav-icon1').removeClass('open');
+                $('.sidebar-nav').slideUp();
             }
         });
     }
