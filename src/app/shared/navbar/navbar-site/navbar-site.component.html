@@ -17,7 +17,7 @@
     <nav class="sidebar-nav">
         <ul class="list-unstyled">
             <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/site', id_site]">
+                [routerLinkActiveOptions]="{exact:true}" [routerLink]="['/site', id_site, 'accueil']">
                 <a href="javascript:void(0);">
                     Accueil
                 </a>
@@ -33,7 +33,9 @@
                     Fichiers
                 </a>
             </li>
-            <li  routerLinkActive="active" [routerLink]="['/site', id_site, 'parc']">
+            <li *ngIf="showClientData || showEmployee_Admin || showEmployee_parcMachine || showEmployee_general"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                [routerLink]="['/site', id_site, 'parc']">
                 <a href="javascript:void(0);">
                     Parc Machines
                 </a>
@@ -95,7 +97,8 @@
                     <!--&lt; Retour à login-->
                 <!--</a>-->
             <!--</li>-->
-            <li role="separator" class="divider"></li>
+            <li *ngIf="showClientData || showEmployee_Admin || showEmployee_parcMachine || showEmployee_general"
+                role="separator" class="divider"></li>
             <li *ngIf='showClientData || showEmployee_Admin' class="back-to-admin-link" [routerLink]="['/client']">
                 <a href="javascript:void(0);">
                     &lt; Retour au client
@@ -111,7 +114,8 @@
                 &lt; Retour au salarié
               </a>
             </li>
-          <li class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['']">
+          <li *ngIf="showClientData || showEmployee_Admin || showEmployee_parcMachine || showEmployee_general"
+              class="back-to-admin-link" (click)='logoutFunction()' [routerLink]="['']">
             <a href="javascript:void(0);">
               &lt; Logout
             </a>

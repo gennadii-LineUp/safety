@@ -91,5 +91,68 @@ export class UrlParams {
       //  return `http://api.lab.sygma-online.fr/employee/`;
     }
 
+    //////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  //
+  // public static get LOGIN(): string {
+  //     return `http://api.lab.sygma-online.fr/login`;
+  // }
+  //
+  // public static get adminClients(): string {
+  //     return `http://api.lab.sygma-online.fr/admin/clients`;
+  // }
+  //
+  // public static get adminClientHome(): string {
+  //     return `http://api.lab.sygma-online.fr/admin/clients/`;
+  // }
+  //
+  // public static get adminReglages(): string {
+  //     return `http://api.lab.sygma-online.fr/admin/settings`;
+  // }
+  //
+  // public static get monCompteFormationLink(): string {
+  //     return `http://api.lab.sygma-online.fr/mon_compte_formation_link`;
+  // }
+  //
+  // public static get adminHome(): string {
+  //     return `http://api.lab.sygma-online.fr/admin/home`;
+  // }
+  //
+  // public static get adminLink(): string {
+  //     return `http://api.lab.sygma-online.fr/library_links`;
+  // }
+  //
+  // public static get clientSites(): string {
+  //     return `http://api.lab.sygma-online.fr/sites`;
+  // }
+  //
+  // public static get employeesGroupsList(): string {
+  //     return `http://api.lab.sygma-online.fr/client/employees-groups-list`;
+  // }
+  //
+  // public static get clientGroupes(): string {
+  //     return `http://api.lab.sygma-online.fr/client/employees-groups`;
+  // }
+  //
+  // public static get clientEmployees(): string {
+  //     return `http://api.lab.sygma-online.fr/client/employees`;
+  // }
+  //
+  // public static get employeeCount(): string {
+  //     return `http://api.lab.sygma-online.fr/client/employee_count`;
+  // }
+  //
+  // public static get clientProfilData(): string {
+  //     return `http://api.lab.sygma-online.fr/client/profile`;
+  // }
+  //
+  // public static get siteHome(): string {
+  //     return `http://api.lab.sygma-online.fr/sites/`;
+  // }
+  //
+  // public static get employeeHome(): string {
+  //     return `http://api.lab.sygma-online.fr/employee/`;
+  // }
+
 
 }

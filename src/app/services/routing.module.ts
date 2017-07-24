@@ -63,13 +63,14 @@ const routes: Routes = [
   },
   { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard],
     children: [
-      { path: '',         component: SiteAccueilPageComponent,  canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'accueil',  component: SiteAccueilPageComponent,  canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: 'reglages', component: SiteReglagesPageComponent, canActivate: [AuthGuard, ClientGuard] },
       { path: 'fichiers', component: SiteFichiersPageComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: 'parc',     component: SiteParcPageComponent,     canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard] },
       { path: 'salaries', component: SiteSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
-      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] }
+      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: '', redirectTo: 'accueil', pathMatch: 'full' }
     ]
   },
   { path: 'sfsalarie', component: SalarieComponent, canActivate: [AuthGuard, EmployeeNullGuard],

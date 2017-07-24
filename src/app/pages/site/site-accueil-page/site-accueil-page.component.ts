@@ -23,13 +23,13 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
-        window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
+        // window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
         this.getAccueilInfoFunction();
         this.getFromServerAccueilImageFunction();
    }
 
     ngOnDestroy() {
-        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
+        // window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
   public getAccueilInfoFunction() {
