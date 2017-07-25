@@ -112,7 +112,7 @@
                 <td>{{employee_respo.name | capitalizeFirstLetter}}</td>
                 <td>{{employee_respo.responsible | responsableSite}}</td>
                 <td>
-                  <a href="javascript:void(0);" (click)='myModal.open(); getResponsableForUpdateFunction(employee_respo)'>
+                  <a href="javascript:void(0);" (click)='myModal.open(); getResponsableForUpdateFunction(employee_responsables)'>
                     Modifier
                   </a>
                   /
@@ -260,17 +260,14 @@
         <tr *ngFor="let employee of employee_fromSearch" style="height: 40px;">
           <td style="width: 44%;">Nom: {{employee.name | capitalizeFirstLetter}}</td>
           <td style="width: 26%;">N° sécu: {{employee.numSecu | uppercase}}</td>
-          <td style="width: 30%; text-align: left !important;">Prénom: {{employee.surname | capitalizeFirstLetter}}
+          <td style="width: 30%; text-align: left !important; padding-right: 0px;">Prénom: {{employee.surname | capitalizeFirstLetter}}
             <div class="input-wrapper" style="float: right;">
-              <!--<input class="form-control" id="exampleInputText7" placeholder="Nom*" type="text">-->
-              <button style="margin-top: -9px; margin-right: -5px;"
+              <button style="margin-top: -9px; margin-right: 0px;"
                       (click)="takeEmployee_forSettingAccessFunction(employee);">
                 <span></span>
               </button>
             </div>
           </td>
-          <!--<td style="padding: 0 0 0 0 !important; width: 4.4%;">-->
-          <!--</td>-->
         </tr>
         </tbody>
       </table>
@@ -305,21 +302,13 @@
               <tr *ngFor="let employeeAccess of employee_forAccess" style="height: 40px;">
                   <td>{{employeeAccess.name | capitalizeFirstLetter}}</td>
                   <td>{{employeeAccess.numSecu | uppercase}}</td>
-
                   <td *ngFor="let type of types_employeeAccess" >
                       <div class="radio" >
-                        <input type="radio"   id='{{employeeAccess.id}}' name='{{employeeAccess.id}}'
-                               [(ngModel)]="employeeAccess.responsible" [value]="type.id" >  <!-- checked={{groupe.booleanValue}}-->
-                        <label for='{{employeeAccess.id}}' class="radio-label"></label>
+                        <input type="radio"   id='{{employeeAccess.id}}{{type.id}}' name='{{employeeAccess.id}}'
+                               [(ngModel)]="employeeAccess.responsible" [value]="type.id" >
+                        <label for='{{employeeAccess.id}}{{type.id}}' class="radio-label" style="padding-right: 10px;"></label>
                       </div>
                   </td>
-                  <!--<div class="radio" >-->
-                    <!--<input type="radio"   id={{type.id}} name="employeeGroup"-->
-                           <!--[(ngModel)]="employeeAccess.responsible" [value]="type.id" >  &lt;!&ndash; checked={{groupe.booleanValue}}&ndash;&gt;-->
-                    <!--<label for={{type.id}} class="radio-label"></label>-->
-                  <!--</div>-->
-
-
               </tr>
           </tbody>
         </table>

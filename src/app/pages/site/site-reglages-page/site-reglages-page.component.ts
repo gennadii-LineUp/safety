@@ -142,35 +142,20 @@ export class SiteReglagesPageComponent implements OnInit {
       });
   }
 
-  public getResponsableForUpdateFunction(responsableForUpdate: any) {
+  public getResponsableForUpdateFunction(employee_responsables: any) {
     this.setEmptyData();
     this.loadingResponsables = true;
     this.emptyTableMobile = false;
-    const employee_forSettingAccess = new EmployeesSettingAccessClass(responsableForUpdate.id,
-                                                                    responsableForUpdate.name,
-                                                                    responsableForUpdate.surname,
-                                                                    responsableForUpdate.numSecu,
-                                                                    0);
-    this.employee_forAccess.push(employee_forSettingAccess);
+    this.employee_forAccess = employee_responsables;
+    // take one for editing //
+    // const employee_forSettingAccess = new EmployeesSettingAccessClass(responsableForUpdate.id,
+    //                                                                 responsableForUpdate.name,
+    //                                                                 responsableForUpdate.surname,
+    //                                                                 responsableForUpdate.numSecu,
+    //                                                                 0);
+    // this.employee_forAccess.push(employee_forSettingAccess);
     console.log(this.employee_forAccess);
     return true;
-    //
-    // this.siteService.getOneAttestation(this.id_site, responsableForUpdate.id, '/' + responsableForUpdate.id)
-    //   .subscribe(result => {
-    //     if (result) {
-    //       this.loadingResponsables = false;
-    //       console.log(result);
-    //       this.attestation.name = result.name;
-    //       this.attestation.dateExpires = this.dataService.convertDateForInputView(result.dateExpires);
-    //       this.attestation.dateIssue = this.dataService.convertDateForInputView(result.dateIssue);
-    //       this.saveButtonCaptionAttest = 'Modifier';
-    //       this.itemForChange = result.id;
-    //     }
-    //   }, (err) => {
-    //     this.loadingResponsables = false;
-    //     console.log(err);
-    //     this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-    //   });
   }
 
   public deleteResponsableFunction(id_itemForDelete: number) {
@@ -190,7 +175,6 @@ export class SiteReglagesPageComponent implements OnInit {
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
-
 
 
   public submitNewReglagesForm() {
@@ -246,7 +230,7 @@ export class SiteReglagesPageComponent implements OnInit {
   public takeEmployee_forSettingAccessFunction(employee) {
     console.log(employee);
     this.emptyTableMobile = false;
-    const employee_forSettingAccess = new EmployeesSettingAccessClass(employee.id, employee.name, employee.surname, employee.numSecu, 0);
+    const employee_forSettingAccess = new EmployeesSettingAccessClass(employee.id, employee.name, employee.surname, employee.numSecu, 1);
 
     this.employee_forAccess.push(employee_forSettingAccess);
     for (let i = 0; i < this.employee_fromSearch.length; i++) {
@@ -261,8 +245,6 @@ export class SiteReglagesPageComponent implements OnInit {
   public submitForm() {
     this.cancellMessages();
     this.loading = true;
-    // const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
-    // console.log(visites);
     this.siteService.addEmployeeAccess(this.employee_forAccess, this.id_site)
       .subscribe(result => {
         if (result) {
