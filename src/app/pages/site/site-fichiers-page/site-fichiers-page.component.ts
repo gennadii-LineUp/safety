@@ -247,7 +247,8 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   }
 
   public sendFileToServer() {
-    console.log(this.content.result);
+    console.log(this.content);
+    // console.log(this.content.result);
     // if (this.userHasChoosenFile) {
        this.loadingFile = true;
        this.siteService.sendPDFtoServer(this.file, this.content, this.id_site)

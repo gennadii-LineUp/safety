@@ -199,31 +199,16 @@ export class SiteService {
     }
 
     public sendPDFtoServer(file: any, content: any, siteId: number): Observable<any> {
-      console.log('====================');
       const url = UrlParams.siteHome + siteId + '/files';
-      const formData: FormData = new FormData();
-      formData.append('file', file.name);
-      formData.append('uploadFile', content.result);
+      // const formData: FormData = new FormData();
+      // formData.append('file', file.name);
+      // formData.append('uploadFile', content.result);
 
       const fileToServer = {
-        file: file.name,
-        uploadFile: content.result
+        content: ((((content.result).split(';'))[1]).split(','))[1]
       };
 
-      for (let i in fileToServer) {
-       // console.log(i + ', ' + fileToServer[i]);
-      }
-
-
-      // for (let key in formData) {
-      //   formData.append('file', file.name);
-      //   formData.append('uploadFile', content.result);
-      // }
-
-     // formData.append('uploadFile', file, file.name);
-
-      console.dir(fileToServer);
-      return this.backendService.sendPDFtoServer(url, fileToServer);
+      return this.backendService.loadImage_post(url, fileToServer);
     }
 
 
