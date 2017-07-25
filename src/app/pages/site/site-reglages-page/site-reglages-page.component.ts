@@ -286,6 +286,10 @@ export class SiteReglagesPageComponent implements OnInit {
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
+          let mod = document.getElementById('myModal');
+          console.log(mod);
+          console.dir(mod);
+          // '     '
         }
       }, (err) => {
         this.loading = false;
