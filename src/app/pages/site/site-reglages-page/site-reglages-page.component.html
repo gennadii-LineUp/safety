@@ -12,8 +12,7 @@
 </header>
 <div *ngIf="siteReglages.name" class="main-content">
     <form #site_reglagesForm="ngForm" class="settings-form" novalidate (click)='cancellMessages()'
-          enctype="multipart/form-data"
-          (ngSubmit)="submitNewReglagesForm(site_reglagesForm)">
+          enctype="multipart/form-data">
         <div class="settings-form-left-content-part">
             <h2>Site</h2>
 
@@ -112,7 +111,7 @@
                 <td>{{employee_respo.name | capitalizeFirstLetter}}</td>
                 <td>{{employee_respo.responsible | responsableSite}}</td>
                 <td>
-                  <a href="javascript:void(0);" (click)='myModal.open(); getResponsableForUpdateFunction(employee_responsables)'>
+                  <a href="javascript:void(0);" (click)='myModal.open(); getResponsableForUpdateFunction(employee_respo)'>
                     Modifier
                   </a>
                   /
@@ -228,7 +227,8 @@
             <button type="button" class="form-button red-button annuler-button"
                   (click)="getReglagesFunction();">Annuler</button>
             <button type="submit" class="form-button green-button sauvegarder-button"
-                    [disabled]="!site_reglagesForm.form.valid">Sauvegarder</button>
+                    [disabled]="!site_reglagesForm.form.valid"
+                    (click)="submitNewReglagesForm(site_reglagesForm)">Sauvegarder</button>
 
       </div>
     </form>
@@ -245,8 +245,8 @@
 
     <div class="input-wrapper" >
       <input class="form-control"  placeholder="Nom*" style="margin-bottom: 2px;"
-             #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
-             (keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
+             #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text">
+             <!--(keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>-->
       <button (click)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
         <span></span>
       </button>
@@ -273,8 +273,7 @@
       </table>
     </div>
 
-    <form #site_employeeAccessForm="ngForm"  novalidate  class="modal-form" (click)='cancellMessages()'
-          (ngSubmit)="submitForm(site_employeeAccessForm)">
+    <form #site_employeeAccessForm="ngForm"  novalidate  class="modal-form" (click)='cancellMessages()'>
       <div class="table-wrapper" style="margin-top: 24px !important;">
         <table class="table-default ajouter-responsables-table">
           <thead>
@@ -299,13 +298,14 @@
                 <td>-</td>
               </tr>
 
-              <tr *ngFor="let employeeAccess of employee_forAccess" style="height: 40px;">
+              <tr *ngFor="let employeeAccess of employee_forAccess_arr" style="height: 40px;">
                   <td>{{employeeAccess.name | capitalizeFirstLetter}}</td>
                   <td>{{employeeAccess.numSecu | uppercase}}</td>
                   <td *ngFor="let type of types_employeeAccess" >
                       <div class="radio" >
                         <input type="radio"   id='{{employeeAccess.id}}{{type.id}}' name='{{employeeAccess.id}}'
-                               [(ngModel)]="employeeAccess.responsible" [value]="type.id" >
+                               [(ngModel)]="employeeAccess.responsible" [value]="type.id"
+                                (click)="showCheckedAccessFunction(type.id);">
                         <label for='{{employeeAccess.id}}{{type.id}}' class="radio-label" style="padding-right: 10px;"></label>
                       </div>
                   </td>
@@ -314,10 +314,11 @@
         </table>
       </div>
       <div class="button-wrapper">
-        <button type="submit" class="form-button red-button annuler-button" data-dismiss="modal"
+        <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                 (click)="myModal.close();">Annuler</button>
         <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
-                [disabled]="!employee_forAccess.length">Ajouter</button>
+                [disabled]="!employee_forAccess_arr.length"
+                (click)="submitForm(site_employeeAccessForm);">{{saveButtonCaption}}</button>
       </div>
     </form>
   </modal-content-SRM>

@@ -41,8 +41,8 @@ export class SiteService {
       const query = UrlParams.siteHome + siteId ;
       return this.backendService.post(query, JSON.stringify(newReglages));
     }
-    public addEmployeeAccess(newAccess: any, siteId: number): Observable<any> {
-      const query = UrlParams.siteHome + siteId + '/responsible';
+    public addEmployeeAccess(newAccess: any, siteId: number, urlOption: string): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/responsible' + urlOption;
     return this.backendService.post(query, JSON.stringify(newAccess));
     }
     deleteResponsable(siteId: number, responsableId: number): Observable<any> {

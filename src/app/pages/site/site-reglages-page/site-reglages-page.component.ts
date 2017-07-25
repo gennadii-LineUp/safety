@@ -27,7 +27,7 @@ export class SiteReglagesPageComponent implements OnInit {
     showAdminData = false;
     showEmployee_Admin = false;
     showClientData = false;
-
+    saveButtonCaption = 'Ajouter';
     id_site =  0;
 
     siteReglages = new SiteReglagesClass('', '', '', '', '', false, false, false, false, false, false, '', '');
@@ -41,10 +41,13 @@ export class SiteReglagesPageComponent implements OnInit {
     errorSalaries = '';
     errorCreating = '';
     successCreating = '';
+    itemForChange = 0;
 
     employee_responsables = [];
     employee_fromSearch = [];
-    employee_forAccess = [];
+    employee_forAccess_arr = [];
+    employee_forAccess_obj: any = {};
+    checkedAccess: number;
     types_employeeAccess = [
       { id: 1, name: 'general', description: 'acces general, access to the employees and park of the machines of the site' },
       { id: 0, name: 'technical',  description: 'acces technical, access to machinery park of a site' }
@@ -142,19 +145,21 @@ export class SiteReglagesPageComponent implements OnInit {
       });
   }
 
-  public getResponsableForUpdateFunction(employee_responsables: any) {
+  public getResponsableForUpdateFunction(responsableForUpdate: any) {
     this.setEmptyData();
+    this.saveButtonCaption = 'Modifier';
     this.loadingResponsables = true;
     this.emptyTableMobile = false;
-    this.employee_forAccess = employee_responsables;
-    // take one for editing //
-    // const employee_forSettingAccess = new EmployeesSettingAccessClass(responsableForUpdate.id,
-    //                                                                 responsableForUpdate.name,
-    //                                                                 responsableForUpdate.surname,
-    //                                                                 responsableForUpdate.numSecu,
-    //                                                                 0);
-    // this.employee_forAccess.push(employee_forSettingAccess);
-    console.log(this.employee_forAccess);
+    this.itemForChange = responsableForUpdate.id;
+    const employee_forSettingAccess = new EmployeesSettingAccessClass(responsableForUpdate.id,
+                                                                    responsableForUpdate.name,
+                                                                    responsableForUpdate.surname,
+                                                                    responsableForUpdate.numSecu,
+                                                                    responsableForUpdate.responsible);
+    console.log(responsableForUpdate.responsible);
+    this.employee_forAccess_obj.responsible = responsableForUpdate.responsible;
+    this.employee_forAccess_arr.push(employee_forSettingAccess);
+    console.log(this.employee_forAccess_obj);
     return true;
   }
 
@@ -232,26 +237,48 @@ export class SiteReglagesPageComponent implements OnInit {
     this.emptyTableMobile = false;
     const employee_forSettingAccess = new EmployeesSettingAccessClass(employee.id, employee.name, employee.surname, employee.numSecu, 1);
 
-    this.employee_forAccess.push(employee_forSettingAccess);
+    this.employee_forAccess_arr.push(employee_forSettingAccess);
     for (let i = 0; i < this.employee_fromSearch.length; i++) {
       if (+this.employee_fromSearch[i].id === +employee.id) {
         this.employee_fromSearch.splice(i, 1);
         break;
       }
     }
-    console.log(this.employee_forAccess);
+    console.log(this.employee_forAccess_arr);
+  }
+
+  public showCheckedAccessFunction(type: number) {
+    this.checkedAccess = type;
+    this.employee_forAccess_obj.responsible = this.checkedAccess;
+    console.log(this.checkedAccess);
+    console.log(this.employee_forAccess_obj);
   }
 
   public submitForm() {
     this.cancellMessages();
     this.loading = true;
-    this.siteService.addEmployeeAccess(this.employee_forAccess, this.id_site)
+    let employeeAccess: any;
+    let urlOption = '';
+    if (this.itemForChange) {
+      urlOption = '/' + this.itemForChange;
+      this.saveButtonCaption = 'Modifier';
+      employeeAccess = this.employee_forAccess_obj; // object
+    } else {
+      employeeAccess = this.employee_forAccess_arr; // array
+    }
+
+    console.log(employeeAccess);
+    this.siteService.addEmployeeAccess(employeeAccess, this.id_site, urlOption)
       .subscribe(result => {
         if (result) {
           this.loading = false;
           this.getResponsablesFunction();
           console.log(result);
-          // this.successUpdate = 'Bravo! Vos modifications sont enregistrées.';
+          if (this.itemForChange) {
+            this.saveButtonCaption = 'Ajouter';
+            this.itemForChange = 0;
+            this.successUpdate = 'Bravo! Vos modifications sont enregistrées.';
+          }
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
@@ -267,7 +294,7 @@ export class SiteReglagesPageComponent implements OnInit {
     this.loaded = false;
     this.cancellMessages();
     this.employee_fromSearch = [];
-    this.employee_forAccess = [];
+    this.employee_forAccess_arr = [];
     this.emptyTableMobile = true;
     return true;
   }
