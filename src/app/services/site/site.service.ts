@@ -32,8 +32,8 @@ export class SiteService {
       console.log(query);
       return this.backendService.get(query);
     }
-    public getResponsables(siteId: number): Observable<any> {
-      const query = UrlParams.siteHome + siteId + '/responsible';
+    public getResponsables(siteId: number, sort: string): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/responsible' + '?q=' + sort;
       console.log(query);
       return this.backendService.get(query);
     }

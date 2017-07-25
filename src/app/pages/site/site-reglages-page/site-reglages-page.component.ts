@@ -32,7 +32,6 @@ export class SiteReglagesPageComponent implements OnInit {
 
     siteReglages = new SiteReglagesClass('', '', '', '', '', false, false, false, false, false, false, '', '');
     siteReglages_copy = new SiteReglagesClass('', '', '', '', '', false, false, false, false, false, false, '', '');
-    sortingTarget = '';
 
     emptyTableMobile = true;
     loadingSalarieUsed = false;
@@ -53,9 +52,10 @@ export class SiteReglagesPageComponent implements OnInit {
       { id: 0, name: 'technical',  description: 'acces technical, access to machinery park of a site' }
     ];
 
+    sortingTarget = '';
     headers: any[] = [
-      { display: 'Nom du salarié', variable: 'name',    filter: 'text' },
-      { display: 'Accès',          variable: 'access',  filter: 'text' },
+      { display: 'Nom du salarié', variable: 'name',        filter: 'text' },
+      { display: 'Accès',          variable: 'responsible', filter: 'text' },
     ];
     mobileHeaders: any[] = [
       { display: 'Nom',       variable: 'name',    filter: 'text' },
@@ -83,6 +83,10 @@ export class SiteReglagesPageComponent implements OnInit {
     this.showClientData =  this.clientGuard.canActivate();
   }
 
+  public getSortingTarget() {
+    this.sortingTarget = this.tableSortService._getSortingTarget();
+  }
+
   public getReglagesFunction() {
     this.cancellMessages();
     this.loading = true;
@@ -91,7 +95,7 @@ export class SiteReglagesPageComponent implements OnInit {
     this.siteService.getReglages(this.id_site)
       .subscribe(result => {
         if (result) {
-          this.getResponsablesFunction();
+          this.getResponsablesFunction('');
           this.loading = false;
           console.log(result);
           this.siteReglages.name = result.name;
@@ -119,11 +123,11 @@ export class SiteReglagesPageComponent implements OnInit {
       });
   }
 
-  public getResponsablesFunction() {
+  public getResponsablesFunction(sort: string) {
     this.cancellMessages();
     this.loadingResponsables = true;
     this.emptyTable_responsables = false;
-    this.siteService.getResponsables(this.id_site)
+    this.siteService.getResponsables(this.id_site, sort)
       .subscribe(result => {
         if (result) {
           this.loadingResponsables = false;
@@ -172,7 +176,7 @@ export class SiteReglagesPageComponent implements OnInit {
         if (result) {
           this.cancellMessages();
           console.log(result);
-          this.getResponsablesFunction();
+          this.getResponsablesFunction('');
         }
       }, (err) => {
         this.loadingResponsables = false;
@@ -272,7 +276,7 @@ export class SiteReglagesPageComponent implements OnInit {
       .subscribe(result => {
         if (result) {
           this.loading = false;
-          this.getResponsablesFunction();
+          this.getResponsablesFunction('');
           console.log(result);
           if (this.itemForChange) {
             this.saveButtonCaption = 'Ajouter';

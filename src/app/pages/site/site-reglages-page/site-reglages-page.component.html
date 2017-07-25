@@ -79,10 +79,10 @@
             </div>
         </div>
 
-        <div *ngIf='showAdminData || showEmployee_Admin || showClientData'>
-          <div class="form-divider clearfix" style="margin-bottom: 20px;"></div>
+        <div *ngIf='showAdminData || showEmployee_Admin || showClientData' style="position: relative;">
+          <div class="form-divider clearfix" style="margin-bottom: 20px; "></div>
           <h2 class="pull-left">Responsable(s) du site</h2>
-          <img *ngIf="loadingResponsables" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='position: absolute; left: 10%;' />
+          <!--<img *ngIf="loadingResponsables" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='position: fixed; top: 49%; right: 55%;' />-->
           <button class="add-an-item-button" (click)="setEmptyData(); myModal.open()"></button>
 
           <!-- M O D A L -->
@@ -90,7 +90,9 @@
           <table class="table-default responsable-du-site-table">
             <thead>
             <tr>
-              <th *ngFor="let header of headers" (click)="tableSortService.changeSorting(header.variable)">
+              <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
+                                                                getSortingTarget();
+                                                                getResponsablesFunction(sortingTarget);">
                 <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                 {{header.display}}
               </th>
@@ -245,8 +247,8 @@
 
     <div class="input-wrapper" >
       <input class="form-control"  placeholder="Nom*" style="margin-bottom: 2px;"
-             #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text">
-             <!--(keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>-->
+             #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
+             (keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
       <button (click)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
         <span></span>
       </button>
