@@ -252,24 +252,25 @@
       </button>
     </div>
 
-    <div *ngIf="loaded" class="table-wrapper"  style="margin-top: 4px;">
+    <div *ngIf="loaded" class="table-wrapper"  style="margin-top: -15px;">
       <table class="table-default salaries-site-table">
         <thead>
         </thead>
         <tbody>
         <tr *ngFor="let employee of employee_fromSearch" style="height: 40px;">
           <td style="width: 44%;">Nom: {{employee.name | capitalizeFirstLetter}}</td>
-          <td style="width: 26%;">Prénom: {{employee.surname | capitalizeFirstLetter}}</td>
-          <td style="width: 25.6%;">N° sécu: {{employee.numSecu | uppercase}}</td>
-          <td style="padding: 0 0 0 0 !important; width: 4.4%;">
-            <div class="input-wrapper">
+          <td style="width: 26%;">N° sécu: {{employee.numSecu | uppercase}}</td>
+          <td style="width: 30%; text-align: left !important;">Prénom: {{employee.surname | capitalizeFirstLetter}}
+            <div class="input-wrapper" style="float: right;">
               <!--<input class="form-control" id="exampleInputText7" placeholder="Nom*" type="text">-->
-              <button style="margin-top: -9px;"
+              <button style="margin-top: -9px; margin-right: -5px;"
                       (click)="takeEmployee_forSettingAccessFunction(employee);">
                 <span></span>
               </button>
             </div>
           </td>
+          <!--<td style="padding: 0 0 0 0 !important; width: 4.4%;">-->
+          <!--</td>-->
         </tr>
         </tbody>
       </table>
