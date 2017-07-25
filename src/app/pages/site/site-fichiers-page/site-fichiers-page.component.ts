@@ -41,6 +41,10 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     searchName = '';
     currentPage: any;
 
+    file: File;
+    content: any;
+    userHasChoosenFile = false;
+
     public employeeGroupes = [];
 
     sortingTarget = '';
@@ -67,8 +71,11 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.id_site = localStorage.id_site;
-        this.findFichiersByNameFunction('', 1, '');
+        this.findFichiersByNameFunction('', 1, '', '');
         this.siteService.tableMobileViewInit();
+        setTimeout(() => {
+          this.getEmployeeGroupes();
+        }, 1000);
     }
     ngOnDestroy() {
       localStorage.removeItem('search_name');
@@ -76,16 +83,16 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     }
 
   public getEmployeeGroupes() {
+    this.cancellMessages();
     this.loadingGroupes = true;
     this.clientService.getGroupList()
       .subscribe(result => {
         if (result) {
           this.loadingGroupes = false;
-          this.cancellMessages();
           this.employeeGroupes = result;
         }
       }, (err) => {
-        this.cancellMessages();
+        this.loadingGroupes = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
@@ -126,14 +133,14 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.activePage = +localStorage.search_page;
 
     if (this.searchName && this.activePage) {
-      this.findFichiersByNameFunction(this.searchName, this.activePage + 1, '');
+      this.findFichiersByNameFunction(this.searchName, this.activePage + 1, '', '');
     } else {
-      this.findFichiersByNameFunction('', 1, '');
+      this.findFichiersByNameFunction('', 1, '', '');
     }
   }
 
 
-  public findFichiersByNameFunction(name: string, page: any = 1, sort: string) {
+  public findFichiersByNameFunction(name: string, page: any = 1, sort: string, message: string) {
     this.cancellMessages();
     this.loading = true;
     this.emptyTable = false;
@@ -147,7 +154,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.siteService.findFichiersByName(_name, page, this.id_site, sort)
       .subscribe(result => {
         if (result) {
-          console.log('------------');
+          if (message) {this.successCreating = message; }
           this.original_fichiers = result.items;
           this.loading = false;
           let res = [];
@@ -166,8 +173,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
             array[index].employeeGroups = gr_name;
           });
           this.fichiers = res;
-
-
           this.totalItems = +result.pagination.totalCount;
           if (this.totalItems === 0) {
             this.emptyTable = true;
@@ -182,7 +187,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
           }, 200);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-          this.getEmployeeGroupes();
         }
       }, (err) => {
         this.loading = false;
@@ -192,15 +196,11 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  file: File;
-  content: any;
-  userHasChoosenFile = false;
   public fileChange(event) {
     this.loadingFile = false;
     this.uploadedFile = false;
 
     let fileList: FileList = event.target.files;
-   // console.log(fileList);
     if (fileList.length > 0) {
       this.userHasChoosenFile = true;
       this.file = fileList[0];
@@ -208,65 +208,32 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
 
       let reader = new FileReader();
       reader.onload = (e) => {
-       // console.log(e.target);
         this.content = e.target;
-       // console.log(this.file);
-
-         this.sendFileToServer();
-      }
-
+        this.sendFileToServer();
+      };
       const res = reader.readAsDataURL(event.target.files[0]);
-    }
-  }
-
-  public fileChange_new(event) {
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      let file: File = fileList[0];
-      let formData: FormData = new FormData();
-      formData.append('uploadFile', file, file.name);
-      console.log(formData);
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'multipart/form-data');
-      headers.append('Accept', 'application/json');
-
-      headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-
-      // let options = new RequestOptions({ headers: headers });
-      // this.http.post(`${this.apiEndPoint}`, formData, options)
-      //   .map(res => res.json())
-      //   .catch(error => Observable.throw(error))
-      //   .subscribe(
-      //     data => console.log('success'),
-      //     error => console.log(error)
-      //   )
-
-     // this.sendFileToServer();
     }
   }
 
   public sendFileToServer() {
     console.log(this.content);
-    // console.log(this.content.result);
-    // if (this.userHasChoosenFile) {
-       this.loadingFile = true;
-       this.siteService.sendPDFtoServer(this.file, this.content, this.id_site)
-         .subscribe(result => {
-           if (result) {
-             console.log(result);
-             this.loadingFile = false;
-             this.uploadedFile = true;
-             this.id_fichier = result.id;
-      }
-    }, (err) => {
-      this.loadingFile = false;
-      this.uploadFileText = '  error  error  error';
-      console.log(err);
-      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-    });
-   // }
+    this.loadingFile = true;
+    this.siteService.sendPDFtoServer(this.file, this.content, this.id_site)
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.loadingFile = false;
+          this.uploadedFile = true;
+          this.id_fichier = result.id;
+        }
+      }, (err) => {
+        this.loadingFile = false;
+        this.uploadFileText = '  error  error  error';
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
   }
+
 
 
   public submitForm(name: string) {
@@ -277,34 +244,35 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     } else {
       this.categoryNewFichier_nullData = false;
     }
-
     this.cancellMessages();
     this.creating = true;
-    console.log(this.newFichier);
-
-            this.siteService.addFichier(this.newFichier, this.id_site, this.id_fichier) // , this.id_fichier
+    this.siteService.addFichier(this.newFichier, this.id_site, this.id_fichier)
               .subscribe(result => {
                 if (result) {
-                  this.cancellMessages();
+                  this.findFichiersByNameFunction('', 1, '', 'Vos modifications sont enregistrées.');
                   console.log(result);
-
-                  this.successCreating = "Well done! You've added a new fichier.";
+                  // modal close /////////
+                  const _modal = document.getElementById('myModal').firstElementChild;
+                  _modal.classList.remove('in');
+                  _modal.classList.remove('fade');
+                  (<HTMLScriptElement>_modal).style.display = 'none';
+                  document.body.className = document.body.className.replace(/modal-open\b/, '');
+                  const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                  document.body.removeChild(modal_bg);
+                  // /////////
                   if (this.id_fichier) {
                     this.saveButtonCaption = 'Ajouter';
                     this.id_fichier = 0;
                   }
-
                   this.creating = false;
                   this.userHasChoosenFile = false;
                   this.setEmptyFichiers();
-                  this.findFichiersByNameFunction('', 1, '');
                 }
               }, (err) => {
                 this.creating = false;
                 console.log(err);
-
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-              });
+    });
   }
 
 
@@ -365,13 +333,12 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.cancellMessages();
     this.loading = true;
     this.emptyTable = false;
-
-    this.siteService.deleteEmployee(this.id_site, id_itemForDelete)
+    this.siteService.deleteFichier(this.id_site, id_itemForDelete)
       .subscribe(result => {
         if (result) {
           this.loading = false;
           console.log(result);
-          this.findFichiersByNameFunction(this.searchName, this.activePage, '');
+          this.findFichiersByNameFunction(this.searchName, this.activePage, '', '');
         }
       }, (err) => {
         this.loading = false;

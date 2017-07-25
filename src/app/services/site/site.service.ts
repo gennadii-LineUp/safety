@@ -69,6 +69,11 @@ export class SiteService {
       console.log(query);
       return this.backendService.get(UrlParams.siteHome + query);
     }
+    public deleteFichier(siteId: number, fichierId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/files/' + fichierId;
+      console.log(query);
+      return this.backendService.deleteData(query);
+    }
 
 
     public findMachineByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
@@ -203,11 +208,9 @@ export class SiteService {
       // const formData: FormData = new FormData();
       // formData.append('file', file.name);
       // formData.append('uploadFile', content.result);
-
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
-
       return this.backendService.loadImage_post(url, fileToServer);
     }
 

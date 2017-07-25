@@ -1,18 +1,21 @@
-<header class="main-header">
+<header class="main-header" (click)='cancellMessages();'>
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages();'>
         <span aria-hidden="true"></span>
       </button>
       <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
+    <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">
+      {{successCreating}}
+    </div>
   <h1>Fichiers</h1>
     <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
-<div class="main-content" style="padding-top: 22px;">
+<div class="main-content" style="padding-top: 22px;" (click)='cancellMessages();'>
     <div class="search-panel clearfix">
         <button class="add-an-item-button" (click)="myModal.open(); setEmptyFichiers();"></button>
 
-                    <site-fichiers-modal #myModal style='min-width: 454px; max-width: 454px;' tabindex="-1">
+                    <site-fichiers-modal #myModal id="myModal" style='min-width: 454px; max-width: 454px;' tabindex="-1">
                         <modal-header-SF>
                             <h2>Ajouter un fichier</h2> {{parentRouteId}}
                         </modal-header-SF>
@@ -24,11 +27,11 @@
                               <span aria-hidden="true"></span>
                             </button>
                           </div>
-                          <div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">
-                            {{successCreating}}
-                          </div>
+                          <!--<div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">-->
+                            <!--{{successCreating}}-->
+                          <!--</div>-->
 
-                          <form #site_newFichierForm="ngForm" class="modal-form" novalidate (click)='cancellMessages()'
+                          <form #site_newFichierForm="ngForm" class="modal-form" novalidate
                                   enctype="multipart/form-data">
 
                                 <div class="input-wrapper">
@@ -90,10 +93,10 @@
 
 
       <div class="search-wrapper">
-        <button class="search-button" type="button" (click)='findFichiersByNameFunction(findByName.value, 1, "")'></button>
+        <button class="search-button" type="button" (click)='findFichiersByNameFunction(findByName.value, 1, "", "")'></button>
         <input #findByName id="findByName" name='findByName' type="text"
                class="form-control search-input" placeholder="Rechercher"
-               (keyup.enter)='findFichiersByNameFunction(findByName.value, 1, "")'>
+               (keyup.enter)='findFichiersByNameFunction(findByName.value, 1, "", "")'>
       </div>
     </div>
     <div class="table-wrapper">
@@ -102,7 +105,7 @@
                 <tr>
                     <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
                                                                 getSortingTarget();
-                                                                findFichiersByNameFunction(findByName.value, 1, sortingTarget);">
+                                                                findFichiersByNameFunction(findByName.value, 1, sortingTarget, '');">
                       <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                       {{header.display}}
                     </th>
@@ -139,32 +142,32 @@
   <nav *ngIf="totalItems > 10" aria-label="Page navigation" class="pagination-wrapper">
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
       <li *ngIf="!(pager.currentPage === 1)">
-        <a class="prev-link" (click)="findFichiersByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
+        <a class="prev-link" (click)="findFichiersByNameFunction('lineUp', pager.currentPage - 1, '', '')" aria-label="Previous" >
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
       </li>
       <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === 1}">
-        <a href="javascript:void(0);"  (click)="findFichiersByNameFunction('lineUp', 1, '')" >1</a>
+        <a href="javascript:void(0);"  (click)="findFichiersByNameFunction('lineUp', 1, '', '')" >1</a>
       </li>
       <li *ngIf="pager.hiddenAtStart">
-        <a (click)="findFichiersByNameFunction('lineUp', pager.startPage-1, '')"  >...</a>
+        <a (click)="findFichiersByNameFunction('lineUp', pager.startPage-1, '', '')"  >...</a>
       </li>
 
       <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a (click)="findFichiersByNameFunction('lineUp', page, '')">{{page}}</a>
+        <a (click)="findFichiersByNameFunction('lineUp', page, '', '')">{{page}}</a>
       </li>
 
       <li *ngIf="pager.hiddenAtEnd">
-        <a (click)="findFichiersByNameFunction('lineUp', pager.endPage+1, '')" >...</a>
+        <a (click)="findFichiersByNameFunction('lineUp', pager.endPage+1, '', '')" >...</a>
       </li>
       <li *ngIf="!pager.simplePagination" [ngClass]="{active:pager.currentPage === pager.totalPages}">
-        <a (click)="findFichiersByNameFunction('lineUp', pager.totalPages, '')">{{pager.totalPages}}</a>
+        <a (click)="findFichiersByNameFunction('lineUp', pager.totalPages, '', '')">{{pager.totalPages}}</a>
       </li>
       <li *ngIf="!(pager.currentPage === pager.totalPages)" >
         <a href="javascript:void(0);" aria-label="Next" class="next-link"
-           (click)="findFichiersByNameFunction('lineUp', pager.currentPage + 1, '')">
+           (click)="findFichiersByNameFunction('lineUp', pager.currentPage + 1, '', '')">
                   <span aria-hidden="true">
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
