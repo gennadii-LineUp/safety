@@ -40,7 +40,7 @@
                     Parc Machines
                 </a>
             </li>
-            <li *ngIf='!showEmployee_parcMachine' routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site', id_site, 'salaries']">
+            <li *ngIf='!showEmployee_parcMachine' id="site_salaries" routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site', id_site, 'salaries']">
                 <a href="javascript:void(0);">
                     Salariés
                 </a>
@@ -64,7 +64,6 @@
                   Fichiers
                 </a>
               </li>
-              <li role="separator" class="divider"></li>
               <li class="li-lg" routerLinkActive="active" [routerLink]="['/sfsalarie/fiches-machines']">
                 <a href="javascript:void(0);">
                   Fiches Machines

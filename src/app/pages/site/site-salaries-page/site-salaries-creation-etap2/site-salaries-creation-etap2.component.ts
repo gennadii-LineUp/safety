@@ -110,7 +110,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.siteService.tableMobileViewInit();
         this.getEmployeeGroupes();
 
-        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
+        window.document.getElementById('site_salaries').classList.add('active');
 
         $(document).ready(() => {
           this.datepickerViewInit();
@@ -119,7 +119,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
 
     ngOnDestroy() {
-        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.remove('active');
+      window.document.getElementById('site_salaries').classList.remove('active');
     }
 
     public fileChange(event) {

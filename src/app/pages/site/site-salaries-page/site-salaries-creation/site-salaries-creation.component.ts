@@ -40,7 +40,6 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
 
     public employeeGroupes = []; // example: [{ access:false, id:269, name:"group 11" }]
     employees = new EmployeesClass('', '', '', '', '', '', this.periodeDeValidite[0].booleanValue, '', '', 0);
-    //employees: EmployeesClass[] = [];
 
 
     constructor(private clientService: ClientService,
@@ -54,11 +53,11 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.datepickerRun();
         this.checkFreeSalarieAccount();
         this.id_site = localStorage.id_site;
-        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.add('active');
+        window.document.getElementById('site_salaries').classList.add('active');
     }
 
     ngOnDestroy() {
-        window.document.querySelectorAll('ul.list-unstyled li:nth-of-type(5)')['0'].classList.remove('active');
+      window.document.getElementById('site_salaries').classList.remove('active');
     }
 
 
@@ -105,7 +104,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         // this.loadingFile = true;
         this.uploadedFile = false;
         let fileList: FileList = event.target.files;
-        if(fileList.length > 0) {
+        if (fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];
 
@@ -236,18 +235,17 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
 
     highlightActiveMenu() {
         console.log('highlightActiveMenu');
-        let menuItem = window.document.getElementById('siteSalariesMenu');//siteSalariesMenu
+        let menuItem = window.document.getElementById('siteSalariesMenu');
       console.dir(menuItem);
-      //menuItem.classList.add('active');
+      // menuItem.classList.add('active');
       console.log('highlightActiveMenu 55555');
   }
 
     datepickerRun() {
-        //Datepicker Popups calender to Choose date
         $(() => {
             this.dataService.datepickerFranceFormat();
             $( '#birthDate, #startDate, #endDate' ).datepicker();
-            $( '#birthDate, #startDate, #endDate' ).datepicker( "option", "changeYear", true );
+            $( '#birthDate, #startDate, #endDate' ).datepicker( 'option', 'changeYear', true );
             $( '#format' ).change(() => {
                 $( '#birthDate, #startDate, #endDate' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
