@@ -275,7 +275,15 @@ export class SiteReglagesPageComponent implements OnInit {
     this.siteService.addEmployeeAccess(employeeAccess, this.id_site, urlOption)
       .subscribe(result => {
         if (result) {
-          this.loading = false;
+          // modal close /////////
+          const _modal = document.getElementById('myModal').firstElementChild;
+          _modal.classList.remove('in');
+          _modal.classList.remove('fade');
+          (<HTMLScriptElement>_modal).style.display = 'none';
+          document.body.className = document.body.className.replace(/modal-open\b/, '');
+          const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+          document.body.removeChild(modal_bg);
+          // /////////
           this.getResponsablesFunction('');
           console.log(result);
           if (this.itemForChange) {
@@ -286,10 +294,7 @@ export class SiteReglagesPageComponent implements OnInit {
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
-          let mod = document.getElementById('myModal');
-          console.log(mod);
-          console.dir(mod);
-          // '     '
+          this.loading = false;
         }
       }, (err) => {
         this.loading = false;
