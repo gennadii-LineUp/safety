@@ -251,13 +251,10 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
                   console.log(result);
                   // modal close /////////
                   const _modal = document.getElementById('myModal').firstElementChild;
-                  _modal.classList.remove('in');
-                  _modal.classList.remove('fade');
-                  (<HTMLScriptElement>_modal).style.display = 'none';
-                  document.body.className = document.body.className.replace(/modal-open\b/, '');
+                  _modal.classList.add('hidden');
                   const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
-                  document.body.removeChild(modal_bg);
-                  // /////////
+                  (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                  /////////
                   if (this.id_fichier) {
                     this.saveButtonCaption = 'Ajouter';
                     this.id_fichier = 0;
@@ -271,6 +268,13 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
                 console.log(err);
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
     });
+  }
+
+  public modalOpen() {
+    const _modal = document.getElementById('myModal').firstElementChild;
+    if (_modal) {_modal.classList.remove('hidden'); }
+    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+    if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
   }
 
 
@@ -291,6 +295,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   }
 
   public modifierFunction(id_itemForUpdate: number) {
+    this.modalOpen();
     this.cancellMessages();
     this.creating = true;
     this.setEmptyFichiers();

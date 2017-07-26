@@ -140,7 +140,7 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
         this.cancellSuccessMessage();
         this.saving = true;
 
-        this.salaryeeGroupe.adminAccess = this._adminAccess;
+       // this.salaryeeGroupe.adminAccess = this._adminAccess;
         console.dir(this.salaryeeGroupe);
 
         this.clientService.addNewGroupe(this.salaryeeGroupe, urlOption)
@@ -149,33 +149,45 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
                     this.saving = false;
                     console.log(result);
                     this.salaryeeGroupe = new GroupeClass('', false);
-
-                    // this.successCreating = 'Well done! Group is saved.';
-                    // if (this.itemForChange) {
-                    //   this.saveButtonCaption = 'Créer';
-                    //   this.itemForChange = 0;
-                    // }
+                    // modal close /////////
+                    const _modal = document.getElementById('myModal').firstElementChild;
+                     _modal.classList.add('hidden');
+                     const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                    (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                    /////////
+                    if (this.itemForChange) {
+                      this.saveButtonCaption = 'Créer';
+                      this.itemForChange = 0;
+                      this.successCreating = 'Vos modifications sont enregistrées.';
+                    } else {
+                      this.successCreating = 'Bien joué! Le groupe est créé.';
+                    }
                     this.ngOnInit();
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.saving = false;
                 console.log(err);
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 
+    public modalOpen() {
+      const _modal = document.getElementById('myModal').firstElementChild;
+      if (_modal) {_modal.classList.remove('hidden'); }
+      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+      if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    }
 
     public deleteFunction(id_itemForDelete: number) {
-        this.loading = true;
+      this.cancellErrorMessage();
+      this.cancellSuccessMessage();
+      this.loading = true;
         this.emptyTable = false;
-
         this.clientService.deleteGroupe('/' + id_itemForDelete)
             .subscribe(result => {
                 if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
-                    // this.ngOnInit();
                     this.findGroupByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
@@ -185,34 +197,21 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
             });
     }
 
-    public getItemForUpdateFunction(id_itemForUpdate: number) {
+    public getItemForUpdateFunction(groupe: any) {
+      this.modalOpen();
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
-        this.saving = true;
-        this.salaryeeGroupe = new GroupeClass('', false);
-        console.log(id_itemForUpdate);
-
-        this.clientService.getGroupeForUpdate('/' + id_itemForUpdate)
-            .subscribe(result => {
-                if (result) {
-                    this.saving = false;
-                    console.log(result);
-                    this.salaryeeGroupe.name = result.name;
-                    this.salaryeeGroupe.adminAccess = result.adminAccess;
-                    this.itemForChange = result.id;
+        console.log(groupe);
+                    this.salaryeeGroupe.name = groupe.name;
+                    this.salaryeeGroupe.adminAccess = groupe.access;
+                    this.itemForChange = groupe.id;
                     this.saveButtonCaption = 'Modifier';
-                }
-            }, (err) => {
-                this.saving = false;
-                console.log(err);
-                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-            });
     }
 
 
-    public adminAccessClicked(e: any) {
-        this._adminAccess = e.target.checked;
-    }
+    // public adminAccessClicked(e: any) {
+    //     this._adminAccess = e.target.checked;
+    // }
 
     private cancellErrorMessage() {
         this.loading = false;

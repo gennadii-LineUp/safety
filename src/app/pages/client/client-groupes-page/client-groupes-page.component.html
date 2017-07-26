@@ -5,15 +5,17 @@
         </button>
         <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
-    <h1>Groupes de salariés</h1>
+    <div *ngIf="successCreating"  class="alert alert-success">{{successCreating}}</div>
+
+  <h1>Groupes de salariés</h1>
     <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
 <div class="main-content" *ngIf='loaded'>
     <div class="search-panel clearfix">
 
-        <button class="add-an-item-button" (click)="myModal.open()"></button>
+        <button class="add-an-item-button" (click)="myModal.open(); modalOpen();"></button>
 
-        <client-groupes-modal #myModal >
+        <client-groupes-modal #myModal id="myModal">
             <modal-header-CG>
                 <h2>Ajouter un groupe</h2>
             </modal-header-CG>
@@ -33,8 +35,8 @@
                     <div class="control-group">
                         <label class="control control--checkbox">Accès Admin (entreprise + sites)
                             <input type="checkbox" checked="checked"
-                                   #adminAccess="ngModel" id="adminAccess"
-                                   name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" (change)='adminAccessClicked($event)'/>
+                                   #adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'
+                                   name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />  <!--(change)='adminAccessClicked($event)'-->
                             <span class="control__indicator"></span>
                         </label>
                     </div>
@@ -44,7 +46,6 @@
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
-                <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
 
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
@@ -96,7 +97,7 @@
                     <td>{{groupe.access | adminAccess }}</td>
                     <!--<td>{{groupe.admin_access}}</td>-->
                     <td>
-                        <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe.id)'>Gérer</a>
+                        <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe)'>Gérer</a>
                             /
                         <a href="javascript:void(0);" (click)='deleteFunction(groupe.id)'>Supprimer</a></td>
                 </tr>

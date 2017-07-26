@@ -69,14 +69,14 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.findSiteByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
-        // window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
         this.checkFreeSalarieAccount();
     }
 
     ngOnDestroy() {
         localStorage.removeItem('clientSiteSearch_page');
         localStorage.removeItem('clientSiteSearch_name');
-        // window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
+        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
     public getSortingTarget() {
@@ -205,18 +205,7 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                             console.log(result);
                             this.loadingFile = false;
                             this.uploadedFile = true;
-                            this.findSiteByNameFunction(this.searchName, this.activePage, '');
-                            this.creating = false;
                             this.userHasChoosenFile = false;
-                            // modal close /////////
-                            const _modal = document.getElementById('myModal').firstElementChild;
-                            _modal.classList.remove('in');
-                            _modal.classList.remove('fade');
-                            (<HTMLScriptElement>_modal).style.display = 'none';
-                            document.body.className = document.body.className.replace(/modal-open\b/, '');
-                            const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
-                            document.body.removeChild(modal_bg);
-                            // /////////
                           }
                         }, (err) => {
                           this.loadingFile = false;
@@ -225,6 +214,14 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                           this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
                         });
                     }
+                  this.findSiteByNameFunction(this.searchName, this.activePage, '');
+                  this.creating = false;
+                  // modal close /////////
+                  const _modal = document.getElementById('myModal').firstElementChild;
+                  _modal.classList.add('hidden');
+                  const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                  (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                  /////////
                 }
             }, (err) => {
                 this.creating = false;
@@ -233,7 +230,15 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
             });
     }
 
-    public deleteFunction(id_itemForDelete: number) {
+    public modalOpen() {
+      const _modal = document.getElementById('myModal').firstElementChild;
+      if (_modal) {_modal.classList.remove('hidden'); }
+      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+      if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    }
+
+  public deleteFunction(id_itemForDelete: number) {
+        this.cancellMessages();
         this.loading = true;
         this.emptyTable = false;
 

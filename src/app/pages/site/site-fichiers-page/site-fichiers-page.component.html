@@ -13,7 +13,7 @@
 </header>
 <div class="main-content" style="padding-top: 22px;" (click)='cancellMessages();'>
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="myModal.open(); setEmptyFichiers();"></button>
+        <button class="add-an-item-button" (click)="modalOpen(); myModal.open(); setEmptyFichiers();"></button>
 
                     <site-fichiers-modal #myModal id="myModal" style='min-width: 454px; max-width: 454px;' tabindex="-1">
                         <modal-header-SF>

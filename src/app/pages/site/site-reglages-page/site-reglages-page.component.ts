@@ -151,6 +151,7 @@ export class SiteReglagesPageComponent implements OnInit {
 
   public getResponsableForUpdateFunction(responsableForUpdate: any) {
     this.setEmptyData();
+    this.modalOpen();
     this.saveButtonCaption = 'Modifier';
     this.loadingResponsables = true;
     this.emptyTableMobile = false;
@@ -277,13 +278,10 @@ export class SiteReglagesPageComponent implements OnInit {
         if (result) {
           // modal close /////////
           const _modal = document.getElementById('myModal').firstElementChild;
-          _modal.classList.remove('in');
-          _modal.classList.remove('fade');
-          (<HTMLScriptElement>_modal).style.display = 'none';
-          document.body.className = document.body.className.replace(/modal-open\b/, '');
+          _modal.classList.add('hidden');
           const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
-          document.body.removeChild(modal_bg);
-          // /////////
+          (<HTMLScriptElement>modal_bg).classList.add('hidden');
+          /////////
           this.getResponsablesFunction('');
           console.log(result);
           if (this.itemForChange) {
@@ -301,6 +299,13 @@ export class SiteReglagesPageComponent implements OnInit {
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
+  }
+
+  public modalOpen() {
+    const _modal = document.getElementById('myModal').firstElementChild;
+    if (_modal) {_modal.classList.remove('hidden'); }
+    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+    if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
   }
 
   public setEmptyData() {
