@@ -862,7 +862,8 @@ th {
 
 .image-upload,
 .signature-upload,
-.tampon-upload {
+.tampon-upload,
+.vgp-upload {
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     color: #8d8d8d;
@@ -874,7 +875,8 @@ th {
 }
 
 .signature-upload,
-.tampon-upload {
+.tampon-upload,
+.vgp-upload {
     border: 1px solid #3ba890;
     margin-bottom: 23px;
 }
@@ -893,7 +895,8 @@ th {
 }
 
 .signature-upload label,
-.tampon-upload label {
+.tampon-upload label,
+.vgp-upload label {
     background: #3ba890;
     position: absolute;
     width: 100%;
@@ -918,7 +921,8 @@ th {
 }
 
 .signature-upload label span,
-.tampon-upload label span {
+.tampon-upload label span,
+.vgp-upload label span {
     background: url(/assets/img/plus-icon-white.png) no-repeat center;
     background-position: 55% 40%;
     width: 42px;
@@ -928,7 +932,29 @@ th {
     right: 0;
     top: 0;
 }
-
+.vgp-upload {
+  display: inline-block;
+  background: #3ba890;
+  width: 138px;
+  height: 32px  !important;
+  text-align: left;
+  color: #fff;
+}
+.vgp-upload label {
+  padding-top: 5px;
+  margin-bottom: 12px;
+}
+.vgp-upload input{
+  width: 120px;
+}
+.uploaded-file-caption {
+  margin-left: 10px;
+  float: left;
+  margin-top: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: #8d8d8d;
+}
 .image-upload > input
 {
     display: none;

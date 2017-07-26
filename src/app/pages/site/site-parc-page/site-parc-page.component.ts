@@ -7,7 +7,7 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 import {MachineClass} from '../../../models/const/machine-class';
 import {MachinesGlossary} from '../../../models/const/machine-categorie';
 import {NgForm} from '@angular/forms';
-import {ClientService} from "../../../services/client/client.service";
+import {ClientService} from '../../../services/client/client.service';
 declare var $: any;
 
 @Component({
@@ -28,6 +28,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     errorSalaries = '';
     errorCreating = '';
     successCreating = '';
+    successModify = '';
 
     id_site =  0;
     id_machine = 0;
@@ -53,6 +54,21 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     t10 = false;
     t12_41 = false;
     t12_rest = false;
+
+    loadingFile = false;
+    loadingFileSignature = false;
+    loadingFileVGP = false;
+    loadingFileCT = false;
+    uploadedFile = false;
+    contentVGP: any;
+    contentCT: any;
+    showImg = false;
+    fileVGP: File;
+    fileCT: File;
+    userHasChoosenFileVGP = false;
+    userHasChoosenFileCT = false;
+    uploadVGPFileText: any;
+    uploadCTFileText: any;
 
     pager: any = {};
     totalItems = 0;
@@ -284,24 +300,44 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         if (result) {
           console.log(result);
-          this.setEmptyMachines();
+          this.id_machine = result.id;
+          if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction();
+          } else if (this.userHasChoosenFileCT) {
+              setTimeout(() => {
+                this.loadToServerCTFunction();
+              }, 10);
+          }
+
           if (this.itemForChange) {
             this.saveButtonCaption = 'Enregistrer';
             this.itemForChange = 0;
-            this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
+            this.successModify = 'Bravo! Vos modifications sont enregistrées.';
           } else {
-            // setTimeout(() => {
               this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
-           // }, 100);
           }
           this.creating = false;
+          // modal close /////////
+          const _modal = document.getElementById('modal_Machine__dataInput').firstElementChild;
+          _modal.classList.add('hidden');
+          const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+          (<HTMLScriptElement>modal_bg).classList.add('hidden');
+          /////////
+
           this.findByNameFunction(this.searchName, this.activePage, '');
+          this.setEmptyMachines();
         }
       }, (err) => {
         this.creating = false;
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });
+  }
+
+  public modalOpen() {
+    const _modal = document.getElementById('modal_Machine__dataInput').firstElementChild;
+    if (_modal) {_modal.classList.remove('hidden'); }
+    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+    if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
   }
 
 
@@ -338,29 +374,33 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.creating = false;
     this.loadingGroupes = false;
     this.successCreating = '';
+    this.successModify = '';
     this.errorLoad = '';
     this.errorCreating = '';
   }
 
   public setEmptyCategory() {
-      console.log('ggggg');
     this.itemForChange = 0;
     this.machine.category = 0;
     this.choosenCategory_id = 0;
     this.saveButtonCaption = 'Enregistrer';
+    this.uploadVGPFileText = '';
+    this.uploadCTFileText = '';
+
   }
 
   public modifierFunction(id_itemForUpdate: number) {
     this.cancellMessages();
     this.setEmptyMachines();
+    this.modalOpen();
     console.log(id_itemForUpdate);
     this.creating = true;
     this.siteService.getOneMachine(this.id_site, id_itemForUpdate)
       .subscribe(result => {
         if (result) {
           console.log(result);
-          this._addType(result.parentCategoryId, '');
           this.itemForChange = result.id;
+          this._addType(result.parentCategoryId, '');
           this.machine.category = result.categoryId;
           this.choosenCategory_id = result.categoryId;
           this.choosenType_caption = result.parentCategoryName;
@@ -391,7 +431,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           }
 
           this.saveButtonCaption = 'Modifier';
-          // this.id_machine = result.id;
           this.machine.employeeGroups = this._checkedGroups;
           this.creating = false;
         }
@@ -426,6 +465,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     for (let i = 0; i < checkedI.length; i++) {
       (<HTMLInputElement>checkedI[i]).checked = false;
     }
+    this.uploadVGPFileText = '';
+    this.uploadCTFileText = '';
     return;
   }
 
@@ -513,6 +554,75 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.equipment_nullData = false;
   }
 
+
+  public fileChangeVGP(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFileVGP = true;
+      this.fileVGP = fileList[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.contentVGP = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      this.uploadVGPFileText = this.fileVGP.name;
+      console.log(this.fileVGP.name);
+      // setTimeout(() => {
+      //   this.loadToServerVGPFunction();
+      // }, 1000);
+    }
+  }
+
+  public loadToServerVGPFunction() {
+    this.loadingFileVGP = true;
+    this.siteService.loadToServerVGP(this.contentVGP, this.id_site, this.id_machine)
+      .subscribe(result => {
+        console.log(result);
+        this.userHasChoosenFileVGP = false;
+        this.loadingFileVGP = false;
+        if (this.userHasChoosenFileCT) {
+          setTimeout(() => {
+            this.loadToServerCTFunction();
+          }, 10);
+        }
+      }, (err) => {
+        this.loadingFileVGP = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public fileChangeCT(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFileCT = true;
+      this.fileCT = fileList[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.contentCT = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      // setTimeout(() => {
+      //   this.loadToServerCTFunction();
+      // }, 1000);
+      this.uploadCTFileText = this.fileCT.name;
+      console.log(this.fileCT.name);
+    }
+  }
+
+  public loadToServerCTFunction() {
+    this.loadingFileCT = true;
+    this.siteService.loadToServerCT(this.contentCT, this.id_site, this.id_machine)
+      .subscribe(result => {
+        console.log(result);
+        this.userHasChoosenFileCT = false;
+        this.loadingFileCT = false;
+      }, (err) => {
+        this.loadingFileCT = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
 
 
   datepickerRun() {

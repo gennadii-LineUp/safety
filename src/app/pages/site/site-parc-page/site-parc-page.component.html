@@ -5,13 +5,16 @@
     </button>
     <p>SAFETY: <span>{{errorLoad}}</span></p>
   </div>
+  <div *ngIf="successCreating" class="alert alert-success">
+    {{successCreating}}
+  </div>
 
   <h1>Parc Machines</h1>
   <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
 <div class="main-content">
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="modal_Machine.open(); setEmptyCategory();"></button>
+        <button class="add-an-item-button" (click)="modalOpen(); modal_Machine.open(); setEmptyCategory();"></button>
 
       <div class="search-wrapper">
         <button class="search-button" type="button" (click)='findByNameFunction(findByName.value, 1, "")'></button>
@@ -286,19 +289,19 @@
 
 <!--============================================ data input =======================================================-->
 <!--============================================ data input =======================================================-->
-<site-parc-modal-machine #modal_Machine__dataInput style='min-width: 532px !important; max-width: 532px;' tabindex="-1">
+<site-parc-modal-machine #modal_Machine__dataInput id="modal_Machine__dataInput" style='min-width: 532px !important; max-width: 532px;' tabindex="-1">
     <modal-header-SPMM>
         <h2 style='min-width: 420px !important'>Ajouter: {{choosenType_caption}}</h2>
     </modal-header-SPMM>
     <modal-content-SPMM>
-      <div *ngIf="errorCreating" style='position: fixed; top: -40px !important;' class="alert alert-danger">
+      <div *ngIf="errorCreating" style='position: fixed; top: -42px !important;' class="alert alert-danger">
         {{errorCreating}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
           <span aria-hidden="true"></span>
         </button>
       </div>
-      <div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">
-        {{successCreating}}
+      <div *ngIf="successModify" style='position: fixed; top: -40px;' class="alert alert-success">
+        {{successModify}}
       </div>
 
       <form #site_parcForm="ngForm"  novalidate
@@ -333,6 +336,7 @@
                   <p [hidden]="registration.valid" class="requred-field ">Champs requis</p>
                 </div>
 
+                <br>
                 <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="calendar-wrapper clearfix">
                     <p class="form-subheader text-center">Vérification Générale Périodique</p>
                     <div class="clearfix"></div>
@@ -340,8 +344,19 @@
                     <input type="text" class="datepicker-default" (click)='datepickerRun()'
                            #vgp="ngModel" id='vgp' name='vgp'  [(ngModel)]="machine.vgp"/>  <!-- (focus)='datepickerRun()' -->
                     <div class="clearfix"></div>
-                    <button class="form-button dark-green-button telecharger-button pull-left"
-                            style="text-align: left;">Télécharger</button>
+
+                    <div class="vgp-upload pull-left">
+                      <label for="vgp-input">Télécharger
+                      </label>
+                      <img *ngIf='loadingFileVGP' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                      <input id="vgp-input" type="file"  [disabled]="loadingFileVGP"
+                             (change)="fileChangeVGP($event)"
+                             accept=".pdf"/>
+                    </div>
+                    <span class="uploaded-file-caption">{{uploadVGPFileText}}</span>
+                      <!--<button class="form-button dark-green-button telecharger-button pull-left"-->
+                              <!--style="text-align: left;">Télécharger</button>-->
+                      <!--<span style="margin-left: 20px;">{{uploadVGPFileText}}</span>-->
                 </div>
 
               <div *ngIf="t3 || t4_t5 || t7 || t10 || t12_41" class="calendar-wrapper clearfix">
@@ -351,8 +366,19 @@
                   <input type="text" class="datepicker-default" (click)='datepickerRun()'
                          #techControl="ngModel" id='techControl' name='techControl'  [(ngModel)]="machine.techControl"/>  <!-- (focus)='datepickerRun()' -->
                   <div class="clearfix"></div>
-                  <button class="form-button dark-green-button telecharger-button pull-left"
-                          style="text-align: left;">Télécharger</button>
+
+                  <div class="vgp-upload pull-left">
+                    <label for="ct-input">Télécharger
+                    </label>
+                    <img *ngIf='loadingFileCT' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    <input id="ct-input" type="file"  [disabled]="loadingFileCT"
+                           (change)="fileChangeCT($event)"
+                           accept=".pdf"/>
+                  </div>
+                  <span class="uploaded-file-caption">{{uploadCTFileText}}</span>
+
+                <!--<button class="form-button dark-green-button telecharger-button pull-left"-->
+                          <!--style="text-align: left;">Télécharger</button>-->
               </div>
 
               <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">

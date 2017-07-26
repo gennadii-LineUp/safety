@@ -96,6 +96,23 @@ export class SiteService {
       console.log(url);
       return this.backendService.get(url);
     }
+    public loadToServerVGP(content: any, siteId: number, machineId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/vgp_file';
+      console.log(url);
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
+    }
+    public loadToServerCT(content: any, siteId: number, machineId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/tech_control_file';
+      console.log(url);
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
+    }
+
 
   public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
