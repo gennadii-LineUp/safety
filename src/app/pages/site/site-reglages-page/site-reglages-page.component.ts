@@ -42,6 +42,15 @@ export class SiteReglagesPageComponent implements OnInit {
     successCreating = '';
     itemForChange = 0;
 
+    loadingFile = false;
+    uploadedFile = false;
+    content: any;
+    showImg = false;
+    file: File;
+    userHasChoosenFile = false;
+
+    imgServer: any;
+
     employee_responsables = [];
     employee_fromSearch = [];
     employee_forAccess_arr = [];
@@ -113,6 +122,10 @@ export class SiteReglagesPageComponent implements OnInit {
           this.siteReglages.signatorySurname = result.signatorySurname;
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
+          }, 100);
+          this.loadingFile = true;
+          setTimeout(() => {
+            this.getFromServerProfileImageFunction();
           }, 100);
         }
       }, (err) => {
@@ -300,6 +313,60 @@ export class SiteReglagesPageComponent implements OnInit {
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
+
+  public fileChange(event) {
+    this.uploadedFile = false;
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFile = true;
+      this.file = fileList[0];
+
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.content = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+
+      this.loadingFile = true;
+      setTimeout(() => {
+        this.loadToServerProfileImageFunction();
+      }, 1000);
+    }
+  }
+
+  public loadToServerProfileImageFunction() {
+    this.siteService.loadToServerProfileImage(this.content, this.id_site)
+      .subscribe(result => {
+        if (result) {
+          setTimeout(() => {
+            this.getFromServerProfileImageFunction();
+          }, 100);
+        }
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public getFromServerProfileImageFunction() {
+    this.loadingFile = true;
+    this.uploadedFile = false;
+    this.siteService.getFromServerProfileImage(this.id_site)
+      .subscribe(result => {
+        if (result) {
+          this.loadingFile = false;
+          this.showImg = true;
+          const src = 'data:' + result.contentType + ';base64,';
+          this.imgServer = src + result.content;
+        }
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
 
   public modalOpen() {
     const _modal = document.getElementById('myModal').firstElementChild;

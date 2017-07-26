@@ -67,3 +67,28 @@ site-reglages-modal .form-control {
   padding-right: 8px !important;
 }
 /*}*/
+
+
+.loading_ok {
+  left: 2px;
+  top: -14px;
+}
+
+#loadedImg {
+  height: 107px;
+  width: 140px;
+  display: block;
+  background-position: center !important;
+  background-size: cover !important;
+  z-index: 100;
+  position: relative;
+}
+.image-upload label span {
+  background: url(../../../../assets/img/ajouter-un-logo-img.png) no-repeat center;
+  height: 107px;
+  width: 140px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

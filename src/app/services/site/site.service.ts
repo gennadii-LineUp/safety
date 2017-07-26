@@ -193,17 +193,33 @@ export class SiteService {
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
     }
 
-  public getAccueilInfo(siteId: number): Observable<any> {
-    const query = siteId;
-    return this.backendService.get(UrlParams.siteHome + query);
-  }
+    public getAccueilInfo(siteId: number): Observable<any> {
+      const query = siteId;
+      return this.backendService.get(UrlParams.siteHome + query);
+    }
 
     public getFromServerAccueilImage(siteId: number): Observable<any> {
       const query = siteId + '/image' + '?encoded=1';
       return this.backendService.loadImage_get(UrlParams.siteHome + query);
     }
 
-    public sendFileToServer(file: any, content: any, siteId: number): Observable<any> {
+  public loadToServerProfileImage(content: any, siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/image';
+    console.log(url);
+    const fileToServer = {
+      content: ((((content.result).split(';'))[1]).split(','))[1]
+    };
+    return this.backendService.loadImage_post(url, fileToServer);
+  }
+
+  public getFromServerProfileImage(siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/image' + '?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+
+
+  public sendFileToServer(file: any, content: any, siteId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/files';
       // const formData: FormData = new FormData();
       // formData.append('file', file.name);
