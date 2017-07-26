@@ -1,3 +1,6 @@
+th {
+   padding-left: 0 !important;
+}
 .profil-form .input-wrapper {
     float: left;
     margin-right: 23px;

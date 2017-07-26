@@ -26,6 +26,9 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     successCreating = '';
     saveButtonCaption = 'Ajouter';
 
+    itemForChange =  0;
+    fileForChange = false;
+
     id_site: number;
     id_fichier = 0;
 
@@ -198,6 +201,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   public fileChange(event) {
     this.loadingFile = false;
     this.uploadedFile = false;
+    if (this.itemForChange) {this.fileForChange = true; }
 
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
@@ -215,14 +219,25 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   }
 
   public sendFileToServer() {
+    let urlOption = '';
+    if (this.itemForChange && this.fileForChange) {
+      urlOption = '/' + this.itemForChange;
+      this.saveButtonCaption = 'Modifier';
+    }
     this.loadingFile = true;
-    this.siteService.sendFileToServer(this.file, this.content, this.id_site)
+    this.siteService.sendFileToServer(this.file, this.content, this.id_site, urlOption)
       .subscribe(result => {
         if (result) {
           console.log(result);
           this.loadingFile = false;
           this.uploadedFile = true;
-          this.id_fichier = result.id;
+          if (result.id) {
+            this.id_fichier = result.id;
+          }
+          if (this.fileForChange) {
+            this.fileForChange = false;
+            this.successCreating = 'Le nouveau fichier est chargé.';
+          }
         }
       }, (err) => {
         this.loadingFile = false;
@@ -231,7 +246,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
-
 
 
   public submitForm(name: string) {
@@ -291,6 +305,8 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     for (let i = 0; i < checkedI.length; i++) {
       (<HTMLInputElement>checkedI[i]).checked = false;
     }
+    this.uploadFileText = '.pdf fichier';
+    this.uploadedFile = false;
     return;
   }
 
@@ -299,8 +315,8 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.cancellMessages();
     this.creating = true;
     this.setEmptyFichiers();
-
-    // let result = (this.original_fichiers.filter(obj => {
+    this.itemForChange = id_itemForUpdate;
+      // let result = (this.original_fichiers.filter(obj => {
     //   return obj.id === id_itemForUpdate;
     // }))[0];
 

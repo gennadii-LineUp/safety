@@ -2452,3 +2452,10 @@ th {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+
+/* DATEPICKER TABLE FIX */
+
+.ui-datepicker-calendar th {
+  padding-left:0 !important;
+}

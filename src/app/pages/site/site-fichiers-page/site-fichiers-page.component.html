@@ -64,9 +64,6 @@
 
                                   <div *ngFor="let groupe of employeeGroupes" class="radio" >
                                     <label class="control control--checkbox">{{groupe.name}}
-                                      <!--[checked]='client.billingAddressIfDifferent'
-                                          (click)='toggleDifferentBillingAddress($event)'
-                                          [(ngModel)]="newFichier.employeeGroups"-->
                                       <input type="checkbox"
                                                id={{groupe.id}} name={{groupe.id}}
                                                 [value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'
@@ -131,7 +128,7 @@
                     <a href="javascript:void(0);"
                           (click)='myModal.open();
                                   setEmptyFichiers();
-                                  modifierFunction(fichier.id);'>{{fichier.id}}Modifier</a>
+                                  modifierFunction(fichier.id);'>Modifier</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(fichier.id)'>Supprimer</a></td>
                 </tr>

@@ -234,8 +234,8 @@ export class SiteService {
 
 
 
-  public sendFileToServer(file: any, content: any, siteId: number): Observable<any> {
-      const url = UrlParams.siteHome + siteId + '/files';
+  public sendFileToServer(file: any, content: any, siteId: number, urlOption: string): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/files' + urlOption;
       // const formData: FormData = new FormData();
       // formData.append('file', file.name);
       // formData.append('uploadFile', content.result);

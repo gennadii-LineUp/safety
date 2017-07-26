@@ -487,15 +487,18 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
 
     public datepickerViewInit() {
-        // $(() => {
-            this.dataService.datepickerFranceFormat();
-            $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker();
-            // $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker({dateFormat: 'dd-mm-yy'});
-            $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
-            $( '#format' ).change(function () {
-                $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'dateFormat', $(this).val() );
-            });
-        // });
+     // $(document).ready(function() {
+
+      // $(() => {
+        this.dataService.datepickerFranceFormat();
+        $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker();
+        // $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker({dateFormat: 'dd-mm-yy'});
+        $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);
+        $('#format').change(function () {
+          $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'dateFormat', $(this).val());
+        });
+      // });
+    // });
     }
 
 
