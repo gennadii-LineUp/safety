@@ -24,6 +24,9 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
     loadingFile = false;
     uploadedFile = false;
     uploadFileText = 'Image du site';
+    file: File;
+    content: any;
+    userHasChoosenFile = false;
 
     site: SiteClass[] = [];
     newSite_id: number;
@@ -66,14 +69,14 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.findSiteByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
-        window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
+        // window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
         this.checkFreeSalarieAccount();
     }
 
     ngOnDestroy() {
         localStorage.removeItem('clientSiteSearch_page');
         localStorage.removeItem('clientSiteSearch_name');
-        window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
+        // window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
     public getSortingTarget() {
@@ -91,7 +94,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
         } else {
             this.findSiteByNameFunction('', 1, '');
         }
-        console.log('====' + this.searchName);
     }
 
     public checkFreeSalarieAccount() {
@@ -121,19 +123,15 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
         this.cancellMessages();
         this.loading = true;
         this.emptyTable = false;
-
         let _name = name;
         if (name === 'lineUp') {
             _name = localStorage.clientSiteSearch_name;
         }
         this.activePage = page;
-
         this.clientService.findSiteByName(_name, page, sort)
             .subscribe(result => {
                 if (result) {
                     this.loading = false;
-
-                    console.log(result);
                     this.sites = result.items;
                     console.log(this.sites);
                     this.totalItems = +result.pagination.totalCount;
@@ -144,7 +142,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                     this.currentPage = +result.pagination.current;
 
                     this.setPage(this.currentPage);
-
                     setTimeout(() => {
                         this.clientService.tableMobileViewInit();
                     }, 200);
@@ -154,23 +151,26 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;
-                console.log('====error=============');
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 
-    file: File;
-    userHasChoosenFile = false;
     public fileChange(event) {
-        this.loadingFile = false;
-        this.uploadedFile = false;
-        const fileList: FileList = event.target.files;
-        console.log(fileList);
-        if (fileList.length > 0) {
-            this.userHasChoosenFile = true;
-            this.file = fileList[0];
-            this.uploadFileText = this.file.name;
-        }
+      this.loadingFile = false;
+      this.uploadedFile = false;
+
+      let fileList: FileList = event.target.files;
+      if (fileList.length > 0) {
+        this.userHasChoosenFile = true;
+        this.file = fileList[0];
+        this.uploadFileText = this.file.name;
+
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.content = e.target;
+        };
+        const res = reader.readAsDataURL(event.target.files[0]);
+      }
     }
 
     public submitForm(name: string, address: string, postalCode: string, city: string, notificationEmails: string,
@@ -180,7 +180,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                       medicalVisitSite: boolean,
                       techControlSiege: boolean,
                       techControlSite: boolean) {
-
         this.cancellMessages();
         this.creating = true;
 
@@ -191,40 +190,45 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                                     this._medicalVisitSite,
                                     this._techControlSiege,
                                     this._techControlSite);
-
-        console.dir(newSite);
-
         this.clientService.addNewSite(newSite)
             .subscribe(result => {
                 if (result) {
                     this.cancellMessages();
                     console.log(result);
                     this.newSite_id = result.siteId;
-                    this.successCreating = 'Bien joué! Vous avez créé un nouveau client.';
+                    // this.successCreating = 'Bien joué! Vous avez créé un nouveau client.';
                     if (this.userHasChoosenFile) {
                         this.loadingFile = true;
-                        this.clientService.uploadImage(this.file, this.newSite_id)
-                            .subscribe(result => {
-                                if (result) {
-                                    this.loadingFile = false;
-                                    this.uploadedFile = true;
-                                    console.log(result);
-                                }
-                            }, (err) => {
-                                this.loadingFile = false;
-                                this.uploadFileText = '  error  error  error';
-                                console.log(err);
-                                this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-                            });
+                      this.clientService.sendFileToServer(this.content, this.newSite_id)
+                        .subscribe(result => {
+                          if (result) {
+                            console.log(result);
+                            this.loadingFile = false;
+                            this.uploadedFile = true;
+                            this.findSiteByNameFunction(this.searchName, this.activePage, '');
+                            this.creating = false;
+                            this.userHasChoosenFile = false;
+                            // modal close /////////
+                            const _modal = document.getElementById('myModal').firstElementChild;
+                            _modal.classList.remove('in');
+                            _modal.classList.remove('fade');
+                            (<HTMLScriptElement>_modal).style.display = 'none';
+                            document.body.className = document.body.className.replace(/modal-open\b/, '');
+                            const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                            document.body.removeChild(modal_bg);
+                            // /////////
+                          }
+                        }, (err) => {
+                          this.loadingFile = false;
+                          this.uploadFileText = '  error  error  error';
+                          console.log(err);
+                          this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+                        });
                     }
-                    this.creating = false;
-                    this.userHasChoosenFile = false;
-                    this.ngOnInit();
                 }
             }, (err) => {
                 this.creating = false;
                 console.log(err);
-
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
@@ -238,7 +242,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                 if (result) {
                     this.cancellMessages();
                     console.log(result);
-                    // this.ngOnInit();
                     this.findSiteByNameFunction(this.searchName, this.activePage, '');
                 }
             }, (err) => {
@@ -272,13 +275,12 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.creating = false;
         this.errorLoad = '';
-       // this.errorSalaries = false;
+        this.errorSalaries = false;
         this.errorCreating = '';
         this.successCreating = '';
     }
     public cancellErrorSalariesMessages() {
         this.errorSalaries = false;
     }
-
 
 }

@@ -203,7 +203,7 @@ export class SiteService {
       return this.backendService.loadImage_get(UrlParams.siteHome + query);
     }
 
-    public sendPDFtoServer(file: any, content: any, siteId: number): Observable<any> {
+    public sendFileToServer(file: any, content: any, siteId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/files';
       // const formData: FormData = new FormData();
       // formData.append('file', file.name);

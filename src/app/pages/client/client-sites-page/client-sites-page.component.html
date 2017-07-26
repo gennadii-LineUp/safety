@@ -11,6 +11,7 @@
         </button>
         <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
+    <div *ngIf="successCreating" style='position: absolute;' class="alert alert-success">{{successCreating}}</div>
 
     <h1>Sites</h1>
     <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -21,7 +22,7 @@
 
         <button class="add-an-item-button" (click)="myModal.open()"></button>
 
-        <client-sites-modal #myModal>
+        <client-sites-modal #myModal id="myModal">
             <modal-header-CS>
                 <h2>Ajouter un site</h2>
             </modal-header-CS>
@@ -165,12 +166,11 @@
                         </table>
                     </div>
                 </form>
-                <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+                <div *ngIf="errorCreating" style='position: fixed; top: -40px !important;' class="alert alert-danger">{{errorCreating}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
-                <div *ngIf="successCreating" style='position: fixed;' class="alert alert-success">{{successCreating}}</div>
             </modal-content-CS>
 
             <modal-footer-CS>

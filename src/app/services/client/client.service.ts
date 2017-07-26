@@ -62,12 +62,20 @@ export class ClientService {
 
     public uploadImage(file: any, siteId: number): Observable<any> {
         console.log('==client service:_uploadImage started==');
-
         let formData: FormData = new FormData();
         formData.append('image', file, file.name);
-        console.log(UrlParams.siteHome+siteId+'/image');
-
-        return this.backendService.loadImage_post(UrlParams.siteHome+siteId+'/image', formData);
+        console.log(UrlParams.siteHome + siteId + '/image');
+        return this.backendService.loadImage_post(UrlParams.siteHome + siteId + '/image', formData);
+    }
+    public sendFileToServer(content: any, siteId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/image';
+      // const formData: FormData = new FormData();
+      // formData.append('file', file.name);
+      // formData.append('uploadFile', content.result);
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
     }
 
 

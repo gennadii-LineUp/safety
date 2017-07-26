@@ -32,6 +32,9 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     loadingFile = false;
     uploadedFile = false;
     uploadFileText = '.pdf fichier';
+    file: File;
+    content: any;
+    userHasChoosenFile = false;
 
     checkedGroups = [];
 
@@ -40,10 +43,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     activePage = 1;
     searchName = '';
     currentPage: any;
-
-    file: File;
-    content: any;
-    userHasChoosenFile = false;
 
     public employeeGroupes = [];
 
@@ -216,9 +215,8 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   }
 
   public sendFileToServer() {
-    console.log(this.content);
     this.loadingFile = true;
-    this.siteService.sendPDFtoServer(this.file, this.content, this.id_site)
+    this.siteService.sendFileToServer(this.file, this.content, this.id_site)
       .subscribe(result => {
         if (result) {
           console.log(result);
