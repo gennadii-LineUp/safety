@@ -14,7 +14,9 @@
 </header>
 <div class="main-content">
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="modalOpen(); modal_Machine.open(); setEmptyCategory();"></button>
+        <button class="add-an-item-button"
+                (click)="modalOpen(); modal_Machine.open(); modal_Machine__dataInput.close(); setEmptyCategory();">
+        </button>
 
       <div class="search-wrapper">
         <button class="search-button" type="button" (click)='findByNameFunction(findByName.value, 1, "")'></button>
