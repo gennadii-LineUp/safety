@@ -83,16 +83,18 @@ export class ClientService {
         console.log('==client service:_updateClientProfile started==');
         return this.backendService.post(UrlParams.clientProfilData, JSON.stringify(newProfile));
     }
-    public loadToServerProfileImage(file: any): Observable<any> {
-        console.log('==client service:_uploadProfileImage started==');
-        const formData: FormData = new FormData();
-        formData.append('image', file, file.name);
 
-        return this.backendService.loadImage_post(UrlParams.clientProfilData + '/image', formData);
+    public loadToServerProfileImage(content: any): Observable<any> {
+      const url = UrlParams.clientProfilData + '/image';
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
     }
+
     public getFromServerProfileImage(): Observable<any> {
         console.log(UrlParams.clientProfilData + '/image');
-        return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image'+'?encoded=1');
+        return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image' + '?encoded=1');
     }
 
 

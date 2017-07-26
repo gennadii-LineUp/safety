@@ -20,6 +20,8 @@ export class ClientProfilPageComponent implements OnInit {
 
     loadingFile = false;
     uploadedFile = false;
+    content: any;
+    showImg = false;
 
     imgServer: any;
 
@@ -28,7 +30,7 @@ export class ClientProfilPageComponent implements OnInit {
     file: File;
     userHasChoosenFile = false;
 
-  client = new ClientProfileClass('', '', '', '', '', false, '', '', '', '', '', '', '', '', '', '', '', '');
+    client = new ClientProfileClass('', '', '', '', '', false, '', '', '', '', '', '', '', '', '', '', '', '');
 
     constructor(private router: Router,
                 private clientService: ClientService,
@@ -61,62 +63,58 @@ export class ClientProfilPageComponent implements OnInit {
                         result.diffCity,
                         result.phone,
                         result.numberSiret,
-                        '',
+                        result.rib,
                         result.contactName,
                         result.contactPhone,
                         result.contactEmail,
                         '', '');
+                      this.client = currentClient;
 
-                    this.client = currentClient;
-
-                  //    this.loadingFile = true;
-                  //
-                  // setTimeout(() => {
-                  //     this.getFromServerProfileImageFunction();
-                  // }, 100);
+                      this.loadingFile = true;
+                      setTimeout(() => {
+                          this.getFromServerProfileImageFunction();
+                      }, 100);
                 }
             }, (err) => {
                 this.loading = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
-
     }
 
-    showImg = false;
-    public fileChange(event) {
+
+  public fileChange(event) {
         this.uploadedFile = false;
-        const fileList: FileList = event.target.files;
+        let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             this.userHasChoosenFile = true;
             this.file = fileList[0];
 
-            if (this.userHasChoosenFile) {
-                this.loadingFile = true;
-                this.clientService.loadToServerProfileImage(this.file)
-                    .subscribe(result => {
-                        if (result) {
-                            console.log(result);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+              this.content = e.target;
+            };
+            const res = reader.readAsDataURL(event.target.files[0]);
 
-                            // setTimeout(() => {
-                            //     this.getFromServerProfileImageFunction();
-                            // }, 1000);
-
-                            this.loadingFile = false;
-                            this.uploadedFile = true;
-
-                            // this.successUpdate = "Well done! You've updated your settings.";
-                        }
-                    }, (err) => {
-                        this.loadingFile = false;
-                        console.log(err);
-                        this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-                    });
-            }
-            else {
-                // this.successUpdate = "Well done! You've updated your settings.";
-            }
-
+            this.loadingFile = true;
+            setTimeout(() => {
+                this.loadToServerProfileImageFunction();
+            }, 1000);
         }
+    }
+
+    public loadToServerProfileImageFunction() {
+      this.clientService.loadToServerProfileImage(this.content)
+        .subscribe(result => {
+          if (result) {
+            setTimeout(() => {
+                this.getFromServerProfileImageFunction();
+            }, 100);
+          }
+        }, (err) => {
+          this.loadingFile = false;
+          console.log(err);
+          this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
+        });
     }
 
     public getFromServerProfileImageFunction() {
@@ -126,22 +124,9 @@ export class ClientProfilPageComponent implements OnInit {
                 .subscribe(result => {
                     if (result) {
                         this.loadingFile = false;
-                      this.showImg = true;
-                        console.log(result);
+                        this.showImg = true;
                         const src = 'data:' + result.contentType + ';base64,';
-                        console.log(src);
-                         this.imgServer = src + result.content;
-                      // let blob = new Blob([new Uint8Array(result._body)], {
-                      //   type: result.headers.get('Content-Type')
-                      // });
-                      // let urlCreator = window.URL;
-                      // let url = urlCreator.createObjectURL(blob);
-                      // this.imgServer = url;
-
-                      // this.imgServer = atob(result._body);
-
-                      // this.imgServer = atob(String.fromCharCode.apply(null, new Uint8Array(result._body)));
-                      // this.successUpdate = "Well done! You've updated your settings.";
+                        this.imgServer = src + result.content;
                     }
                 }, (err) => {
                     this.loadingFile = false;
@@ -161,7 +146,6 @@ export class ClientProfilPageComponent implements OnInit {
         this.clientService.updateClientProfile(this.client)
             .subscribe(result => {
                 if (result) {
-                    console.log(result);
 
                     // if (this.userHasChoosenFile) {
                     //     this.loadingFile = true;
