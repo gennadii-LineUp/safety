@@ -205,6 +205,26 @@ export class SiteService {
 
   public loadToServerProfileImage(content: any, siteId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/image';
+    const fileToServer = {
+      content: ((((content.result).split(';'))[1]).split(','))[1]
+    };
+    return this.backendService.loadImage_post(url, fileToServer);
+  }
+  public getFromServerProfileImage(siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/image' + '?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+  public loadToServerSignature(content: any, siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/signature';
+    console.log(url);
+    const fileToServer = {
+      content: ((((content.result).split(';'))[1]).split(','))[1]
+    };
+    return this.backendService.loadImage_post(url, fileToServer);
+  }
+  public loadToServerTampon(content: any, siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/stamp';
     console.log(url);
     const fileToServer = {
       content: ((((content.result).split(';'))[1]).split(','))[1]
@@ -212,11 +232,6 @@ export class SiteService {
     return this.backendService.loadImage_post(url, fileToServer);
   }
 
-  public getFromServerProfileImage(siteId: number): Observable<any> {
-    const url = UrlParams.siteHome + siteId + '/image' + '?encoded=1';
-    console.log(url);
-    return this.backendService.loadImage_get(url);
-  }
 
 
   public sendFileToServer(file: any, content: any, siteId: number): Observable<any> {

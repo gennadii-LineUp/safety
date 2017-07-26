@@ -43,6 +43,8 @@ export class SiteReglagesPageComponent implements OnInit {
     itemForChange = 0;
 
     loadingFile = false;
+    loadingFileSignature = false;
+    loadingFileTampon = false;
     uploadedFile = false;
     content: any;
     showImg = false;
@@ -360,6 +362,66 @@ export class SiteReglagesPageComponent implements OnInit {
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
         }
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public fileChangeSignature(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFile = true;
+      this.file = fileList[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.content = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      this.loadingFileSignature = true;
+      setTimeout(() => {
+        this.loadToServerSignatureFunction();
+      }, 1000);
+    }
+  }
+
+  public loadToServerSignatureFunction() {
+    this.siteService.loadToServerSignature(this.content, this.id_site)
+      .subscribe(result => {
+          console.log(result);
+          this.loadingFileSignature = false;
+          this.successUpdate = 'La signature est chargée.';
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public fileChangeTampon(event) {
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFile = true;
+      this.file = fileList[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.content = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      this.loadingFileTampon = true;
+      setTimeout(() => {
+        this.loadToServerTamponFunction();
+      }, 1000);
+    }
+  }
+
+  public loadToServerTamponFunction() {
+    this.siteService.loadToServerTampon(this.content, this.id_site)
+      .subscribe(result => {
+        console.log(result);
+        this.loadingFileTampon = false;
+        this.successUpdate = 'Le tampon est chargée.';
       }, (err) => {
         this.loadingFile = false;
         console.log(err);
