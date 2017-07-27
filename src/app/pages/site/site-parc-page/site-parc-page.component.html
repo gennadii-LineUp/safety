@@ -306,7 +306,7 @@
         {{successModify}}
       </div>
 
-      <form #site_parcForm="ngForm"  novalidate
+      <form #site_parcForm="ngForm"  novalidate id="site_parcForm"
             (ngSubmit)="submitForm(site_parcForm)"  enctype="multipart/form-data">
           <div role="tabpanel" class="tab-pane fade in active" id="category-chariot-grue-details">
                 <p id="modal_dataInput_choosenMachine_caption"
@@ -348,14 +348,19 @@
                     <div class="clearfix"></div>
 
                     <div class="vgp-upload pull-left">
-                      <label for="vgp-input">Télécharger
+                      <label for="vgpInput">Télécharger
                       </label>
                       <img *ngIf='loadingFileVGP' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                      <input id="vgp-input" type="file"  [disabled]="loadingFileVGP"
+                      <input id="vgpInput" #vgpInput type="file"  [disabled]="loadingFileVGP"
                              (change)="fileChangeVGP($event)"
                              accept=".pdf"/>
                     </div>
                     <span class="uploaded-file-caption">{{uploadVGPFileText}}</span>
+                    <div *ngIf="uploadVGPFileText" style="position: relative; display: inline-block;" class="pull-right">
+                      <button type="button" (click)="resetVGP();" class="uploaded-file-remove-btn">
+                        <span></span>
+                      </button>
+                    </div>
                       <!--<button class="form-button dark-green-button telecharger-button pull-left"-->
                               <!--style="text-align: left;">Télécharger</button>-->
                       <!--<span style="margin-left: 20px;">{{uploadVGPFileText}}</span>-->
@@ -370,29 +375,48 @@
                   <div class="clearfix"></div>
 
                   <div class="vgp-upload pull-left">
-                    <label for="ct-input">Télécharger
+                    <label for="ctInput">Télécharger
                     </label>
                     <img *ngIf='loadingFileCT' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    <input id="ct-input" type="file"  [disabled]="loadingFileCT"
+                    <input id="ctInput" #ctInput type="file"  [disabled]="loadingFileCT"
                            (change)="fileChangeCT($event)"
                            accept=".pdf"/>
                   </div>
                   <span class="uploaded-file-caption">{{uploadCTFileText}}</span>
-
+                  <div *ngIf="uploadCTFileText" style="position: relative; display: inline-block;" class="pull-right">
+                    <button type="button" (click)="resetCT();" class="uploaded-file-remove-btn">
+                      <span></span>
+                    </button>
+                  </div>
                 <!--<button class="form-button dark-green-button telecharger-button pull-left"-->
                           <!--style="text-align: left;">Télécharger</button>-->
               </div>
 
               <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">
                 <p class="form-subheader text-center" style="text-align: left;">Autres fichiers</p>
-                <div class="image-upload">
-                  <p>Fichier 1</p>
-                  <label for="file-input0">
-                    <span></span>
+                <div class="clearfix"></div>
+                <div class="vgp-upload pull-left">
+                  <label for="otherInput">Télécharger
                   </label>
-                  <input id="file-input0" type="file">
+                  <img *ngIf='loadingFileOther' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                  <input id="otherInput" #otherInput type="file"  [disabled]="loadingFileOther"
+                         (change)="fileChangeOther($event)"
+                         accept=".pdf"/>
                 </div>
-                <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
+                <span class="uploaded-file-caption">{{uploadOtherFileText}}</span>
+                <div *ngIf="uploadOtherFileText" style="position: relative; display: inline-block;" class="pull-right">
+                  <button type="button" (click)="resetOther();" class="uploaded-file-remove-btn" style="margin-top: 0;">
+                    <span></span>
+                  </button>
+                </div>
+                <!--<div class="image-upload">-->
+                  <!--<p>Fichier 1</p>-->
+                  <!--<label for="file-input0">-->
+                    <!--<span></span>-->
+                  <!--</label>-->
+                  <!--<input id="file-input0" type="file">-->
+                <!--</div>-->
+                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
               </div>
 
             <div *ngIf="t3" class="groupe-wrapper">

@@ -955,6 +955,23 @@ th {
   font-weight: 400;
   color: #8d8d8d;
 }
+.uploaded-file-remove-btn {
+  position: absolute;
+  right: 0px;
+  top: 1px;
+  width: 35px;
+  height: 35px;
+  background: #3ba890;
+  display: block;
+  border: none;
+  float: right;
+}
+.uploaded-file-remove-btn span {
+  width: 24px;
+  height: 28px;
+  display: block;
+  background: url(/assets/img/minus-icon-white.png) no-repeat center;
+}
 .image-upload > input
 {
     display: none;

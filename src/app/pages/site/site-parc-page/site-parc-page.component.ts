@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {DataService} from '../../../services/DataService.service';
@@ -59,18 +59,31 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     loadingFileSignature = false;
     loadingFileVGP = false;
     loadingFileCT = false;
+    loadingFileOther = false;
     uploadedFile = false;
     contentVGP: any;
     contentCT: any;
-    showImg = false;
-    fileVGP: File;
-    fileCT: File;
+  contentOther: any;
+    fileListVGP: FileList;
+    fileListCT: FileList;
+  fileListOther: FileList;
     userHasChoosenFileVGP = false;
     userHasChoosenFileCT = false;
+  userHasChoosenFileOther = false;
     uploadVGPFileText: any;
     uploadCTFileText: any;
+  uploadOtherFileText: any;
 
-    pager: any = {};
+  @ViewChild('vgpInput')
+  vgpInput: any;
+
+  @ViewChild('ctInput')
+  ctInput: any;
+
+  @ViewChild('otherInput')
+  otherInput: any;
+
+  pager: any = {};
     totalItems = 0;
     activePage = 1;
     searchName = '';
@@ -301,11 +314,16 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         if (result) {
           console.log(result);
           this.id_machine = result.id;
-          if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction();
-          } else if (this.userHasChoosenFileCT) {
+          if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(); }
+          if (this.userHasChoosenFileCT) {
               setTimeout(() => {
                 this.loadToServerCTFunction();
-              }, 10);
+              }, 400);
+          }
+          if (this.userHasChoosenFileOther) {
+            setTimeout(() => {
+              this.loadToServerOtherFunction();
+            }, 800);
           }
 
           if (this.itemForChange) {
@@ -322,7 +340,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
           (<HTMLScriptElement>modal_bg).classList.add('hidden');
           /////////
-
           this.findByNameFunction(this.searchName, this.activePage, '');
           this.setEmptyMachines();
         }
@@ -386,6 +403,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.saveButtonCaption = 'Enregistrer';
     this.uploadVGPFileText = '';
     this.uploadCTFileText = '';
+    this.uploadOtherFileText = '';
 
   }
 
@@ -467,6 +485,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     }
     this.uploadVGPFileText = '';
     this.uploadCTFileText = '';
+    this.uploadOtherFileText = '';
     return;
   }
 
@@ -554,12 +573,32 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.equipment_nullData = false;
   }
 
+  public resetVGP() {
+    this.userHasChoosenFileVGP = false;
+    this.vgpInput.nativeElement.value = '';
+    console.log(this.vgpInput.nativeElement.files);
+    this.uploadVGPFileText = '';
+  }
+  public resetCT() {
+    this.userHasChoosenFileCT = false;
+    this.ctInput.nativeElement.value = '';
+    // console.log(this.ctInput.nativeElement.files);
+    this.uploadCTFileText = '';
+  }
+  public resetOther() {
+    this.userHasChoosenFileOther = false;
+    this.otherInput.nativeElement.value = '';
+    // console.log(this.ctInput.nativeElement.files);
+    this.uploadOtherFileText = '';
+  }
+
 
   public fileChangeVGP(event) {
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
+      console.log('======fileChange VGP======');
+    this.fileListVGP = event.target.files;
+    if (this.fileListVGP.length > 0) {
       this.userHasChoosenFileVGP = true;
-      let fileVGP = fileList[0];
+      let fileVGP = this.fileListVGP[0];
       let reader = new FileReader();
       reader.onload = (e) => {
         this.contentVGP = e.target;
@@ -567,9 +606,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       const res = reader.readAsDataURL(event.target.files[0]);
       this.uploadVGPFileText = fileVGP.name;
       console.log(fileVGP);
-      // setTimeout(() => {
-      //   this.loadToServerVGPFunction();
-      // }, 1000);
     }
   }
 
@@ -578,13 +614,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.siteService.loadToServerVGP(this.contentVGP, this.id_site, this.id_machine)
       .subscribe(result => {
         console.log(result);
-        this.userHasChoosenFileVGP = false;
         this.loadingFileVGP = false;
-        if (this.userHasChoosenFileCT) {
-          setTimeout(() => {
-            this.loadToServerCTFunction();
-          }, 10);
-        }
+        this.userHasChoosenFileVGP = false;
+        this.resetVGP();
       }, (err) => {
         this.loadingFileVGP = false;
         console.log(err);
@@ -593,21 +625,19 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   }
 
   public fileChangeCT(event) {
-    // let fileList: FileList = event.target.files;
-    // if (fileList.length > 0) {
-    //   this.userHasChoosenFileCT = true;
-    //   let fileCT = fileList[0];
+    console.log('======fileChange CT======');
+    this.fileListCT = event.target.files;
+    if (this.fileListCT.length > 0) {
+      this.userHasChoosenFileCT = true;
+      let fileCT = this.fileListCT[0];
       let reader = new FileReader();
       reader.onload = (e) => {
         this.contentCT = e.target;
       };
       const res = reader.readAsDataURL(event.target.files[0]);
-      setTimeout(() => {
-        console.log(this.contentCT);
-      }, 100);
-      // this.uploadCTFileText = fileCT.name;
-      // console.log(fileCT);
-    // }
+      this.uploadCTFileText = fileCT.name;
+      console.log(fileCT);
+     }
   }
 
   public loadToServerCTFunction() {
@@ -615,8 +645,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.siteService.loadToServerCT(this.contentCT, this.id_site, this.id_machine)
       .subscribe(result => {
         console.log(result);
-        this.userHasChoosenFileCT = false;
         this.loadingFileCT = false;
+        this.userHasChoosenFileCT = false;
+        this.resetCT();
       }, (err) => {
         this.loadingFileCT = false;
         console.log(err);
@@ -624,6 +655,36 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  public fileChangeOther(event) {
+    console.log('======fileChange other======');
+    this.fileListOther = event.target.files;
+    if (this.fileListOther.length > 0) {
+      this.userHasChoosenFileOther = true;
+      let fileOther = this.fileListOther[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.contentOther = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      this.uploadOtherFileText = fileOther.name;
+      console.log(fileOther);
+    }
+  }
+
+  public loadToServerOtherFunction() {
+    this.loadingFileOther = true;
+    this.siteService.loadToServerVGP(this.contentOther, this.id_site, this.id_machine)
+      .subscribe(result => {
+        console.log(result);
+        this.loadingFileOther = false;
+        this.userHasChoosenFileOther = false;
+        this.resetOther();
+      }, (err) => {
+        this.loadingFileOther = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
 
   datepickerRun() {
        $(() => {
