@@ -27,11 +27,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.reset_tolkin = params['reset/'];
+      this.reset_tolkin = params['reset'];
     });
     // this.querySubscription = this.route.queryParams.subscribe(
     //   (queryParam: any) => {
-    //     this.reset_tolkin = queryParam['reset/'];
+    //     this.reset_tolkin = queryParam['reset'];
     // });
     console.log(this.reset_tolkin);
   }
