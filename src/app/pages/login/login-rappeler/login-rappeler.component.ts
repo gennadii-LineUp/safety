@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../../../services/login/login.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
@@ -9,7 +9,7 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
   styleUrls: ['./login-rappeler.component.css'],
   providers: [LoginService]
 })
-export class RappelerLeMotDePasseComponent implements OnInit {
+export class RappelerLeMotDePasseComponent {
     loading = false;
     errorLoad = '';
     successCreating = '';
@@ -18,8 +18,6 @@ export class RappelerLeMotDePasseComponent implements OnInit {
               private errorMessageHandlerService: ErrorMessageHandlerService,
               private router: Router) { }
 
-  ngOnInit() {
-  }
 
   public EnvoyerEmailFunction(loginInputEmail: string) {
     this.loading = true;
