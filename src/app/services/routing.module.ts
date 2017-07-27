@@ -36,13 +36,15 @@ import {SalarieAttestationsComponent} from '../pages/salarie/salarie-attestation
 import {EmployeeNullGuard} from '../guards/employee-null-guard.service';
 import {ClientOrEmployeeAdminGuard} from '../guards/client-eadmin-guard.service';
 import {ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard} from '../guards/client-eadmin-egener-etech-guard.service';
-import {ClientOrEmplAdminOrEmplGeneralGuard} from "../guards/client-eadmin-egener-guard.service";
+import {ClientOrEmplAdminOrEmplGeneralGuard} from '../guards/client-eadmin-egener-guard.service';
+import {ResetPasswordComponent} from '../pages/login/reset-password/reset-password.component';
 
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: LoginStartComponent },
   { path: 'rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
     children: [
       { path: '', component: AdminAccueilContentComponent },

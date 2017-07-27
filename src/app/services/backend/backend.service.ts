@@ -26,9 +26,16 @@ export class BackendService {
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
     }
+    public resetPassword(url: string, body: any): Observable<any> {
+      const headers: Headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.post(url, body, {headers: headers})
+        .map((res: Response) => <Object[]>res.json());
+      // .catch((err: Response) => this.errorHandler.handleError(err));
+    }
 
 
-    public post(url: string, body: any): Observable<any> {
+  public post(url: string, body: any): Observable<any> {
         const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 

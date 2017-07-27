@@ -28,16 +28,17 @@ export class LoginStartComponent implements OnInit {
         this.loginService.login(userEmail, password)
             .subscribe(result => {
                 if (result.token) {
-                        localStorage.setItem('role', result.roles);
-                        localStorage.setItem('token', result.token);
-                        if (result.employeeAccess) {
-                          localStorage.setItem('employeeAccess', result.employeeAccess);
-                          localStorage.setItem('id_site', result.employeeSiteId);
-                        }
-                        console.log('true, ' + localStorage.role);
-                        if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']); }
-                        if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']); }
-                        if (localStorage.role === 'ROLE_EMPLOYEE') {this.router.navigate(['/sfsalarie']); }
+                        this.loginService.afterSuccessLogin(result);
+                        // localStorage.setItem('role', result.roles);
+                        // localStorage.setItem('token', result.token);
+                        // if (result.employeeAccess) {
+                        //   localStorage.setItem('employeeAccess', result.employeeAccess);
+                        //   localStorage.setItem('id_site', result.employeeSiteId);
+                        // }
+                        // console.log('true, ' + localStorage.role);
+                        // if (localStorage.role === 'ROLE_ADMIN') {this.router.navigate(['/admin']); }
+                        // if (localStorage.role === 'ROLE_CLIENT') {this.router.navigate(['/client']); }
+                        // if (localStorage.role === 'ROLE_EMPLOYEE') {this.router.navigate(['/sfsalarie']); }
                         this.loading = false;
                 }
             }, (err) => {

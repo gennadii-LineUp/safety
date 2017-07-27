@@ -1,6 +1,5 @@
-
 <div class="background">
-    <div class='image-wrapper'>
+    <div class='image-wrapper' [routerLink]="['/reset-password']">
         <img id='logo-painted' src="../../../../assets/img/safety_network.png" class='img-adaptive' alt="logo">
     </div>
 
@@ -11,6 +10,7 @@
             </button>
             <p>SAFETY: <span>{{errorLoad}}</span></p>
         </div>
+        <div *ngIf="successCreating" class="alert alert-success">{{successCreating}}</div>
 
         <div class="login-block">
             <div class="caption">
@@ -20,20 +20,22 @@
             </div>
 
             <div class="main">
-                <form action="/" id="login-rappeler-form">
+                <form #loginRappelerForm="ngForm" id="loginRappelerForm" novalidate>
                     <p>Vous avez oublié votre mot de passe ?</p>
                     <p>Nous allons vous en envoyer un autre par email.</p>
                     <div class="form-group">
-                        <input type="email" class="form-control" id="loginInputEmail" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Email"
+                                #loginInputEmail="ngModel" id="loginInputEmail" name='loginInputEmail' required email ngModel/>
                     </div>
                     <div class="button-wrapper">
-                        <button type="submit"
+                        <button type="submit" [disabled]="!loginRappelerForm.form.valid"
                                 class="form-button password-envoi-button"
-                                (click)="EnvoyerEmailFunction()">Envoi
+                                (click)="EnvoyerEmailFunction(loginInputEmail.value)">Envoi
                         </button>
+                        <br>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>
                 </form>
-
             </div>
 
             <div class="footer">

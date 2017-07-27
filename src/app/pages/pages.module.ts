@@ -47,6 +47,7 @@ import { SalarieAutorisComponent } from './salarie/salarie-autoris/salarie-autor
 import { SalarieFichesModalComponent, ModalHeaderSSF, ModalContentSSF, ModalFooterSSF } from './salarie/salarie-fiches-machines/salarie-fiches-modal/salarie-fiches-modal.component';
 import {SalarieComponent} from './salarie/salarie.component';
 import {DataService} from '../services/DataService.service';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import {DataService} from '../services/DataService.service';
         SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
         SalarieFichesMachinesComponent, SalarieFichesModalComponent, ModalHeaderSSF, ModalContentSSF, ModalFooterSSF,
         SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
+        ResetPasswordComponent,
 
 
     ],
@@ -116,6 +118,7 @@ import {DataService} from '../services/DataService.service';
         SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
         SalarieFichesMachinesComponent, SalarieFichesModalComponent, ModalHeaderSSF, ModalContentSSF, ModalFooterSSF,
         SalarieVisiteMedicComponent, SalarieCacesComponent, SalarieAttestationsComponent, SalarieAutorisComponent,
+        ResetPasswordComponent
 
     ],
     providers: [DataService],

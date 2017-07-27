@@ -5,6 +5,11 @@ export class UrlParams {
       //  return `http://82.117.251.13/api/login`;
       //  return `http://api.lab.sygma-online.fr/login`;
     }
+    public static get resetPassword(): string {
+      return `http://sfapi:8000/app_dev.php/reset_password`;
+      //  return `http://82.117.251.13/api/reset_password`;
+      //  return `http://api.lab.sygma-online.fr/reset_password`;
+    }
 
     public static get adminClients(): string {
         return `http://sfapi:8000/app_dev.php/admin/clients`;
@@ -96,6 +101,10 @@ export class UrlParams {
   //
   // public static get LOGIN(): string {
   //     return `http://api.lab.sygma-online.fr/login`;
+  // }
+  //
+  // public static get resetPassword(): string {
+  //      return `http://api.lab.sygma-online.fr/reset_password`;
   // }
   //
   // public static get adminClients(): string {
