@@ -30,6 +30,13 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     salariesMaxPossible: number;
     salariesUsed: number;
 
+    loadingFile = false;
+    uploadedFile = false;
+    content: any;
+    showImg = false;
+    file: File;
+    userHasChoosenFile = false;
+    imgServer: any;
 
     id_site: number;
 
@@ -89,61 +96,97 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     }
 
 
-    // @ViewChild('birthDate')  birthDate: ElementRef;
+  public fileChange(event) {
+    this.uploadedFile = false;
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFile = true;
+      this.file = fileList[0];
+
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.content = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      console.log(res);
+      setTimeout(() => {
+         this.uploadedFile = true;
+        // this.loadToServerProfileImageFunction();
+      }, 200);
+    }
+  }
+
+  public loadToServerProfileImageFunction(user_id: number) {
+    this.loadingFile = true;
+    this.siteService.loadToServerEmployeeImage(this.content, this.id_site, user_id)
+      .subscribe(result => {
+          console.log(result);
+          this.loading = false;
+          this.loadingFile = false;
+          this.gotoSiteSalariesCreationStep2Page();
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+
+  // @ViewChild('birthDate')  birthDate: ElementRef;
     // public getDatepicker() {
     //     let dd = window.document.getElementsByClassName('datepicker-default')['0'].value;
     //     console.log(typeof dd + ' getElementsByClassName = ' + dd);
     //     console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
     // }
 
-    loadingFile = false;
-    uploadedFile = false;
-    file: File;
-    userHasChoosenFile = false;
-    public fileChange(event) {
-        // this.loadingFile = true;
-        this.uploadedFile = false;
-        let fileList: FileList = event.target.files;
-        if (fileList.length > 0) {
-            this.userHasChoosenFile = true;
-            this.file = fileList[0];
-
-            if (this.userHasChoosenFile) {
-                this.loadingFile = true;
-                this.clientService.loadToServerProfileImage(this.file)
-                    .subscribe(result => {
-                        if (result) {
-                            console.log(result);
-
-                            // setTimeout(() => {
-                            //     this.clientService.getProfileImage()
-                            //         .subscribe(result => {
-                            //             if (result) {
-                                             this.loadingFile = false;
-                                             this.uploadedFile = true;
-                            //                 console.log(result);
-                            //                 // this.successUpdate = "Well done! You've updated your settings.";
-                            //             }
-                            //         }, (err) => {
-                            //             this.loadingFile = false;
-                            //             console.log(err);
-                            //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-                            //         });
-                            // }, 1000);
-                            // this.successUpdate = "Well done! You've updated your settings.";
-                        }
-                    }, (err) => {
-                        this.loadingFile = false;
-                        console.log(err);
-                        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-                    });
-            }
-            else {
-                // this.successUpdate = "Well done! You've updated your settings.";
-            }
-
-        }
-    }
+    // loadingFile = false;
+    // uploadedFile = false;
+    // file: File;
+    // userHasChoosenFile = false;
+    // public fileChange(event) {
+    //     // this.loadingFile = true;
+    //     this.uploadedFile = false;
+    //     let fileList: FileList = event.target.files;
+    //     if (fileList.length > 0) {
+    //         this.userHasChoosenFile = true;
+    //         this.file = fileList[0];
+    //
+    //         if (this.userHasChoosenFile) {
+    //             this.loadingFile = true;
+    //             this.clientService.loadToServerProfileImage(this.file)
+    //                 .subscribe(result => {
+    //                     if (result) {
+    //                         console.log(result);
+    //
+    //                         // setTimeout(() => {
+    //                         //     this.clientService.getProfileImage()
+    //                         //         .subscribe(result => {
+    //                         //             if (result) {
+    //                                          this.loadingFile = false;
+    //                                          this.uploadedFile = true;
+    //                         //                 console.log(result);
+    //                         //                 // this.successUpdate = "Well done! You've updated your settings.";
+    //                         //             }
+    //                         //         }, (err) => {
+    //                         //             this.loadingFile = false;
+    //                         //             console.log(err);
+    //                         //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    //                         //         });
+    //                         // }, 1000);
+    //                         // this.successUpdate = "Well done! You've updated your settings.";
+    //                     }
+    //                 }, (err) => {
+    //                     this.loadingFile = false;
+    //                     console.log(err);
+    //                     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    //                 });
+    //         }
+    //         else {
+    //             // this.successUpdate = "Well done! You've updated your settings.";
+    //         }
+    //
+    //     }
+    // }
 
 
     public submitForm(newEmployeesForm: NgForm) {
@@ -182,15 +225,11 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.siteService.addNewEmployee(employeeDates, this.id_site)
             .subscribe(result => {
                 if (result) {
-                    this.loading = false;
+                    this.loadToServerProfileImageFunction(result.userId);
                     localStorage.setItem('id_salarie', '' + result.userId);
                     console.log('===== id NEW SALARIEE: ' + localStorage.id_salarie);
-                    setTimeout(() => {
-                        this.gotoSiteSalariesCreationStep2Page();
-                    }, 1000);
                 }
             }, (err) => {
-                console.log('====error=============');
                 this.loading = false;
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);

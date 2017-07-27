@@ -50,7 +50,6 @@ export class SiteReglagesPageComponent implements OnInit {
     showImg = false;
     file: File;
     userHasChoosenFile = false;
-
     imgServer: any;
 
     employee_responsables = [];

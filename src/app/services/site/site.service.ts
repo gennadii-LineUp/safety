@@ -134,6 +134,18 @@ export class SiteService {
         const query = UrlParams.siteHome + siteId + '/employees';
         return this.backendService.post(query, JSON.stringify(newEmployee));
     }
+    public loadToServerEmployeeImage(content: any, siteId: number, employeeId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/photo';
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
+    }
+    public getFromServerEmplImage(siteId: number, employeeId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/photo' + '?encoded=1';
+      console.log(url);
+      return this.backendService.loadImage_get(url);
+    }
     public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
         const query = siteId + '/employees/' + employeeId;
         return this.backendService.get(UrlParams.siteHome + query);

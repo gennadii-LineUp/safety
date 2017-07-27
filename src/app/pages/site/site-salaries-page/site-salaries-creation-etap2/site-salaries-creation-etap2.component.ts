@@ -40,8 +40,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     startDate = false;
     endDate = false;
 
-    loadingFile = false;
-    uploadedFile = false;
     uploadFileText = 'fichier1.jpg';
 
     saveButtonCaptionAttest = 'Enregistrer';
@@ -62,6 +60,15 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     checkedGroupFromEtap1: number;
 
+  loadingFile = false;
+  loadingFileSignature = false;
+  loadingFileTampon = false;
+  uploadedFile = false;
+  content: any;
+  showImg = false;
+  file: File;
+  userHasChoosenFile = false;
+  imgServer: any;
 
     activeSelect = '3';
     categoryDrivingLicense_active = 3;
@@ -84,11 +91,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     drivingLicense = new DrivingLicenseClass([], 0);
     drivingLicenses = [];
 
-  file: File;
-  userHasChoosenFile = false;
-
-
-  public getSortingTarget() {
+    public getSortingTarget() {
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }
 
@@ -120,18 +123,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     ngOnDestroy() {
       window.document.getElementById('site_salaries').classList.remove('active');
-    }
-
-    public fileChange(event) {
-        this.loadingFile = false;
-        this.uploadedFile = false;
-        const fileList: FileList = event.target.files;
-        console.log(fileList);
-        if (fileList.length > 0) {
-            this.userHasChoosenFile = true;
-            this.file = fileList[0];
-            this.uploadFileText = this.file.name;
-        }
     }
 
 
@@ -190,6 +181,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.employees.birthDate = this.dataService.convertDateFromServerToInput(result.birthDate);
                     console.log(this.employees);
                     this.loaded = true;
+                    this.getFromServerProfileImageFunction();
                     window.setTimeout(() => this.checkedGroupFromEtap1 = this.employees.employeeGroup, 100);
                     this.getDatesAutorisations();
                     this.getAttestations('');
@@ -456,7 +448,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     }
 
 
-
     public cancellErrorSalariesMessages() {
         this.errorSalaries = false;
     }
@@ -667,5 +658,55 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
+
+
+  public fileChange(event) {
+    this.uploadedFile = false;
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFile = true;
+      this.file = fileList[0];
+
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.content = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+
+      this.loadingFile = true;
+      setTimeout(() => {
+        this.loadToServerEmpImageFunction();
+      }, 500);
+    }
+  }
+
+  public loadToServerEmpImageFunction() {
+    this.siteService.loadToServerEmployeeImage(this.content, this.id_site, this.id_salarie)
+      .subscribe(result => {
+            this.getFromServerProfileImageFunction();
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public getFromServerProfileImageFunction() {
+    this.uploadedFile = false;
+    this.siteService.getFromServerEmplImage(this.id_site, this.id_salarie)
+      .subscribe(result => {
+        if (result) {
+          this.loadingFile = false;
+          this.showImg = true;
+          const src = 'data:' + result.contentType + ';base64,';
+          this.imgServer = src + result.content;
+        }
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
 
 }
