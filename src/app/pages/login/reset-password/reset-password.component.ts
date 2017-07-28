@@ -17,7 +17,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   private sub: any; //   /reset/
   private querySubscription: Subscription;  //    ?reset/
-  private reset_tolkin = '';
+  private reset_token = '';
 
   newPassword = new ResetPasswordClass('', '', '');
 
@@ -27,13 +27,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.reset_tolkin = params['reset'];
+      this.reset_token = params['reset'];
     });
     // this.querySubscription = this.route.queryParams.subscribe(
     //   (queryParam: any) => {
-    //     this.reset_tolkin = queryParam['reset'];
+    //     this.reset_token = queryParam['reset'];
     // });
-    console.log(this.reset_tolkin);
   }
 
   ngOnDestroy() {
@@ -44,6 +43,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   public resetPasswordFunction () {
     this.cancellErrorMessage();
     this.loading = true;
+    this.newPassword.token = this.reset_token;
+
     this.loginService.resetPassword(this.newPassword)
       .subscribe(result => {
         if (result.token) {
@@ -57,14 +58,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         //   this.errorLoad = 'Username or password is incorrect';
         //   return;
         // };
-
-        const errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus_old(err);
-        if (errorStatusKnown) {
-          this.errorLoad = errorStatusKnown;
-          return;
-        }
+        this.errorLoad = '55555';
+          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
-
   }
 
 

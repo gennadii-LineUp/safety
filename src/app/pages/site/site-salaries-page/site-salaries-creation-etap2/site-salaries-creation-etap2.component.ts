@@ -61,8 +61,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     checkedGroupFromEtap1: number;
 
   loadingFile = false;
-  loadingFileSignature = false;
-  loadingFileTampon = false;
+  loadingPhotoFile = true;
   uploadedFile = false;
   content: any;
   showImg = false;
@@ -113,8 +112,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.siteService.tableMobileViewInit();
         this.getEmployeeGroupes();
 
-        window.document.getElementById('site_salaries').classList.add('active');
-
         $(document).ready(() => {
           this.datepickerViewInit();
         });
@@ -125,6 +122,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       window.document.getElementById('site_salaries').classList.remove('active');
     }
 
+    public lightActiveMenu() {
+      let siteSalariesMenu = window.document.getElementById('siteSalariesMenu');
+      if (siteSalariesMenu) {siteSalariesMenu.classList.add('active'); }
+    }
 
     public ShowType(userChoice: string) {
       console.log(userChoice);
@@ -155,6 +156,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     }
 
     public getEmployeeFromEtap1Function() {
+        this.lightActiveMenu();
         this.loading = true;
         this.siteService.getEmployeeFromEtap1(this.id_site, this.id_salarie)
             .subscribe(result => {
@@ -664,6 +666,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     this.uploadedFile = false;
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
+      this.loadingPhotoFile = true;
       this.userHasChoosenFile = true;
       this.file = fileList[0];
 
@@ -673,7 +676,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       };
       const res = reader.readAsDataURL(event.target.files[0]);
 
-      this.loadingFile = true;
       setTimeout(() => {
         this.loadToServerEmpImageFunction();
       }, 500);
@@ -681,28 +683,30 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
   }
 
   public loadToServerEmpImageFunction() {
+    this.loadingPhotoFile = true;
     this.siteService.loadToServerEmployeeImage(this.content, this.id_site, this.id_salarie)
       .subscribe(result => {
             this.getFromServerProfileImageFunction();
       }, (err) => {
-        this.loadingFile = false;
+        // this.loadingPhotoFile = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
 
   public getFromServerProfileImageFunction() {
+    this.loadingPhotoFile = true;
     this.uploadedFile = false;
     this.siteService.getFromServerEmplImage(this.id_site, this.id_salarie)
       .subscribe(result => {
         if (result) {
-          this.loadingFile = false;
+          // this.loadingPhotoFile = false;
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
         }
       }, (err) => {
-        this.loadingFile = false;
+        // this.loadingPhotoFile = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });

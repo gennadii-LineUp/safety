@@ -28,10 +28,11 @@ export class RappelerLeMotDePasseComponent {
 
     this.loginService.passwordRequest(userEmail)
       .subscribe(result => {
+          this.loading = false;
           this.successCreating = 'Veuillez vérifier votre email pour les prochaines instructions';
           setTimeout(() => {
             this.router.navigate(['']);  ///login
-          }, 4000);
+          }, 10000);
       }, (err) => {
         console.log(err);
         this.loading = false;

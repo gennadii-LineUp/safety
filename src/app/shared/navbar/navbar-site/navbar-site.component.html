@@ -40,7 +40,8 @@
                     Parc Machines
                 </a>
             </li>
-            <li *ngIf='!showEmployee_parcMachine' id="site_salaries" routerLinkActive="active" #siteSalariesMenu [routerLink]="['/site', id_site, 'salaries']">
+            <li *ngIf='!showEmployee_parcMachine' id="siteSalariesMenu" #siteSalariesMenu
+                routerLinkActive="active"  [routerLink]="['/site', id_site, 'salaries']">
                 <a href="javascript:void(0);">
                     Salariés
                 </a>
