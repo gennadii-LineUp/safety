@@ -44,7 +44,7 @@ const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', component: LoginStartComponent },
   { path: 'rappeler-le-mot-de-passe', component: RappelerLeMotDePasseComponent },
-  { path: 'reset-password/:reset', component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'admin', component: AdminComponent,  canActivate: [AuthGuard, AdminGuard],
     children: [
       { path: '', component: AdminAccueilContentComponent },
