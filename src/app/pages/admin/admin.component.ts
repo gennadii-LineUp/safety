@@ -11,7 +11,7 @@ declare var $:any;
 })
 export class AdminComponent implements OnInit {
 
-    constructor(private adminAsClientGuard: AdminAsClientGuard){
+    constructor(public adminAsClientGuard: AdminAsClientGuard){
         if (this.adminAsClientGuard.canActivate()) {
             console.log('in AdminComponent');
             console.log(localStorage);

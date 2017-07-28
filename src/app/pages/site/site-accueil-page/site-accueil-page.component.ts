@@ -18,8 +18,8 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
     siteName: string;
 
 
-   constructor(private errorMessageHandlerService: ErrorMessageHandlerService,
-               private siteService: SiteService) {}
+   constructor(public errorMessageHandlerService: ErrorMessageHandlerService,
+               public siteService: SiteService) {}
 
     ngOnInit() {
         this.id_site = localStorage.id_site;

@@ -69,7 +69,7 @@ export class SiteSalariesCreationEtap2ModalAutorComponent  {
     @ViewChild("modalRoot")
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
 
     constructor() {
@@ -113,11 +113,11 @@ export class SiteSalariesCreationEtap2ModalAutorComponent  {
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");
-        if(this.backdrop) {
+        if (this.backdrop) {
             this.backdropElement.classList.add("modal-backdrop");
         }
     }

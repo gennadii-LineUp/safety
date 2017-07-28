@@ -39,11 +39,11 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
     ];
 
 
-    constructor(private adminService: AdminService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private paginationService: PaginationService,
-                private router: Router,
-                private tableSortService: TableSortService) { }
+    constructor(public adminService: AdminService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public paginationService: PaginationService,
+                public router: Router,
+                public tableSortService: TableSortService) { }
 
     ngOnInit() {
         if (localStorage.successCreating) {
@@ -210,7 +210,7 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
     }
 
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
       this.successCreating = '';

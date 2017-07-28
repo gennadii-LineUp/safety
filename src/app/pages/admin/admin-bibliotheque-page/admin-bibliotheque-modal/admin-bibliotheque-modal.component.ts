@@ -84,7 +84,7 @@ export class AdminBibliothequeModalComponent  {
     @ViewChild("modalRoot")
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -99,7 +99,7 @@ export class AdminBibliothequeModalComponent  {
     // -------------------------------------------------------------------------
 
     ngOnDestroy() {
-        document.body.className = document.body.className.replace(/modal-open\b/, "");
+        document.body.className = document.body.className.replace(/modal-open\b/, '');
         if (this.backdropElement && this.backdropElement.parentNode === document.body)
             document.body.removeChild(this.backdropElement);
     }
@@ -137,11 +137,11 @@ export class AdminBibliothequeModalComponent  {
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");
-        if(this.backdrop) {
+        if (this.backdrop) {
             this.backdropElement.classList.add("modal-backdrop");
         }
     }

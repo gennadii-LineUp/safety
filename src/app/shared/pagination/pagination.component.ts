@@ -10,12 +10,12 @@ import {PaginationService} from '../../services/pagination/pagination.service';
 export class PaginationComponent implements OnInit {
     data = [];
     pager: any = {};
-    totalItems: number = 0;
-    activePage: number = 1;
-    searchName: string = '';
+    totalItems = 0;
+    activePage = 1;
+    searchName = '';
     currentPage: any;
 
-  constructor(private paginationService: PaginationService) { }
+  constructor(public paginationService: PaginationService) { }
 
   ngOnInit() {
   }

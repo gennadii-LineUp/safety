@@ -50,12 +50,12 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
     }
 
 
-  constructor(private clientService: ClientService,
-                private siteService: SiteService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private paginationService: PaginationService,
-                private router: Router,
-                private tableSortService: TableSortService) { }
+  constructor(public clientService: ClientService,
+              public siteService: SiteService,
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public paginationService: PaginationService,
+              public router: Router,
+              public tableSortService: TableSortService) { }
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
@@ -180,7 +180,7 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
         this.router.navigate(['/site', this.id_site, 'ajouter-un-salarie-etap2']);
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         //this.loading = false;
         this.errorLoad = '';
         this.errorCreating = '';

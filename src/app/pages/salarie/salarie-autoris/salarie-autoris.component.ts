@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TableSortService} from '../../../services/table-sort.service';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
@@ -11,7 +11,7 @@ declare var $: any;
   styleUrls: ['./salarie-autoris.component.css'],
   providers: [SalariesService, TableSortService, PaginationService]
 })
-export class SalarieAutorisComponent implements OnInit {
+export class SalarieAutorisComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -32,10 +32,10 @@ export class SalarieAutorisComponent implements OnInit {
   ];
 
 
-  constructor(private salariesService: SalariesService,
-              private tableSortService: TableSortService,
-              private errorMessageHandlerService: ErrorMessageHandlerService,
-              private paginationService: PaginationService) { }
+  constructor(public salariesService: SalariesService,
+              public tableSortService: TableSortService,
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public paginationService: PaginationService) { }
 
   ngOnInit() {
     this.findFichiersByNameFunction('', 1, '');
@@ -154,7 +154,7 @@ export class SalarieAutorisComponent implements OnInit {
       });
   }
 
-  private cancellMessages() {
+  public cancellMessages() {
     this.loading = false;
     this.errorLoad = '';
     this.successUpdate = '';

@@ -13,10 +13,10 @@ declare var $: any;
 export class SiteComponent implements OnInit, OnDestroy {
 
     id_site: number;
-    private sub: any;
+  public sub: any;
 
-    constructor(private route: ActivatedRoute) {}
-// private siteService: SiteService,
+    constructor(public route: ActivatedRoute) {}
+// public siteService: SiteService,
 
 
     ngOnInit(): void {

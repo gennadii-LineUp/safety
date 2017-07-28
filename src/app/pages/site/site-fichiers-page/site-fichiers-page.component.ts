@@ -65,11 +65,11 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
       this.sortingTarget = this.tableSortService._getSortingTarget();
     }
 
-  constructor (private siteService: SiteService,
-                 private clientService: ClientService,
-                 private errorMessageHandlerService: ErrorMessageHandlerService,
-                 private paginationService: PaginationService,
-                 private tableSortService: TableSortService) {}
+  constructor (public siteService: SiteService,
+               public clientService: ClientService,
+               public errorMessageHandlerService: ErrorMessageHandlerService,
+               public paginationService: PaginationService,
+               public tableSortService: TableSortService) {}
 
     ngOnInit(): void {
         this.id_site = localStorage.id_site;

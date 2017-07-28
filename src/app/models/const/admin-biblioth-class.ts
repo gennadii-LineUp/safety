@@ -1,4 +1,4 @@
-export class AdminBibliothequeClass{
+export class AdminBibliothequeClass {
     name: string;
     description: string;
     link: string;

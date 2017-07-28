@@ -25,8 +25,8 @@ export class AdminReglagesPageComponent implements OnInit {
     defaultReglages = new AdminReglagesClass('http://www.moncompteformation.gouv.fr/', '', '', '');
 
 
-    constructor(private adminService: AdminService,
-                private errorMessageHandlerService: ErrorMessageHandlerService) {}
+    constructor(public adminService: AdminService,
+                public errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit() {
         this.getExistingReglages();
@@ -70,7 +70,7 @@ export class AdminReglagesPageComponent implements OnInit {
         this.reglages = this.defaultReglages;
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
     }

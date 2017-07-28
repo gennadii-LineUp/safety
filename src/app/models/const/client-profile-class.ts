@@ -18,7 +18,7 @@ export class ClientProfileClass {
     password: string;
     confirmPassword: string;
 
-    constructor( email: string,
+    constructor(email: string,
                  company: string,
                  address: string,
                  postalCode: string,

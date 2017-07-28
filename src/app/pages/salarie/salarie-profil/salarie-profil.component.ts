@@ -18,8 +18,8 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
   employee = new EmployeesClass('', '', '', '', '', '', false, '', '', 0);
   employeesPasswordClass = new EmployeesPasswordClass('', '', '');
 
-    constructor(private salariesService: SalariesService,
-                private errorMessageHandlerService: ErrorMessageHandlerService) { }
+    constructor(public salariesService: SalariesService,
+                public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
     ngOnInit() {
       window.document.querySelectorAll('#monProfil')['0'].classList.add('active');
@@ -75,7 +75,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
 
   }
 
-  private cancellMessages() {
+  public cancellMessages() {
     this.loading = false;
     this.updating = true;
     this.errorLoad = '';

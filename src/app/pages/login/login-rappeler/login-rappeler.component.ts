@@ -14,9 +14,9 @@ export class RappelerLeMotDePasseComponent {
     errorLoad = '';
     successCreating = '';
 
-  constructor(private loginService: LoginService,
-              private errorMessageHandlerService: ErrorMessageHandlerService,
-              private router: Router) { }
+  constructor(public loginService: LoginService,
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public router: Router) { }
 
 
   public EnvoyerEmailFunction(loginInputEmail: string) {
@@ -44,7 +44,7 @@ export class RappelerLeMotDePasseComponent {
       });
   }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
         this.successCreating = '';

@@ -16,7 +16,7 @@ export class BackendService {
     // private adminGuard: AdminGuard,
     // private clientGuard: ClientGuard,
 
-    constructor(private http: Http) {}
+    constructor(public http: Http) {}
 
 
     public login(url, body, usernamePassword): Observable<any>  {
@@ -164,12 +164,12 @@ export class BackendService {
   //     .catch(this.handleError);
   // }
 
-  private extractData(res: Response) {
+  public extractData(res: Response) {
     const body = res.json();
     return body || { };
   }
 
-  private handleError (error: any) {
+  public handleError (error: any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
@@ -217,12 +217,12 @@ export class BackendService {
   // }
   //
 
-  private composeHeaders (headers: Headers, type: string): void {
+  public composeHeaders (headers: Headers, type: string): void {
     const content: string = type.toUpperCase();
     headers.append('Content-Type', CONTENT_TYPE[content]);
   }
 
-  private addToken(headers: Headers): void {
+  public addToken(headers: Headers): void {
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
   }
 

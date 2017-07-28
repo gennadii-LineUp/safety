@@ -49,11 +49,11 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     employees = new EmployeesClass('', '', '', '', '', '', this.periodeDeValidite[0].booleanValue, '', '', 0);
 
 
-    constructor(private clientService: ClientService,
-                private siteService: SiteService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private router: Router,
-                private dataService: DataService) {}
+    constructor(public clientService: ClientService,
+                public siteService: SiteService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public router: Router,
+                public dataService: DataService) {}
 
     ngOnInit() {
         this.getEmployeeGroupes();
@@ -291,7 +291,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         });
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.loadingGroupes = false;
         this.errorCreating = '';

@@ -15,14 +15,14 @@ export class AdminAccueilContentComponent implements OnInit, OnDestroy {
     errorLoad = '';
     progressBarValues = [];
 
-  private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
     }
 
-    constructor(private adminService: AdminService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private progressBarFillService: ProgressBarFillService) {}
+    constructor(public adminService: AdminService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public progressBarFillService: ProgressBarFillService) {}
 
     ngOnInit(): void {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');

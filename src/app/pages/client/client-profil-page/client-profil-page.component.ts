@@ -32,9 +32,9 @@ export class ClientProfilPageComponent implements OnInit {
 
     client = new ClientProfileClass('', '', '', '', '', false, '', '', '', '', '', '', '', '', '', '', '', '');
 
-    constructor(private router: Router,
-                private clientService: ClientService,
-                private errorMessageHandlerService: ErrorMessageHandlerService) {}
+    constructor(public router: Router,
+                public clientService: ClientService,
+                public errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit(): void {
         this.getClientProfilData();
@@ -184,7 +184,7 @@ export class ClientProfilPageComponent implements OnInit {
         this.router.navigate(['/client']);
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
       this.loading = false;
       this.updating = true;
       this.errorUpdate = '';

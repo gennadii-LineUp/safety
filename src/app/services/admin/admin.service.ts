@@ -8,7 +8,7 @@ import {AdminReglagesClass} from '../../models/const/admin-reglages-class';
 @Injectable()
 export class AdminService {
 
-    constructor(private backendService: BackendService) {}
+    constructor(public backendService: BackendService) {}
 
 
     public homeData(): Observable<any> {

@@ -83,7 +83,7 @@ export class ClientGroupesModalComponent {
     @ViewChild("modalRoot")
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -136,7 +136,7 @@ export class ClientGroupesModalComponent {
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");

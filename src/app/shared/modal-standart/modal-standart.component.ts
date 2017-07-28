@@ -82,7 +82,7 @@ export class ModalStandartComponent {
     @ViewChild("modalRoot")
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -135,7 +135,7 @@ export class ModalStandartComponent {
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");

@@ -50,11 +50,11 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
     }
 
 
-    constructor(private clientService: ClientService,
-                private router: Router,
-                private paginationService: PaginationService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private tableSortService: TableSortService) {}
+    constructor(public clientService: ClientService,
+                public router: Router,
+                public paginationService: PaginationService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.findGroupByNameFunction('', 1, '');
@@ -213,7 +213,7 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
     //     this._adminAccess = e.target.checked;
     // }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.saving = false;
         this.errorLoad =  '';

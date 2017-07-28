@@ -4,7 +4,7 @@ import {CanActivate, Router}    from '@angular/router';
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   canActivate() {
 

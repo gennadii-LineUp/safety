@@ -56,7 +56,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     id_site: number;
     id_salarie: number;
-    private sub: any;
+  public sub: any;
 
     checkedGroupFromEtap1: number;
 
@@ -94,14 +94,14 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }
 
-    constructor(private siteService: SiteService,
-                private clientService: ClientService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private router: Router,
-                private route: ActivatedRoute,
-                private tableSortService: TableSortService,
-                private machinesGlossary: MachinesGlossary,
-                private dataService: DataService) { }
+    constructor(public siteService: SiteService,
+                public clientService: ClientService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public router: Router,
+                public route: ActivatedRoute,
+                public tableSortService: TableSortService,
+                public machinesGlossary: MachinesGlossary,
+                public dataService: DataService) { }
 
 
     ngOnInit(): void {
@@ -460,7 +460,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.successCreatingAttestat = '';
         this.successCreatingDrLicence = '';
     }
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.loadingGroupes = false;
         this.errorLoad = '';

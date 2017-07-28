@@ -31,10 +31,10 @@ export class SalarieAttestationsComponent implements OnInit {
     ];
 
 
-  constructor(private salariesService: SalariesService,
-              private tableSortService: TableSortService,
-              private errorMessageHandlerService: ErrorMessageHandlerService,
-              private paginationService: PaginationService) { }
+  constructor(public salariesService: SalariesService,
+              public tableSortService: TableSortService,
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public paginationService: PaginationService) { }
 
   ngOnInit() {
     this.findFichiersByNameFunction('', 1, '');
@@ -126,7 +126,7 @@ export class SalarieAttestationsComponent implements OnInit {
       });
   }
 
-  private cancellMessages() {
+  public cancellMessages() {
     this.loading = false;
     this.errorLoad = '';
     this.successUpdate = '';

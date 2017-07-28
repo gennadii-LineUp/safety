@@ -13,9 +13,9 @@ export class LoginStartComponent implements OnInit {
     loading = false;
     errorLoad = '';
 
-    constructor(private loginService: LoginService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private router: Router) { }
+    constructor(public loginService: LoginService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public router: Router) { }
 
     ngOnInit() {
         console.log(localStorage);
@@ -57,7 +57,7 @@ export class LoginStartComponent implements OnInit {
 
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
     }

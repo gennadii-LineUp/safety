@@ -13,8 +13,8 @@ export class SalarieVisiteMedicComponent implements OnInit {
   errorLoad = '';
   visite_medical: string;
 
-  constructor(private salariesService: SalariesService,
-              private errorMessageHandlerService: ErrorMessageHandlerService) { }
+  constructor(public salariesService: SalariesService,
+              public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
     this.getDataFunction();
@@ -36,7 +36,7 @@ export class SalarieVisiteMedicComponent implements OnInit {
       });
   }
 
-  private cancellMessages() {
+  public cancellMessages() {
     this.loading = false;
     this.errorLoad = '';
   }

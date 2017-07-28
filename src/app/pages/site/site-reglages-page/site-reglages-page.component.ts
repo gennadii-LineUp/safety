@@ -73,13 +73,13 @@ export class SiteReglagesPageComponent implements OnInit {
     ];
 
 
-  constructor(private authGuard: AuthGuard,
-                private adminGuard: AdminGuard,
-                private employeeAdminGuard: EmployeeAdminGuard,
-                private clientGuard: ClientGuard,
-                private siteService: SiteService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private tableSortService: TableSortService) {}
+  constructor(public authGuard: AuthGuard,
+              public adminGuard: AdminGuard,
+              public employeeAdminGuard: EmployeeAdminGuard,
+              public clientGuard: ClientGuard,
+              public siteService: SiteService,
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public tableSortService: TableSortService) {}
 
   ngOnInit() {
       this.verifyUserRole();
@@ -445,7 +445,7 @@ export class SiteReglagesPageComponent implements OnInit {
     return true;
   }
 
-  private cancellMessages() {
+  public cancellMessages() {
     this.loading = false;
     this.loadingResponsables = false;
     this.errorLoad = '';

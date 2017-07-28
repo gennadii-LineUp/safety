@@ -1,4 +1,4 @@
-export class AdminReglagesClass{
+export class AdminReglagesClass {
     monCompteFormationLink: string;
     notificationEmails: string;
     password: string;

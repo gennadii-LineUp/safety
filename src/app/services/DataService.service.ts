@@ -44,7 +44,7 @@ export class DataService {
   // stringToDate("9-17-2014","mm-dd-yyyy","-")
 
 
-  private toDateString(date: Date): string {
+  public toDateString(date: Date): string {
     return (date.getFullYear().toString() + '-'
       + ("0" + (date.getMonth() + 1)).slice(-2) + '-'
       + ("0" + (date.getDate())).slice(-2))

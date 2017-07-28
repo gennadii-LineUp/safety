@@ -28,8 +28,8 @@ site-reglages-modal .input-wrapper {
 
 site-reglages-modal .input-wrapper button {
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 0;
+  top: 0;
   width: 42px;
   height: 42px;
   background: #3ba890;

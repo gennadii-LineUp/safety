@@ -8,7 +8,7 @@ import {EmployeesPasswordClass} from '../../models/const/employee-psw-class';
 @Injectable()
 export class SalariesService {
 
-    constructor(private backendService: BackendService) {}
+    constructor(public backendService: BackendService) {}
 
 
     public getProfilData(): Observable<any> {

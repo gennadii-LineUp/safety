@@ -8,8 +8,8 @@ import {ResetPasswordClass} from '../../models/const/reset-password-class';
 @Injectable()
 export class LoginService {
 
-    constructor(private backendService: BackendService,
-                private router: Router) {}
+    constructor(public backendService: BackendService,
+                public router: Router) {}
 
     login(user: string, password: string): Observable<any> {
         this.logout();

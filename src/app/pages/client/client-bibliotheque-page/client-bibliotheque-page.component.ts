@@ -13,8 +13,8 @@ export class ClientBibliothequePageComponent implements OnInit {
     errorLoad = '';
     links = [];
 
-  constructor(private errorMessageHandlerService: ErrorMessageHandlerService,
-              private clientService: ClientService) { }
+  constructor(public errorMessageHandlerService: ErrorMessageHandlerService,
+              public clientService: ClientService) { }
 
   ngOnInit() {
     this.getBibliothequesFunction();
@@ -41,7 +41,7 @@ export class ClientBibliothequePageComponent implements OnInit {
     window.open(link, '_blank');
   }
 
-  private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
     }

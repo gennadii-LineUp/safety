@@ -1,4 +1,3 @@
-
 <header class="main-header">
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
@@ -15,25 +14,25 @@
            (ngSubmit)="submitNewProfilClientFunction(client_editProfilForm)"  >
         <div class="input-wrapper">
             <p [hidden]="company.invalid" class="requred-field color-valid">Entreprise</p>
-            <input type="text" class="form-control" placeholder="Nom*"
+            <input  class="form-control" placeholder="Nom*"
                    #company="ngModel" id="company" name='company' required [(ngModel)]="client.company" />
             <p [hidden]="company.valid || company.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
             <p [hidden]="address.invalid" class="requred-field color-valid">Adresse</p>
-            <input type="text" class="form-control" placeholder="Adresse*"
+            <input  class="form-control" placeholder="Adresse*"
                    #address="ngModel" id="address" name='address' required [(ngModel)]="client.address" />
             <p [hidden]="address.valid || address.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
             <p [hidden]="postalCode.invalid" class="requred-field color-valid">Code postal</p>
-            <input type="text" class="form-control" placeholder="Code postal*"
+            <input  class="form-control" placeholder="Code postal*"
                    #postalCode="ngModel" id="postalCode" name='postalCode' required [(ngModel)]="client.postalCode" />
             <p [hidden]="postalCode.valid || postalCode.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
             <p [hidden]="city.invalid" class="requred-field color-valid">Ville</p>
-            <input type="text" class="form-control" placeholder="Ville*"
+            <input  class="form-control" placeholder="Ville*"
                    #city="ngModel" id="city" name='city' required [(ngModel)]="client.city" />
             <p [hidden]="city.valid || city.untouched " class="requred-field ">Champs requis</p>
         </div>
@@ -48,25 +47,25 @@
         <div>
             <div class="input-wrapper">
                 <p [hidden]="diffName.invalid" class="requred-field color-valid">Nom</p>
-                <input type="text" class="form-control"  placeholder="Nom*"  [disabled]='!client.billingAddressIfDifferent'
+                <input  class="form-control"  placeholder="Nom*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffName="ngModel" id="diffName" name='diffName'  [(ngModel)]="client.diffName">
                 <p [hidden]="diffName.valid || diffName.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="diffAddress.invalid" class="requred-field color-valid">Adresse</p>
-                <input type="text" class="form-control"  placeholder="Adresse*"  [disabled]='!client.billingAddressIfDifferent'
+                <input  class="form-control"  placeholder="Adresse*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffAddress="ngModel" id="diffAddress" name='diffAddress'  [(ngModel)]="client.diffAddress" >
                 <p [hidden]="diffAddress.valid || diffAddress.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="diffPostalCode.invalid" class="requred-field color-valid">Code postal</p>
-                <input type="text" class="form-control"  placeholder="Code postal*"  [disabled]='!client.billingAddressIfDifferent'
+                <input  class="form-control"  placeholder="Code postal*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffPostalCode="ngModel" id="diffPostalCode" name='diffPostalCode'  [(ngModel)]="client.diffPostalCode" >
                 <p [hidden]="diffPostalCode.valid || diffPostalCode.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="diffCity.invalid" class="requred-field color-valid">Ville</p>
-                <input type="text" class="form-control"  placeholder="Ville*"  [disabled]='!client.billingAddressIfDifferent'
+                <input  class="form-control"  placeholder="Ville*"  [disabled]='!client.billingAddressIfDifferent'
                        #diffCity="ngModel" id="diffCity" name='diffCity'  [(ngModel)]="client.diffCity" />
                 <p [hidden]="diffCity.valid || diffCity.untouched " class="requred-field ">Champs requis</p>
             </div>
@@ -81,19 +80,19 @@
             </div>
             <div class="input-wrapper">
                 <p [hidden]="numberSiret.invalid" class="requred-field color-valid">Numéro SIRET</p>
-                <input type="text" class="form-control"  placeholder="Numéro SIRET*"
+                <input  class="form-control"  placeholder="Numéro SIRET*"
                        #numberSiret="ngModel" id="numberSiret" name='numberSiret' required [(ngModel)]="client.numberSiret" />
                 <p [hidden]="numberSiret.valid || numberSiret.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper" style="margin-bottom: 21px;">
                 <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone (example: +7(905)678-90-12)</p>
-                <input type="text" class="form-control" placeholder="Téléphone*"
+                <input  class="form-control" placeholder="Téléphone*"
                        #phone="ngModel" id="phone" name='phone' required [(ngModel)]="client.phone" />
                 <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper" style="margin-bottom: 21px;">
                 <p [hidden]="rib.invalid" class="requred-field color-valid">RIB (example: GB29 NWBK 6016 1331 9268 19)</p>
-                <input type="text" class="form-control"  placeholder="RIB*"
+                <input  class="form-control"  placeholder="RIB*"
                        #rib="ngModel" id="rib" name='rib' required [(ngModel)]="client.rib" />
                 <p [hidden]="rib.valid || rib.untouched " class="requred-field ">Champs requis</p>
             </div>
@@ -103,13 +102,13 @@
         <div>
             <div class="input-wrapper">
                 <p [hidden]="contactName.invalid" class="requred-field color-valid">Nom du contact</p>
-                <input type="text" class="form-control" placeholder="Nom du contact"
+                <input  class="form-control" placeholder="Nom du contact"
                        #contactName="ngModel" id="contactName" name='contactName' required [(ngModel)]="client.contactName" />
                 <p [hidden]="contactName.valid || contactName.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
                 <p [hidden]="contactPhone.invalid" class="requred-field color-valid">Téléphone du contact</p>
-                <input type="text" class="form-control"  placeholder="Téléphone du contact"
+                <input  class="form-control"  placeholder="Téléphone du contact"
                        #contactPhone="ngModel" id="contactPhone" name='contactPhone' required [(ngModel)]="client.contactPhone" />
                 <p [hidden]="contactPhone.valid || contactPhone.untouched " class="requred-field ">Champs requis</p>
             </div>
@@ -152,7 +151,6 @@
 
                   <span *ngIf='uploadedFile' class="loading_ok"></span>
                 </div>
-                <button style="display: none" (click)="getFromServerProfileImageFunction()">from server</button>
             <!--////////////////////////////////-->
             <button type="submit" class="form-button green-button sauvegarder-button"
                     [disabled]="!client_editProfilForm.form.valid">Sauvegarder</button>

@@ -23,14 +23,14 @@ export class AdminClientAjouterComponent implements OnInit {
     myForm: NgForm;
     newValue =  1;
 
-    constructor(private adminService: AdminService,
-                private router: Router,
-                private errorMessageHandlerService: ErrorMessageHandlerService) {}
+    constructor(public adminService: AdminService,
+                public router: Router,
+                public errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit() {
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         this.loading = false;
         this.errorCreating = '';
     }

@@ -16,14 +16,14 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   errorLoad = '';
 
   // private sub: any; //   /reset/
-  private querySubscription: Subscription;  //    ?reset/
-  private reset_token = '';
+  public querySubscription: Subscription;  //    ?reset/
+  public reset_token = '';
 
   newPassword = new ResetPasswordClass('', '', '');
 
-  constructor(private route: ActivatedRoute,
-              private loginService: LoginService,
-              private errorMessageHandlerService: ErrorMessageHandlerService) { }
+  constructor(public route: ActivatedRoute,
+              public loginService: LoginService,
+              public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
   ngOnInit() {
     // this.sub = this.route.params.subscribe(params => {
@@ -66,7 +66,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
 
-  private cancellErrorMessage() {
+  public cancellErrorMessage() {
     this.loading = false;
     this.errorLoad = '';
   }

@@ -15,7 +15,7 @@
 <div class="main-content">
     <div class="search-panel clearfix">
         <button class="add-an-item-button"
-                (click)="modalOpen(); modal_Machine.open(); modal_Machine__dataInput.close(); setEmptyCategory();">
+                (click)="modalOpen(); modal_Machine.open(); modal_Machine__dataInput.close(); setEmptyCategory()">
         </button>
 
       <div class="search-wrapper">
@@ -30,7 +30,7 @@
             <thead>
               <tr>
                 <th *ngFor="let header of headers"  (click)="changeSorting(header.variable, $event);
-                                                             findByNameFunction(findByName.value, 1, sortingTarget);">
+                                                             findByNameFunction(findByName.value, 1, sortingTarget)">
                   <button [class]="selectedClass(header.variable)" ></button>
                   {{header.display}}
                 </th>
@@ -59,7 +59,7 @@
                     <a href="javascript:void(0);"
                        (click)='_addType(+machine.machineCategoryId, machine.type);
                                 modifierFunction(machine.id);
-                                modal_Machine__dataInput.open();'>Gérer</a>
+                                modal_Machine__dataInput.open()'>Gérer</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
                 </tr>
@@ -118,10 +118,10 @@
             <p class="form-subheader"  style="text-align: left;">Choisissez un type</p>
             <a class="green-button form-button pull-left"  role="button"
                             href="javascript:void(0);"
-                            (click)="modal_Machine.close(); modal_Machine_1Vehicule.open();">Véhicule</a>
+                            (click)="modal_Machine.close(); modal_Machine_1Vehicule.open()">Véhicule</a>
             <a class="green-button form-button pull-right" role="button"
                             href="javascript:void(0);"
-                            (click)="modal_Machine.close(); modal_Machine_2Engine.open();">Engin</a>
+                            (click)="modal_Machine.close(); modal_Machine_2Engine.open()">Engin</a>
             <div class="clearfix"></div>
             <a class="red-button form-button pull-left" href="javascript:void(0);" role="button" (click)="modal_Machine.close()">Annuler</a>
         </div>
@@ -146,7 +146,7 @@
               </a>
             </div>
             <a class="navigation-back-button" href="javascript:void(0);" role="button"
-                       (click)="modal_Machine_1Vehicule.close(); modal_Machine.open();"></a>
+                       (click)="modal_Machine_1Vehicule.close(); modal_Machine.open()"></a>
       </div>
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
@@ -184,7 +184,7 @@
             </div>
 
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-                            (click)="modal_Machine_2Engine.close(); modal_Machine.open();"></a>
+                            (click)="modal_Machine_2Engine.close(); modal_Machine.open()"></a>
         </div>
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
@@ -207,7 +207,7 @@
                               addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
+             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open()"></a>
         </div>
 
         <div *ngIf="choosenType_id===7" role="tabpanel" class="tab-pane fade in active">
@@ -220,7 +220,7 @@
                               addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
+             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open()"></a>
         </div>
 
         <div *ngIf="choosenType_id===8" role="tabpanel" class="tab-pane fade in active">
@@ -233,7 +233,7 @@
                               addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
+             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open()"></a>
         </div>
 
         <div *ngIf="choosenType_id===9" role="tabpanel" class="tab-pane fade in active">
@@ -246,7 +246,7 @@
                               addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
+             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open()"></a>
         </div>
 
         <div *ngIf="choosenType_id===11" role="tabpanel" class="tab-pane fade in active">
@@ -259,7 +259,7 @@
                               addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
+             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open()"></a>
         </div>
 
         <div *ngIf="choosenType_id===12" role="tabpanel" class="tab-pane fade in active">
@@ -281,7 +281,7 @@
                               addCategory($event, machine.display); false" role="button">{{machine.display}}</a>
           </div>
           <a class="navigation-back-button" role="button" href="javascript:void(0);"
-             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open();"></a>
+             (click)="modal_Machine_2Engine_chariotGrue.close(); modal_Machine_2Engine.open()"></a>
         </div>
       </div>
     </modal-content-SPMM>
@@ -357,7 +357,7 @@
                     </div>
                     <span class="uploaded-file-caption">{{uploadVGPFileText}}</span>
                     <div *ngIf="uploadVGPFileText" style="position: relative; display: inline-block;" class="pull-right">
-                      <button type="button" (click)="resetVGP();" class="uploaded-file-remove-btn">
+                      <button type="button" (click)="resetVGP()" class="uploaded-file-remove-btn">
                         <span></span>
                       </button>
                     </div>
@@ -384,7 +384,7 @@
                   </div>
                   <span class="uploaded-file-caption">{{uploadCTFileText}}</span>
                   <div *ngIf="uploadCTFileText" style="position: relative; display: inline-block;" class="pull-right">
-                    <button type="button" (click)="resetCT();" class="uploaded-file-remove-btn">
+                    <button type="button" (click)="resetCT()" class="uploaded-file-remove-btn">
                       <span></span>
                     </button>
                   </div>
@@ -405,7 +405,7 @@
                 </div>
                 <span class="uploaded-file-caption">{{uploadOtherFileText}}</span>
                 <div *ngIf="uploadOtherFileText" style="position: relative; display: inline-block;" class="pull-right">
-                  <button type="button" (click)="resetOther();" class="uploaded-file-remove-btn" style="margin-top: 0;">
+                  <button type="button" (click)="resetOther()" class="uploaded-file-remove-btn" style="margin-top: 0;">
                     <span></span>
                   </button>
                 </div>
@@ -465,13 +465,13 @@
                 <img *ngIf="creating" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 <a *ngIf="choosen_vehicule_back" class="navigation-back-button" role="button" href="javascript:void(0);"
                                     (click)="modal_Machine__dataInput.close();
-                                    setEmptyMachines();  modal_Machine_1Vehicule.open();"></a>
+                                    setEmptyMachines();  modal_Machine_1Vehicule.open()"></a>
                 <a *ngIf="choosen_engine_back" class="navigation-back-button" role="button" href="javascript:void(0);"
                                     (click)="modal_Machine__dataInput.close();
-                                    setEmptyMachines();  modal_Machine_2Engine_chariotGrue.open();"></a>
+                                    setEmptyMachines();  modal_Machine_2Engine_chariotGrue.open()"></a>
                 <a *ngIf="choosen_engine_10_back"  class="navigation-back-button" role="button" href="javascript:void(0);"
                                     (click)="modal_Machine__dataInput.close();
-                                    setEmptyMachines();  modal_Machine_2Engine.open();"></a>
+                                    setEmptyMachines();  modal_Machine_2Engine.open()"></a>
                 <button type="submit" class="form-button green-button enregistrer-button pull-right"
                         [disabled]="groupes_nullData">{{saveButtonCaption}}
                 </button>

@@ -46,12 +46,12 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
     }
 
 
-    constructor(private clientService: ClientService,
-                private adminService: AdminService,
-                private router: Router,
-                private paginationService: PaginationService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private tableSortService: TableSortService) {}
+    constructor(public clientService: ClientService,
+                public adminService: AdminService,
+                public router: Router,
+                public paginationService: PaginationService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.findSalarieByNameFunction('', 1, '');
@@ -180,7 +180,7 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
         this.router.navigate(['/site', id_site, 'ajouter-un-salarie-etap2']);
     }
 
-    private cancellErrorMessage() {
+  public cancellErrorMessage() {
         //this.loading = false;
         this.errorLoad = '';
         this.errorSalaries = '';

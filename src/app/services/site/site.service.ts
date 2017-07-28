@@ -15,7 +15,7 @@ export class SiteService {
     public id_site: number;
 
 
-    constructor(private backendService: BackendService) {}
+    constructor(public backendService: BackendService) {}
 
 
     public setIdSite(id_site: number) {

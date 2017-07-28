@@ -33,11 +33,11 @@ export class NavbarSalariesComponent implements OnInit {
     { id: 5,  display: 'Salariés', router1: '["/site", ', router2: ', "salaries"]' }
   ];
 
-    constructor(private authGuard: AuthGuard,
-                private employeeAdminGuard: EmployeeAdminGuard,
-                private employeeGeneralGuard: EmployeeGeneralGuard,
-                private employeeTechGuard: EmployeeTechGuard,
-                private adminService: AdminService) {}
+    constructor(public authGuard: AuthGuard,
+                public employeeAdminGuard: EmployeeAdminGuard,
+                public employeeGeneralGuard: EmployeeGeneralGuard,
+                public employeeTechGuard: EmployeeTechGuard,
+                public adminService: AdminService) {}
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
@@ -79,9 +79,9 @@ export class NavbarSalariesComponent implements OnInit {
   // showClientData : boolean = false;
   // showLogin : boolean = false;
   //
-  // constructor(private authGuard: AuthGuard,
-  //             private adminGuard: AdminGuard,
-  //             private clientGuard: ClientGuard){}
+  // constructor(public authGuard: AuthGuard,
+  //             public adminGuard: AdminGuard,
+  //             public clientGuard: ClientGuard){}
   //
   // public verifyUserRole() {
   //   this.showAdminData = this.authGuard.canActivate() && this.adminGuard.canActivate();

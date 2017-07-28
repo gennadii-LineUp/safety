@@ -112,13 +112,13 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           { display: 'Marque',          variable: 'mark',         filter: 'text' }
       ];
 
-    constructor(private siteService: SiteService,
+    constructor(public siteService: SiteService,
                 public clientService: ClientService,
-                private tableSortService: TableSortService,
-                private dataService: DataService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private paginationService: PaginationService,
-                private machinesGlossary: MachinesGlossary) {}
+                public tableSortService: TableSortService,
+                public dataService: DataService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public paginationService: PaginationService,
+                public machinesGlossary: MachinesGlossary) {}
 
   ngOnInit() {
         this.id_site = localStorage.id_site;

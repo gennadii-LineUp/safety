@@ -54,7 +54,7 @@ export class ClientSitesModalComponent {
     public submitButtonLabel: string;
 
     @Input()
-    public backdrop:boolean = true;
+    public backdrop = true;
 
     // -------------------------------------------------------------------------
     // Outputs
@@ -79,10 +79,10 @@ export class ClientSitesModalComponent {
     // Private properties
     // -------------------------------------------------------------------------
 
-    @ViewChild("modalRoot")
+    @ViewChild('modalRoot')
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
     // -------------------------------------------------------------------------
     // Constructor
@@ -97,7 +97,7 @@ export class ClientSitesModalComponent {
     // -------------------------------------------------------------------------
 
     ngOnDestroy() {
-        document.body.className = document.body.className.replace(/modal-open\b/, "");
+        document.body.className = document.body.className.replace(/modal-open\b/, '');
         if (this.backdropElement && this.backdropElement.parentNode === document.body)
             document.body.removeChild(this.backdropElement);
     }
@@ -135,7 +135,7 @@ export class ClientSitesModalComponent {
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");

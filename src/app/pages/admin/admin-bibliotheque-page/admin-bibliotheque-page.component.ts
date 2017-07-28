@@ -46,11 +46,11 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
     // link: string;
 
 
-    constructor(private adminService: AdminService,
-                private paginationService: PaginationService,
-                private tableSortService: TableSortService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private router: Router) { }
+    constructor(public adminService: AdminService,
+                public paginationService: PaginationService,
+                public tableSortService: TableSortService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public router: Router) { }
 
     ngOnInit() {
         this.loading = true;
@@ -215,7 +215,7 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
         window.open(link, '_blank');
     }
 
-    private cancellMessages() {
+    public cancellMessages() {
         this.loading = false;
         this.creating = false;
         this.errorLoad = '';

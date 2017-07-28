@@ -13,11 +13,11 @@
 </header>
 <div class="main-content" style="padding-top: 22px;" (click)='cancellMessages();'>
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="modalOpen(); myModal.open(); setEmptyFichiers();"></button>
+        <button class="add-an-item-button" (click)="modalOpen(); myModal.open(); setEmptyFichiers()"></button>
 
                     <site-fichiers-modal #myModal id="myModal" style='min-width: 454px; max-width: 454px;' tabindex="-1">
                         <modal-header-SF>
-                            <h2>Ajouter un fichier</h2> {{parentRouteId}}
+                            <h2>Ajouter un fichier</h2>
                         </modal-header-SF>
 
                         <modal-content-SF>
@@ -76,7 +76,7 @@
 
                           <div class="button-wrapper">
                               <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
-                                      (click)="myModal.close(); setEmptyFichiers();">Annuler</button>
+                                      (click)="myModal.close(); setEmptyFichiers()">Annuler</button>
                               <button type="submit" class="form-button green-button ajouter-button"
                                       (click)='submitForm(name.value)'
                                       [disabled]="!(!categoryNewFichier_nullData && site_newFichierForm.form.valid)">{{saveButtonCaption}}</button>

@@ -68,7 +68,7 @@ export class SiteFichiersModalComponent  {
     @ViewChild("modalRoot")
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
 
     constructor() {
@@ -112,7 +112,7 @@ export class SiteFichiersModalComponent  {
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement("div");
         this.backdropElement.classList.add("fade");
         this.backdropElement.classList.add("in");

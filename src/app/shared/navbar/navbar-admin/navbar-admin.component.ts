@@ -12,10 +12,8 @@ export class NavbarAdminComponent implements OnInit {
   ngOnInit() {
   }
 
-
   public logoutFunction() {
       localStorage.clear();
   }
-    
 
 }

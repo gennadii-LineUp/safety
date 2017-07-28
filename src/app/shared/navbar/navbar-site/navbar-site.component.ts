@@ -22,17 +22,17 @@ export class NavbarSiteComponent implements OnInit, OnDestroy {
     showEmployee_general = false;
 
   id_site = 0;
-    private sub: any;
+  public sub: any;
 
 
-    constructor(private authGuard: AuthGuard,
-                private adminGuard: AdminGuard,
-                private adminAsClientGuard: AdminAsClientGuard,
-                private clientGuard: ClientGuard,
-                private employeeAdminGuard: EmployeeAdminGuard,
-                private employeeGeneralGuard: EmployeeGeneralGuard,
-                private employeeTechGuard: EmployeeTechGuard,
-                private route: ActivatedRoute) {}
+    constructor(public authGuard: AuthGuard,
+                public adminGuard: AdminGuard,
+                public adminAsClientGuard: AdminAsClientGuard,
+                public clientGuard: ClientGuard,
+                public employeeAdminGuard: EmployeeAdminGuard,
+                public employeeGeneralGuard: EmployeeGeneralGuard,
+                public employeeTechGuard: EmployeeTechGuard,
+                public route: ActivatedRoute) {}
 
     ngOnInit() {
         this.verifyUserRole();

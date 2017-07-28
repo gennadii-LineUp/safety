@@ -60,11 +60,11 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
     ];
 
 
-    constructor(private clientService: ClientService,
-                private router: Router,
-                private paginationService: PaginationService,
-                private errorMessageHandlerService: ErrorMessageHandlerService,
-                private tableSortService: TableSortService) {}
+    constructor(public clientService: ClientService,
+                public router: Router,
+                public paginationService: PaginationService,
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public tableSortService: TableSortService) {}
 
     ngOnInit() {
         this.findSiteByNameFunction('', 1, '');

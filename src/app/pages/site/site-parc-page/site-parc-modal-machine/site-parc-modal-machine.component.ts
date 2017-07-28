@@ -15,7 +15,7 @@ export class ModalHeaderSPMM {}
   providers: [DataService]
 })
 export class ModalContentSPMM implements OnInit {
-  constructor(private dataService: DataService) {}
+  constructor(public dataService: DataService) {}
   //
   ngOnInit() {
   //   this.datepickerRun();
@@ -85,10 +85,10 @@ export class SiteParcModalMachineComponent implements OnInit, OnDestroy { // ext
     @ViewChild('modalRoot')
     public modalRoot: ElementRef;
 
-    private backdropElement: HTMLElement;
+  public backdropElement: HTMLElement;
 
 
-    constructor(private dataService: DataService) {
+    constructor(public dataService: DataService) {
        // super();
         this.createBackDrop();
     }
@@ -132,7 +132,7 @@ export class SiteParcModalMachineComponent implements OnInit, OnDestroy { // ext
         event.stopPropagation();
     }
 
-    private createBackDrop() {
+  public createBackDrop() {
         this.backdropElement = document.createElement('div');
         this.backdropElement.classList.add('fade');
         this.backdropElement.classList.add('in');

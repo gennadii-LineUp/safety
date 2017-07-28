@@ -7,7 +7,7 @@ import {SiteClass} from '../../models/const/site-class';
 @Injectable()
 export class ClientService {
 
-    constructor(private backendService: BackendService) {}
+    constructor(public backendService: BackendService) {}
 
 
     public getClientProfilData(): Observable<any> {

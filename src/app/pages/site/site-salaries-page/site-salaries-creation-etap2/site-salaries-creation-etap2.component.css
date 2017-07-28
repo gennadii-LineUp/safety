@@ -34,7 +34,7 @@ th {
 }
 .radio {
     position: relative;
-    margin-top: 0px;
+    margin-top: 0;
 }
 .radio input[type="radio"] {
     position: absolute;
@@ -44,7 +44,7 @@ th {
 
 
 .datepicker-default {
-    top: 0px;
+    top: 0;
     margin-right: 12px;
     height:42px;
 }
@@ -236,7 +236,7 @@ modal-content-SSAtt .form-control {
 
 .autorisation-de-conduite-modal .control {
     text-align: left;
-    padding-top: 0px;
+    padding-top: 0;
     padding-left: 44px;
     margin-bottom: 18px;
     font-size: 14px;

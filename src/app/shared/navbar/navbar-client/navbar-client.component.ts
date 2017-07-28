@@ -12,15 +12,15 @@ export class NavbarClientComponent implements OnInit {
     showAdminData = false;
     showEmployee_Admin = false;
     // id_site: number = 0;
-    // private sub: any;
+    // public sub: any;
 
 
-    constructor(private adminAsClientGuard: AdminAsClientGuard,
-                private employeeAdminGuard: EmployeeAdminGuard,
-                private authGuard: AuthGuard) {}
-                // private route: ActivatedRoute
+    constructor(public adminAsClientGuard: AdminAsClientGuard,
+                public employeeAdminGuard: EmployeeAdminGuard,
+                public authGuard: AuthGuard) {}
+                // public route: ActivatedRoute
                 //
-                // private adminGuard: AdminGuard
+                // public adminGuard: AdminGuard
     ngOnInit() {
         this.verifyUserRole();
 

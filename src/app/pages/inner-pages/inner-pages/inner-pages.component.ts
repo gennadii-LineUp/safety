@@ -15,8 +15,8 @@ export class InnerPagesComponent implements OnInit {
     loggedInAsAdmin = false;
     loggedInAsClient = false;
 
-    constructor(private adminGuard: AdminGuard,
-              private clientGuard: ClientGuard ) { }
+    constructor(public adminGuard: AdminGuard,
+                public clientGuard: ClientGuard ) { }
 
   ngOnInit() {
         this.checkLoggedInUser();

@@ -4,7 +4,7 @@ import {CanActivate, Router}    from '@angular/router';
 @Injectable()
 export class AdminAsClientGuard implements CanActivate {
 
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   canActivate() {
 
@@ -14,7 +14,7 @@ export class AdminAsClientGuard implements CanActivate {
     }
 
     // not logged in as admin, so redirect to login page
-    //this.router.navigate(['/login']);
+    // this.router.navigate(['/login']);
     return false;
 
   }
