@@ -22,8 +22,6 @@
 
             <modal-content-CG>
                 <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()' >
-                    <!--(ngSubmit)="submitForm(client_newGroupesForm)"-->
-
                     <div class="input-wrapper">
                         <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
                         <input class="form-control"  placeholder="Nom*" type="text"

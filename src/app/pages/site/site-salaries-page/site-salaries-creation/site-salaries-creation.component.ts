@@ -1,12 +1,10 @@
 import {Component, OnInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
-import { Router}    from '@angular/router';
+import { Router} from '@angular/router';
 import {ClientService} from '../../../../services/client/client.service';
 import {ErrorMessageHandlerService} from 'app/services/error/error-message-handler.service';
 import {SiteService} from '../../../../services/site/site.service';
 import {EmployeesClass} from 'app/models/const/employees-class';
-import { NgForm} from '@angular/forms';
 import {DataService} from '../../../../services/DataService.service';
-import {EmployeesClassDates} from '../../../../models/const/employees-dates-class';
 declare var $: any;
 
 @Component({
@@ -24,6 +22,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     successCreating = '';
 
     errorLoad = '';
+    hideIndetermineeDates = true;
 
     addNewSalariesAvailable = true;
     errorSalaries = false;
@@ -60,15 +59,15 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.datepickerRun();
         this.checkFreeSalarieAccount();
         this.id_site = localStorage.id_site;
-        window.document.getElementById('site_salaries').classList.add('active');
     }
 
     ngOnDestroy() {
-      window.document.getElementById('site_salaries').classList.remove('active');
+      // window.document.getElementById('siteSalariesMenu').classList.remove('active');
     }
 
 
     public getEmployeeGroupes() {
+        // this.siteService.lightActiveMenu();
         this.noGroups = false;
         this.clientService.getGroupList()
             .subscribe(result => {
@@ -107,7 +106,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
       reader.onload = (e) => {
         this.content = e.target;
       };
-      const res = reader.readAsDataURL(event.target.files[0]);
+      let res = reader.readAsDataURL(event.target.files[0]);
       console.log(res);
       setTimeout(() => {
          this.uploadedFile = true;
@@ -132,64 +131,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
   }
 
 
-  // @ViewChild('birthDate')  birthDate: ElementRef;
-    // public getDatepicker() {
-    //     let dd = window.document.getElementsByClassName('datepicker-default')['0'].value;
-    //     console.log(typeof dd + ' getElementsByClassName = ' + dd);
-    //     console.log(typeof this.birthDate.nativeElement.value + ' @ViewChild = ' + this.birthDate.nativeElement.value);
-    // }
-
-    // loadingFile = false;
-    // uploadedFile = false;
-    // file: File;
-    // userHasChoosenFile = false;
-    // public fileChange(event) {
-    //     // this.loadingFile = true;
-    //     this.uploadedFile = false;
-    //     let fileList: FileList = event.target.files;
-    //     if (fileList.length > 0) {
-    //         this.userHasChoosenFile = true;
-    //         this.file = fileList[0];
-    //
-    //         if (this.userHasChoosenFile) {
-    //             this.loadingFile = true;
-    //             this.clientService.loadToServerProfileImage(this.file)
-    //                 .subscribe(result => {
-    //                     if (result) {
-    //                         console.log(result);
-    //
-    //                         // setTimeout(() => {
-    //                         //     this.clientService.getProfileImage()
-    //                         //         .subscribe(result => {
-    //                         //             if (result) {
-    //                                          this.loadingFile = false;
-    //                                          this.uploadedFile = true;
-    //                         //                 console.log(result);
-    //                         //                 // this.successUpdate = "Well done! You've updated your settings.";
-    //                         //             }
-    //                         //         }, (err) => {
-    //                         //             this.loadingFile = false;
-    //                         //             console.log(err);
-    //                         //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    //                         //         });
-    //                         // }, 1000);
-    //                         // this.successUpdate = "Well done! You've updated your settings.";
-    //                     }
-    //                 }, (err) => {
-    //                     this.loadingFile = false;
-    //                     console.log(err);
-    //                     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    //                 });
-    //         }
-    //         else {
-    //             // this.successUpdate = "Well done! You've updated your settings.";
-    //         }
-    //
-    //     }
-    // }
-
-
-    public submitForm(newEmployeesForm: NgForm) {
+    public submitForm() {
         const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
         const datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value || '';
         const datepicker_endDate   = window.document.getElementsByClassName('datepicker-default')['2'].value || '';
@@ -206,16 +148,17 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.cancellSuccessMessage();
         this.loading = true;
 
-         const employeeDates = new EmployeesClass(newEmployeesForm.value.name,
-                                                       newEmployeesForm.value.surname,
-                                                       newEmployeesForm.value.email,
-                                                       newEmployeesForm.value.post,
-                                                       _datepicker_birthDate,
-                                                       newEmployeesForm.value.numSecu,
-                                                       newEmployeesForm.value.validityPeriod,
-                                                       _datepicker_startDate,
-                                                       _datepicker_endDate,
-                                                       newEmployeesForm.value.employeeGroup);
+        console.log(this.employees);
+         const employeeDates = new EmployeesClass(this.employees.name,
+                                                 this.employees.surname,
+                                                 this.employees.email,
+                                                 this.employees.post,
+                                                 _datepicker_birthDate,
+                                                 this.employees.numSecu,
+                                                 this.employees.validityPeriod,
+                                                 _datepicker_startDate,
+                                                 _datepicker_endDate,
+                                                 this.employees.employeeGroup);
 
         // this.employees.birthDate = datepicker_birthDate;
         // this.employees.startDate = datepicker_startDate;
@@ -235,13 +178,11 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
-    hideIndetermineeDates = true;
+
     public hideIndetermineeDatesFunction(e: any) {
         console.dir(e.target.previousElementSibling.id);
         this.hideIndetermineeDates = false;
-        if (e.target.previousElementSibling.id === 'indeterminee') {
-            this.hideIndetermineeDates = true;
-        }
+        if (e.target.previousElementSibling.id === 'indeterminee') {this.hideIndetermineeDates = true; }
     }
 
     public checkFreeSalarieAccount() {
@@ -265,22 +206,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     }
 
 
-    ngAfterViewChecked () {
-        let timeoutId = setTimeout(() => {
-            this.highlightActiveMenu();
-        }, 1000);
-        clearTimeout(timeoutId);
-    }
-
-    highlightActiveMenu() {
-        console.log('highlightActiveMenu');
-        let menuItem = window.document.getElementById('siteSalariesMenu');
-      console.dir(menuItem);
-      // menuItem.classList.add('active');
-      console.log('highlightActiveMenu 55555');
-  }
-
-    datepickerRun() {
+  public datepickerRun() {
         $(() => {
             this.dataService.datepickerFranceFormat();
             $( '#birthDate, #startDate, #endDate' ).datepicker();
@@ -291,7 +217,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         });
     }
 
-  public cancellErrorMessage() {
+    public cancellErrorMessage() {
         this.loading = false;
         this.loadingGroupes = false;
         this.errorCreating = '';
@@ -311,6 +237,5 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.cancellSuccessMessage();
         this.router.navigate(['/site', this.id_site, 'ajouter-un-salarie-etap2']);
     }
-
 
 }

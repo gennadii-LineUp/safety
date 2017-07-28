@@ -17,6 +17,10 @@ export class SiteService {
 
     constructor(public backendService: BackendService) {}
 
+    public lightActiveMenu() {
+      let siteSalariesMenu = window.document.getElementById('siteSalariesMenu');
+      if (siteSalariesMenu) {siteSalariesMenu.classList.add('active'); }
+    }
 
     public setIdSite(id_site: number) {
         this.id_site = id_site;

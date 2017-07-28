@@ -11,7 +11,7 @@
 </header>
 <div class="main-content" (click)='cancellSuccessMessage()'>
     <form #admin_reglagesForm="ngForm"  novalidate  class="profil-form"
-          (ngSubmit)="submitForm(admin_reglagesForm)">
+          (ngSubmit)="submitForm()">
         <h2>Mon Compte Formation</h2>
         <input type="text" class="form-control" placeholder="Lien"
                #monCompteFormationLink="ngModel" id="monCompteFormationLink" name='monCompteFormationLink'  [(ngModel)]="reglages.monCompteFormationLink" />

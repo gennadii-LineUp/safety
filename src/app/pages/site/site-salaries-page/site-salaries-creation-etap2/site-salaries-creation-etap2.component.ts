@@ -119,17 +119,11 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
 
     ngOnDestroy() {
-      window.document.getElementById('site_salaries').classList.remove('active');
-    }
-
-    public lightActiveMenu() {
-      let siteSalariesMenu = window.document.getElementById('siteSalariesMenu');
-      if (siteSalariesMenu) {siteSalariesMenu.classList.add('active'); }
+      // window.document.getElementById('siteSalariesMenu').classList.remove('active');
     }
 
     public ShowType(userChoice: string) {
       console.log(userChoice);
-
       switch (userChoice) {
         case  '3':  this.activeSelect = this.machinesGlossary.TypeM[0].value;  break;
         case  '4':  this.activeSelect = this.machinesGlossary.TypeM[1].value;  break;
@@ -156,7 +150,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     }
 
     public getEmployeeFromEtap1Function() {
-        this.lightActiveMenu();
+        // this.siteService.lightActiveMenu();
         this.loading = true;
         this.siteService.getEmployeeFromEtap1(this.id_site, this.id_salarie)
             .subscribe(result => {
@@ -221,7 +215,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       return true;
     }
 
-    public submitModifyEtap1Form(modifyEmployeesForm: NgForm) {
+    public submitModifyEtap1Form() {
         const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
 
         this.cancellErrorMessage();
@@ -688,7 +682,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       .subscribe(result => {
             this.getFromServerProfileImageFunction();
       }, (err) => {
-        // this.loadingPhotoFile = false;
+        this.loadingPhotoFile = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
@@ -700,13 +694,13 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     this.siteService.getFromServerEmplImage(this.id_site, this.id_salarie)
       .subscribe(result => {
         if (result) {
-          // this.loadingPhotoFile = false;
+          this.loadingPhotoFile = false;
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
         }
       }, (err) => {
-        // this.loadingPhotoFile = false;
+        this.loadingPhotoFile = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });

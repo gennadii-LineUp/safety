@@ -48,7 +48,7 @@ export class AdminReglagesPageComponent implements OnInit {
             });
     }
 
-    submitForm(admin_reglagesForm: NgForm) {
+    submitForm() {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;

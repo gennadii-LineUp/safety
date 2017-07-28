@@ -83,7 +83,7 @@ export class DataService {
     let month: string;
     if (+_month < 10) { month = '0' + _month; }
     let day: any;
-    day = t1.getDate();
+    day = t1.getDate() + 1;  //  DELETE AFTER FIXING  +1
     if (day < 10) {day = '0' + day; }
 
     return day + '/' + month + '/' + t1.getFullYear();

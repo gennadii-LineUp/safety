@@ -11,7 +11,7 @@
 <div class="main-content">
     <form  #client_editProfilForm="ngForm"  novalidate  class="profil-form" (click)='cancellSuccessMessage();'
            enctype="multipart/form-data"
-           (ngSubmit)="submitNewProfilClientFunction(client_editProfilForm)"  >
+           (ngSubmit)="submitNewProfilClientFunction()"  >
         <div class="input-wrapper">
             <p [hidden]="company.invalid" class="requred-field color-valid">Entreprise</p>
             <input  class="form-control" placeholder="Nom*"
