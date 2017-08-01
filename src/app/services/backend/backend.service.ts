@@ -48,6 +48,7 @@ export class BackendService {
 
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.token);
+        console.log(body);
 
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());

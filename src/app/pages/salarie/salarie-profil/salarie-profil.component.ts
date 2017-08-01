@@ -3,18 +3,29 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
 import {EmployeesClass} from '../../../models/const/employees-class';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {EmployeesPasswordClass} from '../../../models/const/employee-psw-class';
+import {SiteService} from '../../../services/site/site.service';
 
 @Component({
   selector: 'salarie-profil',
   templateUrl: './salarie-profil.component.html',
   styleUrls: ['./salarie-profil.component.css'],
-  providers: [SalariesService]
+  providers: [SalariesService, SiteService]
 })
 export class SalarieProfilComponent implements OnInit, OnDestroy {
   loading = false;
   updating = false;
   successUpdate = '';
   errorLoad = '';
+
+  loadingFile = false;
+  uploadedFile = false;
+  content: any;
+  showImg = false;
+  file: File;
+  userHasChoosenFile = false;
+  imgServer: any;
+
+
   employee = new EmployeesClass('', '', '', '', '', '', false, '', '', 0);
   employeesPasswordClass = new EmployeesPasswordClass('', '', '');
 
@@ -43,6 +54,9 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
           this.employee.post = result.post;
           this.employee.birthDate = result.birthDate;
           this.employee.numSecu = result.numSecu;
+          setTimeout(() => {
+            this.getFromServerProfileImageFunction();
+          }, 100);
         }
       }, (err) => {
         this.loading = false;
@@ -80,6 +94,59 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
     this.updating = true;
     this.errorLoad = '';
     this.successUpdate = '';
+  }
+
+  public fileChange(event) {
+    this.uploadedFile = false;
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.userHasChoosenFile = true;
+      this.file = fileList[0];
+
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.content = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+
+      this.loadingFile = true;
+      setTimeout(() => {
+        this.loadToServerProfileImageFunction();
+      }, 2000);
+    }
+  }
+
+  public loadToServerProfileImageFunction() {
+    this.salariesService.loadToServerSalarieeImage(this.content)
+      .subscribe(result => {
+        if (result) {
+          setTimeout(() => {
+            this.getFromServerProfileImageFunction();
+          }, 100);
+        }
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public getFromServerProfileImageFunction() {
+    this.loadingFile = true;
+    this.uploadedFile = false;
+    this.salariesService.getFromServerSalarieeImage()
+      .subscribe(result => {
+        if (result) {
+          this.loadingFile = false;
+          this.showImg = true;
+          const src = 'data:' + result.contentType + ';base64,';
+          this.imgServer = src + result.content;
+        }
+      }, (err) => {
+        this.loadingFile = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
   }
 
 

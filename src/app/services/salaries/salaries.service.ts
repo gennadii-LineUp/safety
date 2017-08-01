@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import {Observable} from 'rxjs/Observable';
 import {BackendService} from '../backend/backend.service';
-import {SiteClass} from '../../models/const/site-class';
 import {EmployeesPasswordClass} from '../../models/const/employee-psw-class';
 
 @Injectable()
@@ -71,6 +70,21 @@ export class SalariesService {
       return this.backendService.loadImage_get(query);
     }
 
+  public loadToServerSalarieeImage(content: any): Observable<any> {
+    const url = UrlParams.employeeHome + 'profile/photo';
+    console.log(url);
+    console.log(content);
+    const fileToServer = {
+      content: ((((content.result).split(';'))[1]).split(','))[1]
+    };
+    console.log(fileToServer);
+    return this.backendService.loadImage_post(url, fileToServer);
+  }
+  public getFromServerSalarieeImage(): Observable<any> {
+    const url = UrlParams.employeeHome + 'profile/photo?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
 
 
   public tableMobileViewInit() {

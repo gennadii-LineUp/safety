@@ -14,17 +14,39 @@
     <form #employee_profilForm="ngForm"  novalidate  class="mon-profil-form"
           (ngSubmit)="submitFunction()"  enctype="multipart/form-data">
 
-      <p>Photo</p>
+      <p>Photo
+        <img *ngIf='loadingFile' style='bottom: 7%; width: 16px; margin-left: 50px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      </p>
         <div class="mon-profil-detailed-info">
-            <div class="mon-profil-image-wrapper"  style='margin-right: 20px;'>
-                <img src="../../../../assets/img/default_progile_image-min.jpg" alt="default_progile_image-min" class="img-responsive">
+          <div class="mon-profil-image-wrapper"  style='margin-right: 20px; display: inline-block;'>
+            <!--////////////////////////////-->
+            <div class="image-upload" style="position: relative;">
+              <!--<p>{{uploadFileText}}</p>-->
+              <label for="file-input">
+                <div id="loadedImg" *ngIf="showImg"
+                     [ngStyle]="{'background': 'url(' + imgServer + ') no-repeat'}"></div>
+                <span ></span>
+              </label>
+              <input id="file-input" type="file"   [disabled]="loadingFile"
+                     (change)="fileChange($event)"
+                     accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
+              <img *ngIf='loadingFile' style='position:absolute; bottom: 42%; right: 42%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+              <span *ngIf='uploadedFile' class="loading_ok"></span>
             </div>
-            <div class="image-upload">
-                <label for="file-input3">
-                    <span></span>
-                </label>
-                <input id="file-input3" type="file">
-            </div>
+            <!--////////////////////////////////-->
+          </div>
+
+
+            <!--<div class="mon-profil-image-wrapper"  style='margin-right: 20px;'>-->
+                <!--<img src="../../../../assets/img/default_progile_image-min.jpg" alt="default_progile_image-min" class="img-responsive">-->
+            <!--</div>-->
+            <!--<div class="image-upload">-->
+                <!--<label for="file-input3">-->
+                    <!--<span></span>-->
+                <!--</label>-->
+                <!--<input id="file-input3" type="file">-->
+            <!--</div>-->
             <div class="clearfix"></div>
             <div class="detailed-info-wrapper">
                 <p>Nom {{employee.name | capitalizeFirstLetter}}</p>

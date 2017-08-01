@@ -115,7 +115,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                 public clientService: ClientService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public router: Router,
-                public route: ActivatedRoute,
                 public tableSortService: TableSortService,
                 public machinesGlossary: MachinesGlossary,
                 public dataService: DataService) { }
@@ -823,7 +822,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     if (this.filePhoto.length > 0) {
       this.loadingPhotoFilePhoto = true;
       this.userHasChoosenFilePhoto = true;
-      // let fileList = this.filePhoto[0];
 
       let reader = new FileReader();
       reader.onload = (e) => {
