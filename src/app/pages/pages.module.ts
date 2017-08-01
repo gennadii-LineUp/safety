@@ -48,11 +48,12 @@ import { SalarieFichesModalComponent, ModalHeaderSSF, ModalContentSSF, ModalFoot
 import {SalarieComponent} from './salarie/salarie.component';
 import {DataService} from '../services/DataService.service';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import {QRCodeModule} from 'angular2-qrcode';
 
 
 @NgModule({
     imports: [
-        CommonModule, AppRoutingModule, SharedModule, FormsModule
+        CommonModule, AppRoutingModule, SharedModule, FormsModule, QRCodeModule
     ],
     declarations: [
         AppComponent,

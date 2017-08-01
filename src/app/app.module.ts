@@ -20,6 +20,7 @@ import {EmployeeTechGuard} from './guards/employee-technical-guard.service';
 import {EmployeeGeneralGuard} from './guards/employee-general-guard.service';
 import {ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard} from './guards/client-eadmin-egener-etech-guard.service';
 import {ClientOrEmplAdminOrEmplGeneralGuard} from './guards/client-eadmin-egener-guard.service';
+import { QRCodeModule } from 'angular2-qrcode';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {ClientOrEmplAdminOrEmplGeneralGuard} from './guards/client-eadmin-egener
       HttpModule,
       // SharedModule,
       AppRoutingModule,
-      PagesModule
+      PagesModule,
+      QRCodeModule
   ],
     exports: [ ],
     providers: [

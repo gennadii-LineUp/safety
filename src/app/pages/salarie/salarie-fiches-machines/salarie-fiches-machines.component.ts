@@ -16,7 +16,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
-
+  id_site: number;
   pager: any = {};
   totalItems = 0;
   activePage = 1;
@@ -44,6 +44,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
               public paginationService: PaginationService) { }
 
   ngOnInit() {
+    this.id_site = localStorage.id_site;
     this.findFichiersByNameFunction('', 1, '');
   }
   ngOnDestroy() {
