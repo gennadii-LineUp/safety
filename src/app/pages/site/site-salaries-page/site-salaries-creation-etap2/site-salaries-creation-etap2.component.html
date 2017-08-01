@@ -67,32 +67,26 @@
             </div>
             <div class="clearfix"></div>
             <p class="form-subheader" style="position: relative;">Photo
-              <img *ngIf='loadingPhotoFile' style='position:absolute; bottom:15%; left:20%; width:16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <img *ngIf='loadingPhotoFilePhoto' style='position:absolute; bottom:15%; left:20%; width:16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             </p>
 
             <!--////////////////////////////-->
           <div class="profile-img-wrapper" style="height: 112px;">
             <div class="main-image-editor-wrapper" style="position: relative;">
-              <!--<p>{{uploadFileText}}</p>-->
-              <label for="file-input">
-                <div id="loadedImg" *ngIf="showImg"
-                     [ngStyle]="{'background': 'url(' + imgServer + ') no-repeat'}"></div>
+              <label for="fileInputPhoto">
+                <div id="loadedImg" *ngIf="showImgPhoto"
+                     [ngStyle]="{'background': 'url(' + imgServerPhoto + ') no-repeat'}"></div>
                 <span ></span>
               </label>
-              <input id="file-input" type="file"   [disabled]="loadingPhotoFile"
-                     (change)="fileChange($event)"  style="display: none;"
+              <input id="fileInputPhoto" #fileInputPhoto type="file"   [disabled]="loadingPhotoFilePhoto"
+                     (change)="fileChangePhoto($event)"  style="display: none;"
                      accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
-              <!--<img *ngIf='loadingPhotoFile' style='position:absolute; bottom: 42%; right: 42%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
 
-              <span *ngIf='uploadedFile' class="loading_ok"></span>
+              <span *ngIf='uploadedFilePhoto' class="loading_ok"></span>
             </div>
           <div class="clearfix"></div>
           </div>
           <!--////////////////////////////////-->
-
-          <!--<div class="profile-img-wrapper">-->
-                <!--<img src="../../../../../assets/img/progile_image.jpg" alt="progile_image">-->
-            <!--</div>-->
 
             <p class="form-subheader clearfix" style='margin: 14px 0 -4px 0;'>Groupe de salariés</p>
             <img *ngIf="loadingGroupes" style='left:18%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /><br>
@@ -100,8 +94,7 @@
                 <div *ngFor="let groupe of employeeGroupes" class="radio" >
                   <input type="radio"   id={{groupe.id}} name="employeeGroup"
                            [(ngModel)]="employees.employeeGroup" [value]="groupe.id"
-                           [checked]='checkedGroupFromEtap1==groupe.id'
-                            (click)="showCurrentGroupeSalaries($event)">  <!-- checked={{groupe.booleanValue}}-->
+                           [checked]='checkedGroupFromEtap1==groupe.id'>
                   <label for={{groupe.id}} class="radio-label">{{groupe.id}} {{groupe.name}}</label>
                 </div>
             </div>
@@ -144,9 +137,9 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"  (click)="datesAutorisationsCheckFunction()"
                        #visiteMedicale="ngModel" id='visiteMedicale' name='visiteMedicale'  [(ngModel)]="visites.medicalVisitDateExpires"/>
-                <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 20%;' />
+                <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />
             </div>
         </div>
 
@@ -159,26 +152,27 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"  (click)="datesAutorisationsCheckFunction()"
                        #caces="ngModel" id='caces' name='caces'  [(ngModel)]="visites.cacesDateExpires"/>
                 <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />
             </div>
 
             <p class="form-label" style='display: inline-block; width: auto; float: left;'>Fichier *</p>
 
-             <div class="input-wrapper" style='display: inline-block; width: auto;  margin-right: 12px;'>
-                <div class="image-upload"  style='display: inline-block !important; float: left; margin-left: 90px;'>
-                    <p>{{uploadFileText}}</p>
-                    <label for="file-input">
-                        <span></span>
-                    </label>
-                    <input id="file-input" type="file"
-                           (change)="fileChange($event)"
-                           accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
-                    <img *ngIf='loadingFile' style='position:absolute; bottom:12px; right:50px; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    <span *ngIf='uploadedFile' class="loading_ok"></span>
-                </div>
+            <div class="input-wrapper" style='display: inline-block; width: auto;  margin-right: 12px;'>
+              <div class="image-upload" style='display: inline-block !important; float: left; margin-left: 74px;'>
+                <p>{{uploadFileTextCaces}}</p>
+                <label for="fileInputCaces">
+                  <span></span>
+                </label>
+                <input id="fileInputCaces" #fileInputCaces type="file"
+                       (change)="fileChangeCaces($event)"
+                       accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
+
+                <span *ngIf='uploadedFileCaces' class="loading_ok"></span>
+              </div>
             </div>
+
         </div>
 
         <div class="form-divider clearfix" style='margin: -1px 0 15px 0;'></div>
@@ -188,7 +182,7 @@
               <span>Attestations / Habilitations</span>
               <img *ngIf="loadingAttestations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='position: absolute; left: 10%;' />
             </p>
-            <button type="button" class="add-an-item-button" (click)="attestModal.open()"></button>
+            <button type="button" class="add-an-item-button" (click)="modalAttestOpen(); attestModal.open()"></button>
 
             <!-- M O D A L -->
 
@@ -197,9 +191,9 @@
             <table class="table-default attestations-de-formation-table">
                 <thead>
                 <tr>
-                    <th *ngFor="let header of headers"  (click)="tableSortService._changeSorting(header.variable, $event);
-                                                                getSortingTarget();
-                                                                getAttestations(this.sortingTarget);">
+                    <th *ngFor="let header of headersAttest"  (click)="tableSortService._changeSorting(header.variable, $event);
+                                                                getSortingTargetAttest();
+                                                                getAttestations(this.sortingTargetAttest);">
                         <button [class]="tableSortService.selectedClass(header.variable)" ></button>
                         {{header.display}}
                     </th>
@@ -256,7 +250,11 @@
             <table class="table-default attestations-de-conduite-table">
                 <thead>
                 <tr>
-                    <th><button class="sort-button-true"></button>Nom</th>
+                    <th *ngFor="let header of headersPermis"  (click)="changeSorting(header.variable, $event);
+                                                               getDrivingLicenses(sortingTargetPermis)">
+                      <button [class]="selectedClass(header.variable)"></button>
+                      {{header.display}}
+                    </th>
                     <th>
                         <span>Action</span>
                     </th>
@@ -287,12 +285,12 @@
     <div class="button-wrapper">
         <button type="button" class="form-button red-button annuler-button" (click)='gotoSalariesPage()'>Annuler</button>
         <button type="submit" class="form-button green-button sauvegarder-button"
+                [disabled]="datesAutorisationsEmpty"
                 (click)='submitDatesAutorisationsForm()'>Sauvegarder</button>
-        <!--[disabled]="!(site_newEmployee3DatesAutorisationsForm.form.valid)"-->
     </div>
 </div>
 
-<modal-attest #attestModal style='min-width: 454px; max-width: 454px;' tabindex="-1" class='attestation-habilitation-modal'>
+<modal-attest #attestModal id="attestModal" style='min-width: 454px; max-width: 454px;' tabindex="-1" class='attestation-habilitation-modal'>
     <modal-header-SSAtt>
         <h2>Attestation de formation</h2>
     </modal-header-SSAtt>
@@ -308,31 +306,34 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date de délivrance*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default"  (click)="datepickerViewInit(); datesAttestationCheckFunction()"
                        #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance'
                        [(ngModel)]="attestation.dateIssue"/>
-              <!--(click)='datepickerViewInit()'-->
                 <div class="clearfix"></div>
             </div>
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default"  (click)="datepickerViewInit(); datesAttestationCheckFunction()"
                        #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir'
                        [(ngModel)]="attestation.dateExpires"/>
-              <!--(click)='datepickerViewInit()'-->
                 <div class="clearfix"></div>
             </div>
             <div class="autres-fichiers-wrapper clearfix">
                 <p class="form-subheader">Fichier</p>
-                <div class="image-upload">
-                    <p>Parcourir...</p>
-                    <label for="file-input2">
-                        <span></span>
+                <div class="input-wrapper" style='display: block; width: 100%'>
+                  <div class="image-upload" style='display: block; width: 100% !important;'>
+                    <p>{{uploadFileTextAttest}}</p>
+                    <label for="fileInputAttest">
+                      <span></span>
                     </label>
-                    <input id="file-input2" type="file">
+                    <input id="fileInputAttest" #fileInputAttest type="file"
+                           (change)="fileChangeAttest($event)"
+                           accept=".pdf, .PDF"/>
+                    <span *ngIf='uploadedFileAttest' class="loading_ok"></span>
+                  </div>
                 </div>
-            </div>
+             </div>
         </form>
     </modal-content-SSAtt>
 
@@ -354,7 +355,6 @@
         <img *ngIf="creatingAttest" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
     </modal-footer-SSAtt>
 </modal-attest>
-
 
 
 <modal-autor #autorModal style='min-width: 454px; max-width: 454px;' tabindex="-1" class='autorisation-de-conduite-modal'>
@@ -384,7 +384,6 @@
                     </option>
                 </select>
             </div>
-
 
             <div class="tabbable">
                 <button class="form-button green-button ok-button pull-right" style="display: none;">Ok</button>
@@ -509,5 +508,3 @@
         </div>
     </modal-footer-SSAut>
 </modal-autor>
-
-

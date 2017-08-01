@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Response, RequestOptions, Http, Headers} from '@angular/http';
+import {Response, Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -9,12 +9,6 @@ import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
 export class BackendService {
 
     public token: string;
-    // this.showAdminData = this.authGuard.canActivate()
-    // && this.adminAsClientGuard.canActivate()
-    // && this.adminGuard.canActivate();
-    // private authGuard: AuthGuard,
-    // private adminGuard: AdminGuard,
-    // private clientGuard: ClientGuard,
 
     constructor(public http: Http) {}
 
@@ -27,10 +21,10 @@ export class BackendService {
             .map((res: Response) => <Object[]>res.json());
     }
     public resetPassword(url: string, body: any): Observable<any> {
-      const headers: Headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      return this.http.post(url, body, {headers: headers})
-        .map((res: Response) => <Object[]>res.json());
+        const headers: Headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(url, body, {headers: headers})
+          .map((res: Response) => <Object[]>res.json());
       // .catch((err: Response) => this.errorHandler.handleError(err));
     }
 
@@ -49,48 +43,36 @@ export class BackendService {
 
 
     public loadImage_post(url: string, body: any): Observable<any> {
-        console.log('= loading image TO server =');
         const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', 'Bearer ' + this.token);
 
-        console.log(url);
-        console.log(body);
-        console.dir(headers);
         return this.http.post(url, body, {headers: headers})
             .map((res: Response) => <Object[]>res.json());
     }
 
   public sendPDFtoServer(url: string, body: any): Observable<any> {
-    console.log('= loading image TO server =');
     const headers: Headers = new Headers();
     this.token = localStorage.getItem('token');
 
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Authorization', 'Bearer ' + this.token);
 
-    console.log(url);
-    console.log(body);
-    console.dir(headers);
     return this.http.post(url, body, {headers: headers})
       .map((res: Response) => <Object[]>res.json());
   }
 
 
   public loadImage_get(url: string): Observable<any> {
-        console.log('= loading image FROM server =');
         const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
         headers.append('Authorization', 'Bearer ' + this.token);
         headers.append('Content-Type', 'image/jpeg');
 
-        console.log(url);
-        console.dir(headers);
-
-      return this.http.get(url, {headers: headers})
+        return this.http.get(url, {headers: headers})
             .map((res: Response) => {
                 console.log('=========== image ===========');
                 if (res.headers.get('Content-Type').startsWith('image/')) {

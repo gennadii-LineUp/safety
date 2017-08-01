@@ -689,8 +689,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   datepickerRun() {
        $(() => {
             this.dataService.datepickerFranceFormat();
-          //  $.datepicker.run();
-           // $( '#ui-datepicker-div' ).datepicker();
             $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker();
             $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
 

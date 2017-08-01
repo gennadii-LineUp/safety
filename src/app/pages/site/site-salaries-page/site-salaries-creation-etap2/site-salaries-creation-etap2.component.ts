@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SiteService} from '../../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
@@ -7,7 +7,6 @@ import {EmployeesClass} from 'app/models/const/employees-class';
 import {VisitesClass} from '../../../../models/const/visites-class';
 import {AttestationClass} from '../../../../models/const/attestations-class';
 import {TableSortService} from '../../../../services/table-sort.service';
-import {NgForm} from '@angular/forms';
 import {DrivingLicenseClass} from '../../../../models/const/driving-license-class';
 import {DataService} from '../../../../services/DataService.service';
 import {MachinesGlossary} from '../../../../models/const/machine-categorie';
@@ -26,7 +25,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     loadingDrLicences = true;
     creatingAttest = false;
     creatingDrivingLicense = false;
-    loadingSalarieUsed = false;
     loadingGroupes = true;
     loaded = false;
     errorLoad = '';
@@ -39,8 +37,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     startDate = false;
     endDate = false;
-
-    uploadFileText = 'fichier1.jpg';
+    datesAutorisationsEmpty = true;
+    datesAttestationEmpty = true;
 
     saveButtonCaptionAttest = 'Enregistrer';
     saveButtonCaption_DrLicense = 'Enregistrer';
@@ -56,18 +54,36 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     id_site: number;
     id_salarie: number;
-  public sub: any;
 
     checkedGroupFromEtap1: number;
 
-  loadingFile = false;
-  loadingPhotoFile = true;
-  uploadedFile = false;
-  content: any;
-  showImg = false;
-  file: File;
-  userHasChoosenFile = false;
-  imgServer: any;
+    loadingPhotoFilePhoto = true;
+    uploadedFilePhoto = false;
+    contentPhoto: any;
+    showImgPhoto = false;
+    filePhoto: FileList;
+    userHasChoosenFilePhoto = false;
+    imgServerPhoto: any;
+
+    @ViewChild('fileInputCaces')
+    cacesInput: any;
+
+    @ViewChild('fileInputAttest')
+    attestInput: any;
+
+    loadingFileCaces = false;
+    uploadedFileCaces = false;
+    contentCaces: any;
+    fileCaces: FileList;
+    userHasChoosenFileCaces = false;
+    uploadFileTextCaces = '';
+
+    loadingFileAttest = false;
+    uploadedFileAttest = false;
+    contentAttest: any;
+    fileAttest: FileList;
+    userHasChoosenFileAttest = false;
+    uploadFileTextAttest = '.pdf';
 
     activeSelect = '3';
     categoryDrivingLicense_active = 3;
@@ -75,12 +91,17 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     subcategoryEquipement: number;
     checkedDrLicenses = [];
 
-    headers: any[] = [
+    headersAttest: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }// ,
         // { display: 'Date de délivrance',variable: 'dateIssue',    filter: 'text' },
         // { display: 'Date d’expiration', variable: 'dateExpires',  filter: 'text' }
     ];
-    sortingTarget = '';
+    headersPermis: any[] = [
+      { display: 'Type', variable: 'type', filter: 'text' }
+    ];
+    sortingPermis: any = { column: 'type', descending: false };
+    sortingTargetAttest = '';
+    sortingTargetPermis = '';
 
     public employeeGroupes = [];
     employees = new EmployeesClass('', '', '', '', '', '', true, '', '', 0);
@@ -89,10 +110,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     attestation = new AttestationClass('', '', '');
     drivingLicense = new DrivingLicenseClass([], 0);
     drivingLicenses = [];
-
-    public getSortingTarget() {
-        this.sortingTarget = this.tableSortService._getSortingTarget();
-    }
 
     constructor(public siteService: SiteService,
                 public clientService: ClientService,
@@ -112,9 +129,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.siteService.tableMobileViewInit();
         this.getEmployeeGroupes();
 
-        $(document).ready(() => {
-          this.datepickerViewInit();
-        });
+        // $(document).ready(() => {
+        //   this.datepickerViewInit();
+        // });
     }
 
 
@@ -122,7 +139,39 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       // window.document.getElementById('siteSalariesMenu').classList.remove('active');
     }
 
-    public ShowType(userChoice: string) {
+  public getSortingTargetAttest() {
+    this.sortingTargetAttest = this.tableSortService._getSortingTarget();
+  }
+  public selectedClass(columnName): string {
+    return columnName === this.sortingPermis.column ? 'sort-button-' + this.sortingPermis.descending : 'double-sort-button';
+  }
+  public changeSorting(columnName: string, e: any): void {
+    let sortingDirection: string;
+    let thClass: string;
+    const sort = this.sortingPermis;
+    if (sort.column === columnName) {
+      sort.descending = !sort.descending;
+    } else {
+      sort.column = columnName;
+      sort.descending = false;
+    }
+
+    if (e.target.firstElementChild) {
+      thClass = e.target.firstElementChild.className;
+    } else {
+      thClass = e.target.className;
+    }
+    if ((thClass === 'double-sort-button') || (thClass === 'sort-button-true')) {
+      sortingDirection = '';  // down
+    }
+    if (thClass === 'sort-button-false') {
+      sortingDirection = '-'; // up
+    }
+    this.sortingTargetPermis = '&sort=' + sortingDirection + columnName;
+  }
+
+
+  public ShowType(userChoice: string) {
       console.log(userChoice);
       switch (userChoice) {
         case  '3':  this.activeSelect = this.machinesGlossary.TypeM[0].value;  break;
@@ -165,6 +214,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.employees.validityPeriod = result.validityPeriod;
                     console.log(result.employeeGroup.id);
                     this.employees.employeeGroup = result.employeeGroup.id;
+                    if (result.cacesFile) {this.uploadedFileCaces = true; }
 
                     if (result.startDate) {
                       this.employees.startDate = this.dataService.convertDateFromServerToInput(result.startDate);
@@ -209,15 +259,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             });
     }
 
-    public showCurrentGroupeSalaries(e: any) {
-      console.log(e.target.id);
-     // this.employees.employeeGroup = +e.target.id;
-      return true;
-    }
 
     public submitModifyEtap1Form() {
         const datepicker_birthDate = window.document.getElementsByClassName('datepicker-default')['0'].value;
-
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
@@ -258,6 +302,14 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             });
     }
 
+    public datesAttestationCheckFunction() {
+      if (window.document.getElementsByClassName('datepicker-default')['3'].value
+        && window.document.getElementsByClassName('datepicker-default')['4'].value) {
+        this.datesAttestationEmpty = false;
+      }
+      return true;
+    }
+
 
     public submitAttestationForm(attest_name: string, attest_dateDelivrance: string, attest_dateExpir: string) {
         let urlOption = '';
@@ -268,6 +320,12 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
         const dateIssue   = window.document.getElementsByClassName('datepicker-default')['3'].value;
         const dateExpires = window.document.getElementsByClassName('datepicker-default')['4'].value;
+
+        if (dateIssue === ''  &&  dateExpires === '') {
+          this.datesAttestationEmpty = false;
+          this.errorCreatingAttestat = 'Déterminer la date';
+          return true;
+        }
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
@@ -281,14 +339,49 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.siteService.setAttestation(attestation, this.id_site, this.id_salarie, urlOption)
             .subscribe(result => {
                 if (result) {
-                    this.loading = false;
+                  let attestation_id: number;
+                  attestation_id = result.id;
+                  if (this.itemForChange) {attestation_id = this.itemForChange; }
+                  if (!!attestation_id && this.userHasChoosenFileAttest) {
+                    this.loadingFileAttest = true;
+                    this.siteService.loadToServerAttestFile(this.contentAttest, this.id_site, this.id_salarie, attestation_id)
+                      .subscribe(result => {
+                        this.loadingFileAttest = false;
+                        this.uploadedFileAttest = true;
+                        console.log(result);
+                        this.userHasChoosenFileAttest = false;
+                        // modal close /////////
+                        const _modal = document.getElementById('attestModal').firstElementChild;
+                        _modal.classList.add('hidden');
+                        const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                        (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                        /////////
+                        this.resetAttestFile();
+                      }, (err) => {
+                        this.loadingFileAttest = false;
+                        this.uploadFileTextAttest = '  error  error  error';
+                        console.log(err);
+                        this.errorCreatingAttestat = this.errorMessageHandlerService.checkErrorStatus(err);
+                      });
+
+                  }  else {
+                    // modal close /////////
+                    const _modal = document.getElementById('attestModal').firstElementChild;
+                    _modal.classList.add('hidden');
+                    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                    (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                    /////////
+                    this.successCreating = "Well done! You've created a new client.";
+                  }
+
+                  this.getAttestations('');
+                  this.loading = false;
                     this.successCreatingAttestat = 'Bien joué! Vous avez enregistré cette attestation.';
                     if (this.itemForChange) {
                       this.saveButtonCaptionAttest = 'Enregistrer';
                       this.itemForChange = 0;
                     }
                     this.attestation = new AttestationClass('', '', '');
-                    this.getAttestations('');
                     (<HTMLInputElement>window.document.querySelectorAll('#attest_dateDelivrance')[0]).value = '';
                     (<HTMLInputElement>window.document.querySelectorAll('#attest_dateExpir')[0]).value = '';
                 }
@@ -299,7 +392,31 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             });
     }
 
+    public modalAttestOpen() {
+        this.modalAttestClear();
+        const _modal = document.getElementById('attestModal').firstElementChild;
+        if (_modal) {_modal.classList.remove('hidden'); }
+        const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+        if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    }
 
+    public modalAttestClear() {
+      this.saveButtonCaptionAttest = 'Enregistrer';
+      this.uploadedFileAttest = false;
+      this.uploadFileTextAttest = '';
+      this.attestation = new AttestationClass('', '', '');
+      setTimeout(() => {
+        window.document.getElementsByClassName('datepicker-default')['3'].value = '';
+        window.document.getElementsByClassName('datepicker-default')['4'].value = '';
+      }, 100);
+    }
+
+    public datesAutorisationsCheckFunction() {
+        if (window.document.getElementsByClassName('datepicker-default')['1'].value
+          && window.document.getElementsByClassName('datepicker-default')['2'].value) {
+          this.datesAutorisationsEmpty = false;
+        }
+    }
 
     public submitDatesAutorisationsForm() {
         this.cancellErrorMessage();
@@ -322,31 +439,25 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     console.log(result);
                     // this.successCreating = "Well done! You've saved MedicaleCacesDates.";
 
-                    // if (this.userHasChoosenFile) {
-                    //     this.loadingFile = true;
-                    //     this.siteService.uploadText(this.file, this.id_site, this.id_salarie)
-                    //         .subscribe(result => {
-                    //             if (result) {
-                    //                 this.loadingFile = false;
-                    //                 this.uploadedFile = true;
-                    //                 console.log(result);
-                    //                 this.successCreating = 'Votre fichier est téléchargé.';
-                    //             }
-                    //         }, (err) => {
-                    //             this.loadingFile = false;
-                    //             this.uploadFileText = '  error  error  error';
-                    //             console.log(err);
-                    //
-                    //             this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-                    //         });
-                    // }
-                    // else {
-                       // this.successCreating = "Well done! You've created a new client.";
-                    // }
+                    if (this.userHasChoosenFileCaces) {
+                      this.loadingFileCaces = true;
+                      this.siteService.loadToServerCacesFile(this.contentCaces, this.id_site, this.id_salarie)
+                        .subscribe(result => {
+                            this.loadingFileCaces = false;
+                            this.uploadedFileCaces = true;
+                            console.log(result);
+                            this.userHasChoosenFileCaces = false;
+                        }, (err) => {
+                          this.loadingFileCaces = false;
+                          this.uploadFileTextCaces = '  error  error  error';
+                          console.log(err);
+                          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+                        });
 
+                    }  else {
+                       this.successCreating = "Well done! You've created a new client.";
+                    }
                     this.loading = false;
-                    this.userHasChoosenFile = false;
-
                 }
             }, (err) => {
                 this.loading = false;
@@ -368,8 +479,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           this.loadingDatesAutorisations = false;
 
           if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
+            this.datesAutorisationsEmpty = true;
             this.visites = new VisitesClass('', '');
           } else {
+            this.datesAutorisationsEmpty = false;
             this.visites.medicalVisitDateExpires = this.dataService.convertDateForInputView(result.medicalVisitDateExpires);
             this.visites.cacesDateExpires = this.dataService.convertDateForInputView(result.cacesDateExpires);
           }
@@ -386,6 +499,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.siteService.getAttestations(this.id_site, this.id_salarie, sort)
             .subscribe(result => {
                 if (result) {
+                    console.log(result.items);
                     this.loadingAttestations = false;
                     this.employeeAttestations = result.items;
                     this.emptyTable = false;
@@ -402,6 +516,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     }
 
     public getAttestForUpdateFunction(id_itemForUpdate) {
+        this.modalAttestOpen();
         this.cancellErrorMessage();
         this.creatingAttest = true;
         this.attestation = new AttestationClass('', '', '');
@@ -415,8 +530,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.attestation.name = result.name;
                     this.attestation.dateExpires = this.dataService.convertDateForInputView(result.dateExpires);
                     this.attestation.dateIssue = this.dataService.convertDateForInputView(result.dateIssue);
+                    this.datesAttestationEmpty = false;
                     this.saveButtonCaptionAttest = 'Modifier';
                     this.itemForChange = result.id;
+                    if (result.attestationFile) {this.uploadedFileAttest = true; }
                 }
             }, (err) => {
                 this.creatingAttest = false;
@@ -428,7 +545,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     public deleteAttestFunction(id_itemForDelete: number) {
         this.loadingAttestations = true;
         this.emptyTable = false;
-        console.log(id_itemForDelete);
         this.siteService.deleteAttestation(this.id_site, this.id_salarie, '/' + id_itemForDelete)
             .subscribe(result => {
                 if (result) {
@@ -476,15 +592,15 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     public datepickerViewInit() {
      // $(document).ready(function() {
 
-      // $(() => {
+       $(() => {
         this.dataService.datepickerFranceFormat();
         $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker();
-        // $( '#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir' ).datepicker({dateFormat: 'dd-mm-yy'});
         $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);
         $('#format').change(function () {
-          $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'dateFormat', $(this).val());
+          $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir')
+            .datepicker('option', 'dateFormat', $(this).val());
         });
-      // });
+       });
     // });
     }
 
@@ -538,8 +654,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         if (this.drivingLicense.equipment === 0) {
           this.categoryDrivingLicense_nullData = true;
           this.errorCreatingDrLicence = 'SAFETY:  Au moins 1 équipement doit être choisi.';
-          console.log(this.drivingLicense.equipment);
-          console.log(this.subcategoryEquipement);
           return false;
         }
       }
@@ -560,9 +674,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
               this.itemForChange_DrLicense = 0;
               this.successCreatingDrLicence = 'Bravo! Vos modifications sont enregistrées.';
             } else {
-              // setTimeout(() => {
               this.successCreatingDrLicence = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
-              // }, 100);
             }
             this.creatingDrivingLicense = false;
           }
@@ -589,8 +701,12 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       }, (err) => {
         this.loadingDrLicences = false;
         this.emptyTable_drLicences = true;
-        console.log(err);
-        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        if (err.status === 500) {
+          return;
+        } else {
+          console.log(err);
+          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        }
       });
   }
 
@@ -655,18 +771,63 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       });
   }
 
+  public resetCacesFile() {
+    this.userHasChoosenFileCaces = false;
+    this.cacesInput.nativeElement.value = '';
+    console.log(this.cacesInput.nativeElement.files);
+    // this.uploadFileTextCaces = '';
+  }
+  public resetAttestFile() {
+    this.userHasChoosenFileAttest = false;
+    this.attestInput.nativeElement.value = '';
+    this.uploadFileTextAttest = '';
+  }
 
-  public fileChange(event) {
-    this.uploadedFile = false;
-    let fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      this.loadingPhotoFile = true;
-      this.userHasChoosenFile = true;
-      this.file = fileList[0];
+  public fileChangeCaces(event) {
+    console.log('======fileChange Caces======');
+    this.loadingFileCaces = false;
+    this.uploadedFileCaces = false;
+    this.fileCaces = event.target.files;
+    if (this.fileCaces.length > 0) {
+      this.userHasChoosenFileCaces = true;
+      let fileList = this.fileCaces[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.contentCaces = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      this.uploadFileTextCaces = fileList.name;
+    }
+  }
+
+  public fileChangeAttest(event) {
+    console.log('======fileChange Attest======');
+    this.loadingFileAttest = false;
+    this.uploadedFileAttest = false;
+    this.fileAttest = event.target.files;
+    if (this.fileAttest.length > 0) {
+      this.userHasChoosenFileAttest = true;
+      let fileList = this.fileAttest[0];
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.contentAttest = e.target;
+      };
+      const res = reader.readAsDataURL(event.target.files[0]);
+      this.uploadFileTextAttest = fileList.name;
+    }
+  }
+
+  public fileChangePhoto(event) {
+    this.uploadedFilePhoto = false;
+    this.filePhoto = event.target.files;
+    if (this.filePhoto.length > 0) {
+      this.loadingPhotoFilePhoto = true;
+      this.userHasChoosenFilePhoto = true;
+      // let fileList = this.filePhoto[0];
 
       let reader = new FileReader();
       reader.onload = (e) => {
-        this.content = e.target;
+        this.contentPhoto = e.target;
       };
       const res = reader.readAsDataURL(event.target.files[0]);
 
@@ -677,32 +838,36 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
   }
 
   public loadToServerEmpImageFunction() {
-    this.loadingPhotoFile = true;
-    this.siteService.loadToServerEmployeeImage(this.content, this.id_site, this.id_salarie)
+    this.loadingPhotoFilePhoto = true;
+    this.siteService.loadToServerEmployeeImage(this.contentPhoto, this.id_site, this.id_salarie)
       .subscribe(result => {
             this.getFromServerProfileImageFunction();
       }, (err) => {
-        this.loadingPhotoFile = false;
+        this.loadingPhotoFilePhoto = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
 
   public getFromServerProfileImageFunction() {
-    this.loadingPhotoFile = true;
-    this.uploadedFile = false;
+    this.loadingPhotoFilePhoto = true;
+    this.uploadedFilePhoto = false;
     this.siteService.getFromServerEmplImage(this.id_site, this.id_salarie)
       .subscribe(result => {
         if (result) {
-          this.loadingPhotoFile = false;
-          this.showImg = true;
+          this.loadingPhotoFilePhoto = false;
+          this.showImgPhoto = true;
           const src = 'data:' + result.contentType + ';base64,';
-          this.imgServer = src + result.content;
+          this.imgServerPhoto = src + result.content;
         }
       }, (err) => {
-        this.loadingPhotoFile = false;
-        console.log(err);
-        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        this.loadingPhotoFilePhoto = false;
+        if (err.status === 500) {
+          return;
+        } else {
+          console.log(err);
+          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        }
       });
   }
 

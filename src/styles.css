@@ -2513,8 +2513,8 @@ th {
 .loading_ok {
     content: '';
     position: absolute;
-    right: 50px;
-    top: 4px;
+    left: 0px;
+    top: -14px;
     width: 14px;
     height: 24px;
     border: solid #3ba890;

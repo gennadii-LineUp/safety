@@ -150,6 +150,22 @@ export class SiteService {
       console.log(url);
       return this.backendService.loadImage_get(url);
     }
+    public loadToServerCacesFile(content: any, siteId: number, employeeId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
+    }
+    public loadToServerAttestFile(content: any, siteId: number, employeeId: number, attestId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations/' + attestId + '/file';
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      console.log(fileToServer);
+      return this.backendService.loadImage_post(url, fileToServer);
+    }
+
     public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
         const query = siteId + '/employees/' + employeeId;
         return this.backendService.get(UrlParams.siteHome + query);
