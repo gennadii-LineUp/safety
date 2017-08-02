@@ -72,16 +72,22 @@ export class SalariesService {
 
   public loadToServerSalarieeImage(content: any): Observable<any> {
     const url = UrlParams.employeeHome + 'profile/photo';
-    console.log(url);
-    console.log(content);
+    // console.log(url);
     const fileToServer = {
       content: ((((content.result).split(';'))[1]).split(','))[1]
     };
-    console.log(fileToServer);
+    // console.log(fileToServer);
     return this.backendService.loadImage_post(url, fileToServer);
   }
+
   public getFromServerSalarieeImage(): Observable<any> {
     const url = UrlParams.employeeHome + 'profile/photo?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+
+  public getFromServerFichier(fichier_Id: number): Observable<any> {
+    const url = UrlParams.employeeHome + 'files/' + fichier_Id + '?encoded=1';
     console.log(url);
     return this.backendService.loadImage_get(url);
   }

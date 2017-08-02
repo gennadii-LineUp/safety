@@ -21,6 +21,7 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
   activePage = 1;
   searchName = '';
   currentPage: any;
+  imgServer: any;
 
   emptyTable = true;
   fichiers = [];
@@ -112,6 +113,23 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
 
   public voirFunction(fichierId: number) {
       console.log(fichierId);
+      this.loading = true;
+      this.salariesService.getFromServerFichier(fichierId)
+        .subscribe(result => {
+          if (result) {
+            console.log(result);
+            this.loading = false;
+            const src = 'data:' + result['Content-type'] + ';base64,';
+            this.imgServer = src + result.content;
+            // console.log(this.imgServer);
+             window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+          }
+        }, (err) => {
+          this.loading = false;
+          console.log(err);
+          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        });
+
   }
 
   public cancellMessages() {
