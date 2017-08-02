@@ -119,6 +119,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
   public loadToServerProfileImageFunction() {
     this.salariesService.loadToServerSalarieeImage(this.content)
       .subscribe(result => {
+        console.log(result);
         if (result) {
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
