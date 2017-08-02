@@ -3,7 +3,6 @@ import {TableSortService} from '../../../services/table-sort.service';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
-declare var $: any;
 
 @Component({
   selector: 'app-salarie-autoris',
@@ -71,22 +70,8 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
     if (thClass === 'sort-button-false') {
       sortingDirection = '-'; // up
     }
-
-    // let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
     this.sortingTarget = '&sort=' + sortingDirection + columnName;
   }
-
-  public onInitChecking() {
-    this.searchName = localStorage.search_name;
-    this.activePage = +localStorage.search_page;
-
-    if (this.searchName && this.activePage) {
-      this.findFichiersByNameFunction(this.searchName, this.activePage + 1, '');
-    } else {
-      this.findFichiersByNameFunction('', 1, '');
-    }
-  }
-
 
   public findFichiersByNameFunction(name: string, page: any = 1, sort: string) {
     this.cancellMessages();
@@ -101,8 +86,6 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
 
     this.salariesService.findDriving_licensesByName(_name, page, sort)
       .subscribe(result => {
-        if (result) {
-          console.log(result);
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -121,7 +104,6 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
           }, 100);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -137,18 +119,19 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
     this.pager = this.paginationService.getPager(this.totalItems, page);
   }
 
-  public voirFunction(fichierId: number) {
-    console.log(fichierId);
+  public voirFunction(drLicense_id: number) {
     this.cancellMessages();
     this.loading = true;
-    this.salariesService.getFromServerDriving_licenseImage(fichierId)
+    this.salariesService.getFromServerDriving_licenseImage(drLicense_id)
       .subscribe(result => {
-        if (result) {
-          console.log(result);
           this.loading = false;
-        }
+          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {
         this.loading = false;
+        if (err.status === 403) {
+          this.errorLoad = '"Visite médicale" ou "CACES" est expiré';
+          return;
+        }
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });

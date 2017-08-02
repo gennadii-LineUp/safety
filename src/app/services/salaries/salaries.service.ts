@@ -64,11 +64,12 @@ export class SalariesService {
       console.log(query);
       return this.backendService.get(query);
     }
-    public getFromServerDriving_licenseImage(drLicense_Id: number): Observable<any> {
-      const query = UrlParams.employeeHome + 'driving_licenses/' + drLicense_Id + '/file?encoded=1';
+    public getFromServerDriving_licenseImage(drLicense_id: number): Observable<any> {
+      const query = UrlParams.employeeHome + 'driving_licenses/' + drLicense_id + '?encoded=1';
       console.log(query);
       return this.backendService.loadImage_get(query);
     }
+// employee/driving_licenses/9?encoded=1
 
   public loadToServerSalarieeImage(content: any): Observable<any> {
     const url = UrlParams.employeeHome + 'profile/photo';
