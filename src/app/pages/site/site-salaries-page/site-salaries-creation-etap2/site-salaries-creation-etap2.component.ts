@@ -331,8 +331,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.loading = true;
 
         const attestation = new AttestationClass(this.attestation.name,
-                                                  this.dataService.convertDateFromInputeToServer(dateExpires),
-                                                  this.dataService.convertDateFromInputeToServer(dateIssue));
+                                                this.dataService.convertDateFromInputeToServer(dateIssue),
+                                                this.dataService.convertDateFromInputeToServer(dateExpires));
         console.dir(attestation);
 
         this.siteService.setAttestation(attestation, this.id_site, this.id_salarie, urlOption)

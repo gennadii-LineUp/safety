@@ -91,7 +91,22 @@ export class SalariesService {
     console.log(url);
     return this.backendService.loadImage_get(url);
   }
-
+  public getFromServerVGPFile(machine_id: number): Observable<any> {
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/vgp_file' + '?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+  public getFromServerCTFile(machine_id: number): Observable<any> {
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/tech_control_file' + '?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+  public getFromServerOtherFile(machine_id: number, otherFile_id: number): Observable<any> {
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/files/' + otherFile_id + '?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+//  employee/machines/{{machineId}}/files/{{machineFileId}}
 
   public tableMobileViewInit() {
     const headertext = [],

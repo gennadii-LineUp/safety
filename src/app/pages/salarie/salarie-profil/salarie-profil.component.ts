@@ -12,7 +12,7 @@ import {SiteService} from '../../../services/site/site.service';
   providers: [SalariesService, SiteService]
 })
 export class SalarieProfilComponent implements OnInit, OnDestroy {
-  loading = false;
+  loading = true;
   updating = false;
   successUpdate = '';
   errorLoad = '';
@@ -33,8 +33,9 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
                 public errorMessageHandlerService: ErrorMessageHandlerService) { }
 
     ngOnInit() {
+      this.loading = true;
       window.document.querySelectorAll('#monProfil')['0'].classList.add('active');
-      this.getProfileDataFunction();
+      this.getFromServerProfileImageFunction();
     }
     ngOnDestroy() {
         window.document.querySelectorAll('#monProfil')['0'].classList.remove('active');
@@ -54,9 +55,6 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
           this.employee.post = result.post;
           this.employee.birthDate = result.birthDate;
           this.employee.numSecu = result.numSecu;
-          setTimeout(() => {
-            this.getFromServerProfileImageFunction();
-          }, 100);
         }
       }, (err) => {
         this.loading = false;
@@ -142,6 +140,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
+          this.getProfileDataFunction();
         }
       }, (err) => {
         this.loadingFile = false;

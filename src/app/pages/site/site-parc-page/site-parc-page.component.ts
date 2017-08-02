@@ -6,7 +6,6 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {MachineClass} from '../../../models/const/machine-class';
 import {MachinesGlossary} from '../../../models/const/machine-categorie';
-import {NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 declare var $: any;
 
@@ -92,7 +91,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     saveButtonCaption = 'Enregistrer';
 
     machines = [];
-    machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
+    machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1, false, false, [], 0);
     employeeGroupes_view = [];
     employeeGroupes = [];
     checkedGroups = [];
@@ -306,7 +305,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                                       this.machine.remoteControl,
                                       this.machine.parkNumber,
                                       _datepicker_vgp,
-                                      this.machine.equipment);
+                                      this.machine.equipment,
+                                      false, false, [], 0);
     console.log(_machine);
 
     this.siteService.createMachine(_machine, this.id_site, urlOption)
@@ -476,7 +476,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   public setEmptyMachines() {
     this.cancellMessages();
-    this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
+    this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1, false, false, [], 0);
     this.checkedGroups = [];
     // this.itemForChange = 0;
     const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');

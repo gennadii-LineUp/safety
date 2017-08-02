@@ -37,7 +37,7 @@ export class ClientProfilPageComponent implements OnInit {
                 public errorMessageHandlerService: ErrorMessageHandlerService) {}
 
     ngOnInit(): void {
-        this.getClientProfilData();
+      this.getClientProfilData();
     }
 
     public getClientProfilData(): void {
@@ -48,32 +48,17 @@ export class ClientProfilPageComponent implements OnInit {
         this.clientService.getClientProfilData()
             .subscribe(result => {
                 if (result) {
+                    this.getFromServerProfileImageFunction();
                     this.loading = false;
                     console.dir(result);
-
-                    const currentClient = new ClientProfileClass(result.email,
-                        result.company,
-                        result.address,
-                        result.postalCode,
-                        result.city,
-                        result.billingAddressIfDifferent,
-                        result.diffName,
-                        result.diffAddress,
-                        result.diffPostalCode,
-                        result.diffCity,
-                        result.phone,
-                        result.numberSiret,
-                        result.rib,
-                        result.contactName,
-                        result.contactPhone,
-                        result.contactEmail,
-                        '', '');
+                    const currentClient = new ClientProfileClass(result.email, result.company, result.address,
+                                                  result.postalCode, result.city, result.billingAddressIfDifferent,
+                                                  result.diffName, result.diffAddress, result.diffPostalCode,
+                                                  result.diffCity, result.phone, result.numberSiret,
+                                                  result.rib, result.contactName, result.contactPhone,
+                                                  result.contactEmail, '', '');
                       this.client = currentClient;
-
                       this.loadingFile = true;
-                      setTimeout(() => {
-                          this.getFromServerProfileImageFunction();
-                      }, 100);
                 }
             }, (err) => {
                 this.loading = false;
@@ -130,7 +115,7 @@ export class ClientProfilPageComponent implements OnInit {
                     }
                 }, (err) => {
                     this.loadingFile = false;
-                    console.log(err);
+                    if (err.status === 404) {return; }
                     this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
                 });
     }
@@ -140,42 +125,17 @@ export class ClientProfilPageComponent implements OnInit {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.updating = true;
-
-        console.dir(this.client);
-
         this.clientService.updateClientProfile(this.client)
             .subscribe(result => {
                 if (result) {
-
-                    // if (this.userHasChoosenFile) {
-                    //     this.loadingFile = true;
-                    //     this.clientService.loadToServerProfileImage(this.file)
-                    //         .subscribe(result => {
-                    //             if (result) {
-                    //                 this.loadingFile = false;
-                    //                 this.uploadedFile = true;
-                    //                 console.log(result);
-                                     this.successUpdate = 'Le profil a bien été mis à jour.';
-                    //             }
-                    //         }, (err) => {
-                    //             this.loadingFile = false;
-                    //             console.log(err);
-                    //             this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
-                    //         });
-                    // }
-                    // else {
-                    //     this.successUpdate = "Well done! You've updated your settings.";
-                    // }
                     this.updating = false;
                     this.userHasChoosenFile = false;
-                    // this.ngOnInit();
                 }
             }, (err) => {
                 this.updating = false;
                 console.log(err);
                 this.errorUpdate = this.errorMessageHandlerService.checkErrorStatus(err);
             });
-
     }
 
     public gotoClientHomePage() {

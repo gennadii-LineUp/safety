@@ -16,6 +16,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
+  files = false;
   id_site: number;
   pager: any = {};
   totalItems = 0;
@@ -28,7 +29,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
 
   emptyTable = true;
   fichiers = [];
-  machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
+  machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1, false, false, [], 0);
 
   sortingTarget = '';
   sorting: any = { column: 'type',  descending: false };
@@ -146,7 +147,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
 
   public voirFunction(machine_id: number) {
     this.cancellMessages();
-    this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1);
+    this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1, false, false, [], 0);
     this.categoryName = '';
     this.parentCategoryName = '';
     this.loading = true;
@@ -157,6 +158,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
             console.log(result);
             this.categoryName = result.categoryName;
             this.parentCategoryName = result.parentCategoryName;
+            this.machine.id = result.id;
             this.machine.mark = result.mark;
             this.machine.model = result.model;
             if (result.parkNumber)    {this.machine.parkNumber = result.parkNumber; }
@@ -164,7 +166,10 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
             if (result.equipment)     {this.machine.equipment = result.equipment; }
             if (result.remoteControl) {this.machine.remoteControl = result.remoteControl; }
             if (result.techControl)   {this.machine.techControl = result.techControl; }
+            if (result.techControlFile)  {this.machine.techControlFile = result.techControlFile; }
+            if (result.vgpFile)       {this.machine.vgpFile = result.vgpFile; }
             if (result.vgp)           {this.machine.vgp = result.vgp; }
+            if (result.files  &&  result.files.length > 0) {this.machine.files = result.files; this.files = true; }
         }
       }, (err) => {
         this.loading = false;
@@ -177,6 +182,61 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     this.loading = false;
     this.errorLoad = '';
     this.successUpdate = '';
+  }
+
+
+  public getFromServerVGPFileFunction(machine_id) {
+    console.log(machine_id);
+    this.loading = true;
+    this.salariesService.getFromServerVGPFile(machine_id)
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.loading = false;
+          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public getFromServerCTFileFunction(machine_id) {
+    console.log(machine_id);
+    this.loading = true;
+    this.salariesService.getFromServerCTFile(machine_id)
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          this.loading = false;
+          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        }
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public saveOtherFilesFunction(machine_id) {
+    console.log(machine_id);
+    console.log(machine_id);
+    this.loading = true;
+    let otherFile_id: number;
+
+    // this.salariesService.getFromServerOtherFile(machine_id, otherFile_id)
+    //   .subscribe(result => {
+    //     if (result) {
+    //       console.log(result);
+    //       this.loading = false;
+    //       window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+    //     }
+    //   }, (err) => {
+    //     this.loading = false;
+    //     console.log(err);
+    //     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    //   });
   }
 
 }

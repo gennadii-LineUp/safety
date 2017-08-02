@@ -76,7 +76,7 @@
               <label for="fileInputPhoto">
                 <div id="loadedImg" *ngIf="showImgPhoto"
                      [ngStyle]="{'background': 'url(' + imgServerPhoto + ') no-repeat'}"></div>
-                <span ></span>
+                <span style="cursor: pointer"></span>
               </label>
               <input id="fileInputPhoto" #fileInputPhoto type="file"   [disabled]="loadingPhotoFilePhoto"
                      (change)="fileChangePhoto($event)"  style="display: none;"

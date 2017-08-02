@@ -91,7 +91,7 @@
 </div>
 
 
-<salarie-fiches-modal  #salarieFiches>
+<salarie-fiches-modal  #salarieFiches id="salarieFiches">
     <modal-header-SSF>
         <h2>Détails de l’engin</h2>
     </modal-header-SSF>
@@ -122,21 +122,24 @@
           </div>
         </div>
         <div class="clearfix"></div>
-        <div *ngIf="machine.vgp" class="verification-generale-periodique" style="display: block; margin-top: 24px;">
+        <div *ngIf="machine.vgpFile" class="verification-generale-periodique" style="display: block; margin-top: 24px;">
           <p class="form-subheader" style="margin-bottom: 19px; text-align: left;">Vérification Générale Périodique</p>
-          <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
+          <button class="form-button dark-green-button telecharger-button pull-left"
+                  (click)="getFromServerVGPFileFunction(machine.id)">Télécharger</button>
         </div>
         <div class="clearfix"></div>
-        <div *ngIf="machine.techControl" class="verification-generale-periodique" style="display: block;  margin-top: 24px;">
+        <div *ngIf="machine.techControlFile" class="verification-generale-periodique" style="display: block;  margin-top: 24px;">
           <p class="form-subheader" style="margin-bottom: 19px; text-align: left;">Contrôle technique</p>
-          <button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>
+          <button class="form-button dark-green-button telecharger-button pull-left"
+                  (click)="getFromServerCTFileFunction(machine.id)">Télécharger</button>
         </div>
 
         <div class="clearfix"></div>
-        <div class="autres-fichiers-wrapper button-file-input-wrapper">
+        <div *ngIf="files" class="autres-fichiers-wrapper button-file-input-wrapper">
           <p class="form-subheader" style="margin-bottom: 19px; text-align: left;">Autres fichiers</p>
           <p class="autres-fichiers">Fichier 1
-            <button class="form-button dark-green-button telecharger-button pull-right">Télécharger</button>
+            <button class="form-button dark-green-button telecharger-button pull-right"
+                  (click)="saveOtherFilesFunction(machine.id)">Télécharger</button>
           </p>
         </div>
       </div>

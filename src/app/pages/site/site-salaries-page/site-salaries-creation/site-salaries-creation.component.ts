@@ -168,7 +168,13 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.siteService.addNewEmployee(employeeDates, this.id_site)
             .subscribe(result => {
                 if (result) {
-                    this.loadToServerProfileImageFunction(result.userId);
+                    if (this.uploadedFile) {
+                      this.loadToServerProfileImageFunction(result.userId);
+                    } else {
+                      this.loading = false;
+                      this.loadingFile = false;
+                      this.gotoSiteSalariesCreationStep2Page();
+                    }
                     localStorage.setItem('id_salarie', '' + result.userId);
                     console.log('===== id NEW SALARIEE: ' + localStorage.id_salarie);
                 }
