@@ -45,7 +45,7 @@ export class SalariesService {
       return this.backendService.get(UrlParams.employeeHome + 'caces');
     }
     public getFromServerCacesImage(): Observable<any> {
-      return this.backendService.loadImage_get(UrlParams.employeeHome + 'caces/file');
+      return this.backendService.loadImage_get(UrlParams.employeeHome + 'caces/file?encoded=1');
     }
 
     public findAttestationByName(name: string, page: any, sort: string): Observable<any> {

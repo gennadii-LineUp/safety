@@ -26,12 +26,10 @@ export class SalarieCacesComponent implements OnInit {
     this.loading = true;
     this.salariesService.getCacesVisit()
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.visite_caces = result.cacesDateExpires;
           this.getFromServerImageFunction();
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -43,15 +41,10 @@ export class SalarieCacesComponent implements OnInit {
     this.loading = true;
     this.salariesService.getFromServerCacesImage()
       .subscribe(result => {
-        if (result) {
-          console.log(result);
           this.loading = false;
           this.showImg = true;
-          const src = 'data:' + result.headers._headers['[[Entries]]']['0'].value['0'] + ';base64,';
-          console.log(src);
-          this.imgServer = src + result._body;
-
-        }
+          const src = 'data:' + result['Content-type'] + ';base64,';
+          this.imgServer = src + result.content;
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -59,10 +52,8 @@ export class SalarieCacesComponent implements OnInit {
       });
   }
 
-
   public cancellMessages() {
     this.loading = false;
     this.errorLoad = '';
   }
-
 }
