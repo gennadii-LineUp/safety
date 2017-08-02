@@ -114,7 +114,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
 
         this.adminService.findLinksByName(_name, page, sort)
             .subscribe(result => {
-                if (result) {
                     this.cancellMessages();
 
                     console.log(result);
@@ -132,7 +131,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
                         this.adminService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('adminLinkSearch_name', _name);
-                }
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;
@@ -148,7 +146,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
 
         this.adminService.getLinkForUpdate('/' + id_itemForUpdate)
             .subscribe(result => {
-                if (result) {
                     this.creating = false;
                     console.log(result);
                     this.adminBibliotheque.name = result.name;
@@ -156,7 +153,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
                     this.adminBibliotheque.link = result.link;
                     this.itemForChange = result.id;
                     this.saveButtonCaption = 'Modifier';
-                }
             }, (err) => {
                 this.creating = false;
                 console.log(err);
@@ -176,7 +172,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
 
         this.adminService.saveLink(this.adminBibliotheque, urlOption)
             .subscribe(result => {
-                if (result) {
                     this.creating = false;
                     console.log(result);
                     this.successCreating = 'Well done! Link is saved.';
@@ -185,7 +180,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
                         this.itemForChange = 0;
                     }
                     this.ngOnInit();
-                }
             }, (err) => {
                 this.creating = false;
                 console.log(err);
@@ -199,11 +193,9 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
 
         this.adminService.deleteLink('/' + id_itemForDelete)
             .subscribe(result => {
-                if (result) {
                     this.cancellMessages();
                     console.log(result);
                     this.ngOnInit();
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

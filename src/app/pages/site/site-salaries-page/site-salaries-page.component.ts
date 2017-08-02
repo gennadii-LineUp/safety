@@ -106,7 +106,6 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
 
         this.siteService.findEmployeeByName(_name, page, this.id_site, sort)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
 
                     console.log(result);
@@ -126,7 +125,6 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
                     }, 200);
                     localStorage.setItem('siteEmployeeSearch_name', _name);
                     localStorage.setItem('siteEmployeeSearch_page', this.currentPage);
-                }
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;
@@ -138,7 +136,6 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
     public checkFreeSalarieAccount() {
         this.clientService.employeeCount()
             .subscribe(result => {
-                if (result) {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
                     if (this.salariesMaxPossible === this.salariesUsed) {
@@ -148,7 +145,6 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
                     } else {
                         this.addNewSalariesAvailable = true;
                     }
-                }
             }, (err) => {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
@@ -162,12 +158,10 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
 
         this.siteService.deleteEmployee(this.id_site, id_itemForDelete)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
                     this.checkFreeSalarieAccount();
                     this.findEmployeeByNameFunction(this.searchName, this.activePage, '');
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

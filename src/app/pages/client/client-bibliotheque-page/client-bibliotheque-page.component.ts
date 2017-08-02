@@ -25,11 +25,9 @@ export class ClientBibliothequePageComponent implements OnInit {
 
     this.clientService.getBibliotheques()
       .subscribe(result => {
-        if (result) {
           this.cancellErrorMessage();
           console.log(result);
           this.links = result.items;
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);

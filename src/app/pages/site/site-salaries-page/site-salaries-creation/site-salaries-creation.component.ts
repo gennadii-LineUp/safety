@@ -71,7 +71,6 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         this.noGroups = false;
         this.clientService.getGroupList()
             .subscribe(result => {
-                if (result) {
                     if (result.length === 0) {
                         this.noGroups = true;
                     } else {
@@ -79,7 +78,6 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
                     }
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
-                }
             }, (err) => {
                 console.log('====error=============');
                 this.noGroups = true;
@@ -167,7 +165,6 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
 
         this.siteService.addNewEmployee(employeeDates, this.id_site)
             .subscribe(result => {
-                if (result) {
                     if (this.uploadedFile) {
                       this.loadToServerProfileImageFunction(result.userId);
                     } else {
@@ -177,7 +174,6 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
                     }
                     localStorage.setItem('id_salarie', '' + result.userId);
                     console.log('===== id NEW SALARIEE: ' + localStorage.id_salarie);
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -194,7 +190,6 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     public checkFreeSalarieAccount() {
         this.clientService.employeeCount()
             .subscribe(result => {
-                if (result) {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
                     if (this.salariesMaxPossible === this.salariesUsed) {
@@ -202,8 +197,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
                         this.successCreating = '';
                         this.errorSalaries = true;
                     }
-                }
-            }, (err) => {
+             }, (err) => {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }

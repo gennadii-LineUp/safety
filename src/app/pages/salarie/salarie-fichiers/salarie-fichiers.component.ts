@@ -61,7 +61,6 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
 
     this.salariesService.findFichiersByName(_name, page, sort)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
 
           this.fichiers = result.items;
@@ -79,7 +78,6 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
           }, 100);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -100,10 +98,8 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
       this.loading = true;
       this.salariesService.getFromServerFichier(fichierId)
         .subscribe(result => {
-          if (result) {
             this.loading = false;
             window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-          }
         }, (err) => {
           this.loading = false;
           console.log(err);

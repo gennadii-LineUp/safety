@@ -58,12 +58,10 @@ export class AdminClientAjouterComponent implements OnInit {
 
         this.adminService.addNewClient(this.client)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
                     localStorage.setItem('successCreating', 'Bravo! Vous avez créé un nouveau client.');
                     this.gotoAdminClientForm();
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

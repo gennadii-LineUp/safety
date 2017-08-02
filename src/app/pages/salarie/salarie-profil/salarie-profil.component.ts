@@ -46,7 +46,6 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.salariesService.getProfilData()
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.employee.name = result.name;
@@ -55,7 +54,6 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
           this.employee.post = result.post;
           this.employee.birthDate = result.birthDate;
           this.employee.numSecu = result.numSecu;
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -74,11 +72,9 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
 
     this.salariesService.updateProfilData(employeesPasswordClass)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.successUpdate = 'Le profil a bien été mis à jour.';
           this.updating = false;
-        }
       }, (err) => {
         this.updating = false;
         console.log(err);
@@ -118,11 +114,9 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
     this.salariesService.loadToServerSalarieeImage(this.content)
       .subscribe(result => {
         console.log(result);
-        if (result) {
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
           }, 100);
-        }
       }, (err) => {
         this.loadingFile = false;
         console.log(err);
@@ -135,13 +129,11 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
     this.uploadedFile = false;
     this.salariesService.getFromServerSalarieeImage()
       .subscribe(result => {
-        if (result) {
           this.loadingFile = false;
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
           this.getProfileDataFunction();
-        }
       }, (err) => {
         this.loadingFile = false;
         console.log(err);

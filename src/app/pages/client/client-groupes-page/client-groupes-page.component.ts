@@ -99,7 +99,6 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
 
         this.clientService.findGroupeByName(_name, page, sort)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
 
@@ -118,7 +117,6 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
                         this.clientService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('clientGroupSearch_name', _name);
-                }
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;
@@ -145,7 +143,6 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
 
         this.clientService.addNewGroupe(this.salaryeeGroupe, urlOption)
             .subscribe(result => {
-                if (result) {
                     this.saving = false;
                     console.log(result);
                     this.salaryeeGroupe = new GroupeClass('', false);
@@ -163,7 +160,6 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
                       this.successCreating = 'Bien joué! Le groupe est créé.';
                     }
                     this.ngOnInit();
-                }
             }, (err) => {
                 this.saving = false;
                 console.log(err);
@@ -185,11 +181,9 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
         this.emptyTable = false;
         this.clientService.deleteGroupe('/' + id_itemForDelete)
             .subscribe(result => {
-                if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
                     this.findGroupByNameFunction(this.searchName, this.activePage, '');
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

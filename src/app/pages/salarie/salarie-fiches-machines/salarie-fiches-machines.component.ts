@@ -109,7 +109,6 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
 
     this.salariesService.findMachinesByName(_name, page, sort)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -128,7 +127,6 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
           }, 100);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -153,7 +151,6 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.salariesService.findOneMachine(machine_id)
       .subscribe(result => {
-        if (result) {
             this.loading = false;
             console.log(result);
             this.categoryName = result.categoryName;
@@ -170,7 +167,6 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
             if (result.vgpFile)       {this.machine.vgpFile = result.vgpFile; }
             if (result.vgp)           {this.machine.vgp = result.vgp; }
             if (result.files  &&  result.files.length > 0) {this.machine.files = result.files; this.files = true; }
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -190,11 +186,9 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.salariesService.getFromServerVGPFile(machine_id)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -207,11 +201,9 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.salariesService.getFromServerCTFile(machine_id)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -227,11 +219,9 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
 
     // this.salariesService.getFromServerOtherFile(machine_id, otherFile_id)
     //   .subscribe(result => {
-    //     if (result) {
     //       console.log(result);
     //       this.loading = false;
     //       window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-    //     }
     //   }, (err) => {
     //     this.loading = false;
     //     console.log(err);

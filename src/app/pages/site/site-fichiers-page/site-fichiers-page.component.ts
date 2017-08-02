@@ -89,10 +89,8 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.loadingGroupes = true;
     this.clientService.getGroupList()
       .subscribe(result => {
-        if (result) {
           this.loadingGroupes = false;
           this.employeeGroupes = result;
-        }
       }, (err) => {
         this.loadingGroupes = false;
         console.log(err);
@@ -155,7 +153,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
 
     this.siteService.findFichiersByName(_name, page, this.id_site, sort)
       .subscribe(result => {
-        if (result) {
           if (message) {this.successCreating = message; }
           this.original_fichiers = result.items;
           this.loading = false;
@@ -189,7 +186,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
           }, 200);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -227,7 +223,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.loadingFile = true;
     this.siteService.sendFileToServer(this.file, this.content, this.id_site, urlOption)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.loadingFile = false;
           this.uploadedFile = true;
@@ -238,7 +233,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
             this.fileForChange = false;
             this.successCreating = 'Le nouveau fichier est chargé.';
           }
-        }
       }, (err) => {
         this.loadingFile = false;
         this.uploadFileText = '  error  error  error';
@@ -260,7 +254,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.creating = true;
     this.siteService.addFichier(this.newFichier, this.id_site, this.id_fichier)
               .subscribe(result => {
-                if (result) {
                   this.findFichiersByNameFunction('', 1, '', 'Vos modifications sont enregistrées.');
                   console.log(result);
                   // modal close /////////
@@ -276,7 +269,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
                   this.creating = false;
                   this.userHasChoosenFile = false;
                   this.setEmptyFichiers();
-                }
               }, (err) => {
                 this.creating = false;
                 console.log(err);
@@ -322,7 +314,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
 
     this.siteService.getOneFichier(this.id_site, id_itemForUpdate)
       .subscribe(result => {
-        if (result) {
           this.creating = false;
           console.log(result);
           this.newFichier.name = result.name;
@@ -339,7 +330,6 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
           console.log(this.checkedGroups);
 
           console.log(this._checkedGroups);
-        }
       }, (err) => {
         this.creating = false;
         console.log(err);
@@ -354,11 +344,9 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.emptyTable = false;
     this.siteService.deleteFichier(this.id_site, id_itemForDelete)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.findFichiersByNameFunction(this.searchName, this.activePage, '', '');
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);

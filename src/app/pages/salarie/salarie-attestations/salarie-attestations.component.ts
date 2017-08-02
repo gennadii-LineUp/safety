@@ -60,7 +60,6 @@ export class SalarieAttestationsComponent implements OnInit, OnDestroy {
 
     this.salariesService.findAttestationByName(_name, page, sort)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -79,7 +78,6 @@ export class SalarieAttestationsComponent implements OnInit, OnDestroy {
           }, 100);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -100,10 +98,8 @@ export class SalarieAttestationsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.salariesService.getFromServerAttestationImage(fichierId)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);

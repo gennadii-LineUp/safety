@@ -37,7 +37,6 @@ export class AdminAccueilContentComponent implements OnInit, OnDestroy {
 
         this.adminService.homeData()
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     this.progressBarValues = [
                         {name: 'clients', value: 0},
@@ -51,7 +50,6 @@ export class AdminAccueilContentComponent implements OnInit, OnDestroy {
                     this.progressBarValues[0].value = result.clients;
                     this.progressBarValues[1].value = result.sites;
                     this.progressBarValues[2].value = result.employees;
-                }
             }, (err) => {
                // let error = (JSON.parse(err._body)).errors;
                 console.log('====error=============');

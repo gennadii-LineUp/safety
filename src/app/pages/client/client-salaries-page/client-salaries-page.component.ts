@@ -69,13 +69,11 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
         this.loadingSalarieUsed = true;
         this.clientService.employeeCount()
             .subscribe(result => {
-                if (result) {
                     this.loadingSalarieUsed = false;
 
                     console.log(result);
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
-                }
             }, (err) => {
                 this.loadingSalarieUsed = false;
                 if ((err.status === 403) || (err.status === 500)) {
@@ -105,12 +103,10 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
 
         this.clientService.deleteEmployee(siteId, employeeId)
             .subscribe(result => {
-                if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
                     // this.ngOnInit();
                     this.findSalarieByNameFunction(this.searchName, this.activePage, '');
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -140,7 +136,6 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
 
         this.clientService.findSalarieByName(_name, page, sort)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
 
                     console.log(result);
@@ -160,7 +155,6 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
                     }, 200);
                     localStorage.setItem('clientSalarieSearch_name', _name);
                     localStorage.setItem('clientSalarieSearch_page', this.currentPage);
-                }
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;

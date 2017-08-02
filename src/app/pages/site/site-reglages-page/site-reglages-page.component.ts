@@ -104,7 +104,6 @@ export class SiteReglagesPageComponent implements OnInit {
 
     this.siteService.getReglages(this.id_site)
       .subscribe(result => {
-        if (result) {
           this.getResponsablesFunction('');
           this.loading = false;
           console.log(result);
@@ -128,7 +127,6 @@ export class SiteReglagesPageComponent implements OnInit {
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
           }, 100);
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -143,7 +141,6 @@ export class SiteReglagesPageComponent implements OnInit {
     this.emptyTable_responsables = false;
     this.siteService.getResponsables(this.id_site, sort)
       .subscribe(result => {
-        if (result) {
           this.loadingResponsables = false;
           console.log(result);
           this.employee_responsables = result.items;
@@ -154,7 +151,6 @@ export class SiteReglagesPageComponent implements OnInit {
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
-        }
       }, (err) => {
         this.loadingResponsables = false;
         this.emptyTable_responsables = true;
@@ -188,11 +184,9 @@ export class SiteReglagesPageComponent implements OnInit {
     console.log(id_itemForDelete);
     this.siteService.deleteResponsable(this.id_site, id_itemForDelete)
       .subscribe(result => {
-        if (result) {
           this.cancellMessages();
           console.log(result);
           this.getResponsablesFunction('');
-        }
       }, (err) => {
         this.loadingResponsables = false;
         console.log(err);
@@ -209,14 +203,12 @@ export class SiteReglagesPageComponent implements OnInit {
 
       this.siteService.addNewReglages(this.siteReglages, this.id_site)
         .subscribe(result => {
-          if (result) {
             this.loading = false;
             console.log(result);
             this.successUpdate = 'Bravo! Vos modifications sont enregistrées.';
             setTimeout(() => {
               this.siteService.tableMobileViewInit();
             }, 100);
-          }
         }, (err) => {
           this.loading = false;
           this.emptyTable = true;
@@ -235,7 +227,6 @@ export class SiteReglagesPageComponent implements OnInit {
     }
     this.siteService.findEmployeeByName(_name, page, this.id_site, sort)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.employee_fromSearch = result.items;
@@ -243,7 +234,6 @@ export class SiteReglagesPageComponent implements OnInit {
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -289,7 +279,6 @@ export class SiteReglagesPageComponent implements OnInit {
     console.log(employeeAccess);
     this.siteService.addEmployeeAccess(employeeAccess, this.id_site, urlOption)
       .subscribe(result => {
-        if (result) {
           // modal close /////////
           const _modal = document.getElementById('myModal').firstElementChild;
           _modal.classList.add('hidden');
@@ -307,7 +296,6 @@ export class SiteReglagesPageComponent implements OnInit {
             this.siteService.tableMobileViewInit();
           }, 100);
           this.loading = false;
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -338,11 +326,9 @@ export class SiteReglagesPageComponent implements OnInit {
   public loadToServerProfileImageFunction() {
     this.siteService.loadToServerProfileImage(this.content, this.id_site)
       .subscribe(result => {
-        if (result) {
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
           }, 100);
-        }
       }, (err) => {
         this.loadingFile = false;
         console.log(err);
@@ -355,12 +341,10 @@ export class SiteReglagesPageComponent implements OnInit {
     this.uploadedFile = false;
     this.siteService.getFromServerProfileImage(this.id_site)
       .subscribe(result => {
-        if (result) {
           this.loadingFile = false;
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
-        }
       }, (err) => {
         this.loadingFile = false;
         console.log(err);

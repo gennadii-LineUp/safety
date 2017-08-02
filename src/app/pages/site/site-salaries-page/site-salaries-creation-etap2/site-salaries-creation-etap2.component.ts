@@ -202,7 +202,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.loading = true;
         this.siteService.getEmployeeFromEtap1(this.id_site, this.id_salarie)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
                     this.employees.name = result.name;
@@ -231,7 +230,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.getDatesAutorisations();
                     this.getAttestations('');
                     this.getDrivingLicenses('');
-                }
             }, (err) => {
                 this.loading = false;
                 this.loaded = false;
@@ -245,12 +243,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.loadingGroupes = true;
         this.clientService.getGroupList()
             .subscribe(result => {
-                if (result) {
                   console.log(result);
                     this.loadingGroupes = false;
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
-                }
             }, (err) => {
                 this.cancellErrorMessage();
                 console.log(err);
@@ -289,11 +285,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
         this.siteService.updateEmployee(employeeDates, this.id_site, this.id_salarie)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
                     this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -337,7 +331,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
         this.siteService.setAttestation(attestation, this.id_site, this.id_salarie, urlOption)
             .subscribe(result => {
-                if (result) {
                   let attestation_id: number;
                   attestation_id = result.id;
                   if (this.itemForChange) {attestation_id = this.itemForChange; }
@@ -383,7 +376,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.attestation = new AttestationClass('', '', '');
                     (<HTMLInputElement>window.document.querySelectorAll('#attest_dateDelivrance')[0]).value = '';
                     (<HTMLInputElement>window.document.querySelectorAll('#attest_dateExpir')[0]).value = '';
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -433,7 +425,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
         this.siteService.addMedicaleCacesDates(visites, this.id_site, this.id_salarie)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
                     // this.successCreating = "Well done! You've saved MedicaleCacesDates.";
@@ -457,7 +448,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                        this.successCreating = "Well done! You've created a new client.";
                     }
                     this.loading = false;
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -472,7 +462,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     this.siteService.getMedicaleCacesDates(this.id_site, this.id_salarie)
       .subscribe(result => {
-        if (result) {
           console.log('====MedicaleCacesDates from server:');
           console.dir(result);
           this.loadingDatesAutorisations = false;
@@ -485,7 +474,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
             this.visites.medicalVisitDateExpires = this.dataService.convertDateForInputView(result.medicalVisitDateExpires);
             this.visites.cacesDateExpires = this.dataService.convertDateForInputView(result.cacesDateExpires);
           }
-        }
       }, (err) => {
         this.loadingDatesAutorisations = false;
         console.log(err);
@@ -497,7 +485,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.loadingAttestations = true;
         this.siteService.getAttestations(this.id_site, this.id_salarie, sort)
             .subscribe(result => {
-                if (result) {
                     console.log(result.items);
                     this.loadingAttestations = false;
                     this.employeeAttestations = result.items;
@@ -505,7 +492,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     if (result.items.length === 0) {
                         this.emptyTable = true;
                     }
-                }
             }, (err) => {
                 this.loadingAttestations = false;
                 this.emptyTable = true;
@@ -523,7 +509,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
         this.siteService.getOneAttestation(this.id_site, this.id_salarie, '/' + id_itemForUpdate)
             .subscribe(result => {
-                if (result) {
                     this.creatingAttest = false;
                     console.log(result);
                     this.attestation.name = result.name;
@@ -533,7 +518,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                     this.saveButtonCaptionAttest = 'Modifier';
                     this.itemForChange = result.id;
                     if (result.attestationFile) {this.uploadedFileAttest = true; }
-                }
             }, (err) => {
                 this.creatingAttest = false;
                 console.log(err);
@@ -546,11 +530,9 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.emptyTable = false;
         this.siteService.deleteAttestation(this.id_site, this.id_salarie, '/' + id_itemForDelete)
             .subscribe(result => {
-                if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
                     this.getAttestations('');
-                }
             }, (err) => {
                 this.loadingAttestations = false;
                 console.log(err);
@@ -664,7 +646,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
       this.siteService.setCategoryDrivingLicense(this.drivingLicense, this.id_site, this.id_salarie, urlOption)
         .subscribe(result => {
-          if (result) {
             console.log(result);
             this.getDrivingLicenses('');
             this.setEmptyDrivingLicense();
@@ -676,7 +657,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
               this.successCreatingDrLicence = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
             }
             this.creatingDrivingLicense = false;
-          }
         }, (err) => {
           this.creatingDrivingLicense = false;
           console.log(err);
@@ -688,7 +668,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     this.loadingDrLicences = true;
     this.siteService.getDrivingLicenses(this.id_site, this.id_salarie, sort)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.loadingDrLicences = false;
           this.drivingLicenses = result.items;
@@ -696,7 +675,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           if (result.items.length === 0) {
             this.emptyTable_drLicences = true;
           }
-        }
       }, (err) => {
         this.loadingDrLicences = false;
         this.emptyTable_drLicences = true;
@@ -735,7 +713,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     this.siteService.getOneDrLicense(this.id_site, this.id_salarie, id_itemForUpdate)
       .subscribe(result => {
-        if (result) {
           this.creatingDrivingLicense = false;
           console.log(result);
           this.saveButtonCaption_DrLicense = 'Modifier';
@@ -743,7 +720,6 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
           this.drivingLicense.categories = result.categories;
           this.checkedDrLicenses = result.categories;
           console.log(this.checkedDrLicenses);
-        }
       }, (err) => {
         this.creatingDrivingLicense = false;
         console.log(err);
@@ -757,12 +733,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     console.log(id_itemForDelete);
     this.siteService.deleteDrLicense(this.id_site, this.id_salarie, '/' + id_itemForDelete)
       .subscribe(result => {
-        if (result) {
           this.loadingDrLicences = false;
           this.cancellErrorMessage();
           console.log(result);
           this.getDrivingLicenses('');
-        }
       }, (err) => {
         this.loadingDrLicences = false;
         console.log(err);
@@ -852,12 +826,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     this.uploadedFilePhoto = false;
     this.siteService.getFromServerEmplImage(this.id_site, this.id_salarie)
       .subscribe(result => {
-        if (result) {
           this.loadingPhotoFilePhoto = false;
           this.showImgPhoto = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServerPhoto = src + result.content;
-        }
       }, (err) => {
         this.loadingPhotoFilePhoto = false;
         if (err.status === 500) {

@@ -37,11 +37,9 @@ export class AdminReglagesPageComponent implements OnInit {
 
         this.adminService.getExistingReglages()
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     this.reglages.monCompteFormationLink = result.monCompteFormationLink;
                     this.reglages.notificationEmails = result.notificationEmails.join(', ');
-                }
             }, (err) => {
                 this.loading = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -55,10 +53,8 @@ export class AdminReglagesPageComponent implements OnInit {
 
         this.adminService.updateReglages(this.reglages)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     this.successCreating = "Well done! You've updated your settings.";
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

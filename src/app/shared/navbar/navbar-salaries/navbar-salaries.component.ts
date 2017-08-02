@@ -61,9 +61,7 @@ export class NavbarSalariesComponent implements OnInit {
   public getExistingCompteFormation() {
     this.adminService.getMonCompteFormation()
       .subscribe(result => {
-        if (result) {
           this.myCompteFormation = result.monCompteFormationLink;
-        }
       }, (err) => {
         console.log(err);
       });

@@ -24,11 +24,9 @@ export class SalarieVisiteMedicComponent implements OnInit {
     this.loading = true;
     this.salariesService.getMedicalVisit()
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.visite_medical = result.medicalVisitDateExpires;
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);

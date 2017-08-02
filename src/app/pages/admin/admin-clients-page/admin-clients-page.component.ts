@@ -126,7 +126,6 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
 
         this.adminService.findClientByName(_name, page, sort)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
 
                     console.log(result);
@@ -145,7 +144,6 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
                         this.adminService.tableMobileViewInit();
                     }, 200);
                     localStorage.setItem('adminClientsSearch_name', _name);
-                }
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;
@@ -159,7 +157,6 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.adminService.getTolkinAdminAsClient(+client_id)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     console.log(result);
 
@@ -177,7 +174,6 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
                         this.router.navigate(['/client']);
                     }, 300);
                     console.log('=====');
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -191,12 +187,10 @@ export class AdminClientsPageComponent implements OnInit, OnDestroy {
 
         this.adminService.deleteClient('/' + id_itemForDelete)
             .subscribe(result => {
-                if (result) {
                     this.cancellErrorMessage();
                     console.log(result);
                     // this.ngOnInit();
                     this.findClientByNameFunction(this.searchName, this.activePage, '');
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

@@ -47,7 +47,6 @@ export class ClientProfilPageComponent implements OnInit {
 
         this.clientService.getClientProfilData()
             .subscribe(result => {
-                if (result) {
                     this.getFromServerProfileImageFunction();
                     this.loading = false;
                     console.dir(result);
@@ -59,7 +58,6 @@ export class ClientProfilPageComponent implements OnInit {
                                                   result.contactEmail, '', '');
                       this.client = currentClient;
                       this.loadingFile = true;
-                }
             }, (err) => {
                 this.loading = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -90,11 +88,9 @@ export class ClientProfilPageComponent implements OnInit {
     public loadToServerProfileImageFunction() {
       this.clientService.loadToServerProfileImage(this.content)
         .subscribe(result => {
-          if (result) {
             setTimeout(() => {
                 this.getFromServerProfileImageFunction();
             }, 100);
-          }
         }, (err) => {
           this.loadingFile = false;
           console.log(err);
@@ -107,12 +103,10 @@ export class ClientProfilPageComponent implements OnInit {
         this.uploadedFile = false;
             this.clientService.getFromServerProfileImage()
                 .subscribe(result => {
-                    if (result) {
                         this.loadingFile = false;
                         this.showImg = true;
                         const src = 'data:' + result.contentType + ';base64,';
                         this.imgServer = src + result.content;
-                    }
                 }, (err) => {
                     this.loadingFile = false;
                     if (err.status === 404) {return; }
@@ -127,10 +121,8 @@ export class ClientProfilPageComponent implements OnInit {
         this.updating = true;
         this.clientService.updateClientProfile(this.client)
             .subscribe(result => {
-                if (result) {
                     this.updating = false;
                     this.userHasChoosenFile = false;
-                }
             }, (err) => {
                 this.updating = false;
                 console.log(err);

@@ -32,10 +32,8 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
   public getAccueilInfoFunction() {
     this.siteService.getAccueilInfo(this.id_site)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           this.siteName = result.name;
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -48,12 +46,10 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.siteService.getFromServerAccueilImage(this.id_site)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           this.showImg = true;
           const src = 'data:' + result['Content-type'] + ';base64,';
           this.imgServer = src + result.content;
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);

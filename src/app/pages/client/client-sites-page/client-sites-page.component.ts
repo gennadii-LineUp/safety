@@ -99,13 +99,11 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
     public checkFreeSalarieAccount() {
         this.clientService.employeeCount()
             .subscribe(result => {
-                if (result) {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
                     if (this.salariesMaxPossible === this.salariesUsed) {
                         this.errorSalaries = true;
                     }
-                }
             }, (err) => {
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
@@ -130,7 +128,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
         this.activePage = page;
         this.clientService.findSiteByName(_name, page, sort)
             .subscribe(result => {
-                if (result) {
                     this.loading = false;
                     this.sites = result.items;
                     console.log(this.sites);
@@ -147,7 +144,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                     }, 200);
                     localStorage.setItem('clientSiteSearch_name', _name);
                     localStorage.setItem('clientSiteSearch_page', this.currentPage);
-                }
             }, (err) => {
                 this.loading = false;
                 this.emptyTable = true;
@@ -192,7 +188,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                                     this._techControlSite);
         this.clientService.addNewSite(newSite)
             .subscribe(result => {
-                if (result) {
                     this.cancellMessages();
                     console.log(result);
                     this.newSite_id = result.siteId;
@@ -201,12 +196,10 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                         this.loadingFile = true;
                       this.clientService.sendFileToServer(this.content, this.newSite_id)
                         .subscribe(result => {
-                          if (result) {
                             console.log(result);
                             this.loadingFile = false;
                             this.uploadedFile = true;
                             this.userHasChoosenFile = false;
-                          }
                         }, (err) => {
                           this.loadingFile = false;
                           this.uploadFileText = '  error  error  error';
@@ -222,7 +215,6 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                   const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
                   (<HTMLScriptElement>modal_bg).classList.add('hidden');
                   /////////
-                }
             }, (err) => {
                 this.creating = false;
                 console.log(err);
@@ -244,11 +236,9 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
 
         this.clientService.deleteSites('/' + id_itemForDelete)
             .subscribe(result => {
-                if (result) {
                     this.cancellMessages();
                     console.log(result);
                     this.findSiteByNameFunction(this.searchName, this.activePage, '');
-                }
             }, (err) => {
                 this.loading = false;
                 console.log(err);

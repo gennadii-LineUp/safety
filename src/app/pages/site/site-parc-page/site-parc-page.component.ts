@@ -182,7 +182,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
     this.siteService.findMachineByName(_name, page, this.id_site, sort)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.loading = false;
           this.machines = result.items;
@@ -201,8 +200,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           }, 200);
           localStorage.setItem('search_name', _name);
           localStorage.setItem('search_page', this.currentPage);
-
-        }
       }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -243,11 +240,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.loadingGroupes = true;
     this.clientService.getGroupList()
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.loadingGroupes = false;
           this.employeeGroupes = result;
-        }
       }, (err) => {
         this.loadingGroupes = false;
         console.log(err);
@@ -311,7 +306,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
     this.siteService.createMachine(_machine, this.id_site, urlOption)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.id_machine = result.id;
           if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(); }
@@ -342,7 +336,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           /////////
           this.findByNameFunction(this.searchName, this.activePage, '');
           this.setEmptyMachines();
-        }
       }, (err) => {
         this.creating = false;
         console.log(err);
@@ -365,11 +358,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
     this.siteService.deleteMachine(this.id_site, id_itemForDelete)
       .subscribe(result => {
-        if (result) {
           this.loading = false;
           console.log(result);
           this.findByNameFunction(this.searchName, this.activePage, '');
-        }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -415,7 +406,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.creating = true;
     this.siteService.getOneMachine(this.id_site, id_itemForUpdate)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           this.itemForChange = result.id;
           this._addType(result.parentCategoryId, '');
@@ -451,7 +441,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           this.saveButtonCaption = 'Modifier';
           this.machine.employeeGroups = this._checkedGroups;
           this.creating = false;
-        }
       }, (err) => {
         this.creating = false;
         console.log(err);
