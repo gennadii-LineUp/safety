@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
-declare var $: any;
 
 @Component({
   selector: 'app-salarie-attestations',
@@ -11,7 +10,7 @@ declare var $: any;
   styleUrls: ['./salarie-attestations.component.css'],
   providers: [SalariesService, TableSortService, PaginationService]
 })
-export class SalarieAttestationsComponent implements OnInit {
+export class SalarieAttestationsComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -48,18 +47,6 @@ export class SalarieAttestationsComponent implements OnInit {
     this.sortingTarget = this.tableSortService._getSortingTarget();
   }
 
-  public onInitChecking() {
-    this.searchName = localStorage.search_name;
-    this.activePage = +localStorage.search_page;
-
-    if (this.searchName && this.activePage) {
-      this.findFichiersByNameFunction(this.searchName, this.activePage + 1, '');
-    } else {
-      this.findFichiersByNameFunction('', 1, '');
-    }
-  }
-
-
   public findFichiersByNameFunction(name: string, page: any = 1, sort: string) {
     this.cancellMessages();
     this.loading = true;
@@ -74,7 +61,6 @@ export class SalarieAttestationsComponent implements OnInit {
     this.salariesService.findAttestationByName(_name, page, sort)
       .subscribe(result => {
         if (result) {
-          console.log(result);
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -110,14 +96,13 @@ export class SalarieAttestationsComponent implements OnInit {
   }
 
   public voirFunction(fichierId: number) {
-    console.log(fichierId);
     this.cancellMessages();
     this.loading = true;
     this.salariesService.getFromServerAttestationImage(fichierId)
       .subscribe(result => {
         if (result) {
-          console.log(result);
           this.loading = false;
+          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
         }
       }, (err) => {
         this.loading = false;
@@ -131,5 +116,4 @@ export class SalarieAttestationsComponent implements OnInit {
     this.errorLoad = '';
     this.successUpdate = '';
   }
-
 }

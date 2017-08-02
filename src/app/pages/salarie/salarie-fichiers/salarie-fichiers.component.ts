@@ -3,7 +3,6 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
-declare var $: any;
 
 @Component({
   selector: 'app-salarie-fichiers',
@@ -21,7 +20,6 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
   activePage = 1;
   searchName = '';
   currentPage: any;
-  imgServer: any;
 
   emptyTable = true;
   fichiers = [];
@@ -50,18 +48,6 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
     this.sortingTarget = this.tableSortService._getSortingTarget();
   }
 
-  public onInitChecking() {
-    this.searchName = localStorage.search_name;
-    this.activePage = +localStorage.search_page;
-
-    if (this.searchName && this.activePage) {
-      this.findFichiersByNameFunction(this.searchName, this.activePage + 1, '');
-    } else {
-      this.findFichiersByNameFunction('', 1, '');
-    }
-  }
-
-
   public findFichiersByNameFunction(name: string, page: any = 1, sort: string) {
     this.cancellMessages();
     this.loading = true;
@@ -76,11 +62,9 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
     this.salariesService.findFichiersByName(_name, page, sort)
       .subscribe(result => {
         if (result) {
-          console.log(result);
           this.loading = false;
-          console.log(result);
-          this.fichiers = result.items;
 
+          this.fichiers = result.items;
           this.totalItems = +result.pagination.totalCount;
           if (this.totalItems === 0) {
             this.emptyTable = true;
@@ -117,19 +101,14 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
       this.salariesService.getFromServerFichier(fichierId)
         .subscribe(result => {
           if (result) {
-            console.log(result);
             this.loading = false;
-            const src = 'data:' + result['Content-type'] + ';base64,';
-            this.imgServer = src + result.content;
-            // console.log(this.imgServer);
-             window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+            window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
           }
         }, (err) => {
           this.loading = false;
           console.log(err);
           this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
         });
-
   }
 
   public cancellMessages() {
