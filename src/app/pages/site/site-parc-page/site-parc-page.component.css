@@ -304,3 +304,14 @@ textarea {
 .modal-sm .modal-content {
   padding-bottom: 0;
 }
+
+button.regarderUploadedFileBtn {
+  background-color: white;
+  border: 1px solid #3ba890;
+  height: 32px;
+  width: auto;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin-top: 0px !important;
+}

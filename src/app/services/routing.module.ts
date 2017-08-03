@@ -56,22 +56,29 @@ const routes: Routes = [
   },
   { path: 'client', component: ClientComponent, canActivate: [AuthGuard],
     children: [
-      { path: '',          component: ClientSitesPageComponent,    canActivate: [AuthGuard, ClientOrEmployeeAdminGuard]  },
-      { path: 'groupes',   component: ClientGroupesPageComponent,  canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: '',          component: ClientSitesPageComponent,   canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
+      { path: 'groupes',   component: ClientGroupesPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
       { path: 'employees', component: ClientSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] },
       { path: 'profil',    component: ClientProfilPageComponent,   canActivate: [AuthGuard, ClientGuard] },
-      { path: 'bibliotheque', component: ClientBibliothequePageComponent, canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] }
+      { path: 'bibliotheque', component: ClientBibliothequePageComponent,
+                              canActivate: [AuthGuard, ClientOrEmployeeAdminGuard] }
     ]
   },
   { path: 'site/:id_site', component: SiteComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'accueil',  component: SiteAccueilPageComponent,  canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'accueil',  component: SiteAccueilPageComponent,
+            canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: 'reglages', component: SiteReglagesPageComponent, canActivate: [AuthGuard, ClientGuard] },
-      { path: 'fichiers', component: SiteFichiersPageComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
-      { path: 'parc',     component: SiteParcPageComponent,     canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard] },
-      { path: 'salaries', component: SiteSalariesPageComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
-      { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
-      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component, canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'fichiers', component: SiteFichiersPageComponent,
+            canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'parc',     component: SiteParcPageComponent,
+            canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralOrEmplTechnicGuard] },
+      { path: 'salaries', component: SiteSalariesPageComponent,
+            canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'ajouter-un-salarie-etap1', component: SiteSalariesCreationComponent,
+            canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
+      { path: 'ajouter-un-salarie-etap2', component: SiteSalariesCreationEtap2Component,
+            canActivate: [AuthGuard, ClientOrEmplAdminOrEmplGeneralGuard] },
       { path: '', redirectTo: 'accueil', pathMatch: 'full' }
     ]
   },

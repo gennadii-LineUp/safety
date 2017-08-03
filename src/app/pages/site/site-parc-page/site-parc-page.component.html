@@ -355,6 +355,10 @@
                              (change)="fileChangeVGP($event)"
                              accept=".pdf"/>
                     </div>
+                    <button *ngIf='uploadedFileVGP' type="button" class="regarderUploadedFileBtn pull-left"
+                            (click)='voirFunctionVGP()'>
+                      Regarder
+                    </button>
                     <span class="uploaded-file-caption">{{uploadVGPFileText}}</span>
                     <div *ngIf="uploadVGPFileText" style="position: relative; display: inline-block;" class="pull-right">
                       <button type="button" (click)="resetVGP()" class="uploaded-file-remove-btn">
@@ -382,6 +386,10 @@
                            (change)="fileChangeCT($event)"
                            accept=".pdf"/>
                   </div>
+                  <button *ngIf='uploadedFileTC' type="button" class="regarderUploadedFileBtn pull-left"
+                          (click)='voirFunctionCT()'>
+                    Regarder
+                  </button>
                   <span class="uploaded-file-caption">{{uploadCTFileText}}</span>
                   <div *ngIf="uploadCTFileText" style="position: relative; display: inline-block;" class="pull-right">
                     <button type="button" (click)="resetCT()" class="uploaded-file-remove-btn">
@@ -403,9 +411,13 @@
                          (change)="fileChangeOther($event)"
                          accept=".pdf"/>
                 </div>
+                <button *ngIf='uploadedOtherFile' type="button" class="regarderUploadedFileBtn pull-left"
+                        (click)='voirFunctionOther(0)'>
+                  Regarder
+                </button>
                 <span class="uploaded-file-caption">{{uploadOtherFileText}}</span>
                 <div *ngIf="uploadOtherFileText" style="position: relative; display: inline-block;" class="pull-right">
-                  <button type="button" (click)="resetOther()" class="uploaded-file-remove-btn" style="margin-top: 0;">
+                  <button type="button" (click)="deleteOtherFileFunction()" class="uploaded-file-remove-btn" style="margin-top: 0;">
                     <span></span>
                   </button>
                 </div>

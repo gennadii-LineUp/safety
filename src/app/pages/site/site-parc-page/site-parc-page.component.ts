@@ -30,7 +30,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     successModify = '';
 
     id_site =  0;
-    id_machine = 0;
     itemForChange = 0;
     choosenType_id = 0;
     choosenType_caption = '';
@@ -45,6 +44,11 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     equipementChecked = 1;
     equipment_nullData = false;
     groupes_nullData = false;
+    files = false;
+
+    uploadedFileVGP = false;
+    uploadedOtherFile = false;
+    uploadedFileTC = false;
 
     t3 = false;
     t4_t5 = false;
@@ -71,7 +75,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   userHasChoosenFileOther = false;
     uploadVGPFileText: any;
     uploadCTFileText: any;
-  uploadOtherFileText: any;
+    uploadOtherFileText: any;
+    OtherFileName = '';
 
   @ViewChild('vgpInput')
   vgpInput: any;
@@ -307,23 +312,28 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.siteService.createMachine(_machine, this.id_site, urlOption)
       .subscribe(result => {
           console.log(result);
-          this.id_machine = result.id;
-          if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(); }
-          if (this.userHasChoosenFileCT) {
-              setTimeout(() => {
-                this.loadToServerCTFunction();
-              }, 400);
-          }
-          if (this.userHasChoosenFileOther) {
-            setTimeout(() => {
-              this.loadToServerOtherFunction();
-            }, 800);
+          if (this.itemForChange) {
+              if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(this.itemForChange); }
+              if (this.userHasChoosenFileCT) {
+                setTimeout(() => {this.loadToServerCTFunction(this.itemForChange); }, 400);
+              }
+              if (this.userHasChoosenFileOther) {
+                setTimeout(() => {this.loadToServerOtherFunction(this.itemForChange); }, 800);
+              }
+          } else {
+              if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(result.id); }
+              if (this.userHasChoosenFileCT) {
+                setTimeout(() => {this.loadToServerCTFunction(result.id); }, 400);
+              }
+              if (this.userHasChoosenFileOther) {
+                setTimeout(() => {this.loadToServerOtherFunction(result.id); }, 800);
+              }
           }
 
           if (this.itemForChange) {
-            this.saveButtonCaption = 'Enregistrer';
-            this.itemForChange = 0;
-            this.successModify = 'Bravo! Vos modifications sont enregistrées.';
+              this.saveButtonCaption = 'Enregistrer';
+              setTimeout(() => {this.itemForChange = 0; }, 1000);
+              this.successModify = 'Bravo! Vos modifications sont enregistrées.';
           } else {
               this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
           }
@@ -395,7 +405,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.uploadVGPFileText = '';
     this.uploadCTFileText = '';
     this.uploadOtherFileText = '';
-
+    this.uploadedFileVGP = false;
+    this.uploadedOtherFile = false;
+    this.uploadedFileTC = false;
   }
 
   public modifierFunction(id_itemForUpdate: number) {
@@ -424,7 +436,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                 this.checkForEmptyEmployeeGroup();
               }
           }
-
           if (result.equipment) { this.machine.equipment = result.equipment; }
           if (result.parkNumber) { this.machine.parkNumber = result.parkNumber; }
           if (result.remoteControl) {
@@ -437,12 +448,70 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           if (result.vgp) {
             this.machine.vgp = this.dataService.convertDateFromServerToInput(result.vgp);
           }
+          if (result.techControlFile) {
+            this.machine.techControlFile = result.techControlFile;
+            this.uploadedFileTC = true;
+          }
+          if (result.vgpFile) {
+            this.machine.vgpFile = result.vgpFile;
+            this.uploadedFileVGP = true;
+          }
+          if (result.files  &&  result.files.length > 0) {
+            this.machine.files = result.files;
+            this.files = true;
+            this.uploadedOtherFile = true;
+            this.uploadOtherFileText = this.machine.files['0'].name;
+            console.log(this.uploadOtherFileText);
+          }
+          this.machine.id = result.id;
 
           this.saveButtonCaption = 'Modifier';
           this.machine.employeeGroups = this._checkedGroups;
           this.creating = false;
+          console.log(this.machine);
       }, (err) => {
         this.creating = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public deleteOtherFileFunction() {
+      if (this.itemForChange && this.machine.files.length && this.machine.files['0'] && this.machine.files['0'].id) {
+        console.log('del from server');
+        this.siteService.deleteOtherFile(this.id_site, this.machine.id, +this.machine.files['0'].id)
+            .subscribe(result => {
+              this.loading = false;
+              console.log(result);
+              this.resetOther();
+              this.refreshOtherFiles(this.machine.id);
+
+              this.files = false;
+              this.uploadedOtherFile = false;
+              this.uploadOtherFileText = '';
+
+            }, (err) => {
+              this.loading = false;
+              console.log(err);
+              this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+            });
+      } else {
+        console.log('del localy');
+        this.resetOther();
+      }
+  }
+
+  public refreshOtherFiles(machine_id) {
+    this.siteService.getOneMachine(this.id_site, machine_id)
+      .subscribe(result => {
+        if (result.files  &&  result.files.length > 0) {
+          this.machine.files = result.files;
+          this.files = true;
+          this.uploadedOtherFile = true;
+          this.uploadOtherFileText = this.machine.files['0'].name;
+        }
+        console.log(this.machine.files);
+      }, (err) => {
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });
@@ -475,6 +544,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.uploadVGPFileText = '';
     this.uploadCTFileText = '';
     this.uploadOtherFileText = '';
+    this.uploadedFileVGP = false;
+    this.uploadedOtherFile = false;
+    this.uploadedFileTC = false;
     return;
   }
 
@@ -598,9 +670,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  public loadToServerVGPFunction() {
+  public loadToServerVGPFunction(id_machine) {
     this.loadingFileVGP = true;
-    this.siteService.loadToServerVGP(this.contentVGP, this.id_site, this.id_machine)
+    this.siteService.loadToServerVGP(this.contentVGP, this.id_site, id_machine)
       .subscribe(result => {
         console.log(result);
         this.loadingFileVGP = false;
@@ -629,9 +701,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
      }
   }
 
-  public loadToServerCTFunction() {
+  public loadToServerCTFunction(id_machine) {
     this.loadingFileCT = true;
-    this.siteService.loadToServerCT(this.contentCT, this.id_site, this.id_machine)
+    this.siteService.loadToServerCT(this.contentCT, this.id_site, id_machine)
       .subscribe(result => {
         console.log(result);
         this.loadingFileCT = false;
@@ -656,20 +728,63 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.uploadOtherFileText = fileOther.name;
+      this.OtherFileName = fileOther.name;
       console.log(fileOther);
     }
   }
 
-  public loadToServerOtherFunction() {
+  public loadToServerOtherFunction(id_machine) {
     this.loadingFileOther = true;
-    this.siteService.loadToServerVGP(this.contentOther, this.id_site, this.id_machine)
+    this.siteService.loadToServerOther(this.contentOther, this.id_site, id_machine)
       .subscribe(result => {
         console.log(result);
-        this.loadingFileOther = false;
-        this.userHasChoosenFileOther = false;
-        this.resetOther();
+        this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id, this.OtherFileName) // saving file's name
+            .subscribe(result => {
+              console.log(result);
+              this.loadingFileOther = false;
+              this.userHasChoosenFileOther = false;
+              this.resetOther();
+              this.OtherFileName = '';
+            }, (err) => {
+              this.OtherFileName = '';
+              this.loadingFileOther = false;
+              console.log(err);
+              this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+          });
       }, (err) => {
         this.loadingFileOther = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+
+  public voirFunctionVGP() {
+    console.log(this.itemForChange);
+    this.siteService.getFromServerVGPFichier(this.id_site, this.itemForChange)
+      .subscribe(result => {
+        window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+      }, (err) => {
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+  public voirFunctionCT() {
+    console.log(this.itemForChange);
+    this.siteService.getFromServerCTFichier(this.id_site, this.itemForChange)
+      .subscribe(result => {
+        window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+      }, (err) => {
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+  public voirFunctionOther(fichier_id) {
+    console.log(this.itemForChange);
+    this.siteService.getFromServerOtherFichier(this.id_site, this.itemForChange, fichier_id)
+      .subscribe(result => {
+        window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+      }, (err) => {
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });

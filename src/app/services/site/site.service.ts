@@ -116,7 +116,44 @@ export class SiteService {
       };
       return this.backendService.loadImage_post(url, fileToServer);
     }
+    public loadToServerOther(content: any, siteId: number, machineId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/files';
+      console.log(url);
+      const fileToServer = {
+        content: ((((content.result).split(';'))[1]).split(','))[1]
+      };
+      return this.backendService.loadImage_post(url, fileToServer);
+    }
+    public loadToServerOtherFileName(siteId: number, machineId: number, otherFile_id: number, name: string): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/files/' + otherFile_id + '/name';
+      console.log(url);
+      const objToServer = {
+        'name': name
+      };
+      return this.backendService.loadImage_post(url, JSON.stringify(objToServer));
+    }
+    public deleteOtherFile(siteId: number, machineId: number, fileId: number): Observable<any> {
+      const query = UrlParams.siteHome + siteId + '/machines/' + machineId + '/files/' + fileId;
+      console.log(query);
+      return this.backendService.deleteData(query);
+    }
 
+    public getFromServerVGPFichier(siteId: number, machine_id: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/vgp_file?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+  public getFromServerCTFichier(siteId: number, machine_id: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/tech_control_file?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+  public getFromServerOtherFichier(siteId: number, machine_id: number, fichier_id: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/files/' + fichier_id + '?encoded=1';
+    console.log(url);
+    return this.backendService.loadImage_get(url);
+  }
+// sites/{{siteId}}/machines/{{machineId}}/files/{{machineFileId}}
 
   public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
