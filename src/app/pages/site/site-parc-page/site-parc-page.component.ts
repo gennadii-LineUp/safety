@@ -780,6 +780,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       });
   }
   public voirFunctionOther(fichier_id) {
+    fichier_id = this.machine.files['0'].id;
     console.log(this.itemForChange);
     this.siteService.getFromServerOtherFichier(this.id_site, this.itemForChange, fichier_id)
       .subscribe(result => {
