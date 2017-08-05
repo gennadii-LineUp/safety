@@ -42,7 +42,7 @@
 
                 <tr *ngFor="let fichier of fichiers" >
                   <td>{{fichier.type}}</td>
-                  <td>{{fichier.park_reg}}</td>
+                  <td>{{fichier.machine.parkNumber | valueNull}} / {{fichier.machine.registration | valueNull}}</td>
                   <td>
                     <a href="javascript:void(0);"
                        (click)='voirFunction(fichier.machine.id);
@@ -56,7 +56,7 @@
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
       <li *ngIf="!(pager.currentPage === 1)">
         <a class="prev-link" (click)="findFichiersByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
@@ -81,7 +81,7 @@
       <li *ngIf="!(pager.currentPage === pager.totalPages)" >
         <a href="javascript:void(0);" aria-label="Next" class="next-link"
            (click)="findFichiersByNameFunction('lineUp', pager.currentPage + 1, '')">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
@@ -100,9 +100,9 @@
       <div *ngIf="categoryName" >
         <div class="engine-detailed-info">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='salarieFiches.close()'>
-            <span aria-hidden="true"></span>
+            <span></span>
           </button>
-          <p *ngIf="parentCategoryName"class="form-subheader text-center">{{parentCategoryName}}</p>
+          <p *ngIf="parentCategoryName" class="form-subheader text-center">{{parentCategoryName}}</p>
           <p *ngIf="categoryName"><span>Catégorie :</span> {{categoryName}}</p>
           <p *ngIf="machine.mark"><span>Marque : </span>{{machine.mark}}</p>
           <p *ngIf="machine.model"><span>Modèle : </span>{{machine.model}}</p>
@@ -110,7 +110,6 @@
           <p *ngIf="machine.registration"><span>Immatriculation : </span>{{machine.registration}}</p>
           <p *ngIf="machine.vgp"><span>Date d’expiration VGP : </span>{{machine.vgp | date: 'dd/MM/yyyy'}}</p>
           <p *ngIf="machine.techControl"><span>Contrôle technique : </span>{{machine.techControl | date: 'dd/MM/yyyy'}}</p>
-          <!--<p>{{id_site}}-{{machine.registration}}-{{machine.parkNumber}}</p>-->
         </div>
         <div class="qr-code-wrapper">
           <p class="form-subheader text-center">QR Code</p>
@@ -136,10 +135,12 @@
 
         <div class="clearfix"></div>
         <div *ngIf="files" class="autres-fichiers-wrapper button-file-input-wrapper">
-          <p class="form-subheader" style="margin-bottom: 19px; text-align: left;">Autres fichiers</p>
-          <p class="autres-fichiers">Fichier 1
+          <p class="form-subheader" style="margin-bottom: 19px; text-align: left">Autres fichiers</p>
+          <p *ngFor="let otherFile of otherFilesArray" class="autres-fichiers"
+                                                      style="line-height: 43px">{{otherFile.name}}
             <button class="form-button dark-green-button telecharger-button pull-right"
-                  (click)="saveOtherFilesFunction(machine.id)">Télécharger</button>
+                  (click)="voirFunctionOtherFile(machine.id, otherFile.id)">Télécharger
+            </button>
           </p>
         </div>
       </div>
@@ -148,43 +149,3 @@
     <modal-footer-SSF>
     </modal-footer-SSF>
 </salarie-fiches-modal>
-
-
-
-<!--<div role="tabpanel" class="tab-pane fade in active" id="r383-details-extended">-->
-  <!--<h2>Détails de l’engin</h2>-->
-  <!--<div class="engine-detailed-info">-->
-    <!--<p class="form-subheader text-center">Grue mobile R.383m</p>-->
-    <!--<p><span>Catégorie :</span> Non routier - sur bandage ou rail</p>-->
-    <!--<p><span>Marque :</span> Nom de la Marque</p>-->
-    <!--<p><span>Modèle :</span> Nom du Modèle</p>-->
-    <!--<p><span>N° Parc :</span> numéro de parc</p>-->
-    <!--<p><span>Date d’expiration VGP :</span> 00/00/0000</p>-->
-    <!--<p><span>Equipement :</span> téléscopique avec fléchette</p>-->
-  <!--</div>-->
-  <!--<div class="qr-code-wrapper">-->
-    <!--<p class="form-subheader text-center">QR Code</p>-->
-    <!--<img src="../../../../assets/img/qr-code-img.png" alt="qr-code-img">-->
-  <!--</div>-->
-  <!--<div class="clearfix"></div>-->
-  <!--<div class="verification-generale-periodique">-->
-    <!--<p class="form-subheader text-center">Vérification Générale Périodique</p>-->
-    <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
-  <!--</div>-->
-  <!--<div class="immat-n-parc">-->
-    <!--<p class="form-subheader text-center">immat - n° parc</p>-->
-    <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
-  <!--</div>-->
-  <!--<div class="clearfix"></div>-->
-  <!--<div class="autres-fichiers-wrapper button-file-input-wrapper">-->
-    <!--<p class="form-subheader text-center">Autres fichiers</p>-->
-    <!--<div class="image-upload">-->
-      <!--<p>Fichier 1</p>-->
-      <!--<label for="file-input4">-->
-        <!--<span>Télécharger</span>-->
-      <!--</label>-->
-      <!--<input id="file-input4" type="file">-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<button type="submit" class="form-button green-button modifier-button pull-right" data-dismiss="modal">Modifier</button>-->
-<!--</div>-->

@@ -77,7 +77,9 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     uploadedFile = false;
     contentVGP: any;
     contentCT: any;
-  contentOther: any;
+  contentOther1: any;
+  contentOther2: any;
+  contentOther3: any;
     fileListVGP: FileList;
     fileListCT: FileList;
   fileListOther: FileList;
@@ -422,7 +424,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.uploadedFileTC = false;
     this.uploadedOtherFile = false;
     this.otherFilesArray = [];
-    this.otherFiles_addToServer;
   }
 
   public modifierFunctionParc(id_itemForUpdate: number) {
@@ -745,16 +746,19 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       this.userHasChoosenFileOther = true;
       let fileOther = this.fileListOther[0];
       let reader = new FileReader();
+      let _contentOther1: any;
       reader.onload = (e) => {
-        this.contentOther = e.target;
+        _contentOther1 = e.target;
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.OtherFileName = fileOther.name;
       console.log(fileOther);
       setTimeout(() => {
         this.otherFile_local_id++;
-        this.otherFilesArray.push(new OtherFileClass(fileOther.name, this.contentOther, this.otherFile_local_id, 0));
-        this.otherFiles_addToServer.push(new OtherFileClass(fileOther.name, this.contentOther, this.otherFile_local_id, 0));
+        this.otherFilesArray.push(new OtherFileClass(fileOther.name, _contentOther1, this.otherFile_local_id, 0));
+        this.otherFiles_addToServer.push(new OtherFileClass(fileOther.name, _contentOther1, this.otherFile_local_id, 0));
+        console.log(this.otherFiles_addToServer);
+       // this.resetOther();
       }, 100);
     }
   }
@@ -765,15 +769,17 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     let arr = [];
     for (let i = 0; i < this.otherFiles_addToServer.length; i++) {
       arr.push(i);
-        this.siteService.loadToServerOther(this.otherFiles_addToServer[i].content, this.id_site, id_machine)
+        this.siteService.loadToServerOther(this.otherFiles_addToServer[arr.pop()].content, this.id_site, id_machine)
           .subscribe(result => {
             this.loadingFileOther = true;
             console.log(result);
             console.log(i);
             console.log(this.otherFiles_addToServer[i].name);
-            for (let j = 0; j < arr.length; j++) {
-              this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id, this.otherFiles_addToServer[arr.shift()].name) // saving file's name
+            // for (let j = 0; j < arr.length; j++) {
+              this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id,
+                                                  this.otherFiles_addToServer[i].name) // saving file's name
                 .subscribe(result => {
+                  console.log(arr);
                   this.loadingFileOther = false;
                   console.log(result);
                 }, (err) => {
@@ -781,7 +787,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                   console.log(err);
                   this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
                 });
-            }
+            // }
           }, (err) => {
             this.loadingFileOther = false;
             console.log(err);
@@ -797,7 +803,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.resetOther();
     this.userHasChoosenFileOther = false;
     this.loadingFileOther = false;
-    console.log('finish-----------------end');
   }
 
 

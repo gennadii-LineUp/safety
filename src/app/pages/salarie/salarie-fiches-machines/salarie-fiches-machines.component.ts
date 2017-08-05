@@ -26,6 +26,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
 
   categoryName: string;
   parentCategoryName: string;
+  otherFilesArray = [];
 
   emptyTable = true;
   fichiers = [];
@@ -157,6 +158,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
             this.parentCategoryName = result.parentCategoryName;
             this.machine.id = result.id;
             this.machine.mark = result.mark;
+            this.machine.category = result.categoryId;
             this.machine.model = result.model;
             if (result.parkNumber)    {this.machine.parkNumber = result.parkNumber; }
             if (result.registration)  {this.machine.registration = result.registration; }
@@ -167,6 +169,12 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
             if (result.vgpFile)       {this.machine.vgpFile = result.vgpFile; }
             if (result.vgp)           {this.machine.vgp = result.vgp; }
             if (result.files  &&  result.files.length > 0) {this.machine.files = result.files; this.files = true; }
+            if (result.files  &&  result.files.length > 0) {
+              this.machine.files = result.files;
+              this.otherFilesArray = result.files;
+            }
+
+            console.log(this.machine);
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -211,22 +219,20 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
       });
   }
 
-  public saveOtherFilesFunction(machine_id) {
-    console.log(machine_id);
-    console.log(machine_id);
+  public voirFunctionOtherFile(machine_id, file_id) {
+    console.log(file_id);
     this.loading = true;
-    let otherFile_id: number;
 
-    // this.salariesService.getFromServerOtherFile(machine_id, otherFile_id)
-    //   .subscribe(result => {
-    //       console.log(result);
-    //       this.loading = false;
-    //       window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-    //   }, (err) => {
-    //     this.loading = false;
-    //     console.log(err);
-    //     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    //   });
+    this.salariesService.getFromServerOtherFile(machine_id, file_id)
+      .subscribe(result => {
+          console.log(result);
+          this.loading = false;
+          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+      }, (err) => {
+        this.loading = false;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
   }
 
 }
