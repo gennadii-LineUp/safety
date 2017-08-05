@@ -27,9 +27,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     loading = false;
     loadingGroupes = false;
     creating = false;
-    loadingSalarieUsed = false;
     loaded = false;
-    loadedSalarieUsed = false;
     errorLoad = '';
     errorSalaries = '';
     errorCreating = '';
@@ -46,9 +44,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     choosenType_caption = '';
     choosen_engine_10_back = false;
     choosen_engine_back = false;
-    choosen_engine = false;
     choosen_vehicule_back = false;
-    choosen_engineWithEquipement = false;
     choosenCategory_id = 0;
     choosenMachine_caption = '';
     subcategoryEquipement: number;
@@ -70,16 +66,12 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     t12_rest = false;
 
     loadingFile = false;
-    loadingFileSignature = false;
     loadingFileVGP = false;
     loadingFileCT = false;
     loadingFileOther = false;
     uploadedFile = false;
     contentVGP: any;
     contentCT: any;
-  contentOther1: any;
-  contentOther2: any;
-  contentOther3: any;
     fileListVGP: FileList;
     fileListCT: FileList;
   fileListOther: FileList;
@@ -179,8 +171,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     if (thClass === 'sort-button-false') {
       sortingDirection = '-'; // up
     }
-
-    // let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
     this.sortingTarget = '&sort=' + sortingDirection + columnName;
   }
 
@@ -357,10 +347,10 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
               } else {
                 this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
               }
+            this.findByNameFunction(this.searchName, this.activePage, '');
+            this.setEmptyMachines();
             this.creating = false;
           }, 1000);
-          this.findByNameFunction(this.searchName, this.activePage, '');
-          this.setEmptyMachines();
       }, (err) => {
         this.creating = false;
         console.log(err);
@@ -579,22 +569,18 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this._addType(choosenType, caption);
   }
   public _addType(choosenType: number, caption: string) {
-    // let result = (this.original_fichiers.filter(obj => {
-    //   return obj.id === id_itemForUpdate;
-    // }))[0];
-
     if (+choosenType === 3) {
       this.setEmptyType();
       this.t3 = true;
       this.choosen_vehicule_back = true;
-      this.choosenCategory_id = +choosenType;      /////
+      this.choosenCategory_id = +choosenType;
       this.checkForEmptyEmployeeGroup();
     } else if (+choosenType === 4 ||
                 +choosenType === 5) {
       this.setEmptyType();
       this.t4_t5 = true;
       this.choosen_vehicule_back = true;
-      this.choosenCategory_id = +choosenType;      /////
+      this.choosenCategory_id = +choosenType;
     } else if (+choosenType === 7) {
       this.setEmptyType();
       this.t7 = true;
@@ -619,21 +605,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.setEmptyMachines();
     this.choosenType_caption = caption;
     this.employeeGroupes_view = this.employeeGroupes;
-    // if (choosenType.checked) {
-    //   this.drivingLicense.categories.push(+choosenType.name);
-    //   this.drivingLicense.categories = this.drivingLicense.categories.filter((elem, index, self) => {
-    //     return index === self.indexOf(elem);
-    //   });
-    // }
-    // if (!choosenType.checked) {
-    //   this.drivingLicense.categories = this.drivingLicense.categories.filter(val => val !== +choosenType.name);
-    // }
-    //
-    // if (this.drivingLicense.categories.length === 0) {
-    //   this.equipment_nullData = true;
-    // } else {
-    //   this.equipment_nullData = false;
-    // }
   }
 
 
@@ -667,13 +638,11 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   public resetCT() {
     this.userHasChoosenFileCT = false;
     this.ctInput.nativeElement.value = '';
-    // console.log(this.ctInput.nativeElement.files);
     this.uploadCTFileText = '';
   }
   public resetOther() {
     this.userHasChoosenFileOther = false;
     this.otherInput.nativeElement.value = '';
-    // console.log(this.ctInput.nativeElement.files);
   }
 
 
@@ -758,7 +727,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         this.otherFilesArray.push(new OtherFileClass(fileOther.name, _contentOther1, this.otherFile_local_id, 0));
         this.otherFiles_addToServer.push(new OtherFileClass(fileOther.name, _contentOther1, this.otherFile_local_id, 0));
         console.log(this.otherFiles_addToServer);
-       // this.resetOther();
       }, 100);
     }
   }
@@ -775,7 +743,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
             console.log(result);
             console.log(i);
             console.log(this.otherFiles_addToServer[i].name);
-            // for (let j = 0; j < arr.length; j++) {
               this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id,
                                                   this.otherFiles_addToServer[i].name) // saving file's name
                 .subscribe(result => {
@@ -787,19 +754,16 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                   console.log(err);
                   this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
                 });
-            // }
           }, (err) => {
             this.loadingFileOther = false;
             console.log(err);
             this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
           });
-
     }
     if (arr.length === 0) {
       console.log('finish!!');
       //  this.otherFiles_addToServer = [];
     }
-    this.loadingFileOther = false;
     this.resetOther();
     this.userHasChoosenFileOther = false;
     this.loadingFileOther = false;
@@ -827,8 +791,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       });
   }
   public voirFunctionOther(fichier_id) {
-    fichier_id = this.machine.files['0'].id;
-    console.log(this.itemForChange);
+    console.log(fichier_id);
     this.siteService.getFromServerOtherFichier(this.id_site, this.itemForChange, fichier_id)
       .subscribe(result => {
         window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));

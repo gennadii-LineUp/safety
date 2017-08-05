@@ -1,7 +1,7 @@
 <header class="main-header">
   <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
-      <span aria-hidden="true"></span>
+      <span></span>
     </button>
     <p>SAFETY: <span>{{errorLoad}}</span></p>
   </div>
@@ -20,7 +20,7 @@
 
       <div class="search-wrapper">
         <button class="search-button" type="button" (click)='findByNameFunction(findByName.value, 1, "")'></button>
-        <input #findByName id="findByName" name='findByName' type="text"
+        <input #findByName id="findByName" name='findByName'
                class="form-control search-input" placeholder="Rechercher"
                (keyup.enter)='findByNameFunction(findByName.value, 1, "")'>
       </div>
@@ -57,7 +57,7 @@
                   <td>{{machine.mark}}</td>
                   <td>
                     <a href="javascript:void(0);"
-                       (click)='_addType(+machine.machineCategoryId, machine.type);
+                       (click)='_addType(machine.machineCategoryId, machine.type);
                                 modifierFunctionParc(machine.id);
                                 modal_Machine__dataInput.open()'>Gérer</a>
                     /
@@ -70,7 +70,7 @@
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
       <li *ngIf="!(pager.currentPage === 1)">
         <a class="prev-link" (click)="findByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
@@ -95,7 +95,7 @@
       <li *ngIf="!(pager.currentPage === pager.totalPages)" >
         <a href="javascript:void(0);" aria-label="Next" class="next-link"
            (click)="findByNameFunction('lineUp', pager.currentPage + 1, '')">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
@@ -299,7 +299,7 @@
       <div *ngIf="errorCreating" style='position: fixed; top: -42px !important;' class="alert alert-danger">
         {{errorCreating}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
-          <span aria-hidden="true"></span>
+          <span></span>
         </button>
       </div>
       <div *ngIf="successModify" style='position: fixed; top: -40px;' class="alert alert-success">
@@ -389,8 +389,6 @@
                       <span></span>
                     </button>
                   </div>
-                <!--<button class="form-button dark-green-button telecharger-button pull-left"-->
-                          <!--style="text-align: left;">Télécharger</button>-->
               </div>
 
               <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">
@@ -426,25 +424,6 @@
                   <input id="otherInput" #otherInput type="file"  [disabled]="loadingFileOther"
                          (change)="fileChangeOther($event)"  accept=".pdf"/>
                 </div>
-
-
-                <!--<div class="vgp-upload pull-left">-->
-                  <!--<label for="otherInput">Télécharger</label>-->
-                  <!--<img *ngIf='loadingFileOther' style='position:absolute; bottom: 30%; right: 12%; width: 16px;'-->
-                       <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
-                  <!--<input id="otherInput" #otherInput type="file"  [disabled]="loadingFileOther"-->
-                         <!--(change)="fileChangeOther($event)"-->
-                         <!--accept=".pdf"/>-->
-                <!--</div>-->
-                <!--<button *ngIf='uploadedOtherFile' type="button" class="regarderUploadedFileBtn pull-left"-->
-                        <!--(click)='voirFunctionOther(0)'>Regarder-->
-                <!--</button>-->
-                <!--<span class="uploaded-file-caption">{{uploadOtherFileText}}</span>-->
-                <!--<div *ngIf="uploadOtherFileText" style="position: relative; display: inline-block;" class="pull-right">-->
-                  <!--<button type="button" (click)="deleteOtherFileFunction()" class="uploaded-file-remove-btn" style="margin-top: 0;">-->
-                    <!--<span></span>-->
-                  <!--</button>-->
-                <!--</div>-->
               </div>
 
             <div *ngIf="t3" class="groupe-wrapper">
