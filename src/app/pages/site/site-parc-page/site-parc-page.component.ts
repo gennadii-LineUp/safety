@@ -9,6 +9,13 @@ import {MachinesGlossary} from '../../../models/const/machine-categorie';
 import {ClientService} from '../../../services/client/client.service';
 declare var $: any;
 
+export class OtherFileClass {
+  constructor(public name: string,
+              public content: any,
+              public local_id: number,
+              public id: number) { }
+}
+
 @Component({
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
@@ -29,6 +36,10 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     successCreating = '';
     successModify = '';
 
+    otherFilesArray = [];
+    otherFiles_addToServer = [];
+    otherFile_local_id = 0;
+
     id_site =  0;
     itemForChange = 0;
     choosenType_id = 0;
@@ -47,8 +58,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     files = false;
 
     uploadedFileVGP = false;
-    uploadedOtherFile = false;
     uploadedFileTC = false;
+    uploadedOtherFile = false;
 
     t3 = false;
     t4_t5 = false;
@@ -75,7 +86,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   userHasChoosenFileOther = false;
     uploadVGPFileText: any;
     uploadCTFileText: any;
-    uploadOtherFileText: any;
     OtherFileName = '';
 
   @ViewChild('vgpInput')
@@ -311,14 +321,15 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
     this.siteService.createMachine(_machine, this.id_site, urlOption)
       .subscribe(result => {
+          console.log(this.otherFiles_addToServer);
           console.log(result);
           if (this.itemForChange) {
               if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(this.itemForChange); }
               if (this.userHasChoosenFileCT) {
                 setTimeout(() => {this.loadToServerCTFunction(this.itemForChange); }, 400);
               }
-              if (this.userHasChoosenFileOther) {
-                setTimeout(() => {this.loadToServerOtherFunction(this.itemForChange); }, 800);
+              if (this.otherFiles_addToServer.length > 0) {
+                setTimeout(() => {this.loadToServerOtherFunction(this.itemForChange); }, 700);
               }
           } else {
               if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(result.id); }
@@ -326,24 +337,26 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                 setTimeout(() => {this.loadToServerCTFunction(result.id); }, 400);
               }
               if (this.userHasChoosenFileOther) {
-                setTimeout(() => {this.loadToServerOtherFunction(result.id); }, 800);
+                setTimeout(() => {this.loadToServerOtherFunction(result.id); }, 700);
               }
           }
 
-          if (this.itemForChange) {
-              this.saveButtonCaption = 'Enregistrer';
-              setTimeout(() => {this.itemForChange = 0; }, 1000);
-              this.successModify = 'Bravo! Vos modifications sont enregistrées.';
-          } else {
-              this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
-          }
-          this.creating = false;
-          // modal close /////////
-          const _modal = document.getElementById('modal_Machine__dataInput').firstElementChild;
-          _modal.classList.add('hidden');
-          const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
-          (<HTMLScriptElement>modal_bg).classList.add('hidden');
-          /////////
+          setTimeout(() => {
+              // modal close /////////
+              const _modal = document.getElementById('modal_Machine__dataInput').firstElementChild;
+              _modal.classList.add('hidden');
+              const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+              (<HTMLScriptElement>modal_bg).classList.add('hidden');
+              /////////
+              if (this.itemForChange) {
+                this.saveButtonCaption = 'Enregistrer';
+                setTimeout(() => {this.itemForChange = 0; }, 1000);
+                this.successModify = 'Bravo! Vos modifications sont enregistrées.';
+              } else {
+                this.successCreating = 'Bien joué! Vous avez créé une nouvelle machine.';
+              }
+            this.creating = false;
+          }, 1000);
           this.findByNameFunction(this.searchName, this.activePage, '');
           this.setEmptyMachines();
       }, (err) => {
@@ -353,11 +366,12 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  public modalOpen() {
+  public modalOpenParc() {
     const _modal = document.getElementById('modal_Machine__dataInput').firstElementChild;
     if (_modal) {_modal.classList.remove('hidden'); }
     const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
     if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    this.otherFiles_addToServer = [];
   }
 
 
@@ -404,16 +418,17 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.saveButtonCaption = 'Enregistrer';
     this.uploadVGPFileText = '';
     this.uploadCTFileText = '';
-    this.uploadOtherFileText = '';
     this.uploadedFileVGP = false;
-    this.uploadedOtherFile = false;
     this.uploadedFileTC = false;
+    this.uploadedOtherFile = false;
+    this.otherFilesArray = [];
+    this.otherFiles_addToServer;
   }
 
-  public modifierFunction(id_itemForUpdate: number) {
+  public modifierFunctionParc(id_itemForUpdate: number) {
     this.cancellMessages();
     this.setEmptyMachines();
-    this.modalOpen();
+    this.modalOpenParc();
     console.log(id_itemForUpdate);
     this.creating = true;
     this.siteService.getOneMachine(this.id_site, id_itemForUpdate)
@@ -458,10 +473,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
           }
           if (result.files  &&  result.files.length > 0) {
             this.machine.files = result.files;
-            this.files = true;
+            this.otherFilesArray = result.files;
             this.uploadedOtherFile = true;
-            this.uploadOtherFileText = this.machine.files['0'].name;
-            console.log(this.uploadOtherFileText);
           }
           this.machine.id = result.id;
 
@@ -476,29 +489,42 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  public deleteOtherFileFunction() {
-      if (this.itemForChange && this.machine.files.length && this.machine.files['0'] && this.machine.files['0'].id) {
+  public deleteOtherFileFunction(otherFile: OtherFileClass) {
+      this.loadingFileOther = true;
+      console.log(this.otherFilesArray);
+      if (this.itemForChange && this.machine.files.length  &&  otherFile.id > 0) {
         console.log('del from server');
-        this.siteService.deleteOtherFile(this.id_site, this.machine.id, +this.machine.files['0'].id)
+        console.log(otherFile.id);
+        this.siteService.deleteOtherFile(this.id_site, this.machine.id, otherFile.id)
             .subscribe(result => {
-              this.loading = false;
               console.log(result);
+              this.otherFilesArray = this.otherFilesArray.filter(function( obj ) {
+                return obj.id !== otherFile.id;
+              });
+              this.otherFiles_addToServer = this.otherFiles_addToServer.filter(function( obj ) {
+                return obj.id !== otherFile.id;
+              });
               this.resetOther();
-              this.refreshOtherFiles(this.machine.id);
-
-              this.files = false;
-              this.uploadedOtherFile = false;
-              this.uploadOtherFileText = '';
-
+              this.loadingFileOther = false;
             }, (err) => {
-              this.loading = false;
+              this.loadingFileOther = false;
               console.log(err);
               this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
       } else {
         console.log('del localy');
+        this.otherFilesArray = this.otherFilesArray.filter(function( obj ) {
+          return obj.local_id !== otherFile.local_id;
+        });
+        this.otherFiles_addToServer = this.otherFiles_addToServer.filter(function( obj ) {
+          return obj.local_id !== otherFile.local_id;
+        });
         this.resetOther();
       }
+
+      console.log(this.otherFilesArray);
+      console.log(this.machine);
+      this.loadingFileOther = false;
   }
 
   public refreshOtherFiles(machine_id) {
@@ -506,9 +532,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         if (result.files  &&  result.files.length > 0) {
           this.machine.files = result.files;
-          this.files = true;
-          this.uploadedOtherFile = true;
-          this.uploadOtherFileText = this.machine.files['0'].name;
         }
         console.log(this.machine.files);
       }, (err) => {
@@ -543,10 +566,10 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     }
     this.uploadVGPFileText = '';
     this.uploadCTFileText = '';
-    this.uploadOtherFileText = '';
     this.uploadedFileVGP = false;
-    this.uploadedOtherFile = false;
     this.uploadedFileTC = false;
+    this.uploadedOtherFile = false;
+    this.otherFilesArray = [];
     return;
   }
 
@@ -650,7 +673,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.userHasChoosenFileOther = false;
     this.otherInput.nativeElement.value = '';
     // console.log(this.ctInput.nativeElement.files);
-    this.uploadOtherFileText = '';
   }
 
 
@@ -727,35 +749,55 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         this.contentOther = e.target;
       };
       const res = reader.readAsDataURL(event.target.files[0]);
-      this.uploadOtherFileText = fileOther.name;
       this.OtherFileName = fileOther.name;
       console.log(fileOther);
+      setTimeout(() => {
+        this.otherFile_local_id++;
+        this.otherFilesArray.push(new OtherFileClass(fileOther.name, this.contentOther, this.otherFile_local_id, 0));
+        this.otherFiles_addToServer.push(new OtherFileClass(fileOther.name, this.contentOther, this.otherFile_local_id, 0));
+      }, 100);
     }
   }
 
   public loadToServerOtherFunction(id_machine) {
+    console.log(this.otherFiles_addToServer);
     this.loadingFileOther = true;
-    this.siteService.loadToServerOther(this.contentOther, this.id_site, id_machine)
-      .subscribe(result => {
-        console.log(result);
-        this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id, this.OtherFileName) // saving file's name
-            .subscribe(result => {
-              console.log(result);
-              this.loadingFileOther = false;
-              this.userHasChoosenFileOther = false;
-              this.resetOther();
-              this.OtherFileName = '';
-            }, (err) => {
-              this.OtherFileName = '';
-              this.loadingFileOther = false;
-              console.log(err);
-              this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    let arr = [];
+    for (let i = 0; i < this.otherFiles_addToServer.length; i++) {
+      arr.push(i);
+        this.siteService.loadToServerOther(this.otherFiles_addToServer[i].content, this.id_site, id_machine)
+          .subscribe(result => {
+            this.loadingFileOther = true;
+            console.log(result);
+            console.log(i);
+            console.log(this.otherFiles_addToServer[i].name);
+            for (let j = 0; j < arr.length; j++) {
+              this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id, this.otherFiles_addToServer[arr.shift()].name) // saving file's name
+                .subscribe(result => {
+                  this.loadingFileOther = false;
+                  console.log(result);
+                }, (err) => {
+                  this.loadingFileOther = false;
+                  console.log(err);
+                  this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+                });
+            }
+          }, (err) => {
+            this.loadingFileOther = false;
+            console.log(err);
+            this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
           });
-      }, (err) => {
-        this.loadingFileOther = false;
-        console.log(err);
-        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
-      });
+
+    }
+    if (arr.length === 0) {
+      console.log('finish!!');
+      //  this.otherFiles_addToServer = [];
+    }
+    this.loadingFileOther = false;
+    this.resetOther();
+    this.userHasChoosenFileOther = false;
+    this.loadingFileOther = false;
+    console.log('finish-----------------end');
   }
 
 

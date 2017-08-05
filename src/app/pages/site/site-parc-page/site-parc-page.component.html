@@ -15,7 +15,7 @@
 <div class="main-content">
     <div class="search-panel clearfix">
         <button class="add-an-item-button"
-                (click)="modalOpen(); modal_Machine.open(); modal_Machine__dataInput.close(); setEmptyCategory()">
+                (click)="modalOpenParc(); modal_Machine.open(); modal_Machine__dataInput.close(); setEmptyCategory()">
         </button>
 
       <div class="search-wrapper">
@@ -58,7 +58,7 @@
                   <td>
                     <a href="javascript:void(0);"
                        (click)='_addType(+machine.machineCategoryId, machine.type);
-                                modifierFunction(machine.id);
+                                modifierFunctionParc(machine.id);
                                 modal_Machine__dataInput.open()'>Gérer</a>
                     /
                     <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
@@ -348,16 +348,14 @@
                     <div class="clearfix"></div>
 
                     <div class="vgp-upload pull-left">
-                      <label for="vgpInput">Télécharger
-                      </label>
+                      <label for="vgpInput">Télécharger</label>
                       <img *ngIf='loadingFileVGP' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                       <input id="vgpInput" #vgpInput type="file"  [disabled]="loadingFileVGP"
                              (change)="fileChangeVGP($event)"
                              accept=".pdf"/>
                     </div>
                     <button *ngIf='uploadedFileVGP' type="button" class="regarderUploadedFileBtn pull-left"
-                            (click)='voirFunctionVGP()'>
-                      Regarder
+                            (click)='voirFunctionVGP()'>Regarder
                     </button>
                     <span class="uploaded-file-caption">{{uploadVGPFileText}}</span>
                     <div *ngIf="uploadVGPFileText" style="position: relative; display: inline-block;" class="pull-right">
@@ -365,9 +363,6 @@
                         <span></span>
                       </button>
                     </div>
-                      <!--<button class="form-button dark-green-button telecharger-button pull-left"-->
-                              <!--style="text-align: left;">Télécharger</button>-->
-                      <!--<span style="margin-left: 20px;">{{uploadVGPFileText}}</span>-->
                 </div>
 
               <div *ngIf="t3 || t4_t5 || t7 || t10 || t12_41" class="calendar-wrapper clearfix">
@@ -379,16 +374,14 @@
                   <div class="clearfix"></div>
 
                   <div class="vgp-upload pull-left">
-                    <label for="ctInput">Télécharger
-                    </label>
+                    <label for="ctInput">Télécharger</label>
                     <img *ngIf='loadingFileCT' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     <input id="ctInput" #ctInput type="file"  [disabled]="loadingFileCT"
                            (change)="fileChangeCT($event)"
                            accept=".pdf"/>
                   </div>
                   <button *ngIf='uploadedFileTC' type="button" class="regarderUploadedFileBtn pull-left"
-                          (click)='voirFunctionCT()'>
-                    Regarder
+                          (click)='voirFunctionCT()'>Regarder
                   </button>
                   <span class="uploaded-file-caption">{{uploadCTFileText}}</span>
                   <div *ngIf="uploadCTFileText" style="position: relative; display: inline-block;" class="pull-right">
@@ -401,34 +394,57 @@
               </div>
 
               <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">
-                <p class="form-subheader text-center" style="text-align: left;">Autres fichiers</p>
+                <p class="form-subheader text-center" style="text-align: left;">Autres fichiers
+                  <img *ngIf='loadingFileOther' style='margin-left: 4%; width: 16px;'
+                       src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </p>
                 <div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <table class="table-default salaries-site-table" style="margin-bottom: 12px">
+                  <thead></thead>
+                  <tbody>
+                    <tr *ngFor="let otherFile of otherFilesArray" style="height: 36px">
+                      <td style="width: 100%; text-align: left !important; padding-right: 0; padding-left: 4px">
+                          <span class="uploaded-file-caption">{{otherFile.name}}</span>
+                          <div  style="position: relative; display: inline-block;" class="pull-right">
+                            <button type="button" (click)="deleteOtherFileFunction(otherFile)"
+                                    class="uploaded-file-remove-btn"
+                                    style="margin-top: -1px;">
+                              <span></span>
+                            </button>
+                          </div>
+                          <button *ngIf='uploadedOtherFile && otherFile.id>0' type="button" class="regarderUploadedFileBtn pull-right"
+                                style="margin-right: 35px" (click)='voirFunctionOther(otherFile.id)'>Regarder
+                          </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
                 <div class="vgp-upload pull-left">
-                  <label for="otherInput">Télécharger
-                  </label>
-                  <img *ngIf='loadingFileOther' style='position:absolute; bottom: 30%; right: 12%; width: 16px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                  <label for="otherInput">Télécharger</label>
                   <input id="otherInput" #otherInput type="file"  [disabled]="loadingFileOther"
-                         (change)="fileChangeOther($event)"
-                         accept=".pdf"/>
+                         (change)="fileChangeOther($event)"  accept=".pdf"/>
                 </div>
-                <button *ngIf='uploadedOtherFile' type="button" class="regarderUploadedFileBtn pull-left"
-                        (click)='voirFunctionOther(0)'>
-                  Regarder
-                </button>
-                <span class="uploaded-file-caption">{{uploadOtherFileText}}</span>
-                <div *ngIf="uploadOtherFileText" style="position: relative; display: inline-block;" class="pull-right">
-                  <button type="button" (click)="deleteOtherFileFunction()" class="uploaded-file-remove-btn" style="margin-top: 0;">
-                    <span></span>
-                  </button>
-                </div>
-                <!--<div class="image-upload">-->
-                  <!--<p>Fichier 1</p>-->
-                  <!--<label for="file-input0">-->
-                    <!--<span></span>-->
-                  <!--</label>-->
-                  <!--<input id="file-input0" type="file">-->
+
+
+                <!--<div class="vgp-upload pull-left">-->
+                  <!--<label for="otherInput">Télécharger</label>-->
+                  <!--<img *ngIf='loadingFileOther' style='position:absolute; bottom: 30%; right: 12%; width: 16px;'-->
+                       <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+                  <!--<input id="otherInput" #otherInput type="file"  [disabled]="loadingFileOther"-->
+                         <!--(change)="fileChangeOther($event)"-->
+                         <!--accept=".pdf"/>-->
                 <!--</div>-->
-                <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
+                <!--<button *ngIf='uploadedOtherFile' type="button" class="regarderUploadedFileBtn pull-left"-->
+                        <!--(click)='voirFunctionOther(0)'>Regarder-->
+                <!--</button>-->
+                <!--<span class="uploaded-file-caption">{{uploadOtherFileText}}</span>-->
+                <!--<div *ngIf="uploadOtherFileText" style="position: relative; display: inline-block;" class="pull-right">-->
+                  <!--<button type="button" (click)="deleteOtherFileFunction()" class="uploaded-file-remove-btn" style="margin-top: 0;">-->
+                    <!--<span></span>-->
+                  <!--</button>-->
+                <!--</div>-->
               </div>
 
             <div *ngIf="t3" class="groupe-wrapper">
@@ -442,12 +458,6 @@
                          (change)='addSubcategory($event); false'>
                   <span class="control__indicator"></span>
                 </label>
-                <!--<div *ngFor="let groupe of employeeGroupes_view" class="radio"  style="text-align: left;">-->
-                  <!--<input type="radio"   id={{groupe.id}} name="employeeGroup"-->
-                         <!--[(ngModel)]="machine.employeeGroups" [value]="groupe.id"-->
-                         <!--[checked]='checkedGroup==groupe.id'>  -->
-                  <!--<label for={{groupe.id}} class="radio-label">{{groupe.id}} {{groupe.name}}</label>-->
-                <!--</div>-->
               </div>
             </div>
 
@@ -508,42 +518,3 @@
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
 </site-parc-modal-machine>
-
-
-<!--<div role="tabpanel" class="tab-pane fade in active" id="r383-details-extended">-->
-    <!--<h2>Détails de l’engin</h2>-->
-    <!--<div class="engine-detailed-info">-->
-        <!--<p class="form-subheader text-center">Grue mobile R.383m</p>-->
-        <!--<p><span>Catégorie :</span> Non routier - sur bandage ou rail</p>-->
-        <!--<p><span>Marque :</span> Nom de la Marque</p>-->
-        <!--<p><span>Modèle :</span> Nom du Modèle</p>-->
-        <!--<p><span>N° Parc :</span> numéro de parc</p>-->
-        <!--<p><span>Date d’expiration VGP :</span> 00/00/0000</p>-->
-        <!--<p><span>Equipement :</span> téléscopique avec fléchette</p>-->
-    <!--</div>-->
-    <!--<div class="qr-code-wrapper">-->
-        <!--<p class="form-subheader text-center">QR Code</p>-->
-        <!--<img src="../../../../assets/img/qr-code-img.png" alt="qr-code-img">-->
-    <!--</div>-->
-    <!--<div class="clearfix"></div>-->
-    <!--<div class="verification-generale-periodique">-->
-        <!--<p class="form-subheader text-center">Vérification Générale Périodique</p>-->
-        <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
-    <!--</div>-->
-    <!--<div class="immat-n-parc">-->
-        <!--<p class="form-subheader text-center">immat - n° parc</p>-->
-        <!--<button class="form-button dark-green-button telecharger-button pull-left">Télécharger</button>-->
-    <!--</div>-->
-    <!--<div class="clearfix"></div>-->
-    <!--<div class="autres-fichiers-wrapper button-file-input-wrapper">-->
-        <!--<p class="form-subheader text-center">Autres fichiers</p>-->
-        <!--<div class="image-upload">-->
-            <!--<p>Fichier 1</p>-->
-            <!--<label for="file-input4">-->
-                <!--<span>Télécharger</span>-->
-            <!--</label>-->
-            <!--<input id="file-input4" type="file">-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<button type="submit" class="form-button green-button modifier-button pull-right" data-dismiss="modal">Modifier</button>-->
-<!--</div>                                                               -->
