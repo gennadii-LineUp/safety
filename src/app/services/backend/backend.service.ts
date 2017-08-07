@@ -98,7 +98,62 @@ export class BackendService {
     // .catch((err: Response) => this.errorHandler.handleError(err));
   }
 
-    public get(url: string): Observable<any> {
+  public _token_refresh(): Observable<any> {
+    console.log('token_refresh()  started');
+    const headers: Headers = new Headers();
+    const refresh_token = localStorage.getItem('refresh_token');
+    const url = UrlParams.tokRefresh;
+    const refresh = {
+      refresh_token: localStorage.getItem('refresh_token')
+    };
+    return this.http.post(url, refresh, {headers: headers})
+      .map((res: Response) => <Object[]>res.json());
+    // .catch((err: Response) => this.errorHandler.handleError(err));
+  }
+
+
+  public _get(url: string): Observable<any> {
+      console.log(33333333333);
+    const headers: Headers = new Headers();
+    this.token = localStorage.getItem('token');
+    headers.append('Authorization', 'Bearer ' + this.token);
+    return this.http.get(url, {headers: headers})
+      .map((res: Response) => <Object[]>res.json())
+      .catch((err) => {
+        if (err.status === 401) {
+          console.log(err);
+          console.log('relogin----');
+          this._token_refresh()
+            .subscribe(result => {
+              console.log(result);
+              if (result.token) {
+                localStorage.setItem('token', result.token);
+                localStorage.setItem('refresh_token', result.refresh_token);
+                console.log('*** token resetted ***');
+
+                const headers1: Headers = new Headers();
+                this.token = localStorage.getItem('token');
+                headers1.append('Authorization', 'Bearer ' + this.token);
+                console.log(url);
+                console.log(headers1);
+                return this.http.get(url, {headers: headers1})
+                  .map((res: Response) => <Object[]>res.json())
+                  .subscribe(data => console.log(data));
+              }
+            }, (err) => {
+              console.log(err.json());
+              return <Object[]>err.json();
+            });
+        }
+        //  setTimeout(() => {
+        //    return <Object[]>err.json();
+        // }, 2000);
+        return <Object[]>err.json();
+      });
+  }
+
+
+  public get(url: string): Observable<any> {
         const headers: Headers = new Headers();
         this.token = localStorage.getItem('token');
 
