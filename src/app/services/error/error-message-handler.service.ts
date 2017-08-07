@@ -22,7 +22,13 @@ export class ErrorMessageHandlerService {
         if (err.status === 500) {return 'problems with connection to server... verify your internet!'; }
         if (err.status === 0) {return 'problems with connection to server... verify your internet!'; }
 
-        const error = (JSON.parse(err._body)).errors;
+        let error: any;
+        try {
+          error = (JSON.parse(err._body)).errors;
+        } catch (e) {
+          error = err;
+        }
+
         let errorMessage: string;
 
         if (Object.keys(error).length > 0) {

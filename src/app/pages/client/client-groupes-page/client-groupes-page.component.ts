@@ -119,10 +119,11 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
                     localStorage.setItem('clientGroupSearch_name', _name);
             }, (err) => {
                 this.loading = false;
+                console.dir(err);
                 this.emptyTable = true;
+                if (err.status === 401) {console.log('**********************'); }  // 'please relogin!'
                 console.log('====error=============');
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-                console.log(err);
             });
     }
 
