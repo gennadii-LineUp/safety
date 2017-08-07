@@ -95,6 +95,11 @@ export class UrlParams {
       // return `http://82.117.251.13/api/employee/`;
       //  return `http://api.lab.sygma-online.fr/employee/`;
     }
+    public static get tokRefresh(): string {
+      return `http://sfapi:8000/app_dev.php/token/refresh`;
+      // return `http://82.117.251.13/api/token/refresh`;
+      //  return `http://api.lab.sygma-online.fr/token/refresh`;
+    }
 
     //////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -161,6 +166,9 @@ export class UrlParams {
   //
   // public static get employeeHome(): string {
   //     return `http://api.lab.sygma-online.fr/employee/`;
+  // }
+  // public static get tokRefresh(): string {
+  //   //  return `http://api.lab.sygma-online.fr/token/refresh`;
   // }
 
 

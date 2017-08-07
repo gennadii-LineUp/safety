@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
+import {UrlParams} from "../../models/const/URL_PARAMS";
 
 @Injectable()
 export class BackendService {
@@ -85,6 +86,17 @@ export class BackendService {
             });
     }
 
+  public token_refresh(body: any): Observable<any> {
+    console.log('token_refresh()  started');
+    const headers: Headers = new Headers();
+    const refresh_token = localStorage.getItem('refresh_token');
+    const url = UrlParams.tokRefresh;
+
+    // headers.append('refresh_token', refresh_token);
+    return this.http.post(url, body, {headers: headers})
+      .map((res: Response) => <Object[]>res.json());
+    // .catch((err: Response) => this.errorHandler.handleError(err));
+  }
 
     public get(url: string): Observable<any> {
         const headers: Headers = new Headers();

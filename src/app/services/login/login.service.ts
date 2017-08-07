@@ -29,6 +29,7 @@ export class LoginService {
     public afterSuccessLogin(result: any) {
       localStorage.setItem('role', result.roles);
       localStorage.setItem('token', result.token);
+      localStorage.setItem('refresh_token', result.refresh_token);
       if (result.employeeAccess) {
         localStorage.setItem('employeeAccess', result.employeeAccess);
         localStorage.setItem('id_site', result.employeeSiteId);
