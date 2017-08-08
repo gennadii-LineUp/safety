@@ -1,7 +1,7 @@
 <header class="main-header">
   <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-      <span aria-hidden="true"></span>
+      <span></span>
     </button>
     <p>SAFETY: <span>{{errorLoad}}</span></p>
   </div>
@@ -11,7 +11,5 @@
 </header>
 <div class="main-content" style="padding-top: 20px;">
     <h2>{{siteName}}</h2>
-    <!--<div id="loadedImg" *ngIf="showImg"-->
-       <!--[ngStyle]="{'background': 'url(' + imgServer + ') no-repeat'}"></div>-->
-  <img *ngIf="showImg" [src]="imgServer" class="img-responsive" alt="site-img-min"/>
+    <img *ngIf="showImg" [src]="imgServer" class="img-responsive" alt="site-img-min"/>
 </div>
