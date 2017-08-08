@@ -390,3 +390,11 @@ div.control-group {
 .profil-form {
   float: none;
 }
+
+/*// Classes*/
+.show {
+  display: block !important;
+}
+.hidden {
+  display: none !important;
+}

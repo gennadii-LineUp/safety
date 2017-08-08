@@ -134,10 +134,6 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         this.findByNameFunction('', 1, '');
         this.getEmployeeGroupes();
         this.siteService.tableMobileViewInit();
-
-        // $(document).ready(() => {
-        //     this.datepickerRun();
-        // });
   }
   ngOnDestroy() {
     localStorage.removeItem('search_name');
@@ -800,15 +796,21 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
+  public datePicker_vgp_run() {
+    $( '#vgp' ).datepicker( 'show' );
+  }
+  public datePicker_techControl_run() {
+    $( '#techControl' ).datepicker( 'show' );
+  }
 
   datepickerRun() {
        $(() => {
             this.dataService.datepickerFranceFormat();
-            $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker();
-            $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
+            $( '#vgp, #techControl' ).datepicker();
+            $( '#vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
 
             $( '#format' ).change(function() {
-                $( '#ui-datepicker-div, #vgp, #techControl' ).datepicker( 'option', 'dateFormat', $(this).val() );
+                $( '#vgp, #techControl' ).datepicker( 'option', 'dateFormat', $(this).val() );
             });
         });
     }

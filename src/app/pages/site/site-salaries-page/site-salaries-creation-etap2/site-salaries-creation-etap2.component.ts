@@ -57,7 +57,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     checkedGroupFromEtap1: number;
 
-    loadingPhotoFilePhoto = true;
+  loadingPhotoFilePhoto = true;
     uploadedFilePhoto = false;
     contentPhoto: any;
     showImgPhoto = false;
@@ -128,10 +128,8 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.siteService.tableMobileViewInit();
         this.getEmployeeGroupes();
 
-        // $(document).ready(() => {
-           this.datepickerViewInit();
-        // });
-    }
+        this.datepickerViewInit();
+     }
 
 
     ngOnDestroy() {
@@ -570,10 +568,17 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     }
 
 
+    public datePicker_attestDelivrance_run() {
+        $( '#attest_dateDelivrance' ).datepicker( 'show' );
+    }
+    public datePicker_dateExpir_run() {
+       $( '#attest_dateExpir' ).datepicker( 'show' );
+    }
+
     public datepickerViewInit() {
      // $(document).ready(function() {
 
-       $(() => {
+      $(() => {
         this.dataService.datepickerFranceFormat();
         $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker();
         $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);

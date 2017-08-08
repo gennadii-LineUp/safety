@@ -1777,6 +1777,10 @@ th {
     margin-right: 20px;
 }
 
+#ui-datepicker-div {
+  z-index: 10000 !important;
+}
+
 /* SALARIES SITE PAGE */
 
 .salaries-site-page .main-content {

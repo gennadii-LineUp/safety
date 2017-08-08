@@ -14,20 +14,8 @@ export class ModalHeaderSPMM {}
     template: `<ng-content></ng-content>`,
   providers: [DataService]
 })
-export class ModalContentSPMM implements OnInit {
+export class ModalContentSPMM {
   constructor(public dataService: DataService) {}
-  //
-  ngOnInit() {
-  //   this.datepickerRun();
-  }
-  // public datepickerRun() {
-  //   this.dataService.datepickerFranceFormat();
-  //   $( '#vgp, #techControl' ).datepicker();
-  //   $( '#vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
-  //   $( '#format' ).change(function() {
-  //     $( '#vgp, #techControl' ).datepicker( 'option', 'dateFormat', $(this).val() );
-  //   });
-  // }
 }
 
 
@@ -44,7 +32,7 @@ export class ModalFooterSPMM {}
     styleUrls: ['./site-parc-modal-machine.component.css'],
   providers: [DataService]
 })
-export class SiteParcModalMachineComponent implements OnInit, OnDestroy { // extends SiteParcPageComponent
+export class SiteParcModalMachineComponent implements OnDestroy { // extends SiteParcPageComponent
     @Input()
     public modalClass: string;
 
@@ -94,9 +82,6 @@ export class SiteParcModalMachineComponent implements OnInit, OnDestroy { // ext
     }
 
 
-    ngOnInit() {
-        // this.datepickerRun();
-    }
     ngOnDestroy() {
         document.body.className = document.body.className.replace(/modal-open\b/, '');
         if (this.backdropElement && this.backdropElement.parentNode === document.body) {
@@ -140,15 +125,5 @@ export class SiteParcModalMachineComponent implements OnInit, OnDestroy { // ext
             this.backdropElement.classList.add('modal-backdrop');
         }
     }
-
-    // public datepickerRun() {
-    //     this.dataService.datepickerFranceFormat();
-    //     $( '#vgp, #techControl' ).datepicker();
-    //     $( '#vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
-    //
-    //     $( '#format' ).change(function() {
-    //         $( '#vgp, #techControl' ).datepicker( 'option', 'dateFormat', $(this).val() );
-    //     });
-    // }
 
 }

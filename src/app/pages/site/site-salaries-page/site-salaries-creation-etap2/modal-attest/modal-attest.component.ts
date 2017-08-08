@@ -143,18 +143,4 @@ export class SiteSalariesCreationEtap2ModalAttestComponent  {
         }
     }
 
-    public datepickerViewInit() {
-        //Datepicker Popups calender to Choose date
-        $(() => {
-            this.dataService.datepickerFranceFormat();
-            $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker();
-            $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'changeYear', true );
-            //Pass the user selected date format
-            $( '#format' ).change(() => {
-                $( '#attest_dateDelivrance, #attest_dateExpir' ).datepicker( 'option', 'dateFormat', $(this).val() );
-            });
-        });
-    }
-
-
 }

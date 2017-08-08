@@ -343,8 +343,8 @@
                     <p class="form-subheader text-center">Vérification Générale Périodique</p>
                     <div class="clearfix"></div>
                     <p>Date d’expiration* </p>
-                    <input type="text" class="datepicker-default" (click)='datepickerRun()'
-                           #vgp="ngModel" id='vgp' name='vgp'  [(ngModel)]="machine.vgp"/>  <!-- (focus)='datepickerRun()' -->
+                    <input type="text" class="datepicker-default" (click)='datepickerRun(); datePicker_vgp_run()'
+                           #vgp="ngModel" id='vgp' name='vgp'  [(ngModel)]="machine.vgp"/>
                     <div class="clearfix"></div>
 
                     <div class="vgp-upload pull-left">
@@ -369,8 +369,8 @@
                   <p class="form-subheader text-center">Contrôle technique</p>
                   <div class="clearfix"></div>
                   <p>Date d’expiration* </p>
-                  <input type="text" class="datepicker-default" (click)='datepickerRun()'
-                         #techControl="ngModel" id='techControl' name='techControl'  [(ngModel)]="machine.techControl"/>  <!-- (focus)='datepickerRun()' -->
+                  <input type="text" class="datepicker-default" (click)='datepickerRun(); datePicker_techControl_run()'
+                         #techControl="ngModel" id='techControl' name='techControl'  [(ngModel)]="machine.techControl"/>
                   <div class="clearfix"></div>
 
                   <div class="vgp-upload pull-left">
@@ -478,22 +478,6 @@
                 </button>
             </div>
       </form>
-      <script>
-        //    function datepickerRun() {
-        //      $(document).ready(function () {
-        //        //Datepicker Popups calender to Choose date
-        //        $(function () {
-        ////          $('#vgp, #techControl').datepicker();
-        //          $('#vgp, #techControl').datepicker('option', 'changeYear', true);
-        //          //Pass the user selected date format
-        //          $("#format").change(function () {
-        //            $('#vgp, #techControl').datepicker("option", "dateFormat", $(this).val());
-        //          });
-        //        });
-        //
-        //      });
-        //    }
-      </script>
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
 </site-parc-modal-machine>

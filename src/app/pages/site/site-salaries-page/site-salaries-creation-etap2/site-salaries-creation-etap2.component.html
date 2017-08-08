@@ -306,7 +306,8 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date de délivrance*</p>
-                <input type="text" class="datepicker-default"  (click)="datepickerViewInit(); datesAttestationCheckFunction()"
+                <input type="text" class="datepicker-default"
+                       (click)="datepickerViewInit(); datePicker_attestDelivrance_run(); datesAttestationCheckFunction()"
                        #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance'
                        [(ngModel)]="attestation.dateIssue"/>
                 <div class="clearfix"></div>
@@ -314,7 +315,8 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration*</p>
-                <input type="text" class="datepicker-default"  (click)="datepickerViewInit(); datesAttestationCheckFunction()"
+                <input type="text" class="datepicker-default"
+                       (click)="datepickerViewInit(); datePicker_dateExpir_run(); datesAttestationCheckFunction()"
                        #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir'
                        [(ngModel)]="attestation.dateExpires"/>
                 <div class="clearfix"></div>
