@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {CONTENT_TYPE} from '../../models/const/CONTENT_TYPE';
-import {UrlParams} from "../../models/const/URL_PARAMS";
+import {UrlParams} from '../../models/const/URL_PARAMS';
 
 @Injectable()
 export class BackendService {

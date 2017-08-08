@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
-// import { Subject } from 'rxjs/Rx';
+import {BackendService} from './backend/backend.service';
+import {ErrorMessageHandlerService} from './error/error-message-handler.service';
+import {UrlParams} from '../models/const/URL_PARAMS';
+import {Response, Http, Headers} from '@angular/http';
 declare let $: any;
 
 @Injectable()
 export class DataService {
+  errorLoad = '';
+
+  constructor(public backendService: BackendService,
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public http: Http) {}
+
 
   public datepickerFranceFormat() {
     $.datepicker.regional['fr'] = {clearText: 'Effacer', clearStatus: '',
@@ -11,15 +20,15 @@ export class DataService {
       prevText: '&lt;Préc', prevStatus: 'Voir le mois précédent',
       nextText: 'Suiv&gt;', nextStatus: 'Voir le mois suivant',
       currentText: 'Courant', currentStatus: 'Voir le mois courant',
-      monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
-        'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-      monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jun',
-        'Jul','Aoû','Sep','Oct','Nov','Déc'],
+      monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+      monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun',
+        'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
       monthStatus: 'Voir un autre mois', yearStatus: 'Voir un autre année',
       weekHeader: 'Sm', weekStatus: '',
-      dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-      dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
-      dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+      dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+      dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+      dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
       dayStatus: 'Utiliser DD comme premier jour de la semaine', dateStatus: 'Choisir le DD, MM d',
       dateFormat: 'dd/mm/yy', firstDay: 0,
       initStatus: 'Choisir la date', isRTL: false};
@@ -46,9 +55,9 @@ export class DataService {
 
   public toDateString(date: Date): string {
     return (date.getFullYear().toString() + '-'
-      + ("0" + (date.getMonth() + 1)).slice(-2) + '-'
-      + ("0" + (date.getDate())).slice(-2))
-      + 'T' + date.toTimeString().slice(0,5);
+      + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
+      + ('0' + (date.getDate())).slice(-2))
+      + 'T' + date.toTimeString().slice(0, 5);
   }
 
   public convertDateFromInputeToServer(datepicker: string): string {   // doesn't work properly, but MUST be used !
@@ -106,6 +115,70 @@ export class DataService {
     if (mm < 10) {mm = '0' + mm; }
 
     return dd + '/' + mm + '/' + (new Date(date)).getFullYear();
+  }
+
+
+
+  public refreshToken(err: any, request: any, successRequest: (result?: any) => void): void {
+   // const $this = this;
+
+    let errorMsg = '';
+    try {
+      errorMsg = JSON.parse(err._body).error;
+    } catch (error) { }
+
+    if (err.status === 401 && (errorMsg === 'Expired JWT Token' || errorMsg === 'User not found. Try to refresh access token')) {
+      const refresh = {
+        refresh_token: localStorage.getItem('refresh_token')
+      };
+
+
+      console.log('token_refresh()  started');
+      const headers: Headers = new Headers();
+      const refresh_token = localStorage.getItem('refresh_token');
+      const url = UrlParams.tokRefresh;
+
+      // headers.append('refresh_token', refresh_token);
+      let result: any;
+      this.http.post(url, refresh, {headers: headers})
+        .map((res: Response) => result = res.json());
+        // .then((result: any) => {
+        //   console.log(result);
+        //   if (result.token) {localStorage.setItem('token', result.token); }
+        //   if (result.refresh_token)  {localStorage.setItem('refresh_token', result.refresh_token); console.log('refreshed !!'); }
+        // });
+      // .catch((res: Response) => console.log(res));
+
+      console.log(result);
+      if (result.token) {localStorage.setItem('token', result.token); }
+      if (result.refresh_token)  {localStorage.setItem('refresh_token', result.refresh_token); console.log('refreshed !!'); }
+
+
+
+      // this.backendService.token_refresh(refresh).subscribe(result => {
+      //   console.log(result);
+      //   localStorage.setItem('token', result.token);
+      //   localStorage.setItem('refresh_token', result.refresh_token);
+      //   console.log(request);
+      //   console.dir(request);
+      //
+      //   request.subscribe(successRequest, (err) => {
+      //     console.log('====error=============');
+      //     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      //   });
+      //
+      // }, (err) => {
+      //   console.log(err);
+      //   this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      // });
+
+    } else {
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    }
+  }
+
+  public returnErrorLoad(): string {
+    return this.errorLoad;
   }
 
 }

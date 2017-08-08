@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProgressBarFillService} from '../../../../services/progress-bar-fill.service';
-import {ProgressBarTESTclass} from 'app/models/const/progress-bar-test-class';
 import {AdminService} from '../../../../services/admin/admin.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
+import {DataService} from '../../../../services/DataService.service';
 
 @Component({
   selector: 'admin-accueil-content',
@@ -22,7 +22,7 @@ export class AdminAccueilContentComponent implements OnInit, OnDestroy {
 
     constructor(public adminService: AdminService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public progressBarFillService: ProgressBarFillService) {}
+                public dataService: DataService) {}
 
     ngOnInit(): void {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
@@ -32,44 +32,32 @@ export class AdminAccueilContentComponent implements OnInit, OnDestroy {
         window.document.querySelectorAll('ul li:first-child')['0'].classList.remove('active');
     }
 
-    getProgressBarValues(): void {
-      // this.progressBarFillService.get().then(values => this.progressBarValues = values);
 
-        this.adminService.homeData()
-            .subscribe(result => {
-                    this.loading = false;
-                    this.progressBarValues = [
-                        {name: 'clients', value: 0},
-                        {name: 'sites', value: 0},
-                        {name: 'employees', value: 0}
-                    ];
+  getProgressBarValues(): void {
+    const request = this.adminService.homeData();
 
-                    console.log('======result============');
-                   // console.log(typeof result);
-                    console.log(result);
-                    this.progressBarValues[0].value = result.clients;
-                    this.progressBarValues[1].value = result.sites;
-                    this.progressBarValues[2].value = result.employees;
-            }, (err) => {
-               // let error = (JSON.parse(err._body)).errors;
-                console.log('====error=============');
-                this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    const this_new = this;
 
-                //
-                // let errorStatusKnown = this.errorMessageHandlerService.checkErrorStatus(err);
-                // if (errorStatusKnown) {
-                //     this.errorLoad = errorStatusKnown;
-                //     return;
-                // }
-                //
-                // this.errorLoad = err;
-                // console.log(err);
+    const successRequest = (result: any): void => {
+      this.loading = false;
+      this.progressBarValues = [
+        {name: 'clients', value: 0},
+        {name: 'sites', value: 0},
+        {name: 'employees', value: 0}
+      ];
+      console.log('======result============');
+      console.log(result);
+      this.progressBarValues[0].value = result.clients;
+      this.progressBarValues[1].value = result.sites;
+      this.progressBarValues[2].value = result.employees;
+    };
 
-                //     this.errorCreating = this.errorMessageHandlerService.errorHandler(error);
-                // this.loading = false;
-            });
 
-    }
-
+    request
+      .subscribe(successRequest, (err) => {
+          this.dataService.refreshToken.call(this_new, err, request, successRequest);
+          this.errorLoad = this.dataService.returnErrorLoad();
+      });
+  }
 
 }
