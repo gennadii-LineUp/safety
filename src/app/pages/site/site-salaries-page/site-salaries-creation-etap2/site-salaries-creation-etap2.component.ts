@@ -129,7 +129,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.getEmployeeGroupes();
 
         // $(document).ready(() => {
-        //   this.datepickerViewInit();
+           this.datepickerViewInit();
         // });
     }
 

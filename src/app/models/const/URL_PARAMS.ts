@@ -1,175 +1,75 @@
 export class UrlParams {
 
-    public static get LOGIN(): string {
-        return `http://sfapi:8000/app_dev.php/login`;
-      //  return `http://82.117.251.13/api/login`;
-      //  return `http://api.lab.sygma-online.fr/login`;
-    }
-    public static get resetPassword(): string {
-      return `http://sfapi:8000/app_dev.php/reset_password`;
-      //  return `http://82.117.251.13/api/reset_password`;
-      //  return `http://api.lab.sygma-online.fr/reset_password`;
-    }
-
-    public static get adminClients(): string {
-        return `http://sfapi:8000/app_dev.php/admin/clients`;
-        // return `http://82.117.251.13/api/admin/clients`;
-        //  return `http://api.lab.sygma-online.fr/admin/clients`;
-    }
-
-    public static get adminClientHome(): string {
-        return `http://sfapi:8000/app_dev.php/admin/clients/`;
-        // return `http://82.117.251.13/api/admin/clients/`;
-        //  return `http://api.lab.sygma-online.fr/admin/clients/`;
-    }
-
-    public static get adminReglages(): string {
-        return `http://sfapi:8000/app_dev.php/admin/settings`;
-        // return `http://82.117.251.13/api/admin/settings`;
-        //  return `http://api.lab.sygma-online.fr/admin/settings`;
-    }
-
-    public static get monCompteFormationLink(): string {
-      return `http://sfapi:8000/app_dev.php/mon_compte_formation_link`;
-      // return `http://82.117.251.13/api/mon_compte_formation_link`;
-      //  return `http://api.lab.sygma-online.fr/mon_compte_formation_link`;
-    }
-
-    public static get adminHome(): string {
-        return `http://sfapi:8000/app_dev.php/admin/home`;
-      //  return `http://82.117.251.13/api/admin/home`;
-      //  return `http://api.lab.sygma-online.fr/admin/home`;
-    }
-
-    public static get adminLink(): string {
-        return `http://sfapi:8000/app_dev.php/library_links`;
-        //  return `http://82.117.251.13/api/library_links`;
-        //  return `http://api.lab.sygma-online.fr/library_links`;
-    }
+  private static baseUrl = 'http://sfapi:8000/app_dev.php/';
+  // private static baseUrl = 'http://82.117.251.13/api/';
+  // private static baseUrl = 'http://api.lab.sygma-online.fr/';
 
 
-    public static get clientSites(): string {
-        return `http://sfapi:8000/app_dev.php/sites`;
-      //  return `http://82.117.251.13/api/sites`;
-      //  return `http://api.lab.sygma-online.fr/sites`;
-    }
+  public static get LOGIN(): string {
+    return UrlParams.baseUrl + `login`;
+  }
+  public static get resetPassword(): string {
+    return UrlParams.baseUrl + `reset_password`;
+  }
 
-    public static get employeesGroupsList(): string {
-        return `http://sfapi:8000/app_dev.php/client/employees-groups-list`;
-        //  return `http://82.117.251.13/api/client/employees-groups-list`;
-        //  return `http://api.lab.sygma-online.fr/client/employees-groups-list`;
-    }
+  public static get adminClients(): string {
+    return UrlParams.baseUrl + `admin/clients`;
+  }
 
-    public static get clientGroupes(): string {
-        return `http://sfapi:8000/app_dev.php/client/employees-groups`;
-      //  return `http://82.117.251.13/api/client/employees-groups`;
-      //  return `http://api.lab.sygma-online.fr/client/employees-groups`;
-    }
+  public static get adminClientHome(): string {
+    return UrlParams.baseUrl + `admin/clients/`;
+  }
 
-    public static get clientEmployees(): string {
-        return `http://sfapi:8000/app_dev.php/client/employees`;
-        //   return `http://82.117.251.13/api/client/employees`;
-        //  return `http://api.lab.sygma-online.fr/client/employees`;
-    }
+  public static get adminReglages(): string {
+    return UrlParams.baseUrl + `admin/settings`;
+  }
 
-    public static get employeeCount(): string {
-        return `http://sfapi:8000/app_dev.php/client/employee_count`;
-        //   return `http://82.117.251.13/api/client/employee_count`;
-        //  return `http://api.lab.sygma-online.fr/client/employee_count`;
-    }
+  public static get monCompteFormationLink(): string {
+    return UrlParams.baseUrl + `mon_compte_formation_link`;
+  }
 
-    public static get clientProfilData(): string {
-        return `http://sfapi:8000/app_dev.php/client/profile`;
-       // return `http://82.117.251.13/api/client/profile`;
-       //  return `http://api.lab.sygma-online.fr/client/profile`;
-    }
+  public static get adminHome(): string {
+    return UrlParams.baseUrl + `admin/home`;
+  }
 
-    public static get siteHome(): string {
-        return `http://sfapi:8000/app_dev.php/sites/`;
-        // return `http://82.117.251.13/api/sites/`;
-        //  return `http://api.lab.sygma-online.fr/sites/`;
-    }
+  public static get adminLink(): string {
+    return UrlParams.baseUrl + `library_links`;
+  }
 
-    public static get employeeHome(): string {
-      return `http://sfapi:8000/app_dev.php/employee/`;
-      // return `http://82.117.251.13/api/employee/`;
-      //  return `http://api.lab.sygma-online.fr/employee/`;
-    }
-    public static get tokRefresh(): string {
-      return `http://sfapi:8000/app_dev.php/token/refresh`;
-      // return `http://82.117.251.13/api/token/refresh`;
-      //  return `http://api.lab.sygma-online.fr/token/refresh`;
-    }
 
-    //////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////
-  //
-  // public static get LOGIN(): string {
-  //     return `http://api.lab.sygma-online.fr/login`;
-  // }
-  //
-  // public static get resetPassword(): string {
-  //      return `http://api.lab.sygma-online.fr/reset_password`;
-  // }
-  //
-  // public static get adminClients(): string {
-  //     return `http://api.lab.sygma-online.fr/admin/clients`;
-  // }
-  //
-  // public static get adminClientHome(): string {
-  //     return `http://api.lab.sygma-online.fr/admin/clients/`;
-  // }
-  //
-  // public static get adminReglages(): string {
-  //     return `http://api.lab.sygma-online.fr/admin/settings`;
-  // }
-  //
-  // public static get monCompteFormationLink(): string {
-  //     return `http://api.lab.sygma-online.fr/mon_compte_formation_link`;
-  // }
-  //
-  // public static get adminHome(): string {
-  //     return `http://api.lab.sygma-online.fr/admin/home`;
-  // }
-  //
-  // public static get adminLink(): string {
-  //     return `http://api.lab.sygma-online.fr/library_links`;
-  // }
-  //
-  // public static get clientSites(): string {
-  //     return `http://api.lab.sygma-online.fr/sites`;
-  // }
-  //
-  // public static get employeesGroupsList(): string {
-  //     return `http://api.lab.sygma-online.fr/client/employees-groups-list`;
-  // }
-  //
-  // public static get clientGroupes(): string {
-  //     return `http://api.lab.sygma-online.fr/client/employees-groups`;
-  // }
-  //
-  // public static get clientEmployees(): string {
-  //     return `http://api.lab.sygma-online.fr/client/employees`;
-  // }
-  //
-  // public static get employeeCount(): string {
-  //     return `http://api.lab.sygma-online.fr/client/employee_count`;
-  // }
-  //
-  // public static get clientProfilData(): string {
-  //     return `http://api.lab.sygma-online.fr/client/profile`;
-  // }
-  //
-  // public static get siteHome(): string {
-  //     return `http://api.lab.sygma-online.fr/sites/`;
-  // }
-  //
-  // public static get employeeHome(): string {
-  //     return `http://api.lab.sygma-online.fr/employee/`;
-  // }
-  // public static get tokRefresh(): string {
-  //   //  return `http://api.lab.sygma-online.fr/token/refresh`;
-  // }
+  public static get clientSites(): string {
+    return UrlParams.baseUrl + `sites`;
+  }
 
+  public static get employeesGroupsList(): string {
+    return UrlParams.baseUrl + `client/employees-groups-list`;
+  }
+
+  public static get clientGroupes(): string {
+    return UrlParams.baseUrl + `client/employees-groups`;
+  }
+
+  public static get clientEmployees(): string {
+    return UrlParams.baseUrl + `client/employees`;
+  }
+
+  public static get employeeCount(): string {
+    return UrlParams.baseUrl + `client/employee_count`;
+  }
+
+  public static get clientProfilData(): string {
+    return UrlParams.baseUrl + `client/profile`;
+  }
+
+  public static get siteHome(): string {
+    return UrlParams.baseUrl + `sites/`;
+  }
+
+  public static get employeeHome(): string {
+    return UrlParams.baseUrl + `employee/`;
+  }
+  public static get tokRefresh(): string {
+    return UrlParams.baseUrl + `token/refresh`;
+  }
 
 }

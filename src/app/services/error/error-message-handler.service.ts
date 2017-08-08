@@ -19,7 +19,7 @@ export class ErrorMessageHandlerService {
     public checkErrorStatus(err: any): any {
         if (err.status === 401) {return 'veuillez reloguer!'; }  // 'please relogin!'
         if (err.status === 404) {return "Il n'y a pas de données. Créez-le d'abord."; }
-        if (err.status === 500) {return 'problems with connection to server... verify your internet!'; }
+     //   if (err.status === 500) {return 'problems with connection to server... verify your internet!'; }
         if (err.status === 0) {return 'problems with connection to server... verify your internet!'; }
 
         let error: any;
