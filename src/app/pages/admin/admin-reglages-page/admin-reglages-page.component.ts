@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import {AdminReglagesClass} from '../../../models/const/admin-reglages-class';
 import {AdminService} from '../../../services/admin/admin.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
-import {NgForm} from '@angular/forms';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'admin-reglages-page',
   templateUrl: './admin-reglages-page.component.html',
   styleUrls: ['./admin-reglages-page.component.css'],
-    providers: [AdminService, ErrorMessageHandlerService]
+    providers: [AdminService, ErrorMessageHandlerService, BackendService]
 })
-export class AdminReglagesPageComponent implements OnInit {
+export class AdminReglagesPageComponent extends BasePageComponent implements OnInit {
     loading = false;
     loadingGroupes = true;
-    noGroups = false;
     loaded = false;
     errorCreating = '';
     successCreating = '';
@@ -26,7 +26,9 @@ export class AdminReglagesPageComponent implements OnInit {
 
 
     constructor(public adminService: AdminService,
-                public errorMessageHandlerService: ErrorMessageHandlerService) {}
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public backendService: BackendService) { super(); }
+
 
     ngOnInit() {
         this.getExistingReglages();
@@ -35,8 +37,7 @@ export class AdminReglagesPageComponent implements OnInit {
     public getExistingReglages() {
         this.loading = true;
 
-        this.adminService.getExistingReglages()
-            .subscribe(result => {
+        this.doRequest(this.adminService, 'getExistingReglages', null, result => {
                     this.loading = false;
                     this.reglages.monCompteFormationLink = result.monCompteFormationLink;
                     this.reglages.notificationEmails = result.notificationEmails.join(', ');
@@ -52,8 +53,7 @@ export class AdminReglagesPageComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        this.adminService.updateReglages(this.reglages)
-            .subscribe(result => {
+        this.doRequest(this.adminService, 'updateReglages', [this.reglages], result => {
                     this.loading = false;
                     this.successCreating = 'Bien joué! Vous avez mis à jour vos paramètres.';
             }, (err) => {
@@ -67,7 +67,7 @@ export class AdminReglagesPageComponent implements OnInit {
         this.reglages = this.defaultReglages;
     }
 
-  public cancellErrorMessage() {
+    public cancellErrorMessage() {
         this.loading = false;
         this.errorLoad = '';
     }
@@ -75,6 +75,4 @@ export class AdminReglagesPageComponent implements OnInit {
         this.loading = false;
         this.successCreating = '';
     }
-
-
 }

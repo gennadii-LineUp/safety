@@ -5,14 +5,16 @@ import {AdminBibliothequeClass} from '../../../models/const/admin-biblioth-class
 import {Router} from '@angular/router';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
+import {BasePageComponent} from '../../base/base-page.component';
+import {BackendService} from '../../../services/backend/backend.service';
 
 @Component({
   selector: 'app-admin-bibliotheque-page',
   templateUrl: './admin-bibliotheque-page.component.html',
   styleUrls: ['./admin-bibliotheque-page.component.css'],
-    providers: [ AdminService, PaginationService, TableSortService]
+    providers: [ AdminService, PaginationService, TableSortService, BackendService ]
 })
-export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
+export class AdminBibliothequePageComponent extends BasePageComponent implements OnInit, OnDestroy {
     loading = true;
     creating = false;
     errorLoad = '';
@@ -40,17 +42,12 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
 
     adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
 
-    //  AdminBibliothequeClass
-    // name: string;
-    // description: string;
-    // link: string;
-
-
     constructor(public adminService: AdminService,
                 public paginationService: PaginationService,
                 public tableSortService: TableSortService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public router: Router) { }
+                public router: Router,
+                public backendService: BackendService) { super(); }
 
     ngOnInit() {
         this.loading = true;
@@ -91,7 +88,6 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
             sortingDirection = '-'; // up
         }
 
-        // let input_findClientByName = window.document.getElementsByClassName('search-input')['0'].value;
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
     }
 
@@ -112,8 +108,7 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
             _name = localStorage.adminLinkSearch_name;
         }
 
-        this.adminService.findLinksByName(_name, page, sort)
-            .subscribe(result => {
+        this.doRequest(this.adminService, 'findLinksByName', [_name, page, sort], result => {
                     this.cancellMessages();
 
                     console.log(result);
@@ -144,8 +139,7 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
         this.creating = true;
         this.adminBibliotheque = new AdminBibliothequeClass('', '', '');
 
-        this.adminService.getLinkForUpdate('/' + id_itemForUpdate)
-            .subscribe(result => {
+        this.doRequest(this.adminService, 'getLinkForUpdate', ['/' + id_itemForUpdate], result => {
                     this.creating = false;
                     console.log(result);
                     this.adminBibliotheque.name = result.name;
@@ -170,8 +164,7 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
         this.cancellMessages();
         this.creating = true;
 
-        this.adminService.saveLink(this.adminBibliotheque, urlOption)
-            .subscribe(result => {
+        this.doRequest(this.adminService, 'saveLink', [this.adminBibliotheque, urlOption], result => {
                     this.creating = false;
                     console.log(result);
                     this.successCreating = 'Well done! Link is saved.';
@@ -191,8 +184,7 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.emptyTable = false;
 
-        this.adminService.deleteLink('/' + id_itemForDelete)
-            .subscribe(result => {
+        this.doRequest(this.adminService, 'deleteLink', ['/' + id_itemForDelete], result => {
                     this.cancellMessages();
                     console.log(result);
                     this.ngOnInit();
@@ -203,7 +195,7 @@ export class AdminBibliothequePageComponent implements OnInit, OnDestroy {
             });
     }
 
-    openLinkInNewWindowFunction(link) {
+    public openLinkInNewWindowFunction(link) {
         window.open(link, '_blank');
     }
 
