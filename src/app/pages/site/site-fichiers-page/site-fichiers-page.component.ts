@@ -5,21 +5,21 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {FichiersClass} from '../../../models/const/site-fichiers-class';
 import {ClientService} from '../../../services/client/client.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'site-fichiers-page',
   templateUrl: './site-fichiers-page.component.html',
   styleUrls: ['./site-fichiers-page.component.css'],
-    providers: [SiteService, ClientService, TableSortService, PaginationService]
+    providers: [SiteService, ClientService, TableSortService, PaginationService, BackendService ]
 })
-export class SiteFichiersPageComponent implements OnInit, OnDestroy {
+export class SiteFichiersPageComponent extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
     loadingGroupes = true;
     creating = false;
-    loadingSalarieUsed = false;
     loaded = false;
-    loadedSalarieUsed = false;
     errorLoad = '';
     errorSalaries = '';
     errorCreating = '';
@@ -69,9 +69,10 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
                public clientService: ClientService,
                public errorMessageHandlerService: ErrorMessageHandlerService,
                public paginationService: PaginationService,
-               public tableSortService: TableSortService) {}
+               public tableSortService: TableSortService,
+               public backendService: BackendService) { super(); }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
         this.id_site = localStorage.id_site;
         this.findFichiersByNameFunction('', 1, '', '');
         this.siteService.tableMobileViewInit();
@@ -87,8 +88,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
   public getEmployeeGroupes() {
     this.cancellMessages();
     this.loadingGroupes = true;
-    this.clientService.getGroupList()
-      .subscribe(result => {
+    this.doRequest(this.clientService, 'getGroupList', null, result => {
           this.loadingGroupes = false;
           this.employeeGroupes = result;
       }, (err) => {
@@ -151,8 +151,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     }
     this.activePage = page;
 
-    this.siteService.findFichiersByName(_name, page, this.id_site, sort)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'findFichiersByName', [_name, page, this.id_site, sort], result => {
           if (message) {this.successCreating = message; }
           this.original_fichiers = result.items;
           this.loading = false;
@@ -221,8 +220,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
       this.saveButtonCaption = 'Modifier';
     }
     this.loadingFile = true;
-    this.siteService.sendFileToServer(this.file, this.content, this.id_site, urlOption)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'sendFileToServer', [this.file, this.content, this.id_site, urlOption], result => {
           console.log(result);
           this.loadingFile = false;
           this.uploadedFile = true;
@@ -252,8 +250,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     }
     this.cancellMessages();
     this.creating = true;
-    this.siteService.addFichier(this.newFichier, this.id_site, this.id_fichier)
-              .subscribe(result => {
+    this.doRequest(this.siteService, 'addFichier', [this.newFichier, this.id_site, this.id_fichier], result => {
                   this.findFichiersByNameFunction('', 1, '', 'Vos modifications sont enregistrées.');
                   console.log(result);
                   // modal close /////////
@@ -312,8 +309,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     //   return obj.id === id_itemForUpdate;
     // }))[0];
 
-    this.siteService.getOneFichier(this.id_site, id_itemForUpdate)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getOneFichier', [this.id_site, id_itemForUpdate], result => {
           this.creating = false;
           console.log(result);
           this.newFichier.name = result.name;
@@ -342,8 +338,7 @@ export class SiteFichiersPageComponent implements OnInit, OnDestroy {
     this.cancellMessages();
     this.loading = true;
     this.emptyTable = false;
-    this.siteService.deleteFichier(this.id_site, id_itemForDelete)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'deleteFichier', [this.id_site, id_itemForDelete], result => {
           this.loading = false;
           console.log(result);
           this.findFichiersByNameFunction(this.searchName, this.activePage, '', '');

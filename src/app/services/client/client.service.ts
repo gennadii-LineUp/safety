@@ -41,7 +41,7 @@ export class ClientService {
 
     public findGroupeByName(name: string, page: any, sort: string): Observable<any> {
         const query = '?q=' + name + sort + '&page=' + page;
-        return this.backendService._get(UrlParams.clientGroupes + query);
+        return this.backendService.get(UrlParams.clientGroupes + query);
     }
 
     public addNewGroupe(newGroupe: any, urlOption: string): Observable<any> {

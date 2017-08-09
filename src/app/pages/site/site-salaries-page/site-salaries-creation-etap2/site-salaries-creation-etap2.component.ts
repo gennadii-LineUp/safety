@@ -10,15 +10,17 @@ import {TableSortService} from '../../../../services/table-sort.service';
 import {DrivingLicenseClass} from '../../../../models/const/driving-license-class';
 import {DataService} from '../../../../services/DataService.service';
 import {MachinesGlossary} from '../../../../models/const/machine-categorie';
+import {BackendService} from '../../../../services/backend/backend.service';
+import {BasePageComponent} from '../../../base/base-page.component';
 declare var $: any;
 
 @Component({
   selector: 'app-site-salaries-creation-etap2',
   templateUrl: './site-salaries-creation-etap2.component.html',
   styleUrls: ['./site-salaries-creation-etap2.component.css'],
-    providers: [SiteService, ClientService, TableSortService, MachinesGlossary, DataService]
+    providers: [SiteService, ClientService, TableSortService, MachinesGlossary, DataService, BackendService ]
 })
-export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
+export class SiteSalariesCreationEtap2Component extends BasePageComponent implements OnInit, OnDestroy {
     loading = false;
     loadingDatesAutorisations = true;
     loadingAttestations = true;
@@ -117,10 +119,10 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                 public router: Router,
                 public tableSortService: TableSortService,
                 public machinesGlossary: MachinesGlossary,
-                public dataService: DataService) { }
+                public dataService: DataService,
+                public backendService: BackendService) { super(); }
 
-
-    ngOnInit(): void {
+  ngOnInit(): void {
         this.id_site = localStorage.id_site;
         this.id_salarie = localStorage.id_salarie;
 
@@ -198,8 +200,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     public getEmployeeFromEtap1Function() {
         // this.siteService.lightActiveMenu();
         this.loading = true;
-        this.siteService.getEmployeeFromEtap1(this.id_site, this.id_salarie)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'getEmployeeFromEtap1', [this.id_site, this.id_salarie], result => {
                     this.loading = false;
                     console.log(result);
                     this.employees.name = result.name;
@@ -239,8 +240,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
     public getEmployeeGroupes() {
         this.loadingGroupes = true;
-        this.clientService.getGroupList()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'getGroupList', null, result => {
                   console.log(result);
                     this.loadingGroupes = false;
                     this.cancellErrorMessage();
@@ -281,8 +281,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
         console.dir(employeeDates);
 
-        this.siteService.updateEmployee(employeeDates, this.id_site, this.id_salarie)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'updateEmployee', [employeeDates, this.id_site, this.id_salarie], result => {
                     this.loading = false;
                     console.log(result);
                     this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
@@ -327,8 +326,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                                                 this.dataService.convertDateFromInputeToServer(dateExpires));
         console.dir(attestation);
 
-        this.siteService.setAttestation(attestation, this.id_site, this.id_salarie, urlOption)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'setAttestation', [attestation, this.id_site, this.id_salarie, urlOption], result => {
                   let attestation_id: number;
                   attestation_id = result.id;
                   if (this.itemForChange) {attestation_id = this.itemForChange; }
@@ -421,8 +419,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
         console.log(visites);
 
-        this.siteService.addMedicaleCacesDates(visites, this.id_site, this.id_salarie)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'addMedicaleCacesDates', [visites, this.id_site, this.id_salarie], result => {
                     this.loading = false;
                     console.log(result);
                     // this.successCreating = "Well done! You've saved MedicaleCacesDates.";
@@ -458,8 +455,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     this.loadingDatesAutorisations = true;
     this.visites = new VisitesClass('', '');
 
-    this.siteService.getMedicaleCacesDates(this.id_site, this.id_salarie)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getMedicaleCacesDates', [this.id_site, this.id_salarie], result => {
           console.log('====MedicaleCacesDates from server:');
           console.dir(result);
           this.loadingDatesAutorisations = false;
@@ -481,8 +477,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
   public getAttestations(sort: string) {
         this.loadingAttestations = true;
-        this.siteService.getAttestations(this.id_site, this.id_salarie, sort)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'getAttestations', [this.id_site, this.id_salarie, sort], result => {
                     console.log(result.items);
                     this.loadingAttestations = false;
                     this.employeeAttestations = result.items;
@@ -505,8 +500,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
         this.attestation = new AttestationClass('', '', '');
         console.log(id_itemForUpdate);
 
-        this.siteService.getOneAttestation(this.id_site, this.id_salarie, '/' + id_itemForUpdate)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'getOneAttestation', [this.id_site, this.id_salarie, '/' + id_itemForUpdate], result => {
                     this.creatingAttest = false;
                     console.log(result);
                     this.attestation.name = result.name;
@@ -526,8 +520,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     public deleteAttestFunction(id_itemForDelete: number) {
         this.loadingAttestations = true;
         this.emptyTable = false;
-        this.siteService.deleteAttestation(this.id_site, this.id_salarie, '/' + id_itemForDelete)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'deleteAttestation', [this.id_site, this.id_salarie, '/' + id_itemForDelete], result => {
                     this.cancellErrorMessage();
                     console.log(result);
                     this.getAttestations('');
@@ -649,8 +642,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
       this.drivingLicense.categories = this.drivingLicense.categories.sort((a, b) => a - b);
       console.log(this.drivingLicense);
 
-      this.siteService.setCategoryDrivingLicense(this.drivingLicense, this.id_site, this.id_salarie, urlOption)
-        .subscribe(result => {
+      this.doRequest(this.siteService, 'setCategoryDrivingLicense', [this.drivingLicense, this.id_site, this.id_salarie, urlOption], result => {
             console.log(result);
             this.getDrivingLicenses('');
             this.setEmptyDrivingLicense();
@@ -671,8 +663,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
 
   public getDrivingLicenses(sort: string) {
     this.loadingDrLicences = true;
-    this.siteService.getDrivingLicenses(this.id_site, this.id_salarie, sort)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getDrivingLicenses', [this.id_site, this.id_salarie, sort], result => {
           console.log(result);
           this.loadingDrLicences = false;
           this.drivingLicenses = result.items;
@@ -716,8 +707,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     console.log(id_itemForUpdate);
     this.activeSelect = '' + activeSelect;
 
-    this.siteService.getOneDrLicense(this.id_site, this.id_salarie, id_itemForUpdate)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getOneDrLicense', [this.id_site, this.id_salarie, id_itemForUpdate], result => {
           this.creatingDrivingLicense = false;
           console.log(result);
           this.saveButtonCaption_DrLicense = 'Modifier';
@@ -736,8 +726,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
     this.loadingDrLicences = true;
     this.emptyTable_drLicences = false;
     console.log(id_itemForDelete);
-    this.siteService.deleteDrLicense(this.id_site, this.id_salarie, '/' + id_itemForDelete)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'deleteDrLicense', [this.id_site, this.id_salarie, '/' + id_itemForDelete], result => {
           this.loadingDrLicences = false;
           this.cancellErrorMessage();
           console.log(result);
@@ -829,8 +818,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
   public getFromServerProfileImageFunction() {
     this.loadingPhotoFilePhoto = true;
     this.uploadedFilePhoto = false;
-    this.siteService.getFromServerEmplImage(this.id_site, this.id_salarie)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getFromServerEmplImage', [this.id_site, this.id_salarie], result => {
           this.loadingPhotoFilePhoto = false;
           this.showImgPhoto = true;
           const src = 'data:' + result.contentType + ';base64,';

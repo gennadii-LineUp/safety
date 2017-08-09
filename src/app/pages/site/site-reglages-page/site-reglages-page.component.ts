@@ -8,14 +8,16 @@ import {SiteReglagesClass} from '../../../models/const/site-reglages-class';
 import {EmployeeAdminGuard} from '../../../guards/employee-admin-guard.service';
 import {ClientGuard} from '../../../guards/client-guard.service';
 import {EmployeesSettingAccessClass} from '../../../models/const/employee-setting-access-class';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'site-reglages-page',
   templateUrl: './site-reglages-page.component.html',
   styleUrls: ['./site-reglages-page.component.css'],
-    providers: [SiteService, AuthGuard, AdminGuard, TableSortService]
+    providers: [SiteService, AuthGuard, AdminGuard, TableSortService, BackendService ]
 })
-export class SiteReglagesPageComponent implements OnInit {
+export class SiteReglagesPageComponent  extends BasePageComponent implements OnInit {
     loading = false;
     loadingResponsables = false;
     successUpdate = '';
@@ -31,12 +33,9 @@ export class SiteReglagesPageComponent implements OnInit {
     id_site =  0;
 
     siteReglages = new SiteReglagesClass('', '', '', '', '', false, false, false, false, false, false, '', '');
-    siteReglages_copy = new SiteReglagesClass('', '', '', '', '', false, false, false, false, false, false, '', '');
 
     emptyTableMobile = true;
-    loadingSalarieUsed = false;
     loaded = false;
-    loadedSalarieUsed = false;
     errorSalaries = '';
     errorCreating = '';
     successCreating = '';
@@ -79,7 +78,8 @@ export class SiteReglagesPageComponent implements OnInit {
               public clientGuard: ClientGuard,
               public siteService: SiteService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public tableSortService: TableSortService) {}
+              public tableSortService: TableSortService,
+              public backendService: BackendService) { super(); }
 
   ngOnInit() {
       this.verifyUserRole();
@@ -102,8 +102,7 @@ export class SiteReglagesPageComponent implements OnInit {
     this.loading = true;
     this.emptyTable = false;
 
-    this.siteService.getReglages(this.id_site)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getReglages', [this.id_site], result => {
           this.getResponsablesFunction('');
           this.loading = false;
           console.log(result);
@@ -139,8 +138,7 @@ export class SiteReglagesPageComponent implements OnInit {
     this.cancellMessages();
     this.loadingResponsables = true;
     this.emptyTable_responsables = false;
-    this.siteService.getResponsables(this.id_site, sort)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getResponsables', [this.id_site, sort], result => {
           this.loadingResponsables = false;
           console.log(result);
           this.employee_responsables = result.items;
@@ -182,8 +180,7 @@ export class SiteReglagesPageComponent implements OnInit {
     this.loadingResponsables = true;
     this.emptyTable = false;
     console.log(id_itemForDelete);
-    this.siteService.deleteResponsable(this.id_site, id_itemForDelete)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'deleteResponsable', [this.id_site, id_itemForDelete], result => {
           this.cancellMessages();
           console.log(result);
           this.getResponsablesFunction('');
@@ -201,8 +198,7 @@ export class SiteReglagesPageComponent implements OnInit {
       this.emptyTable = false;
       this.siteReglages.notificationEmails = (<HTMLInputElement>window.document.querySelectorAll('#notificationEmails')[0]).value;
 
-      this.siteService.addNewReglages(this.siteReglages, this.id_site)
-        .subscribe(result => {
+      this.doRequest(this.siteService, 'addNewReglages', [this.siteReglages, this.id_site], result => {
             this.loading = false;
             console.log(result);
             this.successUpdate = 'Bravo! Vos modifications sont enregistrées.';
@@ -225,8 +221,7 @@ export class SiteReglagesPageComponent implements OnInit {
     if (name === 'lineUp') {
       _name = localStorage.siteEmployeeSearch_name;
     }
-    this.siteService.findEmployeeByName(_name, page, this.id_site, sort)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'findEmployeeByName', [_name, page, this.id_site, sort], result => {
           this.loading = false;
           console.log(result);
           this.employee_fromSearch = result.items;
@@ -277,8 +272,7 @@ export class SiteReglagesPageComponent implements OnInit {
     }
 
     console.log(employeeAccess);
-    this.siteService.addEmployeeAccess(employeeAccess, this.id_site, urlOption)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'addEmployeeAccess', [employeeAccess, this.id_site, urlOption], result => {
           // modal close /////////
           const _modal = document.getElementById('myModal').firstElementChild;
           _modal.classList.add('hidden');
@@ -339,8 +333,7 @@ export class SiteReglagesPageComponent implements OnInit {
   public getFromServerProfileImageFunction() {
     this.loadingFile = true;
     this.uploadedFile = false;
-    this.siteService.getFromServerProfileImage(this.id_site)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getFromServerProfileImage', [this.id_site], result => {
           this.loadingFile = false;
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';

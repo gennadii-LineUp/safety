@@ -6,14 +6,16 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 import {EmployeesClass} from '../../../models/const/employees-class';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ClientService} from '../../../services/client/client.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'site-salaries-page',
   templateUrl: './site-salaries-page.component.html',
   styleUrls: ['./site-salaries-page.component.css'],
-    providers: [ClientService, SiteService, PaginationService, TableSortService]
+    providers: [ClientService, SiteService, PaginationService, TableSortService, BackendService ]
 })
-export class SiteSalariesPageComponent implements OnInit, OnDestroy {
+export class SiteSalariesPageComponent extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
     loaded = false;
@@ -55,9 +57,10 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
               public errorMessageHandlerService: ErrorMessageHandlerService,
               public paginationService: PaginationService,
               public router: Router,
-              public tableSortService: TableSortService) { }
+              public tableSortService: TableSortService,
+              public backendService: BackendService) { super(); }
 
-    ngOnInit() {
+  ngOnInit() {
         this.id_site = localStorage.id_site;
         console.log('get from LS ' + this.id_site);
         this.checkFreeSalarieAccount();
@@ -104,8 +107,7 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
         }
         this.activePage = page;
 
-        this.siteService.findEmployeeByName(_name, page, this.id_site, sort)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'findEmployeeByName', [_name, page, this.id_site, sort], result => {
                     this.loading = false;
 
                     console.log(result);
@@ -134,8 +136,7 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
     }
 
     public checkFreeSalarieAccount() {
-        this.clientService.employeeCount()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'employeeCount', null, result => {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
                     if (this.salariesMaxPossible === this.salariesUsed) {
@@ -156,8 +157,7 @@ export class SiteSalariesPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.emptyTable = false;
 
-        this.siteService.deleteEmployee(this.id_site, id_itemForDelete)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'deleteEmployee', [this.id_site, id_itemForDelete], result => {
                     this.loading = false;
                     console.log(result);
                     this.checkFreeSalarieAccount();

@@ -7,6 +7,8 @@ import {PaginationService} from '../../../services/pagination/pagination.service
 import {MachineClass} from '../../../models/const/machine-class';
 import {MachinesGlossary} from '../../../models/const/machine-categorie';
 import {ClientService} from '../../../services/client/client.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 declare var $: any;
 
 export class OtherFileClass {
@@ -20,9 +22,9 @@ export class OtherFileClass {
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
   styleUrls: ['./site-parc-page.component.css'],
-    providers: [SiteService, ClientService, TableSortService, DataService, PaginationService, MachinesGlossary]
+    providers: [SiteService, ClientService, TableSortService, DataService, PaginationService, MachinesGlossary, BackendService]
 })
-export class SiteParcPageComponent implements OnInit, OnDestroy {
+export class SiteParcPageComponent  extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
     loadingGroupes = false;
@@ -126,7 +128,8 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                 public dataService: DataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public paginationService: PaginationService,
-                public machinesGlossary: MachinesGlossary) {}
+                public machinesGlossary: MachinesGlossary,
+                public backendService: BackendService) { super(); }
 
   ngOnInit() {
         this.id_site = localStorage.id_site;
@@ -183,8 +186,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.activePage = page;
     this.searchName = _name;
 
-    this.siteService.findMachineByName(_name, page, this.id_site, sort)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'findMachineByName', [_name, page, this.id_site, sort], result => {
           console.log(result);
           this.loading = false;
           this.machines = result.items;
@@ -241,8 +243,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   public getEmployeeGroupes() {
     this.loadingGroupes = true;
-    this.clientService.getGroupList()
-      .subscribe(result => {
+    this.doRequest(this.clientService, 'getGroupList', null, result => {
           console.log(result);
           this.loadingGroupes = false;
           this.employeeGroupes = result;
@@ -307,8 +308,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
                                       false, false, [], 0);
     console.log(_machine);
 
-    this.siteService.createMachine(_machine, this.id_site, urlOption)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'createMachine', [_machine, this.id_site, urlOption], result => {
           console.log(this.otherFiles_addToServer);
           console.log(result);
           if (this.itemForChange) {
@@ -368,8 +368,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.emptyTable = false;
 
-    this.siteService.deleteMachine(this.id_site, id_itemForDelete)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'deleteMachine', [this.id_site, id_itemForDelete], result => {
           this.loading = false;
           console.log(result);
           this.findByNameFunction(this.searchName, this.activePage, '');
@@ -418,8 +417,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
     this.modalOpenParc();
     console.log(id_itemForUpdate);
     this.creating = true;
-    this.siteService.getOneMachine(this.id_site, id_itemForUpdate)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getOneMachine', [this.id_site, id_itemForUpdate], result => {
           console.log(result);
           this.itemForChange = result.id;
           this._addType(result.parentCategoryId, '');
@@ -482,8 +480,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
       if (this.itemForChange && this.machine.files.length  &&  otherFile.id > 0) {
         console.log('del from server');
         console.log(otherFile.id);
-        this.siteService.deleteOtherFile(this.id_site, this.machine.id, otherFile.id)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'deleteOtherFile', [this.id_site, this.machine.id, otherFile.id], result => {
               console.log(result);
               this.otherFilesArray = this.otherFilesArray.filter(function( obj ) {
                 return obj.id !== otherFile.id;
@@ -515,8 +512,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   }
 
   public refreshOtherFiles(machine_id) {
-    this.siteService.getOneMachine(this.id_site, machine_id)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getOneMachine', [this.id_site, machine_id], result => {
         if (result.files  &&  result.files.length > 0) {
           this.machine.files = result.files;
         }
@@ -768,8 +764,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
 
   public voirFunctionVGP() {
     console.log(this.itemForChange);
-    this.siteService.getFromServerVGPFichier(this.id_site, this.itemForChange)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getFromServerVGPFichier', [this.id_site, this.itemForChange], result => {
         window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {
         console.log(err);
@@ -778,8 +773,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   }
   public voirFunctionCT() {
     console.log(this.itemForChange);
-    this.siteService.getFromServerCTFichier(this.id_site, this.itemForChange)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getFromServerCTFichier', [this.id_site, this.itemForChange], result => {
         window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {
         console.log(err);
@@ -788,8 +782,7 @@ export class SiteParcPageComponent implements OnInit, OnDestroy {
   }
   public voirFunctionOther(fichier_id) {
     console.log(fichier_id);
-    this.siteService.getFromServerOtherFichier(this.id_site, this.itemForChange, fichier_id)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getFromServerOtherFichier', [this.id_site, this.itemForChange, fichier_id], result => {
         window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {
         console.log(err);

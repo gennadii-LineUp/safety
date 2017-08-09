@@ -5,15 +5,17 @@ import {ErrorMessageHandlerService} from 'app/services/error/error-message-handl
 import {SiteService} from '../../../../services/site/site.service';
 import {EmployeesClass} from 'app/models/const/employees-class';
 import {DataService} from '../../../../services/DataService.service';
+import {BackendService} from '../../../../services/backend/backend.service';
+import {BasePageComponent} from '../../../base/base-page.component';
 declare var $: any;
 
 @Component({
   selector: 'site-salaries-creation',
   templateUrl: './site-salaries-creation.component.html',
   styleUrls: ['./site-salaries-creation.component.css'],
-    providers: [ClientService, SiteService, DataService]
+    providers: [ClientService, SiteService, DataService, BackendService ]
 })
-export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
+export class SiteSalariesCreationComponent extends BasePageComponent implements OnInit, OnDestroy {
     loading = false;
     loadingGroupes = true;
     noGroups = false;
@@ -52,7 +54,8 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
                 public siteService: SiteService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public router: Router,
-                public dataService: DataService) {}
+                public dataService: DataService,
+                public backendService: BackendService) { super(); }
 
     ngOnInit() {
         this.getEmployeeGroupes();
@@ -69,8 +72,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     public getEmployeeGroupes() {
         // this.siteService.lightActiveMenu();
         this.noGroups = false;
-        this.clientService.getGroupList()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'getGroupList', null, result => {
                     if (result.length === 0) {
                         this.noGroups = true;
                     } else {
@@ -163,8 +165,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         // this.employees.endDate = datepicker_endDate;
         console.log(employeeDates);
 
-        this.siteService.addNewEmployee(employeeDates, this.id_site)
-            .subscribe(result => {
+        this.doRequest(this.siteService, 'addNewEmployee', [employeeDates, this.id_site], result => {
                     if (this.uploadedFile) {
                       this.loadToServerProfileImageFunction(result.userId);
                     } else {
@@ -188,8 +189,7 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
     }
 
     public checkFreeSalarieAccount() {
-        this.clientService.employeeCount()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'employeeCount', null, result => {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
                     if (this.salariesMaxPossible === this.salariesUsed) {
