@@ -3,14 +3,16 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-salarie-fichiers',
   templateUrl: './salarie-fichiers.component.html',
   styleUrls: ['./salarie-fichiers.component.css'],
-    providers: [SalariesService, TableSortService, PaginationService]
+    providers: [SalariesService, TableSortService, PaginationService, BackendService ]
 })
-export class SalarieFichiersComponent implements OnInit, OnDestroy {
+export class SalarieFichiersComponent extends BasePageComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -34,9 +36,10 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
     constructor(public salariesService: SalariesService,
                 public tableSortService: TableSortService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public paginationService: PaginationService) { }
+                public paginationService: PaginationService,
+                public backendService: BackendService) { super(); }
 
-    ngOnInit() {
+  ngOnInit() {
         this.findFichiersByNameFunction('', 1, '');
     }
     ngOnDestroy() {
@@ -59,8 +62,7 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
     }
     this.activePage = page;
 
-    this.salariesService.findFichiersByName(_name, page, sort)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'findFichiersByName', [_name, page, sort], result => {
           this.loading = false;
 
           this.fichiers = result.items;
@@ -96,8 +98,7 @@ export class SalarieFichiersComponent implements OnInit, OnDestroy {
   public voirFunction(fichierId: number) {
       console.log(fichierId);
       this.loading = true;
-      this.salariesService.getFromServerFichier(fichierId)
-        .subscribe(result => {
+      this.doRequest(this.salariesService, 'getFromServerFichier', [fichierId], result => {
             this.loading = false;
             window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
         }, (err) => {

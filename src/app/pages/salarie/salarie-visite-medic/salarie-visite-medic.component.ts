@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-salarie-visite-medic',
   templateUrl: './salarie-visite-medic.component.html',
   styleUrls: ['./salarie-visite-medic.component.css'],
-    providers: [SalariesService]
+    providers: [SalariesService, BackendService ]
 })
-export class SalarieVisiteMedicComponent implements OnInit {
+export class SalarieVisiteMedicComponent extends BasePageComponent implements OnInit {
   loading = false;
   errorLoad = '';
   visite_medical: string;
 
   constructor(public salariesService: SalariesService,
-              public errorMessageHandlerService: ErrorMessageHandlerService) { }
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public backendService: BackendService) { super(); }
 
   ngOnInit() {
     this.getDataFunction();
@@ -22,8 +25,7 @@ export class SalarieVisiteMedicComponent implements OnInit {
 
   public getDataFunction() {
     this.loading = true;
-    this.salariesService.getMedicalVisit()
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getMedicalVisit', null, result => {
           this.loading = false;
           console.log(result);
           this.visite_medical = result.medicalVisitDateExpires;

@@ -4,15 +4,17 @@ import {TableSortService} from '../../../services/table-sort.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {MachineClass} from '../../../models/const/machine-class';
+import {BackendService} from 'app/services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 declare var $: any;
 
 @Component({
   selector: 'app-salarie-fiches-machines',
   templateUrl: './salarie-fiches-machines.component.html',
   styleUrls: ['./salarie-fiches-machines.component.css'],
-  providers: [SalariesService, TableSortService, PaginationService]
+  providers: [SalariesService, TableSortService, PaginationService, BackendService ]
 })
-export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
+export class SalarieFichesMachinesComponent extends BasePageComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -43,7 +45,8 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
   constructor(public salariesService: SalariesService,
               public tableSortService: TableSortService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public paginationService: PaginationService) { }
+              public paginationService: PaginationService,
+              public backendService: BackendService) { super(); }
 
   ngOnInit() {
     this.id_site = localStorage.id_site;
@@ -108,8 +111,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     }
     this.activePage = page;
 
-    this.salariesService.findMachinesByName(_name, page, sort)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'findMachinesByName', [_name, page, sort], result => {
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -150,8 +152,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     this.categoryName = '';
     this.parentCategoryName = '';
     this.loading = true;
-    this.salariesService.findOneMachine(machine_id)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'findOneMachine', [machine_id], result => {
             this.loading = false;
             console.log(result);
             this.categoryName = result.categoryName;
@@ -192,8 +193,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
   public getFromServerVGPFileFunction(machine_id) {
     console.log(machine_id);
     this.loading = true;
-    this.salariesService.getFromServerVGPFile(machine_id)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerVGPFile', [machine_id], result => {
           console.log(result);
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
@@ -207,8 +207,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
   public getFromServerCTFileFunction(machine_id) {
     console.log(machine_id);
     this.loading = true;
-    this.salariesService.getFromServerCTFile(machine_id)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerCTFile', [machine_id], result => {
           console.log(result);
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
@@ -223,8 +222,7 @@ export class SalarieFichesMachinesComponent implements OnInit, OnDestroy {
     console.log(file_id);
     this.loading = true;
 
-    this.salariesService.getFromServerOtherFile(machine_id, file_id)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerOtherFile', [machine_id, file_id], result => {
           console.log(result);
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));

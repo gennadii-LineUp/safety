@@ -4,14 +4,16 @@ import {EmployeesClass} from '../../../models/const/employees-class';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {EmployeesPasswordClass} from '../../../models/const/employee-psw-class';
 import {SiteService} from '../../../services/site/site.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'salarie-profil',
   templateUrl: './salarie-profil.component.html',
   styleUrls: ['./salarie-profil.component.css'],
-  providers: [SalariesService, SiteService]
+  providers: [SalariesService, SiteService, BackendService ]
 })
-export class SalarieProfilComponent implements OnInit, OnDestroy {
+export class SalarieProfilComponent extends BasePageComponent implements OnInit, OnDestroy {
   loading = true;
   updating = false;
   successUpdate = '';
@@ -30,9 +32,10 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
   employeesPasswordClass = new EmployeesPasswordClass('', '', '');
 
     constructor(public salariesService: SalariesService,
-                public errorMessageHandlerService: ErrorMessageHandlerService) { }
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public backendService: BackendService) { super(); }
 
-    ngOnInit() {
+  ngOnInit() {
       this.loading = true;
       window.document.querySelectorAll('#monProfil')['0'].classList.add('active');
       this.getFromServerProfileImageFunction();
@@ -44,8 +47,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
 
   public getProfileDataFunction() {
     this.loading = true;
-    this.salariesService.getProfilData()
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getProfilData', null, result => {
           this.loading = false;
           console.log(result);
           this.employee.name = result.name;
@@ -70,8 +72,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
                                                               this.employeesPasswordClass.password,
                                                               this.employeesPasswordClass.confirmPassword);
 
-    this.salariesService.updateProfilData(employeesPasswordClass)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'updateProfilData', [employeesPasswordClass], result => {
           console.log(result);
           this.successUpdate = 'Le profil a bien été mis à jour.';
           this.updating = false;
@@ -111,8 +112,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
   }
 
   public loadToServerProfileImageFunction() {
-    this.salariesService.loadToServerSalarieeImage(this.content)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'loadToServerSalarieeImage', [this.content], result => {
         console.log(result);
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
@@ -127,8 +127,7 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
   public getFromServerProfileImageFunction() {
     this.loadingFile = true;
     this.uploadedFile = false;
-    this.salariesService.getFromServerSalarieeImage()
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerSalarieeImage', null, result => {
           this.loadingFile = false;
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
@@ -140,6 +139,5 @@ export class SalarieProfilComponent implements OnInit, OnDestroy {
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
-
 
 }

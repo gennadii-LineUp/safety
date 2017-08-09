@@ -3,14 +3,16 @@ import {TableSortService} from '../../../services/table-sort.service';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-salarie-autoris',
   templateUrl: './salarie-autoris.component.html',
   styleUrls: ['./salarie-autoris.component.css'],
-  providers: [SalariesService, TableSortService, PaginationService]
+  providers: [SalariesService, TableSortService, PaginationService, BackendService ]
 })
-export class SalarieAutorisComponent implements OnInit, OnDestroy {
+export class SalarieAutorisComponent extends BasePageComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -34,7 +36,9 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
   constructor(public salariesService: SalariesService,
               public tableSortService: TableSortService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public paginationService: PaginationService) { }
+              public paginationService: PaginationService,
+              public backendService: BackendService) { super(); }
+
 
   ngOnInit() {
     this.findFichiersByNameFunction('', 1, '');
@@ -84,8 +88,7 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
     }
     this.activePage = page;
 
-    this.salariesService.findDriving_licensesByName(_name, page, sort)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'findDriving_licensesByName', [_name, page, sort], result => {
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -122,8 +125,7 @@ export class SalarieAutorisComponent implements OnInit, OnDestroy {
   public voirFunction(drLicense_id: number) {
     this.cancellMessages();
     this.loading = true;
-    this.salariesService.getFromServerDriving_licenseImage(drLicense_id)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerDriving_licenseImage', [drLicense_id], result => {
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {

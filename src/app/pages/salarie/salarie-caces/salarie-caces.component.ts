@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {SalariesService} from '../../../services/salaries/salaries.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-salarie-caces',
   templateUrl: './salarie-caces.component.html',
   styleUrls: ['./salarie-caces.component.css'],
-    providers: [SalariesService]
+    providers: [SalariesService, BackendService ]
 })
-export class SalarieCacesComponent implements OnInit {
+export class SalarieCacesComponent extends BasePageComponent implements OnInit {
   loading = false;
   errorLoad = '';
   visite_caces: string;
@@ -16,7 +18,8 @@ export class SalarieCacesComponent implements OnInit {
   showImg: true;
 
   constructor(public salariesService: SalariesService,
-              public errorMessageHandlerService: ErrorMessageHandlerService) { }
+              public errorMessageHandlerService: ErrorMessageHandlerService,
+              public backendService: BackendService) { super(); }
 
   ngOnInit() {
     this.getDataFunction();
@@ -24,8 +27,7 @@ export class SalarieCacesComponent implements OnInit {
 
   public getDataFunction() {
     this.loading = true;
-    this.salariesService.getCacesVisit()
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getCacesVisit', null, result => {
           this.loading = false;
           console.log(result);
           this.visite_caces = result.cacesDateExpires;
@@ -39,8 +41,7 @@ export class SalarieCacesComponent implements OnInit {
 
   public getFromServerImageFunction() {
     this.loading = true;
-    this.salariesService.getFromServerCacesImage()
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerCacesImage', null, result => {
           this.loading = false;
           this.showImg = true;
           const src = 'data:' + result['Content-type'] + ';base64,';

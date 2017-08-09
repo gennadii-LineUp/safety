@@ -3,14 +3,16 @@ import {SalariesService} from '../../../services/salaries/salaries.service';
 import {TableSortService} from '../../../services/table-sort.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {PaginationService} from '../../../services/pagination/pagination.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-salarie-attestations',
   templateUrl: './salarie-attestations.component.html',
   styleUrls: ['./salarie-attestations.component.css'],
-  providers: [SalariesService, TableSortService, PaginationService]
+  providers: [SalariesService, TableSortService, PaginationService, BackendService]
 })
-export class SalarieAttestationsComponent implements OnInit, OnDestroy {
+export class SalarieAttestationsComponent extends BasePageComponent implements OnInit, OnDestroy {
   loading = false;
   successUpdate = '';
   errorLoad = '';
@@ -33,7 +35,9 @@ export class SalarieAttestationsComponent implements OnInit, OnDestroy {
   constructor(public salariesService: SalariesService,
               public tableSortService: TableSortService,
               public errorMessageHandlerService: ErrorMessageHandlerService,
-              public paginationService: PaginationService) { }
+              public paginationService: PaginationService,
+              public backendService: BackendService) { super(); }
+
 
   ngOnInit() {
     this.findFichiersByNameFunction('', 1, '');
@@ -58,8 +62,7 @@ export class SalarieAttestationsComponent implements OnInit, OnDestroy {
     }
     this.activePage = page;
 
-    this.salariesService.findAttestationByName(_name, page, sort)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'findAttestationByName', [_name, page, sort], result => {
           this.loading = false;
           console.log(result);
           this.fichiers = result.items;
@@ -96,8 +99,7 @@ export class SalarieAttestationsComponent implements OnInit, OnDestroy {
   public voirFunction(fichierId: number) {
     this.cancellMessages();
     this.loading = true;
-    this.salariesService.getFromServerAttestationImage(fichierId)
-      .subscribe(result => {
+    this.doRequest(this.salariesService, 'getFromServerAttestationImage', [fichierId], result => {
           this.loading = false;
           window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {
