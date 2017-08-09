@@ -20,9 +20,9 @@ export class AdminReglagesPageComponent implements OnInit {
 
     errorLoad = '';
 
-    reglages = new AdminReglagesClass('', '', '', '');
+    reglages = new AdminReglagesClass('', '', '', '', '');
 
-    defaultReglages = new AdminReglagesClass('http://www.moncompteformation.gouv.fr/', '', '', '');
+    defaultReglages = new AdminReglagesClass('http://www.moncompteformation.gouv.fr/', '', '', '', '');
 
 
     constructor(public adminService: AdminService,
@@ -40,6 +40,7 @@ export class AdminReglagesPageComponent implements OnInit {
                     this.loading = false;
                     this.reglages.monCompteFormationLink = result.monCompteFormationLink;
                     this.reglages.notificationEmails = result.notificationEmails.join(', ');
+                    this.reglages.email = result.email;
             }, (err) => {
                 this.loading = false;
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -54,7 +55,7 @@ export class AdminReglagesPageComponent implements OnInit {
         this.adminService.updateReglages(this.reglages)
             .subscribe(result => {
                     this.loading = false;
-                    this.successCreating = "Well done! You've updated your settings.";
+                    this.successCreating = 'Bien joué! Vous avez mis à jour vos paramètres.';
             }, (err) => {
                 this.loading = false;
                 console.log(err);

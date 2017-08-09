@@ -17,6 +17,11 @@
                #monCompteFormationLink="ngModel" id="monCompteFormationLink" name='monCompteFormationLink'  [(ngModel)]="reglages.monCompteFormationLink" />
         <h2>Informations du compte</h2>
         <div class="form-group">
+          <label for="notificationEmails">Login (email)</label>
+          <input type="email" class="form-control" placeholder="***"
+                 #login="ngModel" id="login" name='login' [(ngModel)]="reglages.email" />
+        </div>
+        <div class="form-group">
             <label for="notificationEmails">Mail(s) d’alerte</label>
             <input type="email" class="form-control" placeholder="email@sigma.fr, email5@sigma.fr"
                    #notificationEmails="ngModel" id="notificationEmails" name='notificationEmails' [(ngModel)]="reglages.notificationEmails" />
