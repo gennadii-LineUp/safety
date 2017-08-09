@@ -134,11 +134,11 @@ export class SiteSalariesCreationComponent implements OnInit, OnDestroy {
         const datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value || '';
         const datepicker_endDate   = window.document.getElementsByClassName('datepicker-default')['2'].value || '';
 
-        // const _datepicker_birthDate = (this.dataService.stringToDate(datepicker_birthDate, 'dd/MM/yyyy', '/')).toISOString();
+         const _datepicker_birthDate = (this.dataService.stringToDate(datepicker_birthDate, 'dd/MM/yyyy', '/')).toISOString();
         // const _datepicker_startDate = (this.dataService.stringToDate(datepicker_startDate, 'dd/MM/yyyy', '/')).toISOString();
         // const _datepicker_endDate = (this.dataService.stringToDate(datepicker_endDate, 'dd/MM/yyyy', '/')).toISOString();
 
-        const _datepicker_birthDate = this.dataService.stringToISOString(datepicker_birthDate);
+        // const _datepicker_birthDate = this.dataService.stringToISOString(datepicker_birthDate);
         const _datepicker_startDate = this.dataService.stringToISOString(datepicker_startDate);
         const _datepicker_endDate   = this.dataService.stringToISOString(datepicker_endDate);
 

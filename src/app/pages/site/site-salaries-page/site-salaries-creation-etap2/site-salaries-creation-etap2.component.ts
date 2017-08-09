@@ -220,7 +220,7 @@ export class SiteSalariesCreationEtap2Component implements OnInit, OnDestroy {
                         this.employees.endDate = this.dataService.convertDateFromServerToInput(result.endDate);
                         this.endDate = true;
                     }
-                    this.employees.birthDate = this.dataService.convertDateFromServerToInput(result.birthDate);
+                    this.employees.birthDate = this.dataService.convertDateForInputView(result.birthDate);
                     console.log(this.employees);
                     this.loaded = true;
                     this.getFromServerProfileImageFunction();
