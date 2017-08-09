@@ -5,14 +5,16 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
 import {Router} from '@angular/router';
 import {AdminService} from '../../../services/admin/admin.service';
 import {TableSortService} from '../../../services/table-sort.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'client-salaries-page',
   templateUrl: './client-salaries-page.component.html',
   styleUrls: ['./client-salaries-page.component.css'],
-    providers: [ClientService, AdminService, PaginationService, TableSortService]
+    providers: [ClientService, AdminService, PaginationService, TableSortService, BackendService ]
 })
-export class ClientSalariesPageComponent implements OnInit, OnDestroy {
+export class ClientSalariesPageComponent extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
     loadingSalarieUsed = false;
@@ -41,7 +43,7 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
         { display: 'Validité',  variable: 'validityPeriod', filter: 'text' },
     ];
     sortingTarget = '';
-    public getSortingTarget(){
+    public getSortingTarget() {
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }
 
@@ -51,9 +53,10 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
                 public router: Router,
                 public paginationService: PaginationService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public tableSortService: TableSortService) {}
+                public tableSortService: TableSortService,
+                public backendService: BackendService) { super(); }
 
-    ngOnInit() {
+  ngOnInit() {
         this.findSalarieByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
         this.getUsedSalaries();
@@ -67,8 +70,7 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
 
     public getUsedSalaries() {
         this.loadingSalarieUsed = true;
-        this.clientService.employeeCount()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'employeeCount', null, result => {
                     this.loadingSalarieUsed = false;
 
                     console.log(result);
@@ -101,8 +103,7 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.emptyTable = false;
 
-        this.clientService.deleteEmployee(siteId, employeeId)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'deleteEmployee', [siteId, employeeId], result => {
                     this.cancellErrorMessage();
                     console.log(result);
                     // this.ngOnInit();
@@ -134,8 +135,7 @@ export class ClientSalariesPageComponent implements OnInit, OnDestroy {
         }
         this.activePage = page;
 
-        this.clientService.findSalarieByName(_name, page, sort)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'findSalarieByName', [_name, page, sort], result => {
                     this.loading = false;
 
                     console.log(result);

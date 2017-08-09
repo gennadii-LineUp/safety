@@ -1,19 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import { NgForm} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {GroupeClass} from '../../../models/const/groupe-class';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {TableSortService} from '../../../services/table-sort.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-client-groupes-page',
   templateUrl: './client-groupes-page.component.html',
   styleUrls: ['./client-groupes-page.component.css'],
-    providers: [ClientService, PaginationService, TableSortService]
+    providers: [ClientService, PaginationService, TableSortService, BackendService ]
 })
-export class ClientGroupesPageComponent implements OnInit, OnDestroy {
+export class ClientGroupesPageComponent  extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = false;
     saving = false;
@@ -21,8 +22,6 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
     errorSalaries = 'error';
     errorCreating = '';
     successCreating = '';
-
-    showModal = true;
 
     itemForChange =  0;
     saveButtonCaption = 'Créer';
@@ -38,14 +37,12 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
     searchName = '';
     currentPage: any;
 
-    _adminAccess = false;
-
     headers: any[] = [
         { display: 'Nom du groupe', variable: 'name',  filter: 'text' },
         { display: 'Accès',         variable: 'access', filter: 'text' }
     ];
     sortingTarget = '';
-    public getSortingTarget(){
+    public getSortingTarget() {
         this.sortingTarget = this.tableSortService._getSortingTarget();
     }
 
@@ -54,7 +51,8 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
                 public router: Router,
                 public paginationService: PaginationService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public tableSortService: TableSortService) {}
+                public tableSortService: TableSortService,
+                public backendService: BackendService) { super(); }
 
     ngOnInit() {
         this.findGroupByNameFunction('', 1, '');
@@ -97,8 +95,7 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
         }
         this.activePage = page;
 
-        this.clientService.findGroupeByName(_name, page, sort)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'findGroupeByName', [_name, page, sort], result => {
                     this.loading = false;
                     console.log(result);
 
@@ -142,8 +139,7 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
        // this.salaryeeGroupe.adminAccess = this._adminAccess;
         console.dir(this.salaryeeGroupe);
 
-        this.clientService.addNewGroupe(this.salaryeeGroupe, urlOption)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'addNewGroupe', [this.salaryeeGroupe, urlOption], result => {
                     this.saving = false;
                     console.log(result);
                     this.salaryeeGroupe = new GroupeClass('', false);
@@ -180,8 +176,7 @@ export class ClientGroupesPageComponent implements OnInit, OnDestroy {
       this.cancellSuccessMessage();
       this.loading = true;
         this.emptyTable = false;
-        this.clientService.deleteGroupe('/' + id_itemForDelete)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'deleteGroupe', ['/' + id_itemForDelete], result => {
                     this.cancellErrorMessage();
                     console.log(result);
                     this.findGroupByNameFunction(this.searchName, this.activePage, '');

@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ClientService} from '../../../services/client/client.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
-import {ClientClass} from '../../../models/const/client-class';
 import {ClientProfileClass} from '../../../models/const/client-profile-class';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-client-profil-page',
   templateUrl: './client-profil-page.component.html',
   styleUrls: ['./client-profil-page.component.css'],
-    providers: [ClientService]
+    providers: [ClientService, BackendService ]
 })
-export class ClientProfilPageComponent implements OnInit {
+export class ClientProfilPageComponent extends BasePageComponent implements OnInit {
     loading = true;
     updating = false;
     errorLoad = '';
@@ -34,9 +35,10 @@ export class ClientProfilPageComponent implements OnInit {
 
     constructor(public router: Router,
                 public clientService: ClientService,
-                public errorMessageHandlerService: ErrorMessageHandlerService) {}
+                public errorMessageHandlerService: ErrorMessageHandlerService,
+                public backendService: BackendService) { super(); }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
       this.getClientProfilData();
     }
 
@@ -45,8 +47,7 @@ export class ClientProfilPageComponent implements OnInit {
         this.cancellSuccessMessage();
         this.loading = true;
 
-        this.clientService.getClientProfilData()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'getClientProfilData', null, result => {
                     this.getFromServerProfileImageFunction();
                     this.loading = false;
                     console.dir(result);
@@ -86,8 +87,7 @@ export class ClientProfilPageComponent implements OnInit {
     }
 
     public loadToServerProfileImageFunction() {
-      this.clientService.loadToServerProfileImage(this.content)
-        .subscribe(result => {
+      this.doRequest(this.clientService, 'loadToServerProfileImage', [this.content], result => {
             setTimeout(() => {
                 this.getFromServerProfileImageFunction();
             }, 100);
@@ -101,8 +101,7 @@ export class ClientProfilPageComponent implements OnInit {
     public getFromServerProfileImageFunction() {
         this.loadingFile = true;
         this.uploadedFile = false;
-            this.clientService.getFromServerProfileImage()
-                .subscribe(result => {
+            this.doRequest(this.clientService, 'getFromServerProfileImage', null, result => {
                         this.loadingFile = false;
                         this.showImg = true;
                         const src = 'data:' + result.contentType + ';base64,';
@@ -119,8 +118,7 @@ export class ClientProfilPageComponent implements OnInit {
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.updating = true;
-        this.clientService.updateClientProfile(this.client)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'updateClientProfile', [this.client], result => {
                     this.updating = false;
                     this.userHasChoosenFile = false;
             }, (err) => {

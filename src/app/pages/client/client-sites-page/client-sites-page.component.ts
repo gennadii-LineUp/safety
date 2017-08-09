@@ -5,14 +5,16 @@ import {ErrorMessageHandlerService} from '../../../services/error/error-message-
 import {SiteClass} from '../../../models/const/site-class';
 import {PaginationService} from '../../../services/pagination/pagination.service';
 import {TableSortService} from '../../../services/table-sort.service';
+import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-client-sites-page',
   templateUrl: './client-sites-page.component.html',
   styleUrls: ['./client-sites-page.component.css'],
-    providers: [ClientService, PaginationService, TableSortService]
+    providers: [ClientService, PaginationService, TableSortService, BackendService ]
 })
-export class ClientSitesPageComponent implements OnInit, OnDestroy {
+export class ClientSitesPageComponent extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
     loading = true;
     creating = false;
@@ -64,9 +66,10 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                 public router: Router,
                 public paginationService: PaginationService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
-                public tableSortService: TableSortService) {}
+                public tableSortService: TableSortService,
+                public backendService: BackendService) { super(); }
 
-    ngOnInit() {
+  ngOnInit() {
         this.findSiteByNameFunction('', 1, '');
         this.clientService.tableMobileViewInit();
         window.document.querySelectorAll('ul li:first-child')['0'].classList.add('active');
@@ -97,8 +100,7 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
     }
 
     public checkFreeSalarieAccount() {
-        this.clientService.employeeCount()
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'employeeCount', null, result => {
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
                     if (this.salariesMaxPossible === this.salariesUsed) {
@@ -126,8 +128,7 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
             _name = localStorage.clientSiteSearch_name;
         }
         this.activePage = page;
-        this.clientService.findSiteByName(_name, page, sort)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'findSiteByName', [_name, page, sort], result => {
                     this.loading = false;
                     this.sites = result.items;
                     console.log(this.sites);
@@ -186,8 +187,7 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
                                     this._medicalVisitSite,
                                     this._techControlSiege,
                                     this._techControlSite);
-        this.clientService.addNewSite(newSite)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'addNewSite', [newSite], result => {
                     this.cancellMessages();
                     console.log(result);
                     this.newSite_id = result.siteId;
@@ -234,8 +234,7 @@ export class ClientSitesPageComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.emptyTable = false;
 
-        this.clientService.deleteSites('/' + id_itemForDelete)
-            .subscribe(result => {
+        this.doRequest(this.clientService, 'deleteSites', ['/' + id_itemForDelete], result => {
                     this.cancellMessages();
                     console.log(result);
                     this.findSiteByNameFunction(this.searchName, this.activePage, '');
