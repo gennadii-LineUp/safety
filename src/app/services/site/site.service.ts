@@ -95,9 +95,12 @@ export class SiteService {
     public loadToServerVGP(content: any, siteId: number, machineId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/vgp_file';
       console.log(url);
+      console.log('----content--------');
+      console.log(content.result);
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
+      console.log(fileToServer);
       return this.backendService.loadImage_post(url, fileToServer);
     }
     public loadToServerCT(content: any, siteId: number, machineId: number): Observable<any> {

@@ -765,6 +765,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public voirFunctionVGP() {
     console.log(this.itemForChange);
     this.doRequest(this.siteService, 'getFromServerVGPFichier', [this.id_site, this.itemForChange], result => {
+        console.log(result.content);
         window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
       }, (err) => {
         console.log(err);
