@@ -32,7 +32,6 @@ import { AdminBibliothequeModalComponent, ModalHeaderAB, ModalContentAB, ModalFo
 import { AdminComponent } from './admin/admin.component';
 import { ClientComponent } from './client/client.component';
 import { SiteComponent } from './site/site.component';
-import {InnerPagesComponent} from './inner-pages/inner-pages/inner-pages.component';
 import { AdminClientAjouterComponent } from './admin/admin-clients-page/admin-client-ajouter/admin-client-ajouter.component';
 import { SiteSalariesCreationEtap2Component } from './site/site-salaries-page/site-salaries-creation-etap2/site-salaries-creation-etap2.component';
 import { SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt } from './site/site-salaries-page/site-salaries-creation-etap2/modal-attest/modal-attest.component';
@@ -79,7 +78,6 @@ import {QRCodeModule} from 'angular2-qrcode';
         AdminComponent,
         ClientComponent,
         SiteComponent,
-        InnerPagesComponent,
         SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
         SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
         SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
@@ -113,7 +111,6 @@ import {QRCodeModule} from 'angular2-qrcode';
         AdminComponent,
         ClientComponent,
         SiteComponent,
-        InnerPagesComponent,
         SiteSalariesCreationEtap2ModalAttestComponent, ModalHeaderSSAtt, ModalContentSSAtt, ModalFooterSSAtt,
         SiteSalariesCreationEtap2ModalAutorComponent, ModalHeaderSSAut, ModalContentSSAut, ModalFooterSSAut,
         SalarieProfilComponent, SalarieFichiersComponent, SalarieComponent,
