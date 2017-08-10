@@ -1,7 +1,7 @@
 <header class="main-header">
   <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
-      <span aria-hidden="true"></span>
+      <span></span>
     </button>
     <p>SAFETY: <span>{{errorLoad}}</span></p>
   </div>
@@ -14,7 +14,7 @@
     <div class="search-panel clearfix">
         <div class="search-wrapper">
           <button class="search-button" type="button" (click)='findFichiersByNameFunction(findByName.value, 1, "")'></button>
-          <input #findByName id="findByName" name='findByName' type="text"
+          <input #findByName id="findByName" name='findByName'
                  class="form-control search-input" placeholder="Rechercher"
                  (keyup.enter)='findFichiersByNameFunction(findByName.value, 1, "")'>
         </div>
@@ -108,8 +108,8 @@
           <p *ngIf="machine.model"><span>Modèle : </span>{{machine.model}}</p>
           <p *ngIf="machine.parkNumber"><span>N° Parc : </span>{{machine.parkNumber}}</p>
           <p *ngIf="machine.registration"><span>Immatriculation : </span>{{machine.registration}}</p>
-          <p *ngIf="machine.vgp"><span>Date d’expiration VGP : </span>{{machine.vgp | date: 'dd/MM/yyyy'}}</p>
-          <p *ngIf="machine.techControl"><span>Contrôle technique : </span>{{machine.techControl | date: 'dd/MM/yyyy'}}</p>
+          <p *ngIf="machine.vgp"><span>Date d’expiration VGP : </span>{{machine.vgp | dateFromServerMoment}}</p>
+          <p *ngIf="machine.techControl"><span>Contrôle technique : </span>{{machine.techControl | dateFromServerMoment}}</p>
         </div>
         <div class="qr-code-wrapper">
           <p class="form-subheader text-center">QR Code</p>

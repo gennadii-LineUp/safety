@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {SiteService} from '../../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../../services/error/error-message-handler.service';
 import {ClientService} from '../../../../services/client/client.service';
@@ -122,7 +122,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                 public dataService: DataService,
                 public backendService: BackendService) { super(); }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
         this.id_site = localStorage.id_site;
         this.id_salarie = localStorage.id_salarie;
 
@@ -214,14 +214,15 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     if (result.cacesFile) {this.uploadedFileCaces = true; }
 
                     if (result.startDate) {
-                      this.employees.startDate = this.dataService.convertDateFromServerToInput(result.startDate);
+                      this.employees.startDate = this.dataService.fromServerMoment(result.startDate);
                       this.startDate = true;
                     }
                     if (result.endDate) {
-                        this.employees.endDate = this.dataService.convertDateFromServerToInput(result.endDate);
+                        this.employees.endDate = this.dataService.fromServerMoment(result.endDate);
                         this.endDate = true;
                     }
-                    this.employees.birthDate = this.dataService.convertDateForInputView(result.birthDate);
+                    // this.employees.birthDate = this.dataService.fromServerMoment(result.birthDate);
+                    this.employees.birthDate = this.dataService.fromServerMoment(result.birthDate);
                     console.log(this.employees);
                     this.loaded = true;
                     this.getFromServerProfileImageFunction();
@@ -398,14 +399,12 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       }, 100);
     }
 
-    public datesAutorisationsCheckFunction() {
-        if (window.document.getElementsByClassName('datepicker-default')['1'].value
-          && window.document.getElementsByClassName('datepicker-default')['2'].value) {
-          this.datesAutorisationsEmpty = false;
-        }
-    }
-
     public submitDatesAutorisationsForm() {
+        if (window.document.getElementsByClassName('datepicker-default')['1'].value === '' ||
+            window.document.getElementsByClassName('datepicker-default')['2'].value === '' ) {
+            this.errorLoad = 'Visite médicale et CACES doit être rempli.';
+            return;
+        }
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
@@ -465,8 +464,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             this.visites = new VisitesClass('', '');
           } else {
             this.datesAutorisationsEmpty = false;
-            this.visites.medicalVisitDateExpires = this.dataService.convertDateForInputView(result.medicalVisitDateExpires);
-            this.visites.cacesDateExpires = this.dataService.convertDateForInputView(result.cacesDateExpires);
+            this.visites.medicalVisitDateExpires = this.dataService.fromServerMoment(result.medicalVisitDateExpires);
+            this.visites.cacesDateExpires = this.dataService.fromServerMoment(result.cacesDateExpires);
           }
       }, (err) => {
         this.loadingDatesAutorisations = false;
@@ -504,8 +503,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     this.creatingAttest = false;
                     console.log(result);
                     this.attestation.name = result.name;
-                    this.attestation.dateExpires = this.dataService.convertDateForInputView(result.dateExpires);
-                    this.attestation.dateIssue = this.dataService.convertDateForInputView(result.dateIssue);
+                    this.attestation.dateExpires = this.dataService.fromServerMoment(result.dateExpires);
+                    this.attestation.dateIssue = this.dataService.fromServerMoment(result.dateIssue);
                     this.datesAttestationEmpty = false;
                     this.saveButtonCaptionAttest = 'Modifier';
                     this.itemForChange = result.id;

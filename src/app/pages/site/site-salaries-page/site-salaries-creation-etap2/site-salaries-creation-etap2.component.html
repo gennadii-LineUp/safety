@@ -137,7 +137,7 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"  (click)="datesAutorisationsCheckFunction()"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
                        #visiteMedicale="ngModel" id='visiteMedicale' name='visiteMedicale'  [(ngModel)]="visites.medicalVisitDateExpires"/>
                 <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />
             </div>
@@ -152,7 +152,7 @@
                                             font-size:14px;
                                             padding-left:10px;
                                             padding-top:10px;">Date*</p>
-                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"  (click)="datesAutorisationsCheckFunction()"
+                <input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"
                        #caces="ngModel" id='caces' name='caces'  [(ngModel)]="visites.cacesDateExpires"/>
                 <img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />
             </div>
@@ -218,8 +218,8 @@
 
                     <tr *ngFor="let employeeAttestation of employeeAttestations">
                         <td>{{employeeAttestation.name}}</td>
-                        <td>{{employeeAttestation.dateIssue | date:'dd/MM/y'}}</td>
-                        <td>{{employeeAttestation.dateExpires | date:'dd/MM/y'}}</td>
+                        <td>{{employeeAttestation.dateIssue | dateFromServerMoment}}</td>
+                        <td>{{employeeAttestation.dateExpires | dateFromServerMoment}}</td>
                         <td>
                             <a href="javascript:void(0);" (click)='attestModal.open(); getAttestForUpdateFunction(employeeAttestation.id)'>
                                 Modifier
@@ -285,8 +285,8 @@
     <div class="button-wrapper">
         <button type="button" class="form-button red-button annuler-button" (click)='gotoSalariesPage()'>Annuler</button>
         <button type="submit" class="form-button green-button sauvegarder-button"
-                [disabled]="datesAutorisationsEmpty"
                 (click)='submitDatesAutorisationsForm()'>Sauvegarder</button>
+      <!--[disabled]="datesAutorisationsEmpty"-->
     </div>
 </div>
 

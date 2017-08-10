@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {NavbarAdminComponent} from '../../shared/navbar/navbar-admin/navbar-admin.component';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',

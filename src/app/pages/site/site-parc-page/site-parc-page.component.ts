@@ -443,10 +443,10 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
               this.checkedRemoteControl = result.remoteControl;
           }
           if (result.techControl) {
-            this.machine.techControl = this.dataService.convertDateFromServerToInput(result.techControl);
+            this.machine.techControl = this.dataService.fromServerMoment(result.techControl);
           }
           if (result.vgp) {
-            this.machine.vgp = this.dataService.convertDateFromServerToInput(result.vgp);
+            this.machine.vgp = this.dataService.fromServerMoment(result.vgp);
           }
           if (result.techControlFile) {
             this.machine.techControlFile = result.techControlFile;

@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {BackendService} from '../backend/backend.service';
 import {UrlParams} from '../../models/const/URL_PARAMS';
 import { Observable } from 'rxjs/Observable';
-import {EmployeesClass} from '../../models/const/employees-class';
 import {DrivingLicenseClass} from '../../models/const/driving-license-class';
-import {query} from '@angular/core/src/animation/dsl';
 import {EmployeesClassDates} from '../../models/const/employees-dates-class';
 import {FichiersClass} from '../../models/const/site-fichiers-class';
 import {MachineClass} from '../../models/const/machine-class';
@@ -14,13 +12,7 @@ import {SiteReglagesClass} from '../../models/const/site-reglages-class';
 export class SiteService {
     public id_site: number;
 
-
     constructor(public backendService: BackendService) {}
-
-    public lightActiveMenu() {
-      let siteSalariesMenu = window.document.getElementById('siteSalariesMenu');
-      if (siteSalariesMenu) {siteSalariesMenu.classList.add('active'); }
-    }
 
     public setIdSite(id_site: number) {
         this.id_site = id_site;
@@ -153,7 +145,6 @@ export class SiteService {
     console.log(url);
     return this.backendService.loadImage_get(url);
   }
-// sites/{{siteId}}/machines/{{machineId}}/files/{{machineFileId}}
 
   public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
@@ -214,12 +205,10 @@ export class SiteService {
     }
     public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-        // console.log(MedicaleCacesDates);
         return this.backendService.post(url, JSON.stringify(MedicaleCacesDates));
     }
   public getMedicaleCacesDates(siteId: number, employeeId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-    // console.log('======getMedicaleCacesDates url:' + url);
     return this.backendService.get(url);
   }
 
@@ -319,7 +308,6 @@ export class SiteService {
   }
 
 
-
   public sendFileToServer(file: any, content: any, siteId: number, urlOption: string): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/files' + urlOption;
       // const formData: FormData = new FormData();
@@ -340,16 +328,6 @@ export class SiteService {
 
         console.log(formData);
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
-    }
-
-
-
-
-
-    public logout(): void {
-        // clear token remove user from local storage to log user out
-        localStorage.removeItem('role');
-        localStorage.removeItem('token');
     }
 
 

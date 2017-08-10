@@ -11,5 +11,5 @@
 </header>
 <div *ngIf="visite_medical" class="main-content" style="padding-top: 20px;">
     <h2>Apte</h2>
-    <h2>Expire le {{visite_medical | date: 'dd/MM/yyyy'}}</h2>
+    <h2>Expire le {{visite_medical | dateFromServerMoment}}</h2>
 </div>

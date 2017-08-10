@@ -35,10 +35,10 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public backendService: BackendService) { super(); }
 
-  ngOnInit() {
-      this.loading = true;
-      window.document.querySelectorAll('#monProfil')['0'].classList.add('active');
-      this.getFromServerProfileImageFunction();
+    ngOnInit() {
+        this.loading = true;
+        window.document.querySelectorAll('#monProfil')['0'].classList.add('active');
+        this.getProfileDataFunction();
     }
     ngOnDestroy() {
         window.document.querySelectorAll('#monProfil')['0'].classList.remove('active');
@@ -50,6 +50,7 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
     this.doRequest(this.salariesService, 'getProfilData', null, result => {
           this.loading = false;
           console.log(result);
+          this.getFromServerProfileImageFunction();
           this.employee.name = result.name;
           this.employee.surname = result.surname;
           this.employee.email = result.email;
@@ -67,7 +68,6 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
   public submitFunction() {
     this.cancellMessages();
     this.updating = true;
-
     const employeesPasswordClass = new EmployeesPasswordClass(this.employee.email,
                                                               this.employeesPasswordClass.password,
                                                               this.employeesPasswordClass.confirmPassword);
@@ -81,7 +81,6 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
-
   }
 
   public cancellMessages() {
@@ -132,7 +131,6 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
           this.showImg = true;
           const src = 'data:' + result.contentType + ';base64,';
           this.imgServer = src + result.content;
-          this.getProfileDataFunction();
       }, (err) => {
         this.loadingFile = false;
         console.log(err);

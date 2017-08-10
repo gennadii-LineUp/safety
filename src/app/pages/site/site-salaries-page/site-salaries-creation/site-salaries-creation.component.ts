@@ -7,6 +7,7 @@ import {EmployeesClass} from 'app/models/const/employees-class';
 import {DataService} from '../../../../services/DataService.service';
 import {BackendService} from '../../../../services/backend/backend.service';
 import {BasePageComponent} from '../../../base/base-page.component';
+
 declare var $: any;
 
 @Component({
@@ -136,33 +137,27 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
         const datepicker_startDate = window.document.getElementsByClassName('datepicker-default')['1'].value || '';
         const datepicker_endDate   = window.document.getElementsByClassName('datepicker-default')['2'].value || '';
 
-         const _datepicker_birthDate = (this.dataService.stringToDate(datepicker_birthDate, 'dd/MM/yyyy', '/')).toISOString();
-        // const _datepicker_startDate = (this.dataService.stringToDate(datepicker_startDate, 'dd/MM/yyyy', '/')).toISOString();
-        // const _datepicker_endDate = (this.dataService.stringToDate(datepicker_endDate, 'dd/MM/yyyy', '/')).toISOString();
+        // console.log(this.dataService.convertDateFromInputeToServer(datepicker_birthDate)); // equal
+        // console.log(moment(datepicker_birthDate, 'DD/MM/YYYY').toISOString());             // equal
 
-        // const _datepicker_birthDate = this.dataService.stringToISOString(datepicker_birthDate);
-        const _datepicker_startDate = this.dataService.stringToISOString(datepicker_startDate);
-        const _datepicker_endDate   = this.dataService.stringToISOString(datepicker_endDate);
+        const _datepicker_birthDate = this.dataService.convertDateFromInputeToServer(datepicker_birthDate);
+        const _datepicker_startDate = this.dataService.convertDateFromInputeToServer(datepicker_startDate);
+        const _datepicker_endDate = this.dataService.convertDateFromInputeToServer(datepicker_endDate);
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.loading = true;
 
-        console.log(this.employees);
-         const employeeDates = new EmployeesClass(this.employees.name,
+        const employeeDates = new EmployeesClass(this.employees.name,
                                                  this.employees.surname,
                                                  this.employees.email,
                                                  this.employees.post,
-                                                 _datepicker_birthDate,
+                                                  _datepicker_birthDate,
                                                  this.employees.numSecu,
                                                  this.employees.validityPeriod,
-                                                 _datepicker_startDate,
-                                                 _datepicker_endDate,
+                                                  _datepicker_startDate,
+                                                  _datepicker_endDate,
                                                  this.employees.employeeGroup);
-
-        // this.employees.birthDate = datepicker_birthDate;
-        // this.employees.startDate = datepicker_startDate;
-        // this.employees.endDate = datepicker_endDate;
         console.log(employeeDates);
 
         this.doRequest(this.siteService, 'addNewEmployee', [employeeDates, this.id_site], result => {

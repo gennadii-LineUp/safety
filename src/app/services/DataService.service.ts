@@ -4,6 +4,7 @@ import {ErrorMessageHandlerService} from './error/error-message-handler.service'
 import {UrlParams} from '../models/const/URL_PARAMS';
 import {Response, Http, Headers} from '@angular/http';
 declare let $: any;
+import * as moment from 'moment';
 
 @Injectable()
 export class DataService {
@@ -35,6 +36,19 @@ export class DataService {
     $.datepicker.setDefaults($.datepicker.regional['fr']);
   }
 
+
+  public fromServerMoment(stringDate: string): string {
+    return moment.utc(stringDate.replace('T', ' '), 'YYYY-MM-DD HH:mm:ss').local().format('DD/MM/YYYY');
+  }
+
+  public toDateString(date: Date): string {
+    return (date.getFullYear().toString() + '-'
+      + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
+      + ('0' + (date.getDate())).slice(-2))
+      + 'T' + date.toTimeString().slice(0, 5);
+  }
+
+
   public stringToDate(_date, _format, _delimiter) {
     const formatLowerCase = _format.toLowerCase();
     const formatItems = formatLowerCase.split(_delimiter);
@@ -45,34 +59,15 @@ export class DataService {
     let month = parseInt(dateItems[monthIndex], 10);
     month -= 1;
     const formatedDate = new Date(dateItems[yearIndex], month, dateItems[dayIndex]);
-    console.log(formatedDate);
     return formatedDate;
   }
   // stringToDate("17/9/2014","dd/MM/yyyy","/");
   // stringToDate("9/17/2014","mm/dd/yyyy","/")
   // stringToDate("9-17-2014","mm-dd-yyyy","-")
 
-
-  public toDateString(date: Date): string {
-    return (date.getFullYear().toString() + '-'
-      + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
-      + ('0' + (date.getDate())).slice(-2))
-      + 'T' + date.toTimeString().slice(0, 5);
-  }
-
-  public convertDateFromInputeToServer(datepicker: string): string {   // doesn't work properly, but MUST be used !
-    // const str = datepicker.split('/').reverse().join('-');
-    // console.log(typeof str + ' ' + str);
-    // const aa = str + 'T00:00:00.000';
-    // console.log(typeof aa + ' ' + aa);
-    // const bb = new Date(aa);
-    // console.log(typeof bb + ' ' + bb);
-
+  public convertDateFromInputeToServer(datepicker: string): string {
     const date = this.stringToDate(datepicker, 'dd/MM/yyyy', '/');
-    console.log(date);
     const newDate = date.toISOString();
-    console.log(newDate);
-
     return newDate;
   }
 
@@ -85,7 +80,8 @@ export class DataService {
   // 25/12/2017 --> 2017-12-25
 
 
-//  var t1 = new Date("2017-11-10T01:00:00+03:00"); console.log('"2017-11-10T01:00:00+03:00": '+t1.getDate()+'/'+t1.getMonth()+'/'+t1.getFullYear());
+//  var t1 = new Date("2017-11-10T01:00:00+03:00");
+// console.log('"2017-11-10T01:00:00+03:00": '+t1.getDate()+'/'+t1.getMonth()+'/'+t1.getFullYear());
   public convertDateFromServerToInput(strDate: string): string {
     const t1 = new Date(strDate);
     const _month = 1 + +t1.getMonth();

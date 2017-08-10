@@ -2,18 +2,12 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-// import 'hammerjs';
 import {AppRoutingModule} from '../services/routing.module';
 import { LeftMenuComponent } from './left-menu-gena/left-menu.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.component';
 import { NavbarClientComponent } from './navbar/navbar-client/navbar-client.component';
 import { ContentComponent } from './content/content.component';
-//import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
-//import {MdButtonModule, MdInputModule, MdProgressSpinnerModule} from '@angular/material';
-//import {ButtonTestComponent} from './ang-material/button-test/button-test.component';
-//import {InputTestComponent} from './ang-material/input-test/input-test.component';
-//import { SpinnerComponent } from './ang-material/spinner/spinner.component';
 import { NavbarForDeleteComponent } from './navbar/navbar-for-delete/navbar-for-delete.component';
 import {BackendService} from '../services/backend/backend.service';
 import {LoginService} from '../services/login/login.service';
@@ -26,8 +20,7 @@ import {ValidityPeriodPipe} from '../services/pipes/validityPeriodSalarie.pipe';
 import {ValueNullPipe} from '../services/pipes/valueNull.pipe';
 import {CapitalizePipe} from '../services/pipes/capitalize.pipe';
 import {ResponsableSitePipe} from '../services/pipes/responsableSite.pipe';
-
-// import {ModalModule} from 'ng2-modal';
+import {DateFromServerMomentPipe} from '../services/pipes/dateFromServerMoment.pipe';
 
 
 @NgModule({
@@ -59,7 +52,8 @@ import {ResponsableSitePipe} from '../services/pipes/responsableSite.pipe';
         PaginationComponent,
         ValidityPeriodPipe,
         CapitalizePipe,
-        ResponsableSitePipe
+        ResponsableSitePipe,
+        DateFromServerMomentPipe
     ],
     exports: [
         LeftMenuComponent,  //моя верстка, удалить потом
@@ -79,7 +73,8 @@ import {ResponsableSitePipe} from '../services/pipes/responsableSite.pipe';
         PaginationComponent,
         ValidityPeriodPipe,
         CapitalizePipe,
-        ResponsableSitePipe
+        ResponsableSitePipe,
+        DateFromServerMomentPipe
     ],
     providers: [
         BackendService,
