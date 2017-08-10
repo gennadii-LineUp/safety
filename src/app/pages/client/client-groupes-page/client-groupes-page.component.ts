@@ -69,12 +69,10 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
         this.activePage = +localStorage.clientGroupSearch_page;
 
         if (this.searchName && this.activePage) {
-            console.log('== from local storage ==');
             this.findGroupByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
-            this.findGroupByNameFunction('', 1, '');//this.getGroupList(1);
+            this.findGroupByNameFunction('', 1, '');
         }
-        console.log('====' + this.searchName);
     }
 
 
@@ -97,18 +95,14 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
 
         this.doRequest(this.clientService, 'findGroupeByName', [_name, page, sort], result => {
                     this.loading = false;
-                    console.log(result);
-
                     this.groupes = result.items;
                     this.totalItems = +result.pagination.totalCount;
                     if (this.totalItems === 0) {
                         this.emptyTable = true;
                     }
-                    console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
                     this.setPage(this.currentPage);
-
                     this.loaded = true;
                     setTimeout(() => {
                         this.clientService.tableMobileViewInit();
@@ -118,8 +112,6 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
                 this.loading = false;
                 console.dir(err);
                 this.emptyTable = true;
-                if (err.status === 401) {console.log('**********************'); }  // 'please relogin!'
-                console.log('====error=============');
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
@@ -136,12 +128,8 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
         this.cancellSuccessMessage();
         this.saving = true;
 
-       // this.salaryeeGroupe.adminAccess = this._adminAccess;
-        console.dir(this.salaryeeGroupe);
-
         this.doRequest(this.clientService, 'addNewGroupe', [this.salaryeeGroupe, urlOption], result => {
                     this.saving = false;
-                    console.log(result);
                     this.salaryeeGroupe = new GroupeClass('', false);
                     // modal close /////////
                     const _modal = document.getElementById('myModal').firstElementChild;
@@ -178,7 +166,6 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
         this.emptyTable = false;
         this.doRequest(this.clientService, 'deleteGroupe', ['/' + id_itemForDelete], result => {
                     this.cancellErrorMessage();
-                    console.log(result);
                     this.findGroupByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {
                 this.loading = false;
@@ -191,17 +178,11 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
       this.modalOpen();
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
-        console.log(groupe);
                     this.salaryeeGroupe.name = groupe.name;
                     this.salaryeeGroupe.adminAccess = groupe.access;
                     this.itemForChange = groupe.id;
                     this.saveButtonCaption = 'Modifier';
     }
-
-
-    // public adminAccessClicked(e: any) {
-    //     this._adminAccess = e.target.checked;
-    // }
 
   public cancellErrorMessage() {
         this.loading = false;

@@ -63,11 +63,9 @@ export class AdminClientAjouterComponent extends BasePageComponent implements On
     }
     this.client.billingAddressIfDifferent = _billingAddressIfDifferent;
     this.client.employeesLimit = this.newValue;
-    console.dir(this.client);
 
     this.doRequest(this.adminService, 'addNewClient', [ this.client ], result => {
       this.loading = false;
-      console.log(result);
       localStorage.setItem('successCreating', 'Bravo! Vous avez créé un nouveau client.');
       this.gotoAdminClientForm();
     }, (err) => {

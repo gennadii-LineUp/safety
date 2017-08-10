@@ -17,9 +17,7 @@ export class LoginStartComponent implements OnInit {
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public router: Router) { }
 
-    ngOnInit() {
-        console.log(localStorage);
-    }
+    ngOnInit() {}
 
     login(userEmail: string, password: string) {
         this.cancellErrorMessage();

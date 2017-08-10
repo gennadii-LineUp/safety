@@ -33,7 +33,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       (queryParam: any) => {
         this.reset_token = queryParam['reset'];
     });
-    console.log(this.reset_token);
   }
 
   ngOnDestroy() {
@@ -46,7 +45,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.newPassword.token = this.reset_token;
 
-    // console.log(this.newPassword);
     this.loginService.resetPassword(this.newPassword)
       .subscribe(result => {
         if (result.token) {

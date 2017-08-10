@@ -21,7 +21,6 @@ export class RappelerLeMotDePasseComponent {
 
   public EnvoyerEmailFunction(loginInputEmail: string) {
     this.loading = true;
-    console.log(loginInputEmail);
     const userEmail = {
         email: loginInputEmail
     };

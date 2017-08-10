@@ -90,9 +90,7 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
     public onInitChecking() {
         this.searchName = localStorage.clientSiteSearch_name;
         this.activePage = +localStorage.clientSiteSearch_page;
-
         if (this.searchName && this.activePage) {
-            console.log('== from local storage ==');
             this.findSiteByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
             this.findSiteByNameFunction('', 1, '');
@@ -131,12 +129,10 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
         this.doRequest(this.clientService, 'findSiteByName', [_name, page, sort], result => {
                     this.loading = false;
                     this.sites = result.items;
-                    console.log(this.sites);
                     this.totalItems = +result.pagination.totalCount;
                     if (this.totalItems === 0) {
                         this.emptyTable = true;
                     }
-                    console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
                     this.setPage(this.currentPage);
@@ -189,14 +185,11 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
                                     this._techControlSite);
         this.doRequest(this.clientService, 'addNewSite', [newSite], result => {
                     this.cancellMessages();
-                    console.log(result);
                     this.newSite_id = result.siteId;
-                    // this.successCreating = 'Bien joué! Vous avez créé un nouveau client.';
                     if (this.userHasChoosenFile) {
                         this.loadingFile = true;
                       this.clientService.sendFileToServer(this.content, this.newSite_id)
                         .subscribe(result => {
-                            console.log(result);
                             this.loadingFile = false;
                             this.uploadedFile = true;
                             this.userHasChoosenFile = false;
@@ -236,7 +229,6 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
 
         this.doRequest(this.clientService, 'deleteSites', ['/' + id_itemForDelete], result => {
                     this.cancellMessages();
-                    console.log(result);
                     this.findSiteByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {
                 this.loading = false;

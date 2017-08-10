@@ -28,7 +28,6 @@ export class ClientBibliothequePageComponent  extends BasePageComponent implemen
 
     this.doRequest(this.clientService, 'getBibliotheques', null, result => {
           this.cancellErrorMessage();
-          console.log(result);
           this.links = result.items;
       }, (err) => {
         this.loading = false;

@@ -43,12 +43,10 @@ export class AdminAccueilContentComponent extends BasePageComponent implements O
         {name: 'sites', value: 0},
         {name: 'employees', value: 0}
       ];
-      console.log(result);
       this.progressBarValues[0].value = result.clients;
       this.progressBarValues[1].value = result.sites;
       this.progressBarValues[2].value = result.employees;
     }, err => {
-      console.log('====error=============');
       console.log(err);
       this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
     });

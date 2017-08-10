@@ -72,8 +72,6 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
         this.loadingSalarieUsed = true;
         this.doRequest(this.clientService, 'employeeCount', null, result => {
                     this.loadingSalarieUsed = false;
-
-                    console.log(result);
                     this.salariesMaxPossible = result.limitEmployees;
                     this.salariesUsed = result.employeeCount;
             }, (err) => {
@@ -90,9 +88,7 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
     public onInitChecking() {
         this.searchName = localStorage.clientSalarieSearch_name;
         this.activePage = +localStorage.clientSalarieSearch_page;
-
         if (this.searchName && this.activePage) {
-            console.log('== from local storage ==');
             this.findSalarieByNameFunction(this.searchName, this.activePage + 1, '');
         } else {
             this.findSalarieByNameFunction('', 1, '');
@@ -105,8 +101,6 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
 
         this.doRequest(this.clientService, 'deleteEmployee', [siteId, employeeId], result => {
                     this.cancellErrorMessage();
-                    console.log(result);
-                    // this.ngOnInit();
                     this.findSalarieByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {
                 this.loading = false;
@@ -137,18 +131,14 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
 
         this.doRequest(this.clientService, 'findSalarieByName', [_name, page, sort], result => {
                     this.loading = false;
-
-                    console.log(result);
                     this.salaries = result.items;
                     this.totalItems = +result.pagination.totalCount;
                     if (this.totalItems === 0) {
                         this.emptyTable = true;
                     }
-                    console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
 
                     this.setPage(this.currentPage);
-
                     this.loaded = true;
                     setTimeout(() => {
                         this.clientService.tableMobileViewInit();
@@ -160,7 +150,6 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
                 this.emptyTable = true;
                 console.log(err);
                 if (err.status === 403) {
-                    //this.errorLoad = "Aucun salarié n'a pas été créé";
                     return;
                 }
 

@@ -110,16 +110,12 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
 
         this.doRequest(this.adminService, 'findLinksByName', [_name, page, sort], result => {
                     this.cancellMessages();
-
-                    console.log(result);
                     this.links = result.items;
                     this.totalItems = +result.pagination.totalCount;
                     if (this.totalItems === 0) {
                         this.emptyTable = true;
                     }
-                    console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
-
                     this.setPage(this.currentPage);
 
                     setTimeout(() => {
@@ -141,7 +137,6 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
 
         this.doRequest(this.adminService, 'getLinkForUpdate', ['/' + id_itemForUpdate], result => {
                     this.creating = false;
-                    console.log(result);
                     this.adminBibliotheque.name = result.name;
                     this.adminBibliotheque.description = result.description;
                     this.adminBibliotheque.link = result.link;
@@ -166,7 +161,6 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
 
         this.doRequest(this.adminService, 'saveLink', [this.adminBibliotheque, urlOption], result => {
                     this.creating = false;
-                    console.log(result);
                     this.successCreating = 'Well done! Link is saved.';
                     if (this.itemForChange) {
                         this.saveButtonCaption = 'Créer';
@@ -186,7 +180,6 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
 
         this.doRequest(this.adminService, 'deleteLink', ['/' + id_itemForDelete], result => {
                     this.cancellMessages();
-                    console.log(result);
                     this.ngOnInit();
             }, (err) => {
                 this.loading = false;

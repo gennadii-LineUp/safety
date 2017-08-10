@@ -90,19 +90,16 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
     this.sortingTarget = '&sort=' + sortingDirection + columnName;
   }
 
-
   public onInitChecking() {
     this.searchName = localStorage.adminClientsSearch_name;
     this.activePage = +localStorage.adminClientsSearch_page;
 
     if (this.searchName && this.activePage) {
-      console.log('== from local storage ==');
       this.findClientByNameFunction(this.searchName, this.activePage + 1, '');
     } else {
       this.findClientByNameFunction('', 1, '');
     }
   }
-
 
   setPage(page: number) {
     if (page < 1 || page > this.pager.totalPages) {
@@ -125,18 +122,13 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
     this.doRequest(this.adminService, 'findClientByName', [ _name, page, sort ], result => {
 
       this.loading = false;
-
-      console.log(result);
       this.clients = result.items;
       this.totalItems = +result.pagination.totalCount;
       if (this.totalItems === 0) {
         this.emptyTable = true;
       }
-      console.log('ITEMS  ' + this.totalItems);
       this.currentPage = +result.pagination.current;
-
       this.setPage(this.currentPage);
-
       this.loaded = true;
       setTimeout(() => {
         this.adminService.tableMobileViewInit();
@@ -156,8 +148,6 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
 
     this.doRequest(this.adminService, 'getTolkinAdminAsClient', [ +client_id ], result => {
       this.loading = false;
-      console.log(result);
-
       localStorage.setItem('previous_tokenAdmin', localStorage.token);
       localStorage.setItem('previous_roleAdmin', localStorage.role);
 
@@ -165,13 +155,9 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
         localStorage.setItem('token', result.token);
         localStorage.setItem('role', result.roles[0]);
       }, 100);
-
-      console.log(localStorage);
-
       setTimeout(() => {
         this.router.navigate(['/client']);
       }, 300);
-      console.log('=====');
     }, (err) => {
       this.loading = false;
       console.log(err);
@@ -185,8 +171,6 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
 
     this.doRequest(this.adminService, 'deleteClient', [ '/' + id_itemForDelete ], result => {
       this.cancellErrorMessage();
-      console.log(result);
-      // this.ngOnInit();
       this.findClientByNameFunction(this.searchName, this.activePage, '');
     }, (err) => {
       this.loading = false;
