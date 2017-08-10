@@ -55,6 +55,12 @@ export class AdminClientAjouterComponent extends BasePageComponent implements On
       _billingAddressIfDifferent = newClientForm.value.billingAddressIfDifferent;
     }
 
+    if (!_billingAddressIfDifferent) {
+      this.client.diffName = '';
+      this.client.diffAddress = '';
+      this.client.diffPostalCode = '';
+      this.client.diffCity = '';
+    }
     this.client.billingAddressIfDifferent = _billingAddressIfDifferent;
     this.client.employeesLimit = this.newValue;
     console.dir(this.client);

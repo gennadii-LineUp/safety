@@ -40,7 +40,7 @@
             <label class="control control--checkbox">Adresse de facturation si différente
                 <input type="checkbox" [checked]='client.billingAddressIfDifferent' (click)='toggleDifferentBillingAddress($event)'
                        #billingAddressIfDifferent id="billingAddressIfDifferent" name='billingAddressIfDifferent'
-                       required [(ngModel)]="client.billingAddressIfDifferent"/>
+                        [(ngModel)]="client.billingAddressIfDifferent"/>
                 <span class="control__indicator"></span>
             </label>
         </div>

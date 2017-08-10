@@ -118,7 +118,16 @@ export class ClientProfilPageComponent extends BasePageComponent implements OnIn
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
         this.updating = true;
-        this.doRequest(this.clientService, 'updateClientProfile', [this.client], result => {
+
+      if (!this.client.billingAddressIfDifferent) {
+        this.client.diffName = '';
+        this.client.diffAddress = '';
+        this.client.diffPostalCode = '';
+        this.client.diffCity = '';
+      }
+      console.log(this.client);
+
+      this.doRequest(this.clientService, 'updateClientProfile', [this.client], result => {
                     this.updating = false;
                     this.userHasChoosenFile = false;
             }, (err) => {
