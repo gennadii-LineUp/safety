@@ -57,7 +57,7 @@
                     <td>{{salarie.surname}}</td>
                     <td>{{salarie.numSecu}}</td>
                     <td>{{salarie.groupName}}</td>
-                    <td>{{salarie.access | adminAccess }}</td>
+                    <td>{{salarie.access | employeeAccess }}</td>
                     <td>{{salarie.validityPeriod | validityPeriod}}</td>
                     <td>
                         <a href="javascript:void(0);" (click)='modifierSalarieFunction(salarie.id)'>Modifier</a>

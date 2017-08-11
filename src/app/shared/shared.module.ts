@@ -17,6 +17,7 @@ import {ValueNullPipe} from '../services/pipes/valueNull.pipe';
 import {CapitalizePipe} from '../services/pipes/capitalize.pipe';
 import {ResponsableSitePipe} from '../services/pipes/responsableSite.pipe';
 import {DateFromServerMomentPipe} from '../services/pipes/dateFromServerMoment.pipe';
+import {EmployeeAccessPipe} from '../services/pipes/accessEmployee.pipe';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {DateFromServerMomentPipe} from '../services/pipes/dateFromServerMoment.p
         ValidityPeriodPipe,
         CapitalizePipe,
         ResponsableSitePipe,
-        DateFromServerMomentPipe
+        DateFromServerMomentPipe,
+        EmployeeAccessPipe
     ],
     exports: [
         ProgressBarComponent,
@@ -49,7 +51,8 @@ import {DateFromServerMomentPipe} from '../services/pipes/dateFromServerMoment.p
         ValidityPeriodPipe,
         CapitalizePipe,
         ResponsableSitePipe,
-        DateFromServerMomentPipe
+        DateFromServerMomentPipe,
+        EmployeeAccessPipe
     ],
     providers: [
         BackendService,

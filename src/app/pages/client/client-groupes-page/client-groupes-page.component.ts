@@ -94,6 +94,7 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
         this.activePage = page;
 
         this.doRequest(this.clientService, 'findGroupeByName', [_name, page, sort], result => {
+          console.log(result);
                     this.loading = false;
                     this.groupes = result.items;
                     this.totalItems = +result.pagination.totalCount;

@@ -62,7 +62,6 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
 
   ngOnInit() {
         this.id_site = localStorage.id_site;
-        console.log('get from LS ' + this.id_site);
         this.checkFreeSalarieAccount();
         this.findEmployeeByNameFunction('', 1, '');
 
@@ -109,9 +108,16 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
 
         this.doRequest(this.siteService, 'findEmployeeByName', [_name, page, this.id_site, sort], result => {
                     this.loading = false;
+                    console.log(result.items);
+                    let arr = result.items;
 
-                    console.log(result);
-                    this.salaries = result.items;
+                    for (let i = 0; i < arr.length; i++) {
+                      if (arr[i].groupAdminAccess === true) {
+                        arr[i].access = 'Admin';
+                        console.log('replaced by Admin');
+                      }
+                    }
+                    this.salaries = arr;
                     this.totalItems = +result.pagination.totalCount;
                     if (this.totalItems === 0) {
                         this.emptyTable = true;
@@ -169,13 +175,12 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
             });
     }
 
-    modifierSalarieFunction(id_salarie:number) {
-        localStorage.setItem('id_salarie', ''+id_salarie);
+    modifierSalarieFunction(id_salarie: number) {
+        localStorage.setItem('id_salarie', '' + id_salarie);
         this.router.navigate(['/site', this.id_site, 'ajouter-un-salarie-etap2']);
     }
 
   public cancellErrorMessage() {
-        //this.loading = false;
         this.errorLoad = '';
         this.errorCreating = '';
     }
