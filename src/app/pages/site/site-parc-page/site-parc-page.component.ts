@@ -122,14 +122,19 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
           { display: 'Marque',          variable: 'mark',         filter: 'text' }
       ];
 
-    constructor(public siteService: SiteService,
+  public fileString;
+
+  constructor(public siteService: SiteService,
                 public clientService: ClientService,
                 public tableSortService: TableSortService,
                 public dataService: DataService,
                 public errorMessageHandlerService: ErrorMessageHandlerService,
                 public paginationService: PaginationService,
                 public machinesGlossary: MachinesGlossary,
-                public backendService: BackendService) { super(); }
+                public backendService: BackendService) {
+    super();
+    this.fileString;
+  }
 
   ngOnInit() {
         this.id_site = localStorage.id_site;
@@ -638,6 +643,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   }
 
 
+  // base64
   public fileChangeVGP(event) {
       console.log('======fileChange VGP======');
     this.fileListVGP = event.target.files;
@@ -653,6 +659,41 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       console.log(fileVGP);
     }
   }
+
+// FileReader
+  public _fileChangeVGP($event): void {
+    this.readThis($event.target);
+  }
+
+  public readThis(inputValue: any): void {
+    this.loadingFileVGP = true;
+    let file: File = inputValue.files[0];
+    let myReader: FileReader = new FileReader();
+    let fileType = inputValue.parentElement.id;
+    myReader.onloadend = function (e) {
+      // myReader.result is a String of the uploaded file
+      console.log(myReader.result);
+      // fileString = myReader.result would not work,
+      // because it is not in the scope of the callback
+    }
+    myReader.readAsText(file);
+  }
+
+  // public _fileChangeVGP(event) {
+  //   console.log('======fileChange VGP======');
+  //   this.fileListVGP = event.target.files;
+  //   if (this.fileListVGP.length > 0) {
+  //     this.userHasChoosenFileVGP = true;
+  //     let fileVGP = this.fileListVGP[0];
+  //     let reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       this.contentVGP = e.target;
+  //     };
+  //     const res = reader.readAsDataURL(event.target.files[0]);
+  //     this.uploadVGPFileText = fileVGP.name;
+  //     console.log(fileVGP);
+  //   }
+  // }
 
   public loadToServerVGPFunction(id_machine) {
     this.loadingFileVGP = true;
