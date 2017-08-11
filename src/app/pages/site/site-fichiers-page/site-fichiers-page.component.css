@@ -27,3 +27,13 @@ modal-header-SF h2{
 .requred-field {
   bottom: -12px;
 }
+
+span.bgPlusWhite {
+  background: url(../../../../assets/img/plus-icon-white.png) no-repeat center;
+  height: 40px;
+  width: 40px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
