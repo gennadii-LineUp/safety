@@ -60,6 +60,7 @@ export class BackendService {
 
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Authorization', 'Bearer ' + this.token);
+   // headers.append('Accept', 'application/json');
 
     return this.http.post(url, body, {headers: headers})
       .map((res: Response) => <Object[]>res.json());

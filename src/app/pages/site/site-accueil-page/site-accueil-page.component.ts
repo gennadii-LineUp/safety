@@ -31,9 +31,8 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
         const refresh = {
           refresh_token: localStorage.getItem('refresh_token')
         };
-        this.backendService.token_refresh((refresh))
+        this.backendService.token_refresh(refresh)
           .subscribe(result => {
-            console.log(result);
             localStorage.setItem('token', result.token);
             localStorage.setItem('refresh_token', result.refresh_token);
           }, (err) => {

@@ -38,7 +38,8 @@ export class DataService {
 
 
   public fromServerMoment(stringDate: string): string {
-    return moment.utc(stringDate.replace('T', ' '), 'YYYY-MM-DD HH:mm:ss').local().format('DD/MM/YYYY');
+    // return moment.utc(stringDate.replace('T', ' '), 'YYYY-MM-DD HH:mm:ss').local().format('DD/MM/YYYY');
+       return moment(stringDate).local().format('DD/MM/YYYY');
   }
 
   public toDateString(date: Date): string {
