@@ -54,7 +54,7 @@ export class SalariesService {
       return this.backendService.get(query);
     }
     public getFromServerAttestationImage(attestation_Id: number): Observable<any> {
-      const query = UrlParams.employeeHome + 'attestations/' + attestation_Id + '/file?encoded=1';
+      const query = UrlParams.employeeHome + 'attestations/' + attestation_Id + '/file?aslink=1';
       console.log(query);
       return this.backendService.loadImage_get(query);
     }
@@ -65,11 +65,10 @@ export class SalariesService {
       return this.backendService.get(query);
     }
     public getFromServerDriving_licenseImage(drLicense_id: number): Observable<any> {
-      const query = UrlParams.employeeHome + 'driving_licenses/' + drLicense_id + '?encoded=1';
+      const query = UrlParams.employeeHome + 'driving_licenses/' + drLicense_id + '?aslink=1';
       console.log(query);
       return this.backendService.loadImage_get(query);
     }
-// employee/driving_licenses/9?encoded=1
 
   public loadToServerSalarieeImage(content: any): Observable<any> {
     const url = UrlParams.employeeHome + 'profile/photo';
@@ -88,26 +87,30 @@ export class SalariesService {
   }
 
   public getFromServerFichier(fichier_Id: number): Observable<any> {
-    const url = UrlParams.employeeHome + 'files/' + fichier_Id + '?encoded=1';
+    const url = UrlParams.employeeHome + 'files/' + fichier_Id + '?aslink=1';
     console.log(url);
     return this.backendService.loadImage_get(url);
   }
+  public getFromServerLinkForPDF_(fileLink: string): Observable<any> {
+    const url = UrlParams.homeUrl + 'files/' + fileLink;
+    console.log(url);
+    return this.backendService.getFromUrl(url);
+  }
   public getFromServerVGPFile(machine_id: number): Observable<any> {
-    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/vgp_file' + '?encoded=1';
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/vgp_file' + '?aslink=1';
     console.log(url);
     return this.backendService.loadImage_get(url);
   }
   public getFromServerCTFile(machine_id: number): Observable<any> {
-    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/tech_control_file' + '?encoded=1';
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/tech_control_file' + '?aslink=1';
     console.log(url);
     return this.backendService.loadImage_get(url);
   }
   public getFromServerOtherFile(machine_id: number, otherFile_id: number): Observable<any> {
-    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/files/' + otherFile_id + '?encoded=1';
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/files/' + otherFile_id + '?aslink=1';
     console.log(url);
     return this.backendService.loadImage_get(url);
   }
-//  employee/machines/{{machineId}}/files/{{machineFileId}}
 
   public tableMobileViewInit() {
     const headertext = [],

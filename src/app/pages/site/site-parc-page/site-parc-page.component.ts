@@ -664,36 +664,48 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public _fileChangeVGP($event): void {
     this.readThis($event.target);
   }
-
   public readThis(inputValue: any): void {
+    console.log('======fileChange VGP======');
     this.loadingFileVGP = true;
     let file: File = inputValue.files[0];
     let myReader: FileReader = new FileReader();
     let fileType = inputValue.parentElement.id;
-    myReader.onloadend = function (e) {
-      // myReader.result is a String of the uploaded file
-      console.log(myReader.result);
-      // fileString = myReader.result would not work,
-      // because it is not in the scope of the callback
-    }
+    myReader.onloadend = (e) => {
+      this.contentVGP = myReader.result;
+      this.loadingFileVGP = false;
+      // console.log(this.fileString);
+    };
     myReader.readAsText(file);
+    this.userHasChoosenFileVGP = true;
   }
 
-  // public _fileChangeVGP(event) {
-  //   console.log('======fileChange VGP======');
-  //   this.fileListVGP = event.target.files;
-  //   if (this.fileListVGP.length > 0) {
-  //     this.userHasChoosenFileVGP = true;
-  //     let fileVGP = this.fileListVGP[0];
-  //     let reader = new FileReader();
-  //     reader.onload = (e) => {
-  //       this.contentVGP = e.target;
-  //     };
-  //     const res = reader.readAsDataURL(event.target.files[0]);
-  //     this.uploadVGPFileText = fileVGP.name;
-  //     console.log(fileVGP);
-  //   }
-  // }
+  public _fileChangeVGP_2(event) {
+    console.log('======fileChange VGP======');
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      let formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+
+      this.contentVGP = formData;
+      this.userHasChoosenFileVGP = true;
+    }
+  }
+  public loadToServerVGPFunction_2(id_machine) {
+    this.loadingFileVGP = true;
+    this.siteService.loadToServerVGP_2(this.contentVGP, this.id_site, id_machine)
+      .subscribe(result => {
+        console.log(result);
+        this.loadingFileVGP = false;
+        this.userHasChoosenFileVGP = false;
+        this.resetVGP();
+      }, (err) => {
+        this.loadingFileVGP = false;
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
 
   public loadToServerVGPFunction(id_machine) {
     this.loadingFileVGP = true;
@@ -802,12 +814,19 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.loadingFileOther = false;
   }
 
+  public getFromServerLinkForPDFFunction(fileLink: string) {
+    this.doRequest(this.siteService, 'getFromServerLinkForPDF', [fileLink], result => {
+      window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
 
   public voirFunctionVGP() {
     console.log(this.itemForChange);
     this.doRequest(this.siteService, 'getFromServerVGPFichier', [this.id_site, this.itemForChange], result => {
-        console.log(result.content);
-        window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+      if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -816,8 +835,8 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public voirFunctionCT() {
     console.log(this.itemForChange);
     this.doRequest(this.siteService, 'getFromServerCTFichier', [this.id_site, this.itemForChange], result => {
-        window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
-      }, (err) => {
+      if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
+    }, (err) => {
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });
@@ -825,7 +844,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public voirFunctionOther(fichier_id) {
     console.log(fichier_id);
     this.doRequest(this.siteService, 'getFromServerOtherFichier', [this.id_site, this.itemForChange, fichier_id], result => {
-        window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);

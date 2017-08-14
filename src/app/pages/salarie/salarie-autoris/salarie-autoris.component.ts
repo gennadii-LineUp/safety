@@ -122,12 +122,21 @@ export class SalarieAutorisComponent extends BasePageComponent implements OnInit
     this.pager = this.paginationService.getPager(this.totalItems, page);
   }
 
+  public getFromServerLinkForPDFFunction(fileLink: string) {
+    this.doRequest(this.salariesService, 'getFromServerLinkForPDF_', [fileLink], result => {
+      this.loading = false;
+      window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+
   public voirFunction(drLicense_id: number) {
     this.cancellMessages();
     this.loading = true;
     this.doRequest(this.salariesService, 'getFromServerDriving_licenseImage', [drLicense_id], result => {
-          this.loading = false;
-          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         this.loading = false;
         if (err.status === 403) {

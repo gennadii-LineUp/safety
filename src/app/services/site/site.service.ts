@@ -92,15 +92,18 @@ export class SiteService {
       console.log(url);
       return this.backendService.get(url);
     }
-    public loadToServerVGP(content: any, siteId: number, machineId: number): Observable<any> {
+  public loadToServerVGP_2(content: any, siteId: number, machineId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/vgp_file';
+    console.log(url);
+    console.log(content);
+    return this.backendService.sendPDFtoServer(url, content);
+  }
+  public loadToServerVGP(content: any, siteId: number, machineId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/vgp_file';
       console.log(url);
-      console.log('----content--------');
-      console.log(content.result);
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
-      console.log(fileToServer);
       return this.backendService.loadImage_post(url, fileToServer);
     }
     public loadToServerCT(content: any, siteId: number, machineId: number): Observable<any> {
@@ -134,22 +137,27 @@ export class SiteService {
     }
 
     public getFromServerVGPFichier(siteId: number, machine_id: number): Observable<any> {
-    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/vgp_file?encoded=1';
-    console.log(url);
-    return this.backendService.loadImage_get(url);
-  }
-  public getFromServerCTFichier(siteId: number, machine_id: number): Observable<any> {
-    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/tech_control_file?encoded=1';
-    console.log(url);
-    return this.backendService.loadImage_get(url);
-  }
-  public getFromServerOtherFichier(siteId: number, machine_id: number, fichier_id: number): Observable<any> {
-    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/files/' + fichier_id + '?encoded=1';
-    console.log(url);
-    return this.backendService.loadImage_get(url);
-  }
+      const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/vgp_file?aslink=1';
+      console.log(url);
+      return this.backendService.loadImage_get(url);
+    }
+    public getFromServerCTFichier(siteId: number, machine_id: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/tech_control_file?aslink=1';
+      console.log(url);
+      return this.backendService.loadImage_get(url);
+    }
+    public getFromServerOtherFichier(siteId: number, machine_id: number, fichier_id: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/files/' + fichier_id + '?aslink=1';
+      console.log(url);
+      return this.backendService.loadImage_get(url);
+    }
+    public getFromServerLinkForPDF(fileLink: string): Observable<any> {
+      const url = UrlParams.homeUrl + 'files/' + fileLink;
+      console.log(url);
+      return this.backendService.getFromUrl(url);
+    }
 
-  public clientList(page): Observable<any> {
+    public clientList(page): Observable<any> {
         const query = '?q=&sort=&page=';
         return this.backendService.get(UrlParams.adminClients + query + page);
     }

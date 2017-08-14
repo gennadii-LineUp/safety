@@ -164,6 +164,16 @@ export class BackendService {
             .map((res: Response) => <Object[]>res.json());
             // .catch(this.handleError);
     }
+  public getFromUrl(url: string): Observable<any> {
+    const headers: Headers = new Headers();
+    this.token = localStorage.getItem('token');
+
+    headers.append('Authorization', 'Bearer ' + this.token);
+
+    return this.http.get(url)
+      .map((res: Response) => res);
+    // .catch(this.handleError);
+  }
 
 
     public deleteData(url: string): Observable<any> {

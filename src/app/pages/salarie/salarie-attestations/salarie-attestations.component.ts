@@ -96,12 +96,21 @@ export class SalarieAttestationsComponent extends BasePageComponent implements O
     this.pager = this.paginationService.getPager(this.totalItems, page);
   }
 
+  public getFromServerLinkForPDFFunction(fileLink: string) {
+    this.doRequest(this.salariesService, 'getFromServerLinkForPDF_', [fileLink], result => {
+      this.loading = false;
+      window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+
   public voirFunction(fichierId: number) {
     this.cancellMessages();
     this.loading = true;
     this.doRequest(this.salariesService, 'getFromServerAttestationImage', [fichierId], result => {
-          this.loading = false;
-          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         this.loading = false;
         console.log(err);

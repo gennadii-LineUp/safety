@@ -189,14 +189,21 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
     this.successUpdate = '';
   }
 
+  public getFromServerLinkForPDFFunction(fileLink: string) {
+    this.doRequest(this.salariesService, 'getFromServerLinkForPDF_', [fileLink], result => {
+      this.loading = false;
+      window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
 
   public getFromServerVGPFileFunction(machine_id) {
     console.log(machine_id);
     this.loading = true;
     this.doRequest(this.salariesService, 'getFromServerVGPFile', [machine_id], result => {
-          console.log(result);
-          this.loading = false;
-          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -208,9 +215,7 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
     console.log(machine_id);
     this.loading = true;
     this.doRequest(this.salariesService, 'getFromServerCTFile', [machine_id], result => {
-          console.log(result);
-          this.loading = false;
-          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -223,9 +228,7 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
     this.loading = true;
 
     this.doRequest(this.salariesService, 'getFromServerOtherFile', [machine_id, file_id], result => {
-          console.log(result);
-          this.loading = false;
-          window.open('data:' + result['Content-type'] + ';base64,' + encodeURI(result.content));
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
         this.loading = false;
         console.log(err);
