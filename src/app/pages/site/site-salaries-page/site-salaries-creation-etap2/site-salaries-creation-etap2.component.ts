@@ -42,6 +42,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     datesAutorisationsEmpty = true;
     datesAttestationEmpty = true;
 
+    disabled = 'false';
+
     saveButtonCaptionAttest = 'Enregistrer';
     saveButtonCaption_DrLicense = 'Enregistrer';
     itemForChange = 0;
@@ -380,6 +382,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             });
     }
 
+    public modalCategoryDrivingLicenseOpen() {
+      this.setEmptyDrivingLicense();
+      const _modal = document.getElementById('autorModal').firstElementChild;
+      if (_modal) {_modal.classList.remove('hidden'); }
+      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+      if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    }
+
     public modalAttestOpen() {
         this.modalAttestClear();
         const _modal = document.getElementById('attestModal').firstElementChild;
@@ -644,16 +654,21 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       this.doRequest(this.siteService, 'setCategoryDrivingLicense', [this.drivingLicense, this.id_site, this.id_salarie, urlOption], result => {
             console.log(result);
             this.getDrivingLicenses('');
-            this.setEmptyDrivingLicense();
+            // modal close /////////
+            const _modal = document.getElementById('autorModal').firstElementChild;
+            _modal.classList.add('hidden');
+            const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+            (<HTMLScriptElement>modal_bg).classList.add('hidden');
+            /////////
             if (this.itemForChange_DrLicense) {
               this.saveButtonCaption_DrLicense = 'Enregistrer';
               this.itemForChange_DrLicense = 0;
-              this.successCreatingDrLicence = 'Bravo! Vos modifications sont enregistrées.';
+              this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
             } else {
-              this.successCreatingDrLicence = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
+              this.successCreating = 'Bien joué! Vous avez créé un nouveau permis de conduire.';
             }
             this.creatingDrivingLicense = false;
-        }, (err) => {
+      }, (err) => {
           this.creatingDrivingLicense = false;
           console.log(err);
           this.errorCreatingDrLicence = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -683,6 +698,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   }
 
   public setEmptySelect() {
+    this.disabled = 'false';
+    this.creatingDrivingLicense = false;
+    this.errorCreatingDrLicence = '';
     this.activeSelect = '3';
     this.categoryDrivingLicense_active = 3;
     this.setEmptyDrivingLicense();
@@ -700,8 +718,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   }
 
   public getDrLicenseForUpdateFunction(id_itemForUpdate: number, activeSelect: number) {
+    this.modalCategoryDrivingLicenseOpen();
     this.setEmptyDrivingLicense();
     this.cancellErrorMessage();
+    this.disabled = 'true';
     this.creatingDrivingLicense = true;
     console.log(id_itemForUpdate);
     this.activeSelect = '' + activeSelect;
@@ -832,6 +852,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         }
       });
   }
+
 
 
 }
