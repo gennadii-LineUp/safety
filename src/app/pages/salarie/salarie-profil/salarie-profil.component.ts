@@ -49,7 +49,6 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
     this.loading = true;
     this.doRequest(this.salariesService, 'getProfilData', null, result => {
           this.loading = false;
-          console.log(result);
           this.getFromServerProfileImageFunction();
           this.employee.name = result.name;
           this.employee.surname = result.surname;
@@ -73,7 +72,6 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
                                                               this.employeesPasswordClass.confirmPassword);
 
     this.doRequest(this.salariesService, 'updateProfilData', [employeesPasswordClass], result => {
-          console.log(result);
           this.successUpdate = 'Le profil a bien été mis à jour.';
           this.updating = false;
       }, (err) => {
@@ -112,7 +110,6 @@ export class SalarieProfilComponent extends BasePageComponent implements OnInit,
 
   public loadToServerProfileImageFunction() {
     this.doRequest(this.salariesService, 'loadToServerSalarieeImage', [this.content], result => {
-        console.log(result);
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
           }, 100);

@@ -887,7 +887,7 @@ th {
 
 .image-upload label {
     width: 42px;
-    height: 42px;
+    height: 41px;
     background: #3ba890;
     position: absolute;
     right: -1px;
@@ -2025,7 +2025,7 @@ th {
 
 .creation-salarie-page .ajouter-image .image-upload label {
     width: 42px;
-    height: 42px;
+    height: 41px;
     background: #3ba890;
     position: absolute;
     right: -1px;

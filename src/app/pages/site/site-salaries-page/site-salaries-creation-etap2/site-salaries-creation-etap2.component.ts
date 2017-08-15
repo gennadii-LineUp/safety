@@ -173,7 +173,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
 
   public ShowType(userChoice: string) {
-      console.log(userChoice);
       switch (userChoice) {
         case  '3':  this.activeSelect = this.machinesGlossary.TypeM[0].value;  break;
         case  '4':  this.activeSelect = this.machinesGlossary.TypeM[1].value;  break;
@@ -200,18 +199,15 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     }
 
     public getEmployeeFromEtap1Function() {
-        // this.siteService.lightActiveMenu();
         this.loading = true;
         this.doRequest(this.siteService, 'getEmployeeFromEtap1', [this.id_site, this.id_salarie], result => {
                     this.loading = false;
-                    console.log(result);
                     this.employees.name = result.name;
                     this.employees.surname = result.surname;
                     this.employees.email = result.email;
                     this.employees.post = result.post;
                     this.employees.numSecu = result.numSecu;
                     this.employees.validityPeriod = result.validityPeriod;
-                    console.log(result.employeeGroup.id);
                     this.employees.employeeGroup = result.employeeGroup.id;
                     if (result.cacesFile) {this.uploadedFileCaces = true; }
 
@@ -225,7 +221,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     }
                     // this.employees.birthDate = this.dataService.fromServerMoment(result.birthDate);
                     this.employees.birthDate = this.dataService.fromServerMoment(result.birthDate);
-                    console.log(this.employees);
                     this.loaded = true;
                     this.getFromServerProfileImageFunction();
                     window.setTimeout(() => this.checkedGroupFromEtap1 = this.employees.employeeGroup, 100);
@@ -244,7 +239,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     public getEmployeeGroupes() {
         this.loadingGroupes = true;
         this.doRequest(this.clientService, 'getGroupList', null, result => {
-                  console.log(result);
                     this.loadingGroupes = false;
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
@@ -282,11 +276,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                                                 _endDate,
                                                 this.employees.employeeGroup);
 
-        console.dir(employeeDates);
-
         this.doRequest(this.siteService, 'updateEmployee', [employeeDates, this.id_site, this.id_salarie], result => {
                     this.loading = false;
-                    console.log(result);
                     this.successCreating = 'Bravo! Vos modifications sont enregistrées.';
             }, (err) => {
                 this.loading = false;
@@ -327,7 +318,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         const attestation = new AttestationClass(this.attestation.name,
                                                 this.dataService.convertDateFromInputeToServer(dateIssue),
                                                 this.dataService.convertDateFromInputeToServer(dateExpires));
-        console.dir(attestation);
 
         this.doRequest(this.siteService, 'setAttestation', [attestation, this.id_site, this.id_salarie, urlOption], result => {
                   let attestation_id: number;
@@ -339,7 +329,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                       .subscribe(result => {
                         this.loadingFileAttest = false;
                         this.uploadedFileAttest = true;
-                        console.log(result);
                         this.userHasChoosenFileAttest = false;
                         // modal close /////////
                         const _modal = document.getElementById('attestModal').firstElementChild;
@@ -426,12 +415,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         const _datepicker_caces = this.dataService.convertDateFromInputeToServer(datepicker_caces);
 
         const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
-        console.log(visites);
 
         this.doRequest(this.siteService, 'addMedicaleCacesDates', [visites, this.id_site, this.id_salarie], result => {
                     this.loading = false;
-                    console.log(result);
-                    // this.successCreating = "Well done! You've saved MedicaleCacesDates.";
 
                     if (this.userHasChoosenFileCaces) {
                       this.loadingFileCaces = true;
@@ -439,7 +425,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                         .subscribe(result => {
                             this.loadingFileCaces = false;
                             this.uploadedFileCaces = true;
-                            console.log(result);
                             this.userHasChoosenFileCaces = false;
                         }, (err) => {
                           this.loadingFileCaces = false;
@@ -465,8 +450,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.visites = new VisitesClass('', '');
 
     this.doRequest(this.siteService, 'getMedicaleCacesDates', [this.id_site, this.id_salarie], result => {
-          console.log('====MedicaleCacesDates from server:');
-          console.dir(result);
           this.loadingDatesAutorisations = false;
 
           if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
@@ -487,7 +470,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public getAttestations(sort: string) {
         this.loadingAttestations = true;
         this.doRequest(this.siteService, 'getAttestations', [this.id_site, this.id_salarie, sort], result => {
-                    console.log(result.items);
                     this.loadingAttestations = false;
                     this.employeeAttestations = result.items;
                     this.emptyTable = false;
@@ -507,11 +489,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.cancellErrorMessage();
         this.creatingAttest = true;
         this.attestation = new AttestationClass('', '', '');
-        console.log(id_itemForUpdate);
 
         this.doRequest(this.siteService, 'getOneAttestation', [this.id_site, this.id_salarie, '/' + id_itemForUpdate], result => {
                     this.creatingAttest = false;
-                    console.log(result);
                     this.attestation.name = result.name;
                     this.attestation.dateExpires = this.dataService.fromServerMoment(result.dateExpires);
                     this.attestation.dateIssue = this.dataService.fromServerMoment(result.dateIssue);
@@ -531,7 +511,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.emptyTable = false;
         this.doRequest(this.siteService, 'deleteAttestation', [this.id_site, this.id_salarie, '/' + id_itemForDelete], result => {
                     this.cancellErrorMessage();
-                    console.log(result);
                     this.getAttestations('');
             }, (err) => {
                 this.loadingAttestations = false;
@@ -610,11 +589,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       } else {
         this.categoryDrivingLicense_nullData = false;
       }
-      console.log(this.drivingLicense.categories);
     }
     public addSubcategoryEquipement(e: any) {
         this.subcategoryEquipement = +e.target.id;
-        console.log(this.subcategoryEquipement);
         this.drivingLicense.equipment = this.subcategoryEquipement;
         this.categoryDrivingLicense_nullData = false;
     }
@@ -647,12 +624,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       }
 
       this.creatingDrivingLicense = true;
-
       this.drivingLicense.categories = this.drivingLicense.categories.sort((a, b) => a - b);
-      console.log(this.drivingLicense);
 
       this.doRequest(this.siteService, 'setCategoryDrivingLicense', [this.drivingLicense, this.id_site, this.id_salarie, urlOption], result => {
-            console.log(result);
             this.getDrivingLicenses('');
             // modal close /////////
             const _modal = document.getElementById('autorModal').firstElementChild;
@@ -678,7 +652,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public getDrivingLicenses(sort: string) {
     this.loadingDrLicences = true;
     this.doRequest(this.siteService, 'getDrivingLicenses', [this.id_site, this.id_salarie, sort], result => {
-          console.log(result);
           this.loadingDrLicences = false;
           this.drivingLicenses = result.items;
           this.emptyTable_drLicences = false;
@@ -723,17 +696,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.cancellErrorMessage();
     this.disabled = 'true';
     this.creatingDrivingLicense = true;
-    console.log(id_itemForUpdate);
     this.activeSelect = '' + activeSelect;
 
     this.doRequest(this.siteService, 'getOneDrLicense', [this.id_site, this.id_salarie, id_itemForUpdate], result => {
           this.creatingDrivingLicense = false;
-          console.log(result);
           this.saveButtonCaption_DrLicense = 'Modifier';
           this.itemForChange_DrLicense = id_itemForUpdate;
           this.drivingLicense.categories = result.categories;
           this.checkedDrLicenses = result.categories;
-          console.log(this.checkedDrLicenses);
       }, (err) => {
         this.creatingDrivingLicense = false;
         console.log(err);
@@ -744,11 +714,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public deleteDrLicenseFunction(id_itemForDelete: number) {
     this.loadingDrLicences = true;
     this.emptyTable_drLicences = false;
-    console.log(id_itemForDelete);
     this.doRequest(this.siteService, 'deleteDrLicense', [this.id_site, this.id_salarie, '/' + id_itemForDelete], result => {
           this.loadingDrLicences = false;
           this.cancellErrorMessage();
-          console.log(result);
           this.getDrivingLicenses('');
       }, (err) => {
         this.loadingDrLicences = false;
@@ -760,8 +728,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public resetCacesFile() {
     this.userHasChoosenFileCaces = false;
     this.cacesInput.nativeElement.value = '';
-    console.log(this.cacesInput.nativeElement.files);
-    // this.uploadFileTextCaces = '';
   }
   public resetAttestFile() {
     this.userHasChoosenFileAttest = false;
@@ -770,7 +736,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   }
 
   public fileChangeCaces(event) {
-    console.log('======fileChange Caces======');
     this.loadingFileCaces = false;
     this.uploadedFileCaces = false;
     this.fileCaces = event.target.files;
@@ -787,7 +752,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   }
 
   public fileChangeAttest(event) {
-    console.log('======fileChange Attest======');
     this.loadingFileAttest = false;
     this.uploadedFileAttest = false;
     this.fileAttest = event.target.files;

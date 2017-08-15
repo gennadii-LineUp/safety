@@ -16,7 +16,6 @@ export class TableSortService {
     }
 
     public changeSorting(columnName): void {
-        console.log(columnName);
         const sort = this.sorting;
         if (sort.column === columnName) {
             sort.descending = !sort.descending;
@@ -26,7 +25,6 @@ export class TableSortService {
         }
     }
     public changeSortingSecondName(columnName): void {
-        console.log(columnName);
         const sort = this.sortingSecondName;
         if (sort.column === columnName) {
           sort.descending = !sort.descending;
@@ -61,7 +59,6 @@ export class TableSortService {
             sortingDirection = '-'; // up
         }
         this.sortingTarget = '&sort=' + sortingDirection + columnName;
-        console.log(this.sortingTarget);
     }
 
     public _changeSortingSecondName(columnName: string, e: any): void {
@@ -88,7 +85,6 @@ export class TableSortService {
           sortingDirection = '-'; // up
         }
         this.sortingTargetSecondName = '&sort=' + sortingDirection + columnName;
-        console.log(this.sortingTargetSecondName);
     }
 
     public _getSortingTarget(): string {

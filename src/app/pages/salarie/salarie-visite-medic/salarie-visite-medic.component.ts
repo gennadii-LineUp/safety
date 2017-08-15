@@ -27,7 +27,6 @@ export class SalarieVisiteMedicComponent extends BasePageComponent implements On
     this.loading = true;
     this.doRequest(this.salariesService, 'getMedicalVisit', null, result => {
           this.loading = false;
-          console.log(result);
           this.visite_medical = result.medicalVisitDateExpires;
       }, (err) => {
         this.loading = false;

@@ -64,16 +64,13 @@ export class SalarieAttestationsComponent extends BasePageComponent implements O
 
     this.doRequest(this.salariesService, 'findAttestationByName', [_name, page, sort], result => {
           this.loading = false;
-          console.log(result);
           this.fichiers = result.items;
 
           this.totalItems = +result.pagination.totalCount;
           if (this.totalItems === 0) {
             this.emptyTable = true;
           }
-          console.log('ITEMS  ' + this.totalItems);
           this.currentPage = +result.pagination.current;
-
           this.setPage(this.currentPage);
 
           setTimeout(() => {

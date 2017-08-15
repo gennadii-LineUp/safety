@@ -113,14 +113,12 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
 
     this.doRequest(this.salariesService, 'findMachinesByName', [_name, page, sort], result => {
           this.loading = false;
-          console.log(result);
           this.fichiers = result.items;
 
           this.totalItems = +result.pagination.totalCount;
           if (this.totalItems === 0) {
             this.emptyTable = true;
           }
-          console.log('ITEMS  ' + this.totalItems);
           this.currentPage = +result.pagination.current;
 
           this.setPage(this.currentPage);
@@ -154,7 +152,6 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
     this.loading = true;
     this.doRequest(this.salariesService, 'findOneMachine', [machine_id], result => {
             this.loading = false;
-            console.log(result);
             this.categoryName = result.categoryName;
             this.parentCategoryName = result.parentCategoryName;
             this.machine.id = result.id;
@@ -174,8 +171,6 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
               this.machine.files = result.files;
               this.otherFilesArray = result.files;
             }
-
-            console.log(this.machine);
       }, (err) => {
         this.loading = false;
         console.log(err);
@@ -200,7 +195,6 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
   }
 
   public getFromServerVGPFileFunction(machine_id) {
-    console.log(machine_id);
     this.loading = true;
     this.doRequest(this.salariesService, 'getFromServerVGPFile', [machine_id], result => {
         if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
@@ -212,7 +206,6 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
   }
 
   public getFromServerCTFileFunction(machine_id) {
-    console.log(machine_id);
     this.loading = true;
     this.doRequest(this.salariesService, 'getFromServerCTFile', [machine_id], result => {
         if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
@@ -224,9 +217,7 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
   }
 
   public voirFunctionOtherFile(machine_id, file_id) {
-    console.log(file_id);
     this.loading = true;
-
     this.doRequest(this.salariesService, 'getFromServerOtherFile', [machine_id, file_id], result => {
         if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {

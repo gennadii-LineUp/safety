@@ -108,13 +108,11 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
 
         this.doRequest(this.siteService, 'findEmployeeByName', [_name, page, this.id_site, sort], result => {
                     this.loading = false;
-                    console.log(result.items);
                     let arr = result.items;
 
                     for (let i = 0; i < arr.length; i++) {
                       if (arr[i].groupAdminAccess === true) {
                         arr[i].access = 'Admin';
-                        console.log('replaced by Admin');
                       }
                     }
                     this.salaries = arr;
@@ -122,9 +120,7 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
                     if (this.totalItems === 0) {
                         this.emptyTable = true;
                     }
-                    console.log('ITEMS  ' + this.totalItems);
                     this.currentPage = +result.pagination.current;
-
                     this.setPage(this.currentPage);
 
                     this.loaded = true;
@@ -148,7 +144,6 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
                     if (this.salariesMaxPossible === this.salariesUsed) {
                         this.addNewSalariesAvailable = false;
                         this.errorSalaries = true;
-                        console.log(this.salariesMaxPossible + ' ' + this.salariesUsed);
                     } else {
                         this.addNewSalariesAvailable = true;
                     }
@@ -165,7 +160,6 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
 
         this.doRequest(this.siteService, 'deleteEmployee', [this.id_site, id_itemForDelete], result => {
                     this.loading = false;
-                    console.log(result);
                     this.checkFreeSalarieAccount();
                     this.findEmployeeByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {

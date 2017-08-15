@@ -79,7 +79,6 @@ export class AdminService {
             newData += '=' + encodeURI(obj[key]) + '&';
         }
         newData = newData.slice(0, -1);
-        console.log(newData);
         return newData;
     }
 

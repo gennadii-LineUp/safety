@@ -98,22 +98,18 @@ export class DataService {
 
   public convertDateForInputView(strDate: string): string {
     const date = Date.parse(strDate);
-    // console.log(date);
     // new Date((Date.parse("2017-01-01T00:00:00+0300")))
 
     let dd: any;
     dd = (new Date(date)).getDate();
-    // console.log('day ' + dd);
     if (dd < 10) {dd = '0' + dd; }
 
     let mm: any;
     mm = +(new Date(date)).getMonth() + 1;
-    // console.log('month ' + mm);
     if (mm < 10) {mm = '0' + mm; }
 
     return dd + '/' + mm + '/' + (new Date(date)).getFullYear();
   }
-
 
 
   public refreshToken(err: any, request: any, successRequest: (result?: any) => void): void {
@@ -130,44 +126,16 @@ export class DataService {
       };
 
 
-      console.log('token_refresh()  started');
       const headers: Headers = new Headers();
       const refresh_token = localStorage.getItem('refresh_token');
       const url = UrlParams.tokRefresh;
 
-      // headers.append('refresh_token', refresh_token);
       let result: any;
       this.http.post(url, refresh, {headers: headers})
         .map((res: Response) => result = res.json());
-        // .then((result: any) => {
-        //   console.log(result);
-        //   if (result.token) {localStorage.setItem('token', result.token); }
-        //   if (result.refresh_token)  {localStorage.setItem('refresh_token', result.refresh_token); console.log('refreshed !!'); }
-        // });
-      // .catch((res: Response) => console.log(res));
 
-      console.log(result);
       if (result.token) {localStorage.setItem('token', result.token); }
-      if (result.refresh_token)  {localStorage.setItem('refresh_token', result.refresh_token); console.log('refreshed !!'); }
-
-
-
-      // this.backendService.token_refresh(refresh).subscribe(result => {
-      //   console.log(result);
-      //   localStorage.setItem('token', result.token);
-      //   localStorage.setItem('refresh_token', result.refresh_token);
-      //   console.log(request);
-      //   console.dir(request);
-      //
-      //   request.subscribe(successRequest, (err) => {
-      //     console.log('====error=============');
-      //     this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-      //   });
-      //
-      // }, (err) => {
-      //   console.log(err);
-      //   this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-      // });
+      if (result.refresh_token)  {localStorage.setItem('refresh_token', result.refresh_token); }
 
     } else {
       this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);

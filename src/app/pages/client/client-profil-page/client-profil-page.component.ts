@@ -50,7 +50,6 @@ export class ClientProfilPageComponent extends BasePageComponent implements OnIn
         this.doRequest(this.clientService, 'getClientProfilData', null, result => {
                     this.getFromServerProfileImageFunction();
                     this.loading = false;
-                    console.dir(result);
                     const currentClient = new ClientProfileClass(result.email, result.company, result.address,
                                                   result.postalCode, result.city, result.billingAddressIfDifferent,
                                                   result.diffName, result.diffAddress, result.diffPostalCode,
@@ -125,7 +124,6 @@ export class ClientProfilPageComponent extends BasePageComponent implements OnIn
         this.client.diffPostalCode = '';
         this.client.diffCity = '';
       }
-      console.log(this.client);
 
       this.doRequest(this.clientService, 'updateClientProfile', [this.client], result => {
                     this.updating = false;

@@ -138,7 +138,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
 
   ngOnInit() {
         this.id_site = localStorage.id_site;
-        console.log('parc  id_site ' + this.id_site);
         this.findByNameFunction('', 1, '');
         this.getEmployeeGroupes();
         this.siteService.tableMobileViewInit();
@@ -192,7 +191,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.searchName = _name;
 
     this.doRequest(this.siteService, 'findMachineByName', [_name, page, this.id_site, sort], result => {
-          console.log(result);
           this.loading = false;
           this.machines = result.items;
 
@@ -200,9 +198,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
           if (this.totalItems === 0) {
             this.emptyTable = true;
           }
-          console.log('ITEMS  ' + this.totalItems);
           this.currentPage = +result.pagination.current;
-
           this.setPage(this.currentPage);
 
           setTimeout(() => {
@@ -238,7 +234,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       this.machine.employeeGroups = this.machine.employeeGroups.filter(val => val !== +userInput.name);
     }
     this.checkForEmptyEmployeeGroup();
-    console.log(this.machine.employeeGroups);
   }
 
   get _checkedGroups() { // right now: ['1','3']
@@ -249,7 +244,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public getEmployeeGroupes() {
     this.loadingGroupes = true;
     this.doRequest(this.clientService, 'getGroupList', null, result => {
-          console.log(result);
           this.loadingGroupes = false;
           this.employeeGroupes = result;
       }, (err) => {
@@ -280,17 +274,14 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     let datepicker_vgp = '';
     if (this.t3 || this.t4_t5 || this.t7 || this.t10 || this.t12_41) {
       datepicker_techControl = (<HTMLInputElement>window.document.querySelectorAll('#techControl')[0]).value;
-      console.dir(datepicker_techControl);
     }
     if (this.t6_t8_t9_t11 || this.t7 || this.t10 || this.t12_41 || this.t12_rest) {
       datepicker_vgp = (<HTMLInputElement>window.document.querySelectorAll('#vgp')[0]).value;
-      console.dir(datepicker_vgp);
     }
 
     this.machine.category = +this.choosenCategory_id;
     this.machine.techControl = datepicker_techControl;
     this.machine.vgp = datepicker_vgp;
-    console.log(this.machine);
     let _datepicker_techControl = '';
     if (datepicker_techControl !== '') {
       _datepicker_techControl = this.dataService.convertDateFromInputeToServer(this.machine.techControl);
@@ -311,11 +302,8 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
                                       _datepicker_vgp,
                                       this.machine.equipment,
                                       false, false, [], 0);
-    console.log(_machine);
 
     this.doRequest(this.siteService, 'createMachine', [_machine, this.id_site, urlOption], result => {
-          console.log(this.otherFiles_addToServer);
-          console.log(result);
           if (this.itemForChange) {
               if (this.userHasChoosenFileVGP) {this.loadToServerVGPFunction(this.itemForChange); }
               if (this.userHasChoosenFileCT) {
@@ -375,7 +363,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
 
     this.doRequest(this.siteService, 'deleteMachine', [this.id_site, id_itemForDelete], result => {
           this.loading = false;
-          console.log(result);
           this.findByNameFunction(this.searchName, this.activePage, '');
       }, (err) => {
         this.loading = false;
@@ -420,10 +407,8 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.cancellMessages();
     this.setEmptyMachines();
     this.modalOpenParc();
-    console.log(id_itemForUpdate);
     this.creating = true;
     this.doRequest(this.siteService, 'getOneMachine', [this.id_site, id_itemForUpdate], result => {
-          console.log(result);
           this.itemForChange = result.id;
           this._addType(result.parentCategoryId, '');
           this.machine.category = result.categoryId;
@@ -471,7 +456,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
           this.saveButtonCaption = 'Modifier';
           this.machine.employeeGroups = this._checkedGroups;
           this.creating = false;
-          console.log(this.machine);
       }, (err) => {
         this.creating = false;
         console.log(err);
@@ -481,12 +465,8 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
 
   public deleteOtherFileFunction(otherFile: OtherFileClass) {
       this.loadingFileOther = true;
-      console.log(this.otherFilesArray);
       if (this.itemForChange && this.machine.files.length  &&  otherFile.id > 0) {
-        console.log('del from server');
-        console.log(otherFile.id);
         this.doRequest(this.siteService, 'deleteOtherFile', [this.id_site, this.machine.id, otherFile.id], result => {
-              console.log(result);
               this.otherFilesArray = this.otherFilesArray.filter(function( obj ) {
                 return obj.id !== otherFile.id;
               });
@@ -501,7 +481,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
               this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
             });
       } else {
-        console.log('del localy');
         this.otherFilesArray = this.otherFilesArray.filter(function( obj ) {
           return obj.local_id !== otherFile.local_id;
         });
@@ -511,8 +490,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
         this.resetOther();
       }
 
-      console.log(this.otherFilesArray);
-      console.log(this.machine);
       this.loadingFileOther = false;
   }
 
@@ -521,7 +498,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
         if (result.files  &&  result.files.length > 0) {
           this.machine.files = result.files;
         }
-        console.log(this.machine.files);
       }, (err) => {
         console.log(err);
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
@@ -598,7 +574,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       this.choosen_engine_back = true;
     }
     this.choosenType_id = +choosenType;
-    console.log(this.choosenType_id);
     this.setEmptyMachines();
     this.choosenType_caption = caption;
     this.employeeGroupes_view = this.employeeGroupes;
@@ -614,14 +589,11 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     }
     this.setEmptyMachines();
     this.choosenCategory_id = choosenCategory;
-    console.log(this.choosenCategory_id);
     this.choosenMachine_caption = caption;
   }
 
   public addEquipement(e: any, equipementChecked: any, equipement_id: any) {
-    console.log(typeof equipementChecked + ' equipementChecked,  equipement_id ' + typeof equipement_id);
     this.subcategoryEquipement = +e.target.id;
-    console.log(this.subcategoryEquipement);
     this.machine.equipment = this.subcategoryEquipement;
     this.equipment_nullData = false;
   }
@@ -629,7 +601,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public resetVGP() {
     this.userHasChoosenFileVGP = false;
     this.vgpInput.nativeElement.value = '';
-    console.log(this.vgpInput.nativeElement.files);
     this.uploadVGPFileText = '';
   }
   public resetCT() {
@@ -645,7 +616,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
 
   // base64
   public fileChangeVGP(event) {
-      console.log('======fileChange VGP======');
     this.fileListVGP = event.target.files;
     if (this.fileListVGP.length > 0) {
       this.userHasChoosenFileVGP = true;
@@ -656,7 +626,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.uploadVGPFileText = fileVGP.name;
-      console.log(fileVGP);
     }
   }
 
@@ -665,7 +634,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.readThis($event.target);
   }
   public readThis(inputValue: any): void {
-    console.log('======fileChange VGP======');
     this.loadingFileVGP = true;
     let file: File = inputValue.files[0];
     let myReader: FileReader = new FileReader();
@@ -673,14 +641,12 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     myReader.onloadend = (e) => {
       this.contentVGP = myReader.result;
       this.loadingFileVGP = false;
-      // console.log(this.fileString);
     };
     myReader.readAsText(file);
     this.userHasChoosenFileVGP = true;
   }
 
   public _fileChangeVGP_2(event) {
-    console.log('======fileChange VGP======');
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       let file: File = fileList[0];
@@ -695,9 +661,9 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.loadingFileVGP = true;
     this.siteService.loadToServerVGP_2(this.contentVGP, this.id_site, id_machine)
       .subscribe(result => {
-        console.log(result);
         this.loadingFileVGP = false;
         this.userHasChoosenFileVGP = false;
+
         this.resetVGP();
       }, (err) => {
         this.loadingFileVGP = false;
@@ -711,7 +677,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.loadingFileVGP = true;
     this.siteService.loadToServerVGP(this.contentVGP, this.id_site, id_machine)
       .subscribe(result => {
-        console.log(result);
         this.loadingFileVGP = false;
         this.userHasChoosenFileVGP = false;
         this.resetVGP();
@@ -723,7 +688,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   }
 
   public fileChangeCT(event) {
-    console.log('======fileChange CT======');
     this.fileListCT = event.target.files;
     if (this.fileListCT.length > 0) {
       this.userHasChoosenFileCT = true;
@@ -734,7 +698,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.uploadCTFileText = fileCT.name;
-      console.log(fileCT);
      }
   }
 
@@ -742,7 +705,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.loadingFileCT = true;
     this.siteService.loadToServerCT(this.contentCT, this.id_site, id_machine)
       .subscribe(result => {
-        console.log(result);
         this.loadingFileCT = false;
         this.userHasChoosenFileCT = false;
         this.resetCT();
@@ -754,7 +716,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   }
 
   public fileChangeOther(event) {
-    console.log('======fileChange other======');
     this.fileListOther = event.target.files;
     if (this.fileListOther.length > 0) {
       this.userHasChoosenFileOther = true;
@@ -766,18 +727,15 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.OtherFileName = fileOther.name;
-      console.log(fileOther);
       setTimeout(() => {
         this.otherFile_local_id++;
         this.otherFilesArray.push(new OtherFileClass(fileOther.name, _contentOther1, this.otherFile_local_id, 0));
         this.otherFiles_addToServer.push(new OtherFileClass(fileOther.name, _contentOther1, this.otherFile_local_id, 0));
-        console.log(this.otherFiles_addToServer);
       }, 100);
     }
   }
 
   public loadToServerOtherFunction(id_machine) {
-    console.log(this.otherFiles_addToServer);
     this.loadingFileOther = true;
     let arr = [];
     for (let i = 0; i < this.otherFiles_addToServer.length; i++) {
@@ -785,15 +743,10 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
         this.siteService.loadToServerOther(this.otherFiles_addToServer[arr.pop()].content, this.id_site, id_machine)
           .subscribe(result => {
             this.loadingFileOther = true;
-            console.log(result);
-            console.log(i);
-            console.log(this.otherFiles_addToServer[i].name);
               this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id,
                                                   this.otherFiles_addToServer[i].name) // saving file's name
                 .subscribe(result => {
-                  console.log(arr);
                   this.loadingFileOther = false;
-                  console.log(result);
                 }, (err) => {
                   this.loadingFileOther = false;
                   console.log(err);
@@ -804,10 +757,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
             console.log(err);
             this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
           });
-    }
-    if (arr.length === 0) {
-      console.log('finish!!');
-      //  this.otherFiles_addToServer = [];
     }
     this.resetOther();
     this.userHasChoosenFileOther = false;
@@ -824,7 +773,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   }
 
   public voirFunctionVGP() {
-    console.log(this.itemForChange);
     this.doRequest(this.siteService, 'getFromServerVGPFichier', [this.id_site, this.itemForChange], result => {
       if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {
@@ -833,7 +781,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       });
   }
   public voirFunctionCT() {
-    console.log(this.itemForChange);
     this.doRequest(this.siteService, 'getFromServerCTFichier', [this.id_site, this.itemForChange], result => {
       if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
     }, (err) => {
@@ -842,7 +789,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       });
   }
   public voirFunctionOther(fichier_id) {
-    console.log(fichier_id);
     this.doRequest(this.siteService, 'getFromServerOtherFichier', [this.id_site, this.itemForChange, fichier_id], result => {
         if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
       }, (err) => {

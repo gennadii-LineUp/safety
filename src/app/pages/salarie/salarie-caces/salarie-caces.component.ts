@@ -29,7 +29,6 @@ export class SalarieCacesComponent extends BasePageComponent implements OnInit {
     this.loading = true;
     this.doRequest(this.salariesService, 'getCacesVisit', null, result => {
           this.loading = false;
-          console.log(result);
           this.visite_caces = result.cacesDateExpires;
           this.getFromServerImageFunction();
       }, (err) => {

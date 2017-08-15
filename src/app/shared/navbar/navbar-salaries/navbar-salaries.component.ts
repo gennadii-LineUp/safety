@@ -41,15 +41,12 @@ export class NavbarSalariesComponent implements OnInit {
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
-        console.log('navbar salaryee  id_site ' + this.id_site);
         this.verifyUserRole();
         this.getExistingCompteFormation();
-      // localStorage.setItem('id_site', ''+this.id_site);
     }
 
     public verifyUserRole() {
         this.showEmployee_Admin = this.authGuard.canActivate() && this.employeeAdminGuard.canActivate();
-        console.log('showEmployee_Admin ' + this.showEmployee_Admin);
         this.showEmployee_parcMachine = this.authGuard.canActivate() && this.employeeTechGuard.canActivate();
         this.showEmployee_general = this.authGuard.canActivate() && this.employeeGeneralGuard.canActivate();
     }

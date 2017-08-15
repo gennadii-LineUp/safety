@@ -115,8 +115,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     } else {
       this.categoryNewFichier_nullData = false;
     }
-    console.log(this.newFichier.employeeGroups);
-
   }
 
 
@@ -175,9 +173,7 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
           if (this.totalItems === 0) {
             this.emptyTable = true;
           }
-          console.log('ITEMS  ' + this.totalItems);
           this.currentPage = +result.pagination.current;
-
           this.setPage(this.currentPage);
 
           setTimeout(() => {
@@ -221,7 +217,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     }
     this.loadingFile = true;
     this.doRequest(this.siteService, 'sendFileToServer', [this.file, this.content, this.id_site, urlOption], result => {
-          console.log(result);
           this.loadingFile = false;
           this.uploadedFile = true;
           if (result.id) {
@@ -252,7 +247,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     this.creating = true;
     this.doRequest(this.siteService, 'addFichier', [this.newFichier, this.id_site, this.id_fichier], result => {
                   this.findFichiersByNameFunction('', 1, '', 'Vos modifications sont enregistrées.');
-                  console.log(result);
                   // modal close /////////
                   const _modal = document.getElementById('myModal').firstElementChild;
                   _modal.classList.add('hidden');
@@ -311,7 +305,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
 
     this.doRequest(this.siteService, 'getOneFichier', [this.id_site, id_itemForUpdate], result => {
           this.creating = false;
-          console.log(result);
           this.newFichier.name = result.name;
           this.checkedGroups = result.employeeGroups;
           this.saveButtonCaption = 'Modifier';
@@ -321,11 +314,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
           if (this.newFichier.employeeGroups.length > 0) {
             this.categoryNewFichier_nullData = false;
           }
-
-          console.log(this.newFichier);
-          console.log(this.checkedGroups);
-
-          console.log(this._checkedGroups);
       }, (err) => {
         this.creating = false;
         console.log(err);
@@ -340,7 +328,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     this.emptyTable = false;
     this.doRequest(this.siteService, 'deleteFichier', [this.id_site, id_itemForDelete], result => {
           this.loading = false;
-          console.log(result);
           this.findFichiersByNameFunction(this.searchName, this.activePage, '', '');
       }, (err) => {
         this.loading = false;

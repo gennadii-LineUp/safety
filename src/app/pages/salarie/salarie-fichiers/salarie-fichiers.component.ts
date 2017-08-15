@@ -70,9 +70,7 @@ export class SalarieFichiersComponent extends BasePageComponent implements OnIni
           if (this.totalItems === 0) {
             this.emptyTable = true;
           }
-          console.log('ITEMS  ' + this.totalItems);
           this.currentPage = +result.pagination.current;
-
           this.setPage(this.currentPage);
 
           setTimeout(() => {
@@ -106,7 +104,6 @@ export class SalarieFichiersComponent extends BasePageComponent implements OnIni
   }
 
   public voirFunction(fichierId: number) {
-      console.log(fichierId);
       this.loading = true;
       this.doRequest(this.salariesService, 'getFromServerFichier', [fichierId], result => {
           if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }

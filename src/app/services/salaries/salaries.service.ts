@@ -23,18 +23,15 @@ export class SalariesService {
 
     public findFichiersByName(name: string, page: any, sort: string): Observable<any> {
       const query =  UrlParams.employeeHome + 'files' + '?q=' + name + sort + '&page=' + page;
-      console.log(query);
       return this.backendService.get(query);
     }
 
     public findMachinesByName(name: string, page: any, sort: string): Observable<any> {
       const query =  UrlParams.employeeHome + 'machines' + '?q=' + name + sort + '&page=' + page;
-      console.log(query);
       return this.backendService.get(query);
     }
     public findOneMachine(machine_id: number): Observable<any> {
       const query =  UrlParams.employeeHome + 'machines/' + machine_id;
-      console.log(query);
       return this.backendService.get(query);
     }
 
@@ -50,65 +47,53 @@ export class SalariesService {
 
     public findAttestationByName(name: string, page: any, sort: string): Observable<any> {
       const query =  UrlParams.employeeHome + 'attestations' + '?q=' + name + sort + '&page=' + page;
-      console.log(query);
       return this.backendService.get(query);
     }
     public getFromServerAttestationImage(attestation_Id: number): Observable<any> {
       const query = UrlParams.employeeHome + 'attestations/' + attestation_Id + '/file?aslink=1';
-      console.log(query);
       return this.backendService.loadImage_get(query);
     }
 
     public findDriving_licensesByName(name: string, page: any, sort: string): Observable<any> {
       const query =  UrlParams.employeeHome + 'driving_licenses' + '?q=' + name + sort + '&page=' + page;
-      console.log(query);
       return this.backendService.get(query);
     }
     public getFromServerDriving_licenseImage(drLicense_id: number): Observable<any> {
       const query = UrlParams.employeeHome + 'driving_licenses/' + drLicense_id + '?aslink=1';
-      console.log(query);
       return this.backendService.loadImage_get(query);
     }
 
   public loadToServerSalarieeImage(content: any): Observable<any> {
     const url = UrlParams.employeeHome + 'profile/photo';
-    // console.log(url);
     const fileToServer = {
       content: ((((content.result).split(';'))[1]).split(','))[1]
     };
-    // console.log(fileToServer);
     return this.backendService.loadImage_post(url, fileToServer);
   }
 
   public getFromServerSalarieeImage(): Observable<any> {
     const url = UrlParams.employeeHome + 'profile/photo?encoded=1';
-    console.log(url);
     return this.backendService.loadImage_get(url);
   }
 
   public getFromServerFichier(fichier_Id: number): Observable<any> {
     const url = UrlParams.employeeHome + 'files/' + fichier_Id + '?aslink=1';
-    console.log(url);
     return this.backendService.loadImage_get(url);
   }
   public getFromServerLinkForPDF_(fileLink: string): Observable<any> {
     const url = UrlParams.homeUrl + 'files/' + fileLink;
-    console.log(url);
     return this.backendService.getFromUrl(url);
   }
   public getFromServerVGPFile(machine_id: number): Observable<any> {
     const url = UrlParams.employeeHome + 'machines/' + machine_id + '/vgp_file' + '?aslink=1';
-    console.log(url);
     return this.backendService.loadImage_get(url);
   }
   public getFromServerCTFile(machine_id: number): Observable<any> {
     const url = UrlParams.employeeHome + 'machines/' + machine_id + '/tech_control_file' + '?aslink=1';
-    console.log(url);
     return this.backendService.loadImage_get(url);
   }
   public getFromServerOtherFile(machine_id: number, otherFile_id: number): Observable<any> {
     const url = UrlParams.employeeHome + 'machines/' + machine_id + '/files/' + otherFile_id + '?aslink=1';
-    console.log(url);
     return this.backendService.loadImage_get(url);
   }
 

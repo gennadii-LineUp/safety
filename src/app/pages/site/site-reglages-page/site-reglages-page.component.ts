@@ -105,7 +105,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     this.doRequest(this.siteService, 'getReglages', [this.id_site], result => {
           this.getResponsablesFunction('');
           this.loading = false;
-          console.log(result);
           this.siteReglages.name = result.name;
           this.siteReglages.address = result.address;
           this.siteReglages.postalCode = result.postalCode;
@@ -140,7 +139,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     this.emptyTable_responsables = false;
     this.doRequest(this.siteService, 'getResponsables', [this.id_site, sort], result => {
           this.loadingResponsables = false;
-          console.log(result);
           this.employee_responsables = result.items;
           this.emptyTable_responsables = false;
           if (result.items.length === 0) {
@@ -169,20 +167,16 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
                                                                     responsableForUpdate.surname,
                                                                     responsableForUpdate.numSecu,
                                                                     responsableForUpdate.responsible);
-    console.log(responsableForUpdate.responsible);
     this.employee_forAccess_obj.responsible = responsableForUpdate.responsible;
     this.employee_forAccess_arr.push(employee_forSettingAccess);
-    console.log(this.employee_forAccess_obj);
     return true;
   }
 
   public deleteResponsableFunction(id_itemForDelete: number) {
     this.loadingResponsables = true;
     this.emptyTable = false;
-    console.log(id_itemForDelete);
     this.doRequest(this.siteService, 'deleteResponsable', [this.id_site, id_itemForDelete], result => {
           this.cancellMessages();
-          console.log(result);
           this.getResponsablesFunction('');
       }, (err) => {
         this.loadingResponsables = false;
@@ -200,7 +194,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
 
       this.doRequest(this.siteService, 'addNewReglages', [this.siteReglages, this.id_site], result => {
             this.loading = false;
-            console.log(result);
             this.successUpdate = 'Bravo! Vos modifications sont enregistrées.';
             setTimeout(() => {
               this.siteService.tableMobileViewInit();
@@ -223,7 +216,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     }
     this.doRequest(this.siteService, 'findEmployeeByName', [_name, page, this.id_site, sort], result => {
           this.loading = false;
-          console.log(result);
           this.employee_fromSearch = result.items;
           this.loaded = true;
           setTimeout(() => {
@@ -237,7 +229,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   }
 
   public takeEmployee_forSettingAccessFunction(employee) {
-    console.log(employee);
     this.emptyTableMobile = false;
     const employee_forSettingAccess = new EmployeesSettingAccessClass(employee.id, employee.name, employee.surname, employee.numSecu, 1);
 
@@ -248,14 +239,11 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
         break;
       }
     }
-    console.log(this.employee_forAccess_arr);
   }
 
   public showCheckedAccessFunction(type: number) {
     this.checkedAccess = type;
     this.employee_forAccess_obj.responsible = this.checkedAccess;
-    console.log(this.checkedAccess);
-    console.log(this.employee_forAccess_obj);
   }
 
   public submitForm() {
@@ -271,7 +259,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
       employeeAccess = this.employee_forAccess_arr; // array
     }
 
-    console.log(employeeAccess);
     this.doRequest(this.siteService, 'addEmployeeAccess', [employeeAccess, this.id_site, urlOption], result => {
           // modal close /////////
           const _modal = document.getElementById('myModal').firstElementChild;
@@ -280,7 +267,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           (<HTMLScriptElement>modal_bg).classList.add('hidden');
           /////////
           this.getResponsablesFunction('');
-          console.log(result);
           if (this.itemForChange) {
             this.saveButtonCaption = 'Ajouter';
             this.itemForChange = 0;
@@ -365,7 +351,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   public loadToServerSignatureFunction() {
     this.siteService.loadToServerSignature(this.content, this.id_site)
       .subscribe(result => {
-          console.log(result);
           this.loadingFileSignature = false;
           this.successUpdate = 'La signature est chargée.';
       }, (err) => {
@@ -395,7 +380,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   public loadToServerTamponFunction() {
     this.siteService.loadToServerTampon(this.content, this.id_site)
       .subscribe(result => {
-        console.log(result);
         this.loadingFileTampon = false;
         this.successUpdate = 'Le tampon est chargée.';
       }, (err) => {

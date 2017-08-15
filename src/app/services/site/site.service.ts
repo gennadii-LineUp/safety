@@ -16,21 +16,17 @@ export class SiteService {
 
     public setIdSite(id_site: number) {
         this.id_site = id_site;
-        console.log('setted ' + this.id_site);
     }
     public getIdSite(): number {
-        console.log('getting... ' + this.id_site);
         return this.id_site;
     }
 
     public getReglages(siteId: number): Observable<any> {
       const query = UrlParams.siteHome + siteId;
-      console.log(query);
       return this.backendService.get(query);
     }
     public getResponsables(siteId: number, sort: string): Observable<any> {
       const query = UrlParams.siteHome + siteId + '/responsible' + '?q=' + sort;
-      console.log(query);
       return this.backendService.get(query);
     }
     public addNewReglages(newReglages: SiteReglagesClass, siteId: number): Observable<any> {
@@ -53,7 +49,6 @@ export class SiteService {
 
     public findFichiersByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
       const query =  + siteId + '/files' + '?q=' + name + sort + '&page=' + page;
-      console.log(query);
       return this.backendService.get(UrlParams.siteHome + query);
     }
     public addFichier(newFichier: FichiersClass, siteId: number, fichierId: number): Observable<any> {
@@ -62,45 +57,36 @@ export class SiteService {
     }
     public getOneFichier(siteId: number, fichierId: number): Observable<any> {
       const query = siteId + '/files/' + fichierId + '/properties';
-      console.log(query);
       return this.backendService.get(UrlParams.siteHome + query);
     }
     public deleteFichier(siteId: number, fichierId: number): Observable<any> {
       const query = UrlParams.siteHome + siteId + '/files/' + fichierId;
-      console.log(query);
       return this.backendService.deleteData(query);
     }
 
 
     public findMachineByName(name: string, page: any, siteId: number, sort: string): Observable<any> {
       const query =  + siteId + '/machines' + '?q=' + name + sort + '&page=' + page;
-      console.log(query);
       return this.backendService.get(UrlParams.siteHome + query);
     }
     public deleteMachine(siteId: number, machineId: number): Observable<any> {
       const query = UrlParams.siteHome + siteId + '/machines/' + machineId;
-      console.log(query);
       return this.backendService.deleteData(query);
     }
     public createMachine(newMachine: MachineClass, siteId: number, urlOption: string): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines' + urlOption;
-      console.log(url);
       return this.backendService.post(url, JSON.stringify(newMachine));
     }
     public getOneMachine(siteId: number, machineId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId;
-      console.log(url);
       return this.backendService.get(url);
     }
   public loadToServerVGP_2(content: any, siteId: number, machineId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/vgp_file';
-    console.log(url);
-    console.log(content);
     return this.backendService.sendPDFtoServer(url, content);
   }
   public loadToServerVGP(content: any, siteId: number, machineId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/vgp_file';
-      console.log(url);
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
@@ -108,7 +94,6 @@ export class SiteService {
     }
     public loadToServerCT(content: any, siteId: number, machineId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/tech_control_file';
-      console.log(url);
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
@@ -116,7 +101,6 @@ export class SiteService {
     }
     public loadToServerOther(content: any, siteId: number, machineId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/files';
-      console.log(url);
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
@@ -124,7 +108,6 @@ export class SiteService {
     }
     public loadToServerOtherFileName(siteId: number, machineId: number, otherFile_id: number, name: string): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machineId + '/files/' + otherFile_id + '/name';
-      console.log(url);
       const objToServer = {
         'name': name
       };
@@ -132,28 +115,23 @@ export class SiteService {
     }
     public deleteOtherFile(siteId: number, machineId: number, fileId: number): Observable<any> {
       const query = UrlParams.siteHome + siteId + '/machines/' + machineId + '/files/' + fileId;
-      console.log(query);
       return this.backendService.deleteData(query);
     }
 
     public getFromServerVGPFichier(siteId: number, machine_id: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/vgp_file?aslink=1';
-      console.log(url);
       return this.backendService.loadImage_get(url);
     }
     public getFromServerCTFichier(siteId: number, machine_id: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/tech_control_file?aslink=1';
-      console.log(url);
       return this.backendService.loadImage_get(url);
     }
     public getFromServerOtherFichier(siteId: number, machine_id: number, fichier_id: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/files/' + fichier_id + '?aslink=1';
-      console.log(url);
       return this.backendService.loadImage_get(url);
     }
     public getFromServerLinkForPDF(fileLink: string): Observable<any> {
       const url = UrlParams.homeUrl + 'files/' + fileLink;
-      console.log(url);
       return this.backendService.getFromUrl(url);
     }
 
@@ -168,7 +146,6 @@ export class SiteService {
     }
     public deleteEmployee(siteId: number, employeeId: number): Observable<any> {
         const query = UrlParams.siteHome + siteId + '/employees/' + employeeId;
-        console.log(query);
         return this.backendService.deleteData(query);
     }
 
@@ -186,7 +163,6 @@ export class SiteService {
     }
     public getFromServerEmplImage(siteId: number, employeeId: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/photo' + '?encoded=1';
-      console.log(url);
       return this.backendService.loadImage_get(url);
     }
     public loadToServerCacesFile(content: any, siteId: number, employeeId: number): Observable<any> {
@@ -201,7 +177,6 @@ export class SiteService {
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
-      console.log(fileToServer);
       return this.backendService.loadImage_post(url, fileToServer);
     }
 
@@ -211,7 +186,6 @@ export class SiteService {
     }
     public updateEmployee(newEmployee: any, siteId: number, employeeId: number): Observable<any> {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId;
-        console.log(url);
         return this.backendService.post(url, JSON.stringify(newEmployee));
     }
     public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
@@ -226,18 +200,15 @@ export class SiteService {
 
     public setAttestation(newAttestation: any, siteId: number, employeeId: number, urlOption: string): Observable<any> {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/attestations' + urlOption;
-        console.log(url);
         return this.backendService.post(url, JSON.stringify(newAttestation));
     }
     public getOneAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {
       const query = siteId + '/employees/' + employeeId + '/attestations' + attestationId;
-        console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
 
     public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
         const query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
-        console.log(query);
         return this.backendService.get(UrlParams.siteHome + query);
     }
 
@@ -245,13 +216,11 @@ export class SiteService {
   public setCategoryDrivingLicense(newDrivingLicense: DrivingLicenseClass, siteId: number,
                                     employeeId: number, urlOption: string): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/driving_licenses' + urlOption;
-    console.log(url);
     return this.backendService.post(url, JSON.stringify(newDrivingLicense));
   }
 
   public getDrivingLicenses(siteId: number, employeeId: number, sort: string): Observable<any> {
     const query = siteId + '/employees/' + employeeId + '/driving_licenses' + '?q=' + sort;
-    console.log(query);
     return this.backendService.get(UrlParams.siteHome + query);
   }
   deleteDrLicense(siteId: number, employeeId: number, drLicenseId: string): Observable<any> {
@@ -260,7 +229,6 @@ export class SiteService {
   }
   public getOneDrLicense(siteId: number, employeeId: number, id_itemForUpdate: number): Observable<any> {
     const query = siteId + '/employees/' + employeeId + '/driving_licenses/' +  id_itemForUpdate;
-    console.log(query);
     return this.backendService.get(UrlParams.siteHome + query);
   }
 
@@ -275,7 +243,6 @@ export class SiteService {
         const formData: FormData = new FormData();
         formData.append('image', file, file.name);
         const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
-        console.log(query);
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
     }
 
@@ -298,12 +265,10 @@ export class SiteService {
   }
   public getFromServerProfileImage(siteId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/image' + '?encoded=1';
-    console.log(url);
     return this.backendService.loadImage_get(url);
   }
   public loadToServerSignature(content: any, siteId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/signature';
-    console.log(url);
     const fileToServer = {
       content: ((((content.result).split(';'))[1]).split(','))[1]
     };
@@ -311,7 +276,6 @@ export class SiteService {
   }
   public loadToServerTampon(content: any, siteId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/stamp';
-    console.log(url);
     const fileToServer = {
       content: ((((content.result).split(';'))[1]).split(','))[1]
     };
@@ -335,9 +299,6 @@ export class SiteService {
         const formData: FormData = new FormData();
         formData.append('image', file, file.name);
         const query = siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
-        console.log(UrlParams.siteHome + query);
-
-        console.log(formData);
         return this.backendService.loadImage_post(UrlParams.siteHome + query, formData);
     }
 
@@ -349,7 +310,6 @@ export class SiteService {
             newData += '=' + encodeURI(obj[key]) + '&';
         }
         newData = newData.slice(0, -1);
-        console.log(newData);
         return newData;
     }
 

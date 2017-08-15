@@ -56,7 +56,6 @@ export class ErrorMessageHandlerService {
 
             try {
                 status = this.getMessageEquivalent(errorObject[key]);
-                console.log(status);
                 this.message += _key
                                 + ' - '
                                 + status[0].toLowerCase()

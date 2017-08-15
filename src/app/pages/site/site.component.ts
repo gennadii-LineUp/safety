@@ -26,7 +26,6 @@ export class SiteComponent implements OnInit, OnDestroy {
 
         localStorage.setItem('id_site', '' + this.id_site);
 
-        console.log('from site ' + this.id_site);
         this.tableMobileViewInit();
     }
 

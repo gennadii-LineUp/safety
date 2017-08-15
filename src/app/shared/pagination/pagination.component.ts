@@ -17,8 +17,7 @@ export class PaginationComponent implements OnInit {
 
   constructor(public paginationService: PaginationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -26,15 +25,6 @@ export class PaginationComponent implements OnInit {
         }
         this.pager = this.paginationService.getPager(this.totalItems, page);
     }
-
-
-    // this.data = result.items;  // EXAMPLE:  [{ address:"ff", id:23, name:"ds"} ]
-    // this.totalItems = +result.pagination.totalCount;
-    // console.log('ITEMS  ' + this.totalItems);
-    // this.currentPage = +result.pagination.current;
-    //
-    // this.setPage(this.currentPage);
-
 
 
 }

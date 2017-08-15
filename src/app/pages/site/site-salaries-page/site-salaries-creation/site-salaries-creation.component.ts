@@ -82,7 +82,6 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
                     this.cancellErrorMessage();
                     this.employeeGroupes = result;
             }, (err) => {
-                console.log('====error=============');
                 this.noGroups = true;
                 this.cancellErrorMessage();
                 console.log(err);
@@ -108,7 +107,6 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
         this.content = e.target;
       };
       let res = reader.readAsDataURL(event.target.files[0]);
-      console.log(res);
       setTimeout(() => {
          this.uploadedFile = true;
         // this.loadToServerProfileImageFunction();
@@ -120,7 +118,6 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
     this.loadingFile = true;
     this.siteService.loadToServerEmployeeImage(this.content, this.id_site, user_id)
       .subscribe(result => {
-          console.log(result);
           this.loading = false;
           this.loadingFile = false;
           this.gotoSiteSalariesCreationStep2Page();
@@ -158,7 +155,6 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
                                                   _datepicker_startDate,
                                                   _datepicker_endDate,
                                                  this.employees.employeeGroup);
-        console.log(employeeDates);
 
         this.doRequest(this.siteService, 'addNewEmployee', [employeeDates, this.id_site], result => {
                     if (this.uploadedFile) {
@@ -169,7 +165,6 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
                       this.gotoSiteSalariesCreationStep2Page();
                     }
                     localStorage.setItem('id_salarie', '' + result.userId);
-                    console.log('===== id NEW SALARIEE: ' + localStorage.id_salarie);
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -178,7 +173,6 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
     }
 
     public hideIndetermineeDatesFunction(e: any) {
-        console.dir(e.target.previousElementSibling.id);
         this.hideIndetermineeDates = false;
         if (e.target.previousElementSibling.id === 'indeterminee') {this.hideIndetermineeDates = true; }
     }

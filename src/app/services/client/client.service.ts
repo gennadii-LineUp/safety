@@ -11,7 +11,6 @@ export class ClientService {
 
 
     public getClientProfilData(): Observable<any> {
-        console.log('==client service started==');
         return this.backendService.get(UrlParams.clientProfilData);
     }
 
@@ -31,7 +30,6 @@ export class ClientService {
     }
 
     public addNewSite(newSite: any): Observable<any> {
-        console.log('==client service:_addNewSite started==');
         return this.backendService.post(UrlParams.clientSites, JSON.stringify(newSite));
     }
 
@@ -45,7 +43,6 @@ export class ClientService {
     }
 
     public addNewGroupe(newGroupe: any, urlOption: string): Observable<any> {
-        console.log('==client service:_addNewGroupe started==');
         return this.backendService.post(UrlParams.clientGroupes + urlOption, JSON.stringify(newGroupe));
     }
     public getGroupeForUpdate(link: string): Observable<any> {
@@ -61,10 +58,8 @@ export class ClientService {
     }
 
     public uploadImage(file: any, siteId: number): Observable<any> {
-        console.log('==client service:_uploadImage started==');
         let formData: FormData = new FormData();
         formData.append('image', file, file.name);
-        console.log(UrlParams.siteHome + siteId + '/image');
         return this.backendService.loadImage_post(UrlParams.siteHome + siteId + '/image', formData);
     }
     public sendFileToServer(content: any, siteId: number): Observable<any> {
@@ -80,7 +75,6 @@ export class ClientService {
 
 
     public updateClientProfile(newProfile: any): Observable<any> {
-        console.log('==client service:_updateClientProfile started==');
         return this.backendService.post(UrlParams.clientProfilData, JSON.stringify(newProfile));
     }
 
@@ -93,7 +87,6 @@ export class ClientService {
     }
 
     public getFromServerProfileImage(): Observable<any> {
-        console.log(UrlParams.clientProfilData + '/image');
         return this.backendService.loadImage_get(UrlParams.clientProfilData + '/image' + '?encoded=1');
     }
 
@@ -106,7 +99,6 @@ export class ClientService {
             newData += '=' + encodeURI(obj[key]) + '&';
         }
         newData = newData.slice(0, -1);
-        console.log(newData);
         return newData;
     }
 
@@ -119,18 +111,7 @@ export class ClientService {
     }
     deleteEmployee(siteId: number, employeeId: number): Observable<any> {
         let link = UrlParams.clientSites + '/' + siteId+ '/employees/' + employeeId;
-        console.log(link);
         return this.backendService.deleteData(link);
-    }
-
-
-
-
-
-    public logout(): void {
-        // clear token remove user from local storage to log user out
-        localStorage.removeItem('role');
-        localStorage.removeItem('token');
     }
 
 
