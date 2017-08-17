@@ -168,24 +168,11 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
       }
     }
 
-    public submitForm(cacesSiege: boolean,
-                      cacesSite: boolean,
-                      medicalVisitSiege: boolean,
-                      medicalVisitSite: boolean,
-                      techControlSiege: boolean,
-                      techControlSite: boolean) {
+    public submitForm() {
         this.cancellMessages();
         this.creating = true;
 
-        const _newSite = new SiteClass(this.newSite.name, this.newSite.address, this.newSite.postalCode,
-                                    this.newSite.city, this.newSite.notificationEmails,
-                                    this._cacesSiege,
-                                    this._cacesSite,
-                                    this._medicalVisitSiege,
-                                    this._medicalVisitSite,
-                                    this._techControlSiege,
-                                    this._techControlSite);
-        this.doRequest(this.clientService, 'addNewSite', [_newSite], result => {
+        this.doRequest(this.clientService, 'addNewSite', [this.newSite], result => {
                     this.cancellMessages();
                     this.newSite_id = result.siteId;
                     if (this.userHasChoosenFile) {

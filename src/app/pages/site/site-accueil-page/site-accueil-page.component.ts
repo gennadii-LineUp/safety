@@ -49,6 +49,7 @@ export class SiteAccueilPageComponent implements OnInit {
           this.siteName = result.name;
       }, (err) => {
         this.loading = false;
+        if (err.status === 404) {return; }
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
@@ -63,6 +64,7 @@ export class SiteAccueilPageComponent implements OnInit {
         this.imgServer = src + result.content;
       }, (err) => {
         this.loading = false;
+        if (err.status === 404) {return; }
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }

@@ -24,7 +24,7 @@
                 <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()' >
                     <div class="input-wrapper">
                         <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
-                        <input class="form-control"  placeholder="Nom*" type="text"
+                        <input class="form-control"  placeholder="Nom*"
                                #name="ngModel" id="name" name='name' required [(ngModel)]="salaryeeGroupe.name"
                                (keyup.enter)='submitForm(name.value,
                                                          adminAccess.status)'/>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="control-group">
                         <label class="control control--checkbox">Accès Admin (entreprise + sites)
-                            <input type="checkbox" checked="checked"
+                            <input type="checkbox"
                                    #adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'
                                    name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />
                             <span class="control__indicator"></span>
@@ -48,7 +48,7 @@
                 <div class="button-wrapper">
                     <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                             (click)="myModal.close()">Annuler</button>
-                    <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
+                    <button class="form-button green-button creer-button" data-dismiss="modal"
                             (click)='submitForm(name.value,
                                                 adminAccess.checked)'
                             [disabled]="!client_newGroupesForm.form.valid">{{saveButtonCaption}}</button>
@@ -64,7 +64,7 @@
 
         <div class="search-wrapper">
             <button class="search-button" type="button" (click)='findGroupByNameFunction(findGroupByName.value, 1,sortingTarget)'></button>
-            <input #findGroupByName id="findGroupByName" name='findGroupByName' type="text"
+            <input #findGroupByName id="findGroupByName" name='findGroupByName'
                    class="form-control search-input" placeholder="Rechercher"
                    (keyup.enter)='findGroupByNameFunction(findGroupByName.value, 1,sortingTarget)'>
         </div>
