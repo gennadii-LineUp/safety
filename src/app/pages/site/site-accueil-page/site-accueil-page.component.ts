@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {BackendService} from '../../../services/backend/backend.service';
+import {BasePageComponent} from '../../base/base-page.component';
 
 @Component({
   selector: 'app-site-accueil-page',
@@ -9,7 +10,7 @@ import {BackendService} from '../../../services/backend/backend.service';
   styleUrls: ['./site-accueil-page.component.css'],
     providers: [SiteService, BackendService]
 })
-export class SiteAccueilPageComponent implements OnInit {
+export class SiteAccueilPageComponent extends BasePageComponent implements OnInit {
     loading = true;
     errorLoad = '';
     imgServer: any;
@@ -21,7 +22,7 @@ export class SiteAccueilPageComponent implements OnInit {
 
    constructor(public errorMessageHandlerService: ErrorMessageHandlerService,
                public siteService: SiteService,
-               public backendService: BackendService) {}
+               public backendService: BackendService) { super(); }
 
     ngOnInit() {
         this.id_site = localStorage.id_site;
@@ -42,8 +43,7 @@ export class SiteAccueilPageComponent implements OnInit {
 
   public getAccueilInfoFunction() {
     this.loading = true;
-    this.siteService.getAccueilInfo(this.id_site)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getAccueilInfo', [this.id_site], result => {
           this.showImg = true;
           this.loading = false;
           this.siteName = result.name;
@@ -58,8 +58,7 @@ export class SiteAccueilPageComponent implements OnInit {
 
   public getFromServerAccueilImageFunction() {
     this.loading = true;
-    this.siteService.getFromServerAccueilImage(this.id_site)
-      .subscribe(result => {
+    this.doRequest(this.siteService, 'getFromServerAccueilImage', [this.id_site], result => {
         const src = 'data:' + result['Content-type'] + ';base64,';
         this.imgServer = src + result.content;
       }, (err) => {

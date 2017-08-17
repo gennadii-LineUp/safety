@@ -1,7 +1,7 @@
 <header class="main-header" (click)='cancellMessages();'>
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
       <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages();'>
-        <span aria-hidden="true"></span>
+        <span></span>
       </button>
       <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
@@ -13,7 +13,8 @@
 </header>
 <div class="main-content" style="padding-top: 22px;" (click)='cancellMessages();'>
     <div class="search-panel clearfix">
-        <button class="add-an-item-button" (click)="modalOpen(); myModal.open(); setEmptyFichiers()"></button>
+        <button *ngIf="employeeGroupes.length" class="add-an-item-button" (click)="modalOpen(); myModal.open(); setEmptyFichiers()">
+        </button>
 
                     <site-fichiers-modal #myModal id="myModal" style='min-width: 454px; max-width: 454px;' tabindex="-1">
                         <modal-header-SF>
@@ -24,7 +25,7 @@
                           <div *ngIf="errorCreating" style='position: fixed; top: -40px !important;' class="alert alert-danger">
                             {{errorCreating}}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-                              <span aria-hidden="true"></span>
+                              <span></span>
                             </button>
                           </div>
                           <!--<div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">-->
@@ -58,6 +59,11 @@
 
                                 <div class="control-group">
                                   <p class="form-subheader">Groupe(s) d’employés*</p>
+                                  <div *ngIf='noGroups' class='error-message pull-left  clearfix' style="width: 100%">
+                                    <p class="pull-left">Il n'y a pas de "Groupes de salariés" disponibles.</p>
+                                    <p class="pull-left">Créez-les d'abord ...</p>
+                                  </div>
+
                                   <span style=' display: block; padding-bottom: 14px;'></span>
 
                                   <img *ngIf="loadingGroupes" style='position: absolute; left:8%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -140,7 +146,7 @@
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
       <li *ngIf="!(pager.currentPage === 1)">
         <a class="prev-link" (click)="findFichiersByNameFunction('lineUp', pager.currentPage - 1, '', '')" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
@@ -165,7 +171,7 @@
       <li *ngIf="!(pager.currentPage === pager.totalPages)" >
         <a href="javascript:void(0);" aria-label="Next" class="next-link"
            (click)="findFichiersByNameFunction('lineUp', pager.currentPage + 1, '', '')">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>

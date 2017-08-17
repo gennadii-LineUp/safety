@@ -35,6 +35,9 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     errorCreating = '';
     successCreating = '';
     successModify = '';
+    noGroups = false;
+    vgpTelechargerBtn = true;
+    ctTelechargerBtn = true;
 
     otherFilesArray = [];
     otherFiles_addToServer = [];
@@ -243,8 +246,14 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
 
   public getEmployeeGroupes() {
     this.loadingGroupes = true;
+    this.noGroups = false;
     this.doRequest(this.clientService, 'getGroupList', null, result => {
-          this.loadingGroupes = false;
+        if (result.length === 0) {
+          this.noGroups = true;
+        } else {
+          this.noGroups = false;
+        }
+        this.loadingGroupes = false;
           this.employeeGroupes = result;
       }, (err) => {
         this.loadingGroupes = false;
@@ -600,13 +609,15 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
 
   public resetVGP() {
     this.userHasChoosenFileVGP = false;
-    this.vgpInput.nativeElement.value = '';
+    if (this.vgpInput) {this.vgpInput.nativeElement.value = ''; }
     this.uploadVGPFileText = '';
+    this.vgpTelechargerBtn = true;
   }
   public resetCT() {
     this.userHasChoosenFileCT = false;
-    this.ctInput.nativeElement.value = '';
+    if (this.ctInput) {this.ctInput.nativeElement.value = ''; }
     this.uploadCTFileText = '';
+    this.ctTelechargerBtn = true;
   }
   public resetOther() {
     this.userHasChoosenFileOther = false;
@@ -618,6 +629,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public fileChangeVGP(event) {
     this.fileListVGP = event.target.files;
     if (this.fileListVGP.length > 0) {
+      this.vgpTelechargerBtn = false;
       this.userHasChoosenFileVGP = true;
       let fileVGP = this.fileListVGP[0];
       let reader = new FileReader();
@@ -626,6 +638,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.uploadVGPFileText = fileVGP.name;
+      console.log(this.uploadVGPFileText);
     }
   }
 
@@ -690,6 +703,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public fileChangeCT(event) {
     this.fileListCT = event.target.files;
     if (this.fileListCT.length > 0) {
+      this.ctTelechargerBtn = false;
       this.userHasChoosenFileCT = true;
       let fileCT = this.fileListCT[0];
       let reader = new FileReader();

@@ -87,7 +87,7 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
                 console.log(err);
 
                 if (err.status === 403) {
-                    this.errorLoad = "Il n'y a pas de groupes disponibles. Créez-les d'abord ...";
+                    this.errorLoad = 'Il n\'y a pas de "Groupes de salariés" disponibles. Créez-les d\'abord ...';
                     return;
                 }
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);

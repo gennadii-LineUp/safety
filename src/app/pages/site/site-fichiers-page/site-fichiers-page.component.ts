@@ -32,6 +32,7 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     id_site: number;
     id_fichier = 0;
 
+    noGroups = false;
     loadingFile = false;
     uploadedFile = false;
     uploadFileText = '.pdf fichier';
@@ -74,11 +75,11 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
 
   ngOnInit(): void {
         this.id_site = localStorage.id_site;
-        this.findFichiersByNameFunction('', 1, '', '');
+        this.getEmployeeGroupes();
         this.siteService.tableMobileViewInit();
         setTimeout(() => {
-          this.getEmployeeGroupes();
-        }, 1000);
+          this.findFichiersByNameFunction('', 1, '', '');
+        }, 100);
     }
     ngOnDestroy() {
       localStorage.removeItem('search_name');
@@ -87,10 +88,19 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
 
   public getEmployeeGroupes() {
     this.cancellMessages();
+    this.noGroups = false;
     this.loadingGroupes = true;
     this.doRequest(this.clientService, 'getGroupList', null, result => {
+          if (result.length === 0) {
+            this.noGroups = true;
+          } else {
+            this.noGroups = false;
+          }
+          console.log(result);
           this.loadingGroupes = false;
-          this.employeeGroupes = result;
+          if (result.length === 0) {
+            this.errorLoad = 'Il n\'y a pas de "Groupes de salariés" disponibles. Créez-les d\'abord ...';
+          } else {this.employeeGroupes = result; }
       }, (err) => {
         this.loadingGroupes = false;
         console.log(err);
