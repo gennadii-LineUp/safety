@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SiteService} from '../../../services/site/site.service';
 import {ErrorMessageHandlerService} from '../../../services/error/error-message-handler.service';
 import {BackendService} from '../../../services/backend/backend.service';
@@ -9,7 +9,7 @@ import {BackendService} from '../../../services/backend/backend.service';
   styleUrls: ['./site-accueil-page.component.css'],
     providers: [SiteService, BackendService]
 })
-export class SiteAccueilPageComponent implements OnInit, OnDestroy {
+export class SiteAccueilPageComponent implements OnInit {
     loading = true;
     errorLoad = '';
     imgServer: any;
@@ -28,19 +28,17 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
         this.getAccueilInfoFunction();
         this.getFromServerAccueilImageFunction();
 
-        const refresh = {
-          refresh_token: localStorage.getItem('refresh_token')
-        };
-        this.backendService.token_refresh(refresh)
-          .subscribe(result => {
-            localStorage.setItem('token', result.token);
-            localStorage.setItem('refresh_token', result.refresh_token);
-          }, (err) => {
-            console.log(err);
-          });
+        // const refresh = {
+        //   refresh_token: localStorage.getItem('refresh_token')
+        // };
+        // this.backendService.token_refresh(refresh)
+        //   .subscribe(result => {
+        //     localStorage.setItem('token', result.token);
+        //     localStorage.setItem('refresh_token', result.refresh_token);
+        //   }, (err) => {
+        //     console.log(err);
+        //   });
     }
-
-    ngOnDestroy() {}
 
   public getAccueilInfoFunction() {
     this.loading = true;
@@ -65,7 +63,6 @@ export class SiteAccueilPageComponent implements OnInit, OnDestroy {
         this.imgServer = src + result.content;
       }, (err) => {
         this.loading = false;
-        console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }

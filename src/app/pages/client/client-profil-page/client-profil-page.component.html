@@ -85,7 +85,7 @@
                 <p [hidden]="numberSiret.valid || numberSiret.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper" style="margin-bottom: 21px;">
-                <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone (example: +7(905)678-90-12)</p>
+                <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone (example:  +33(0)1-36-94-85-40  ou  01 36 94 85 40)</p>
                 <input  class="form-control" placeholder="Téléphone*"
                        #phone="ngModel" id="phone" name='phone' required [(ngModel)]="client.phone" />
                 <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>

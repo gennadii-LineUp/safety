@@ -39,7 +39,6 @@ export class NavbarSiteComponent implements OnInit, OnDestroy {
 
         this.sub = this.route.params.subscribe(params => {
             this.id_site = +params['id_site'];
-            console.log('id_site.subscribe = ' + this.id_site);
         });
     }
 

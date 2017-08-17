@@ -215,16 +215,15 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
       urlOption = '/' + this.itemForChange;
       this.saveButtonCaption = 'Modifier';
     }
-    this.loadingFile = true;
+    // this.loadingFile = true;
     this.doRequest(this.siteService, 'sendFileToServer', [this.file, this.content, this.id_site, urlOption], result => {
           this.loadingFile = false;
-          this.uploadedFile = true;
+          // this.uploadedFile = true;
           if (result.id) {
             this.id_fichier = result.id;
           }
           if (this.fileForChange) {
             this.fileForChange = false;
-            this.successCreating = 'Le nouveau fichier est chargé.';
           }
       }, (err) => {
         this.loadingFile = false;
@@ -246,6 +245,7 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     this.cancellMessages();
     this.creating = true;
     this.doRequest(this.siteService, 'addFichier', [this.newFichier, this.id_site, this.id_fichier], result => {
+                  this.uploadedFile = true;
                   this.findFichiersByNameFunction('', 1, '', 'Vos modifications sont enregistrées.');
                   // modal close /////////
                   const _modal = document.getElementById('myModal').firstElementChild;

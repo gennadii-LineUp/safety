@@ -1,7 +1,7 @@
 <header class="main-header">
     <h1>Créer un client</h1>
 </header>
-<div class="main-content">  <!--(submit)="submitNewClientFunction(email, company, address, postalCode, city, billingAddressIfDifferent, diffName, diffAddress, diffPostalCode, diffCity, phone, numberSiret, contactName, contactPhone, contactEmail, employeesLimit)"-->
+<div class="main-content">
     <form #admin_newClientForm="ngForm"  class="creer-un-client-form"  novalidate
             (ngSubmit)="submitNewClientFunction(admin_newClientForm)">
         <div class="input-wrapper">
@@ -71,7 +71,7 @@
             <p [hidden]="email.valid || email.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone  (example: +7(905)678-90-12)</p>
+            <p [hidden]="phone.invalid" class="requred-field color-valid">Téléphone  (example:  +33(0)1-36-94-85-40  ou  01 36 94 85 40)</p>
             <input type="text" class="form-control" placeholder="Téléphone*"
                    #phone="ngModel" id="phone" name='phone' required [(ngModel)]="client.phone" />
             <p [hidden]="phone.valid || phone.untouched " class="requred-field ">Champs requis</p>
@@ -118,7 +118,7 @@
         <div class="button-wrapper"> <!--[disabled]="loading"-->
             <button type="button" class="form-button red-button annuler-button"
                     (click)='gotoAdminClientForm()'>Annuler</button>
-            <button type="submit"  [disabled]="!admin_newClientForm.form.valid"
+            <button type="submit" [disabled]="!admin_newClientForm.form.valid"
                     class="form-button green-button creer-button">Créer</button>
             <br>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

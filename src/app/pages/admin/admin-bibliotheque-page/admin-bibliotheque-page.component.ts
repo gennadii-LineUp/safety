@@ -52,7 +52,6 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
     ngOnInit() {
         this.loading = true;
         this.findLinkByNameFunction('', 1, '');
-        this.adminService.tableMobileViewInit();
     }
 
     ngOnDestroy() {
@@ -131,9 +130,10 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
     }
 
     public getItemForUpdateFunction(id_itemForUpdate: number) {
+        this.adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
+        this.modalOpen();
         this.cancellMessages();
         this.creating = true;
-        this.adminBibliotheque = new AdminBibliothequeClass('', '', '');
 
         this.doRequest(this.adminService, 'getLinkForUpdate', ['/' + id_itemForUpdate], result => {
                     this.creating = false;
@@ -161,20 +161,33 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
 
         this.doRequest(this.adminService, 'saveLink', [this.adminBibliotheque, urlOption], result => {
                     this.creating = false;
-                    this.successCreating = 'Well done! Link is saved.';
                     if (this.itemForChange) {
                         this.saveButtonCaption = 'Créer';
                         this.itemForChange = 0;
                     }
-                    this.ngOnInit();
-            }, (err) => {
+                    this.findLinkByNameFunction('', 1, '');
+                    // modal close /////////
+                    const _modal = document.getElementById('myModal').firstElementChild;
+                    _modal.classList.add('hidden');
+                    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                    (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                    /////////
+                    this.adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
+        }, (err) => {
                 this.creating = false;
                 console.log(err);
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
 
-    public deleteFunction(id_itemForDelete: number) {
+  public modalOpen() {
+    const _modal = document.getElementById('myModal').firstElementChild;
+    if (_modal) {_modal.classList.remove('hidden'); }
+    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+    if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+  }
+
+  public deleteFunction(id_itemForDelete: number) {
         this.loading = true;
         this.emptyTable = false;
 

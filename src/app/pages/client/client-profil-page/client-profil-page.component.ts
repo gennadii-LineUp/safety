@@ -124,6 +124,9 @@ export class ClientProfilPageComponent extends BasePageComponent implements OnIn
         this.client.diffPostalCode = '';
         this.client.diffCity = '';
       }
+      if (this.client.phone[0] === '0') {
+        this.client.phone = '+33(' + this.client.phone[0] + ')' + this.client.phone.substr(1, this.client.phone.length);
+      }
 
       this.doRequest(this.clientService, 'updateClientProfile', [this.client], result => {
                     this.updating = false;
