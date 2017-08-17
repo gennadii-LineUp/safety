@@ -50,6 +50,8 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
     searchName = '';
     currentPage: any;
 
+  newSite = new SiteClass('', '', '', '', '', false, false, false, false, false, false);
+
   headers: any[] = [
     { display: 'Nom du site',       variable: 'name',       filter: 'text' },
     { display: 'Adresse',           variable: 'address',    filter: 'text' },
@@ -166,8 +168,7 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
       }
     }
 
-    public submitForm(name: string, address: string, postalCode: string, city: string, notificationEmails: string,
-                      cacesSiege: boolean,
+    public submitForm(cacesSiege: boolean,
                       cacesSite: boolean,
                       medicalVisitSiege: boolean,
                       medicalVisitSite: boolean,
@@ -176,14 +177,15 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
         this.cancellMessages();
         this.creating = true;
 
-        const newSite = new SiteClass(name, address, postalCode, city, notificationEmails,
+        const _newSite = new SiteClass(this.newSite.name, this.newSite.address, this.newSite.postalCode,
+                                    this.newSite.city, this.newSite.notificationEmails,
                                     this._cacesSiege,
                                     this._cacesSite,
                                     this._medicalVisitSiege,
                                     this._medicalVisitSite,
                                     this._techControlSiege,
                                     this._techControlSite);
-        this.doRequest(this.clientService, 'addNewSite', [newSite], result => {
+        this.doRequest(this.clientService, 'addNewSite', [_newSite], result => {
                     this.cancellMessages();
                     this.newSite_id = result.siteId;
                     if (this.userHasChoosenFile) {
@@ -208,6 +210,7 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
                   const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
                   (<HTMLScriptElement>modal_bg).classList.add('hidden');
                   /////////
+                  this.newSite = new SiteClass('', '', '', '', '', false, false, false, false, false, false);
             }, (err) => {
                 this.creating = false;
                 console.log(err);
@@ -216,6 +219,7 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
     }
 
     public modalOpen() {
+      this.newSite = new SiteClass('', '', '', '', '', false, false, false, false, false, false);
       const _modal = document.getElementById('myModal').firstElementChild;
       if (_modal) {_modal.classList.remove('hidden'); }
       const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];

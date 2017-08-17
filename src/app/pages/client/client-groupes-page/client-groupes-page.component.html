@@ -1,7 +1,7 @@
 <header class="main-header">
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-            <span aria-hidden="true"></span>
+            <span></span>
         </button>
         <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
@@ -34,14 +34,14 @@
                         <label class="control control--checkbox">Accès Admin (entreprise + sites)
                             <input type="checkbox" checked="checked"
                                    #adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'
-                                   name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />  <!--(change)='adminAccessClicked($event)'-->
+                                   name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />
                             <span class="control__indicator"></span>
                         </label>
                     </div>
                 </form>
                 <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-                        <span aria-hidden="true"></span>
+                        <span></span>
                     </button>
                 </div>
 
@@ -107,7 +107,7 @@
             <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
             <li *ngIf="!(pager.currentPage === 1)">
                 <a class="prev-link" (click)="findGroupByNameFunction('lineUp', pager.currentPage - 1,sortingTarget)" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
@@ -132,7 +132,7 @@
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
                    (click)="findGroupByNameFunction('lineUp', pager.currentPage + 1,sortingTarget)">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>

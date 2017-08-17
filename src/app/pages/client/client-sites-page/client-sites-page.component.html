@@ -32,25 +32,25 @@
                      <div class="input-wrapper">
                         <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
                         <input class="form-control"  placeholder="Nom*"  type="text"
-                               #name="ngModel" id="name" name='name' required (ngModel)="name" />
+                               #name="ngModel" id="name" name='name' required [(ngModel)]="newSite.name" />
                         <p [hidden]="name.valid || name.untouched" class="requred-field ">Champs requis</p>
                     </div>
                     <div class="input-wrapper">
                         <p [hidden]="address.invalid" class="requred-field color-valid">Adresse</p>
                         <input class="form-control"  placeholder="Adresse*"  type="text"
-                               #address="ngModel" id="address" name='address' required (ngModel)="address" />
+                               #address="ngModel" id="address" name='address' required [(ngModel)]="newSite.address" />
                         <p [hidden]="address.valid || address.untouched" class="requred-field ">Champs requis</p>
                     </div>
                     <div class="input-wrapper">
                         <p [hidden]="postalCode.invalid" class="requred-field color-valid">Code postal</p>
                         <input class="form-control"  placeholder="Code postal*"  type="text"
-                               #postalCode="ngModel" id="postalCode" name='postalCode' required (ngModel)="postalCode" />
+                               #postalCode="ngModel" id="postalCode" name='postalCode' required [(ngModel)]="newSite.postalCode" />
                         <p [hidden]="postalCode.valid || postalCode.untouched" class="requred-field ">Champs requis</p>
                     </div>
                     <div class="input-wrapper">
                         <p [hidden]="city.invalid" class="requred-field color-valid">Ville</p>
                         <input class="form-control"  placeholder="Ville*" type="text"
-                               #city="ngModel" id="city" name='city' required (ngModel)="city" />
+                               #city="ngModel" id="city" name='city' required [(ngModel)]="newSite.city" />
                         <p [hidden]="city.valid || city.untouched" class="requred-field ">Champs requis</p>
                     </div>
                     <div class="input-wrapper">
@@ -71,7 +71,7 @@
                         <p [hidden]="notificationEmails.invalid" class="requred-field color-valid">Email(s) de notification du site</p>
                         <input class="form-control"  placeholder="Email(s) de notification du site*" type="email"
                                #notificationEmails="ngModel" id="notificationEmails" name='notificationEmails' required
-                               (ngModel)="notificationEmails" /><!-- required email -->
+                               [(ngModel)]="newSite.notificationEmails" /><!-- required email -->
                         <p [hidden]="notificationEmails.valid || notificationEmails.untouched" class="requred-field ">Champs requis</p>
                     </div>
                     <div class="table-wrapper">
@@ -177,9 +177,7 @@
                     <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
                             (click)="myModal.close()">Annuler</button>
                     <button type="submit" class="form-button green-button creer-button" data-dismiss="modal"
-                            (click)='submitForm(name.value,  address.value,
-                                                    postalCode.value,  city.value,
-                                                    notificationEmails.value, cacesSiege.checked,
+                            (click)='submitForm(cacesSiege.checked,
                                                     cacesSite.checked,  medicalVisitSiege.checked,
                                                     medicalVisitSite.checked, techControlSiege.checked,
                                                     techControlSite.checked)'
