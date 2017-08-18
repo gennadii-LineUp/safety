@@ -274,12 +274,20 @@ export class SiteService {
     };
     return this.backendService.loadImage_post(url, fileToServer);
   }
+  public getFromServerSignature(siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/signature' + '?encoded=1';
+    return this.backendService.loadImage_get(url);
+  }
   public loadToServerTampon(content: any, siteId: number): Observable<any> {
     const url = UrlParams.siteHome + siteId + '/stamp';
     const fileToServer = {
       content: ((((content.result).split(';'))[1]).split(','))[1]
     };
     return this.backendService.loadImage_post(url, fileToServer);
+  }
+  public getFromServerTampon(siteId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/stamp' + '?encoded=1';
+    return this.backendService.loadImage_get(url);
   }
 
 

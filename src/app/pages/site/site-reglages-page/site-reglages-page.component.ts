@@ -47,9 +47,13 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     uploadedFile = false;
     content: any;
     showImg = false;
+    showImgSignature = false;
+    showImgTampon = false;
     file: File;
     userHasChoosenFile = false;
     imgServer: any;
+    imgServerSignature: any;
+    imgServerTampon: any;
 
     employee_responsables = [];
     employee_fromSearch = [];
@@ -125,7 +129,13 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
           }, 100);
-      }, (err) => {
+          setTimeout(() => {
+            this.getFromServerTamponImageFunction();
+          }, 300);
+          setTimeout(() => {
+            this.getFromServerSignatureImageFunction();
+          }, 500);
+    }, (err) => {
         this.loading = false;
         this.emptyTable = true;
         console.log(err);
@@ -326,8 +336,12 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           this.imgServer = src + result.content;
       }, (err) => {
         this.loadingFile = false;
-        console.log(err);
-        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        if (err.status === 500 || err.status === 404) {
+          return;
+        } else {
+          console.log(err);
+          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+        }
       });
   }
 
@@ -351,6 +365,8 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   public loadToServerSignatureFunction() {
     this.siteService.loadToServerSignature(this.content, this.id_site)
       .subscribe(result => {
+          console.log(result);
+          if (result) {this.getFromServerSignatureImageFunction(); }
           this.loadingFileSignature = false;
           this.successUpdate = 'La signature est chargée.';
       }, (err) => {
@@ -358,6 +374,23 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
+  }
+  public getFromServerSignatureImageFunction() {
+    this.loadingFileSignature = true;
+    this.doRequest(this.siteService, 'getFromServerSignature', [this.id_site], result => {
+      this.loadingFileSignature = false;
+      this.showImgSignature = true;
+      const src = 'data:' + result.contentType + ';base64,';
+      this.imgServerSignature = src + result.content;
+    }, (err) => {
+      this.loadingFileSignature = false;
+      if (err.status === 500 || err.status === 404) {
+        return;
+      } else {
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      }
+    });
   }
 
   public fileChangeTampon(event) {
@@ -380,6 +413,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   public loadToServerTamponFunction() {
     this.siteService.loadToServerTampon(this.content, this.id_site)
       .subscribe(result => {
+        if (result) {this.getFromServerTamponImageFunction(); }
         this.loadingFileTampon = false;
         this.successUpdate = 'Le tampon est chargée.';
       }, (err) => {
@@ -387,6 +421,23 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       });
+  }
+  public getFromServerTamponImageFunction() {
+    this.loadingFileTampon = true;
+    this.doRequest(this.siteService, 'getFromServerTampon', [this.id_site], result => {
+      this.loadingFileTampon = false;
+      this.showImgTampon = true;
+      const src = 'data:' + result.contentType + ';base64,';
+      this.imgServerTampon = src + result.content;
+    }, (err) => {
+      this.loadingFileTampon = false;
+      if (err.status === 500 || err.status === 404) {
+        return;
+      } else {
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      }
+    });
   }
 
 
