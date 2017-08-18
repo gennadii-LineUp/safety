@@ -40,11 +40,6 @@
 /*.form-label {*/
     /*float: left;*/
 /*}*/
-.image-upload label span {
-    background: url(../../../../../assets/img/ajouter-un-img-img.png) no-repeat center;
-    height: 107px! important;
-    width: 179px !important;
-}
 .form-subheader {
     margin-bottom: 21px;
     font-family: 'Righteous', cursive;
@@ -201,4 +196,9 @@ input.datepicker-default:disabled{
     display: table;
     clear: both;
   }
+}
+.image-upload label span {
+  background: url(../../../../../assets/img/ajouter-un-logo-img.png) no-repeat center;
+  height: 107px! important;
+  width: 140px! important;
 }

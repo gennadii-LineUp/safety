@@ -110,8 +110,10 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
       let res = reader.readAsDataURL(event.target.files[0]);
       setTimeout(() => {
          this.uploadedFile = true;
+         this.showImg = true;
+        this.imgServer = this.content.result;
         // this.loadToServerProfileImageFunction();
-      }, 200);
+      }, 100);
     }
   }
 
