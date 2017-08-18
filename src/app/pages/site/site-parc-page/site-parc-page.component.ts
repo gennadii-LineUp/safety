@@ -9,6 +9,7 @@ import {MachinesGlossary} from '../../../models/const/machine-categorie';
 import {ClientService} from '../../../services/client/client.service';
 import {BackendService} from '../../../services/backend/backend.service';
 import {BasePageComponent} from '../../base/base-page.component';
+import * as moment from 'moment';
 declare var $: any;
 
 export class OtherFileClass {
@@ -293,11 +294,11 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.machine.vgp = datepicker_vgp;
     let _datepicker_techControl = '';
     if (datepicker_techControl !== '') {
-      _datepicker_techControl = this.dataService.convertDateFromInputeToServer(this.machine.techControl);
+      _datepicker_techControl = moment(this.machine.techControl, 'DD/MM/YYYY').toISOString();
     }
     let _datepicker_vgp = '';
     if (datepicker_vgp !== '') {
-      _datepicker_vgp = this.dataService.convertDateFromInputeToServer(this.machine.vgp);
+      _datepicker_vgp = moment(this.machine.vgp, 'DD/MM/YYYY').toISOString();
     }
 
     const _machine = new MachineClass(+this.machine.category,
@@ -311,6 +312,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
                                       _datepicker_vgp,
                                       this.machine.equipment,
                                       false, false, [], 0);
+    console.log(_machine);
 
     this.doRequest(this.siteService, 'createMachine', [_machine, this.id_site, urlOption], result => {
           if (this.itemForChange) {

@@ -12,6 +12,7 @@ import {DataService} from '../../../../services/DataService.service';
 import {MachinesGlossary} from '../../../../models/const/machine-categorie';
 import {BackendService} from '../../../../services/backend/backend.service';
 import {BasePageComponent} from '../../../base/base-page.component';
+import * as moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -259,17 +260,17 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         let _startDate = this.employees.startDate;
         let _endDate = this.employees.endDate;
         if (this.employees.startDate) {
-          _startDate = this.dataService.convertDateFromInputeToServer(this.employees.startDate);
+          _startDate = moment(this.employees.startDate, 'DD/MM/YYYY').toISOString();
         }
         if (this.employees.endDate) {
-          _endDate = this.dataService.convertDateFromInputeToServer(this.employees.endDate);
+          _endDate = moment(this.employees.endDate, 'DD/MM/YYYY').toISOString();
         }
 
        const employeeDates = new EmployeesClass(this.employees.name,
                                                 this.employees.surname,
                                                 this.employees.email,
                                                 this.employees.post,
-                                                this.dataService.convertDateFromInputeToServer(datepicker_birthDate),
+                                                moment(datepicker_birthDate, 'DD/MM/YYYY').toISOString(),
                                                 this.employees.numSecu,
                                                 this.employees.validityPeriod,
                                                 _startDate,
@@ -316,8 +317,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.loading = true;
 
         const attestation = new AttestationClass(this.attestation.name,
-                                                this.dataService.convertDateFromInputeToServer(dateIssue),
-                                                this.dataService.convertDateFromInputeToServer(dateExpires));
+                                                  moment(dateIssue, 'DD/MM/YYYY').toISOString(),
+                                                  moment(dateExpires, 'DD/MM/YYYY').toISOString());
 
         this.doRequest(this.siteService, 'setAttestation', [attestation, this.id_site, this.id_salarie, urlOption], result => {
                   let attestation_id: number;
@@ -411,8 +412,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         const datepicker_medicalVisit = window.document.getElementsByClassName('datepicker-default')['1'].value;
         const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
 
-        const _datepicker_medicalVisit = this.dataService.convertDateFromInputeToServer(datepicker_medicalVisit);
-        const _datepicker_caces = this.dataService.convertDateFromInputeToServer(datepicker_caces);
+        const _datepicker_medicalVisit = moment(datepicker_medicalVisit, 'DD/MM/YYYY').toISOString();
+        const _datepicker_caces = moment(datepicker_caces, 'DD/MM/YYYY').toISOString();
 
         const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
 
@@ -461,9 +462,13 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             this.visites.cacesDateExpires = this.dataService.fromServerMoment(result.cacesDateExpires);
           }
       }, (err) => {
+      if (err.status === 500 || err.status === 404) {
+        return;
+      } else {
         this.loadingDatesAutorisations = false;
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      }
       });
   }
 
@@ -477,10 +482,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                         this.emptyTable = true;
                     }
             }, (err) => {
+              if (err.status === 500 || err.status === 404) {
+                return;
+              } else {
                 this.loadingAttestations = false;
                 this.emptyTable = true;
                 console.log(err);
                 this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+              }
             });
     }
 
@@ -661,7 +670,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       }, (err) => {
         this.loadingDrLicences = false;
         this.emptyTable_drLicences = true;
-        if (err.status === 500) {
+        if (err.status === 500 || err.status === 404) {
           return;
         } else {
           console.log(err);
@@ -808,7 +817,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
           this.imgServerPhoto = src + result.content;
       }, (err) => {
         this.loadingPhotoFilePhoto = false;
-        if (err.status === 500) {
+        if (err.status === 500 || err.status === 404) {
           return;
         } else {
           console.log(err);

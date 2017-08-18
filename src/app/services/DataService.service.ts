@@ -67,6 +67,7 @@ export class DataService {
   // stringToDate("9-17-2014","mm-dd-yyyy","-")
 
   public convertDateFromInputeToServer(datepicker: string): string {
+    console.log(datepicker);
     const date = this.stringToDate(datepicker, 'dd/MM/yyyy', '/');
     const newDate = date.toISOString();
     return newDate;

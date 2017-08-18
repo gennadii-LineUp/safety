@@ -7,6 +7,7 @@ import {EmployeesClass} from 'app/models/const/employees-class';
 import {DataService} from '../../../../services/DataService.service';
 import {BackendService} from '../../../../services/backend/backend.service';
 import {BasePageComponent} from '../../../base/base-page.component';
+import * as moment from 'moment';
 
 declare var $: any;
 
@@ -137,9 +138,9 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
         // console.log(this.dataService.convertDateFromInputeToServer(datepicker_birthDate)); // equal
         // console.log(moment(datepicker_birthDate, 'DD/MM/YYYY').toISOString());             // equal
 
-        const _datepicker_birthDate = this.dataService.convertDateFromInputeToServer(datepicker_birthDate);
-        const _datepicker_startDate = this.dataService.convertDateFromInputeToServer(datepicker_startDate);
-        const _datepicker_endDate = this.dataService.convertDateFromInputeToServer(datepicker_endDate);
+        const _datepicker_birthDate = moment(datepicker_birthDate, 'DD/MM/YYYY').toISOString();
+        const _datepicker_startDate = moment(datepicker_startDate, 'DD/MM/YYYY').toISOString();
+        const _datepicker_endDate = moment(datepicker_endDate, 'DD/MM/YYYY').toISOString();
 
         this.cancellErrorMessage();
         this.cancellSuccessMessage();
