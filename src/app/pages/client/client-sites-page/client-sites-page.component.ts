@@ -33,6 +33,8 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
     site: SiteClass[] = [];
     newSite_id: number;
 
+    id_itemForDelete: number;
+
     _cacesSiege = false;
     _cacesSite = false;
     _medicalVisitSiege = false;
@@ -213,12 +215,17 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
       if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
     }
 
+
+  public setItemForDelete(id_itemForDelete: number) {
+    this.id_itemForDelete = id_itemForDelete;
+    return true;
+  }
   public deleteFunction(id_itemForDelete: number) {
         this.cancellMessages();
         this.loading = true;
         this.emptyTable = false;
 
-        this.doRequest(this.clientService, 'deleteSites', ['/' + id_itemForDelete], result => {
+        this.doRequest(this.clientService, 'deleteSites', ['/' + this.id_itemForDelete], result => {
                     this.cancellMessages();
                     this.findSiteByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {

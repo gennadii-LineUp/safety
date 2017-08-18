@@ -159,12 +159,17 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
       if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
     }
 
-    public deleteFunction(id_itemForDelete: number) {
+    id_itemForDelete: number;
+    public setItemForDelete(id_itemForDelete: number) {
+      this.id_itemForDelete = id_itemForDelete;
+      return true;
+    }
+    public deleteFunction() {
       this.cancellErrorMessage();
       this.cancellSuccessMessage();
       this.loading = true;
         this.emptyTable = false;
-        this.doRequest(this.clientService, 'deleteGroupe', ['/' + id_itemForDelete], result => {
+        this.doRequest(this.clientService, 'deleteGroupe', ['/' + this.id_itemForDelete], result => {
                     this.cancellErrorMessage();
                     this.findGroupByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {

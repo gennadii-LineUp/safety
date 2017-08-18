@@ -10,57 +10,12 @@
   <h1>Groupes de salariés</h1>
     <img *ngIf="loading" style='position: absolute; left:49.3%; bottom:15%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 </header>
-<div class="main-content" *ngIf='loaded'>
+<div class="main-content" *ngIf='loaded' (click)='cancellSuccessMessage()'>
     <div class="search-panel clearfix">
 
         <button class="add-an-item-button" (click)="myModal.open(); modalOpen()"></button>
 
-        <client-groupes-modal #myModal id="myModal">
-            <modal-header-CG>
-                <h2>Ajouter un groupe</h2>
-            </modal-header-CG>
-
-            <modal-content-CG>
-                <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()' >
-                    <div class="input-wrapper">
-                        <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
-                        <input class="form-control"  placeholder="Nom*"
-                               #name="ngModel" id="name" name='name' required [(ngModel)]="salaryeeGroupe.name"
-                               (keyup.enter)='submitForm(name.value,
-                                                         adminAccess.status)'/>
-                        <p [hidden]="name.valid || name.untouched" class="requred-field ">Champs requis</p>
-                    </div>
-                    <div class="control-group">
-                        <label class="control control--checkbox">Accès Admin (entreprise + sites)
-                            <input type="checkbox"
-                                   #adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'
-                                   name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />
-                            <span class="control__indicator"></span>
-                        </label>
-                    </div>
-                </form>
-                <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-                        <span></span>
-                    </button>
-                </div>
-
-                <div class="button-wrapper">
-                    <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
-                            (click)="myModal.close()">Annuler</button>
-                    <button class="form-button green-button creer-button" data-dismiss="modal"
-                            (click)='submitForm(name.value,
-                                                adminAccess.checked)'
-                            [disabled]="!client_newGroupesForm.form.valid">{{saveButtonCaption}}</button>
-                    <br>
-                    <img *ngIf="saving" style='position: absolute;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                </div>
-                <!--Créer-->
-            </modal-content-CG>
-
-            <modal-footer-CG>
-            </modal-footer-CG>
-        </client-groupes-modal>
+        <!--  M O D A L  G O E S  H E R E -->
 
         <div class="search-wrapper">
             <button class="search-button" type="button" (click)='findGroupByNameFunction(findGroupByName.value, 1,sortingTarget)'></button>
@@ -97,7 +52,9 @@
                     <td>
                         <a href="javascript:void(0);" (click)='myModal.open(); getItemForUpdateFunction(groupe)'>Gérer</a>
                             /
-                        <a href="javascript:void(0);" (click)='deleteFunction(groupe.id)'>Supprimer</a></td>
+                        <a href="javascript:void(0);" (click)='confirmDelete.open(); setItemForDelete(groupe.id)'>Supprimer</a>
+                                                                                  <!--deleteFunction(groupe.id)-->
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -140,6 +97,70 @@
         </ul>
     </nav>
     <br>
-
-
 </div>
+
+
+<client-groupes-modal #myModal id="myModal">
+  <modal-header-CG>
+    <h2>Ajouter un groupe</h2>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <form #client_newGroupesForm="ngForm" class="modal-form" novalidate (click)='cancellSuccessMessage()' >
+      <div class="input-wrapper">
+        <p [hidden]="name.invalid" class="requred-field color-valid">Nom</p>
+        <input class="form-control"  placeholder="Nom*"
+               #name="ngModel" id="name" name='name' required [(ngModel)]="salaryeeGroupe.name"
+               (keyup.enter)='submitForm(name.value,
+                                                         adminAccess.status)'/>
+        <p [hidden]="name.valid || name.untouched" class="requred-field ">Champs requis</p>
+      </div>
+      <div class="control-group">
+        <label class="control control--checkbox">Accès Admin (entreprise + sites)
+          <input type="checkbox"
+                 #adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'
+                 name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />
+          <span class="control__indicator"></span>
+        </label>
+      </div>
+    </form>
+    <div *ngIf="errorCreating" style='position: fixed;' class="alert alert-danger">{{errorCreating}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="myModal.close()">Annuler</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)='submitForm(name.value,
+                                                adminAccess.checked)'
+              [disabled]="!client_newGroupesForm.form.valid">{{saveButtonCaption}}</button>
+      <br>
+      <img *ngIf="saving" style='position: absolute;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    </div>
+    <!--Créer-->
+  </modal-content-CG>
+
+  <modal-footer-CG>
+  </modal-footer-CG>
+</client-groupes-modal>
+
+
+<client-groupes-modal #confirmDelete id="confirmDelete">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteFunction(); confirmDelete.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDelete.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>
