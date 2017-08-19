@@ -1,13 +1,13 @@
 <header class="main-header">
     <div *ngIf="errorSalaries" class="alert alert-danger alert-dismissible fade in" role="alert"  style='position: absolute;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorSalariesMessages()'>
-            <span aria-hidden="true"></span>
+            <span></span>
         </button>
         <p>Votre limite de salariés a été atteinte. Vous utilisez <span>{{salariesUsed}}/{{salariesMaxPossible}} comptes salariés disponibles.</span></p>
     </div>
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-            <span aria-hidden="true"></span>
+            <span></span>
         </button>
         <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
@@ -225,7 +225,8 @@
                                 Modifier
                             </a>
                             /
-                            <a href="javascript:void(0);" (click)='deleteAttestFunction(employeeAttestation.id)'>
+                            <a href="javascript:void(0);" (click)='confirmDeleteAttest.open();
+                                                                setItemForDeleteAttest(employeeAttestation.id)'>
                               Supprimer
                             </a>
                         </td>
@@ -276,7 +277,7 @@
                             Modifier
                           </a>
                           /
-                          <a href="javascript:void(0);" (click)='deleteDrLicenseFunction(drivingLicense.id)'>
+                          <a href="javascript:void(0);" (click)='confirmDeleteAutor.open(); setItemForDeleteAutor(drivingLicense.id)'>
                             Supprimer
                           </a>
                     </td>
@@ -345,7 +346,7 @@
     <modal-footer-SSAtt>
         <div *ngIf="errorCreatingAttestat" style='position: fixed; top: -40px  !important;' class="alert alert-danger">{{errorCreatingAttestat}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-                <span aria-hidden="true"></span>
+                <span></span>
             </button>
         </div>
         <div *ngIf="successCreatingAttestat" style='position: fixed; top: -40px;' class="alert alert-success">{{successCreatingAttestat}}</div>
@@ -371,7 +372,7 @@
         <div *ngIf="errorCreatingDrLicence" style='position: fixed; top: -40px !important;' class="alert alert-danger">
           {{errorCreatingDrLicence}}
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-            <span aria-hidden="true"></span>
+            <span></span>
           </button>
         </div>
         <div *ngIf="successCreatingDrLicence" style='position: fixed; top: -40px;' class="alert alert-success">
@@ -513,3 +514,39 @@
         </div>
     </modal-footer-SSAut>
 </modal-autor>
+
+
+<client-groupes-modal #confirmDeleteAttest id="confirmDeleteAttest">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteAttestFunction(); confirmDeleteAttest.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDeleteAttest.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>
+
+
+<client-groupes-modal #confirmDeleteAutor id="confirmDeleteAutor">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteDrLicenseFunction(); confirmDeleteAutor.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDeleteAutor.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>

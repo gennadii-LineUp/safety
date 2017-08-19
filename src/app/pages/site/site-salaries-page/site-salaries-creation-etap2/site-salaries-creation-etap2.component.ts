@@ -70,7 +70,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     userHasChoosenFilePhoto = false;
     imgServerPhoto: any;
 
-    @ViewChild('fileInputCaces')
+    id_itemForDeleteAttest: number;
+    id_itemForDeleteAutor: number;
+
+  @ViewChild('fileInputCaces')
     cacesInput: any;
 
     @ViewChild('fileInputAttest')
@@ -515,10 +518,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             });
     }
 
-    public deleteAttestFunction(id_itemForDelete: number) {
+  public setItemForDeleteAttest(id_itemForDelete: number) {
+    this.id_itemForDeleteAttest = id_itemForDelete;
+    // return true;
+  }
+  public deleteAttestFunction() {
         this.loadingAttestations = true;
         this.emptyTable = false;
-        this.doRequest(this.siteService, 'deleteAttestation', [this.id_site, this.id_salarie, '/' + id_itemForDelete], result => {
+        this.doRequest(this.siteService, 'deleteAttestation', [this.id_site, this.id_salarie, '/' + this.id_itemForDeleteAttest], result => {
                     this.cancellErrorMessage();
                     this.getAttestations('');
             }, (err) => {
@@ -689,7 +696,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     return;
   }
   public setEmptyDrivingLicense() {
-    this.drivingLicense = new DrivingLicenseClass([], 0);
+    this.drivingLicense = new DrivingLicenseClass([3], 0);
     this.checkedDrLicenses = [];
     const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
     for (let i = 0; i < checkedI.length; i++) {
@@ -720,10 +727,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       });
   }
 
-  public deleteDrLicenseFunction(id_itemForDelete: number) {
+  public setItemForDeleteAutor(id_itemForDelete: number) {
+    this.id_itemForDeleteAutor = id_itemForDelete;
+    return true;
+  }
+  public deleteDrLicenseFunction() {
     this.loadingDrLicences = true;
     this.emptyTable_drLicences = false;
-    this.doRequest(this.siteService, 'deleteDrLicense', [this.id_site, this.id_salarie, '/' + id_itemForDelete], result => {
+    this.doRequest(this.siteService, 'deleteDrLicense', [this.id_site, this.id_salarie, '/' + this.id_itemForDeleteAutor], result => {
           this.loadingDrLicences = false;
           this.cancellErrorMessage();
           this.getDrivingLicenses('');

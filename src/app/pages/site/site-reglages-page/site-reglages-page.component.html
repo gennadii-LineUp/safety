@@ -1,7 +1,7 @@
 <header class="main-header">
   <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
-      <span aria-hidden="true"></span>
+      <span></span>
     </button>
     <p>SAFETY: <span>{{errorLoad}}</span></p>
   </div>
@@ -18,25 +18,25 @@
 
             <div class="input-wrapper">
               <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
-              <input type="text" class="form-control" placeholder="Nom*"
+              <input class="form-control" placeholder="Nom*"
                      #name="ngModel" id="name" name='name' required [(ngModel)]="siteReglages.name" />
               <p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
               <p [hidden]="address.invalid" class="requred-field color-valid">Adresse*</p>
-              <input type="text" class="form-control"  placeholder="Adresse*"
+              <input class="form-control"  placeholder="Adresse*"
                     #address="ngModel" id="address" name='address' required [(ngModel)]="siteReglages.address" />
               <p [hidden]="address.valid || address.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
               <p [hidden]="postalCode.invalid" class="requred-field color-valid">Code postal*</p>
-              <input type="text" class="form-control"  placeholder="Code postal*"
+              <input class="form-control"  placeholder="Code postal*"
                      #postalCode="ngModel" id="postalCode" name='postalCode' required [(ngModel)]="siteReglages.postalCode" />
               <p [hidden]="postalCode.valid || postalCode.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
               <p [hidden]="city.invalid" class="requred-field color-valid">Ville*</p>
-              <input type="text" class="form-control"  placeholder="Ville*"
+              <input class="form-control"  placeholder="Ville*"
                      #city="ngModel" id="city" name='city' required [(ngModel)]="siteReglages.city" />
               <p [hidden]="city.valid || city.untouched " class="requred-field ">Champs requis</p>
             </div>
@@ -45,13 +45,13 @@
             <h2>Personne qui autorise</h2>
             <div class="input-wrapper">
               <p [hidden]="signatoryName.invalid" class="requred-field color-valid">Nom du signataire*</p>
-              <input type="text" class="form-control"  placeholder="Nom du signataire*"
+              <input class="form-control"  placeholder="Nom du signataire*"
                      #signatoryName="ngModel" id="signatoryName" name='signatoryName' required [(ngModel)]="siteReglages.signatoryName" />
               <p [hidden]="signatoryName.valid || signatoryName.untouched " class="requred-field ">Champs requis</p>
             </div>
             <div class="input-wrapper">
               <p [hidden]="signatorySurname.invalid" class="requred-field color-valid">Prénom du signataire*</p>
-              <input type="text" class="form-control"  placeholder="Prénom du signataire*"
+              <input class="form-control"  placeholder="Prénom du signataire*"
                      #signatorySurname="ngModel" id="signatorySurname" name='signatorySurname' required [(ngModel)]="siteReglages.signatorySurname" />
               <p [hidden]="signatorySurname.valid || signatorySurname.untouched " class="requred-field ">Champs requis</p>
             </div>
@@ -96,17 +96,6 @@
             <!--////////////////////////////////-->
         </div>
 
-      <div *ngIf="showImgSignature" class="main-image-editor-wrapper pull-right" style="display: inline-block;">
-        <h2>Signature
-          <img *ngIf='loadingFileSignature' style='bottom: 7%; width: 16px; margin-left: 10px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        </h2>
-        <div class="image-upload" style="position: relative;">
-            <div id="loadedImg1" style="cursor: default"
-                 [ngStyle]="{'background': 'url(' + imgServerSignature + ') no-repeat'}"></div>
-            <span ></span>
-        </div>
-      </div>
-
       <div *ngIf="showImgTampon" class="main-image-editor-wrapper pull-right" style="display: inline-block;">
         <h2>Tampon
           <img *ngIf='loadingFileTampon' style='bottom: 7%; width: 16px; margin-left: 10px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -118,6 +107,16 @@
         </div>
       </div>
 
+      <div *ngIf="showImgSignature" class="main-image-editor-wrapper pull-right" style="display: inline-block;">
+        <h2>Signature
+          <img *ngIf='loadingFileSignature' style='bottom: 7%; width: 16px; margin-left: 10px;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </h2>
+        <div class="image-upload" style="position: relative;">
+            <div id="loadedImg1" style="cursor: default"
+                 [ngStyle]="{'background': 'url(' + imgServerSignature + ') no-repeat'}"></div>
+            <span ></span>
+        </div>
+      </div>
 
       <div *ngIf='showAdminData || showEmployee_Admin || showClientData'>
           <div class="form-divider clearfix" style="margin-bottom: 20px; "></div>
@@ -157,7 +156,7 @@
                     Modifier
                   </a>
                   /
-                  <a href="javascript:void(0);" (click)='deleteResponsableFunction(employee_respo.id)'>
+                  <a href="javascript:void(0);" (click)='confirmDelete.open(); setItemForDelete(employee_respo.id)'>
                     Supprimer
                   </a>
                 </td>
@@ -285,7 +284,7 @@
 
     <div class="input-wrapper" >
       <input class="form-control"  placeholder="Nom*" style="margin-bottom: 2px;"
-             #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
+             #findSalarieByName id="findSalarieByName" name='findSalarieByName'
              (keyup.enter)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
       <button (click)='findEmployeeByName_searchFunction(findSalarieByName.value, 1, "")'>
         <span></span>
@@ -369,3 +368,21 @@
   <modal-footer-SRM>
   </modal-footer-SRM>
 </site-reglages-modal>
+
+
+<client-groupes-modal #confirmDelete id="confirmDelete">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteResponsableFunction(); confirmDelete.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDelete.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>

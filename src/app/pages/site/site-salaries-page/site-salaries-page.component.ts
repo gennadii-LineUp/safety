@@ -28,6 +28,8 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
     salariesMaxPossible: number;
     salariesUsed: number;
 
+    id_itemForDelete: number;
+
     id_site: number;
     site: EmployeesClass[] = [];
 
@@ -152,13 +154,17 @@ export class SiteSalariesPageComponent extends BasePageComponent implements OnIn
             });
     }
 
-    public deleteFunction(id_itemForDelete: number) {
+    public setItemForDelete(id_itemForDelete: number) {
+      this.id_itemForDelete = id_itemForDelete;
+      return true;
+    }
+    public deleteFunction() {
         this.cancellErrorSalariesMessages();
         this.cancellErrorMessage();
         this.loading = true;
         this.emptyTable = false;
 
-        this.doRequest(this.siteService, 'deleteEmployee', [this.id_site, id_itemForDelete], result => {
+        this.doRequest(this.siteService, 'deleteEmployee', [this.id_site, this.id_itemForDelete], result => {
                     this.loading = false;
                     this.checkFreeSalarieAccount();
                     this.findEmployeeByNameFunction(this.searchName, this.activePage, '');

@@ -220,7 +220,7 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
     this.id_itemForDelete = id_itemForDelete;
     return true;
   }
-  public deleteFunction(id_itemForDelete: number) {
+  public deleteFunction() {
         this.cancellMessages();
         this.loading = true;
         this.emptyTable = false;

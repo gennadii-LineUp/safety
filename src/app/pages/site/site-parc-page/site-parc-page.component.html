@@ -61,7 +61,7 @@
                                 modifierFunctionParc(machine.id);
                                 modal_Machine__dataInput.open()'>Gérer</a>
                     /
-                    <a href="javascript:void(0);" (click)='deleteFunction(machine.id)'>Supprimer</a></td>
+                    <a href="javascript:void(0);" (click)='confirmDelete.open(); setItemForDelete(machine.id)'>Supprimer</a></td>
                 </tr>
             </tbody>
         </table>
@@ -486,3 +486,21 @@
     </modal-content-SPMM>
     <modal-footer-SPMM></modal-footer-SPMM>
 </site-parc-modal-machine>
+
+
+<client-groupes-modal #confirmDelete id="confirmDelete">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteFunction(); confirmDelete.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDelete.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>

@@ -21,6 +21,7 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
   errorLoad = '';
   successUpdate = '';
   successCreating = '';
+  id_itemForDelete: number;
 
   clients = [];
   pager: any = {};
@@ -165,11 +166,15 @@ export class AdminClientsPageComponent extends BasePageComponent implements OnIn
     });
   }
 
-  public deleteFunction(id_itemForDelete: number) {
+  public setItemForDelete(id_itemForDelete: number) {
+    this.id_itemForDelete = id_itemForDelete;
+    return true;
+  }
+  public deleteFunction() {
     this.loading = true;
     this.emptyTable = false;
 
-    this.doRequest(this.adminService, 'deleteClient', [ '/' + id_itemForDelete ], result => {
+    this.doRequest(this.adminService, 'deleteClient', [ '/' + this.id_itemForDelete ], result => {
       this.cancellErrorMessage();
       this.findClientByNameFunction(this.searchName, this.activePage, '');
     }, (err) => {

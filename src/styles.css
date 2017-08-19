@@ -125,7 +125,7 @@ h2 {
     font-family: 'Righteous', cursive;
     font-size: 16px;
     width: 84px;
-    height: 42px;
+    height: 42px !important;;
 }
 
 .sauvegarder-button {
@@ -155,7 +155,7 @@ h2 {
 .navigation-back-button {
     background: url(/assets/img/navigation-arrow.png) no-repeat;
     min-width: 24px !important;
-    height: 42px;
+    height: 42px !important;
 }
 
 .input-wrapper {
@@ -361,7 +361,7 @@ h2 {
 
 .spin input {
     width: 120px;
-    height: 42px;
+    height: 42px !important;
     text-align: center;
     border: 1px solid #bdbdbd;
 }

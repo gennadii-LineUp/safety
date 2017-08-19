@@ -1,14 +1,14 @@
 <header class="main-header">
     <div *ngIf="errorSalaries" class="alert alert-danger alert-dismissible fade in" role="alert"  style='position: absolute;' >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorSalariesMessages()'>
-            <span aria-hidden="true"></span>
+            <span></span>
         </button>
         <p>Votre limite de salariés a été atteinte. Vous utilisez <span>{{salariesUsed}}/{{salariesMaxPossible}} comptes salariés disponibles.</span></p>
     </div>
 
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;'>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-            <span aria-hidden="true"></span>
+            <span></span>
         </button>
         <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
@@ -21,7 +21,7 @@
         <button class="add-an-item-button" *ngIf="addNewSalariesAvailable"  (click)="gotoNewSalariesForm()"></button>
         <div class="search-wrapper">
             <button class="search-button" type="button" (click)='findEmployeeByNameFunction(findSalarieByName.value, 1, "")'></button>
-            <input #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
+            <input #findSalarieByName id="findSalarieByName" name='findSalarieByName'
                    class="form-control search-input" placeholder="Rechercher"
                    (keyup.enter)='findEmployeeByNameFunction(findSalarieByName.value, 1, "")'>
         </div>
@@ -62,7 +62,7 @@
                     <td>
                         <a href="javascript:void(0);" (click)='modifierSalarieFunction(salarie.id)'>Modifier</a>
                         /
-                        <a href="javascript:void(0);" (click)='deleteFunction(salarie.id)'>Supprimer</a></td>
+                        <a href="javascript:void(0);" (click)='confirmDelete.open(); setItemForDelete(salarie.id)'>Supprimer</a></td>
                     <!--<td><a href="javascript:void(0);" [routerLink]="['/site', site.id]" >Gérer {{site.id}}</a> / <a href="javascript:void(0);">Supprimer</a></td>-->
                 </tr>
             </tbody>
@@ -72,7 +72,7 @@
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li *ngIf="!(pager.currentPage === 1)">
                 <a class="prev-link" (click)="findEmployeeByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
@@ -97,7 +97,7 @@
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
                    (click)="findEmployeeByNameFunction('lineUp', pager.currentPage + 1, '')">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
@@ -105,3 +105,21 @@
         </ul>
     </nav>
 </div>
+
+
+<client-groupes-modal #confirmDelete id="confirmDelete">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteFunction(); confirmDelete.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDelete.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>

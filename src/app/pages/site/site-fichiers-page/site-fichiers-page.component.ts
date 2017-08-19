@@ -39,6 +39,7 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     file: File;
     content: any;
     userHasChoosenFile = false;
+    id_itemForDelete: number;
 
     checkedGroups = [];
 
@@ -96,7 +97,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
           } else {
             this.noGroups = false;
           }
-          console.log(result);
           this.loadingGroupes = false;
           if (result.length === 0) {
             this.errorLoad = 'Il n\'y a pas de "Groupes de salariés" disponibles. Créez-les d\'abord ...';
@@ -332,11 +332,15 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
   }
 
 
-  public deleteFunction(id_itemForDelete: number) {
+  public setItemForDelete(id_itemForDelete: number) {
+    this.id_itemForDelete = id_itemForDelete;
+    return;
+  }
+  public deleteFunction() {
     this.cancellMessages();
     this.loading = true;
     this.emptyTable = false;
-    this.doRequest(this.siteService, 'deleteFichier', [this.id_site, id_itemForDelete], result => {
+    this.doRequest(this.siteService, 'deleteFichier', [this.id_site, this.id_itemForDelete], result => {
           this.loading = false;
           this.findFichiersByNameFunction(this.searchName, this.activePage, '', '');
       }, (err) => {

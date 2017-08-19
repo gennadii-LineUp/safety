@@ -31,6 +31,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     showClientData = false;
     saveButtonCaption = 'Ajouter';
     id_site =  0;
+    id_itemForDelete: number;
 
     siteReglages = new SiteReglagesClass('', '', '', '', '', false, false, false, false, false, false, '', '');
 
@@ -124,16 +125,16 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           this.siteReglages.signatorySurname = result.signatorySurname;
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
-          }, 100);
+          }, 50);
           this.loadingFile = true;
           setTimeout(() => {
             this.getFromServerProfileImageFunction();
           }, 100);
           setTimeout(() => {
-            this.getFromServerTamponImageFunction();
+            this.getFromServerSignatureImageFunction();
           }, 300);
           setTimeout(() => {
-            this.getFromServerSignatureImageFunction();
+            this.getFromServerTamponImageFunction();
           }, 500);
     }, (err) => {
         this.loading = false;
@@ -182,10 +183,15 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     return true;
   }
 
-  public deleteResponsableFunction(id_itemForDelete: number) {
+
+  public setItemForDelete(id_itemForDelete: number) {
+    this.id_itemForDelete = id_itemForDelete;
+    return true;
+  }
+  public deleteResponsableFunction() {
     this.loadingResponsables = true;
     this.emptyTable = false;
-    this.doRequest(this.siteService, 'deleteResponsable', [this.id_site, id_itemForDelete], result => {
+    this.doRequest(this.siteService, 'deleteResponsable', [this.id_site, this.id_itemForDelete], result => {
           this.cancellMessages();
           this.getResponsablesFunction('');
       }, (err) => {

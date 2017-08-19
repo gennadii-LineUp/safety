@@ -1,7 +1,7 @@
 <header class="main-header">
     <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: absolute;'>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
-            <span aria-hidden="true"></span>
+            <span></span>
         </button>
         <p>SAFETY: <span>{{errorLoad}}</span></p>
     </div>
@@ -19,7 +19,7 @@
         </p>
         <div class="search-wrapper">
             <button class="search-button" type="button" (click)='findSalarieByNameFunction(findSalarieByName.value, 1,sortingTarget)'></button>
-            <input #findSalarieByName id="findSalarieByName" name='findSalarieByName' type="text"
+            <input #findSalarieByName id="findSalarieByName" name='findSalarieByName'
                    class="form-control search-input" placeholder="Rechercher"
                    (keyup.enter)='findSalarieByNameFunction(findSalarieByName.value,1,sortingTarget)'>
         </div>
@@ -59,7 +59,7 @@
                     <td>{{salarie.validityPeriod | validityPeriod}}</td>
                     <td>
                         <a href="javascript:void(0);" (click)='modifierSalarieFunction(salarie.siteId, salarie.id)'>Modifier</a> /
-                        <a href="javascript:void(0);" (click)='deleteFunction(salarie.siteId, salarie.id)'>Supprimer</a></td>
+                        <a href="javascript:void(0);" (click)='confirmDelete.open(); setItemForDelete(salarie.siteId, salarie.id)'>Supprimer</a></td>
                 </tr>
         </table>
     </div>
@@ -67,7 +67,7 @@
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li *ngIf="!(pager.currentPage === 1)">
                 <a class="prev-link" (click)="findSalarieByNameFunction('lineUp', pager.currentPage - 1,sortingTarget)" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
@@ -92,7 +92,7 @@
             <li *ngIf="!(pager.currentPage === pager.totalPages)" >
                 <a href="javascript:void(0);" aria-label="Next" class="next-link"
                    (click)="findSalarieByNameFunction('lineUp', pager.currentPage + 1,sortingTarget)">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
                 </a>
@@ -101,3 +101,20 @@
     </nav>
 </div>
 
+
+<client-groupes-modal #confirmDelete id="confirmDelete">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteFunction(); confirmDelete.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDelete.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>

@@ -2,7 +2,7 @@
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
         <li *ngIf="!(pager.currentPage === 1)">
             <a class="prev-link" (click)="findSalarieByNameFunction('lineUp', pager.currentPage - 1)" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
             </a>
@@ -27,7 +27,7 @@
         <li *ngIf="!(pager.currentPage === pager.totalPages)" >
             <a href="javascript:void(0);" aria-label="Next" class="next-link"
                (click)="findSalarieByNameFunction('lineUp', pager.currentPage + 1)">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
             </a>

@@ -1,7 +1,7 @@
 <header class="main-header">
   <div *ngIf="errorLoad" class="alert alert-danger alert-dismissible fade in" role="alert" style='position: fixed;' >
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
-      <span aria-hidden="true"></span>
+      <span></span>
     </button>
     <p>SAFETY: <span>{{errorLoad}}</span></p>
   </div>
@@ -53,7 +53,7 @@
     <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
       <li *ngIf="!(pager.currentPage === 1)">
         <a class="prev-link" (click)="findFichiersByNameFunction('lineUp', pager.currentPage - 1, '')" aria-label="Previous" >
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>
@@ -78,7 +78,7 @@
       <li *ngIf="!(pager.currentPage === pager.totalPages)" >
         <a href="javascript:void(0);" aria-label="Next" class="next-link"
            (click)="findFichiersByNameFunction('lineUp', pager.currentPage + 1, '')">
-                  <span aria-hidden="true">
+                  <span>
                     <img src="../../../../assets/img/pagination-arrow.png" alt="pagination-arrow">
                   </span>
         </a>

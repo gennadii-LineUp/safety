@@ -27,6 +27,9 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
     salariesMaxPossible =  1;
     salariesUsed =  0;
 
+    id_itemForDelete: number;
+    siteId: number;
+
     salaries = [];
     pager: any = {};
     totalItems =  0;
@@ -95,11 +98,16 @@ export class ClientSalariesPageComponent extends BasePageComponent implements On
         }
     }
 
-    public deleteFunction(siteId: number, employeeId: number) {
+  public setItemForDelete(siteId: number, id_itemForDelete: number) {
+    this.siteId = siteId;
+    this.id_itemForDelete = id_itemForDelete;
+    return true;
+  }
+  public deleteFunction() {
         this.loading = true;
         this.emptyTable = false;
 
-        this.doRequest(this.clientService, 'deleteEmployee', [siteId, employeeId], result => {
+        this.doRequest(this.clientService, 'deleteEmployee', [this.siteId, this.id_itemForDelete], result => {
                     this.cancellErrorMessage();
                     this.findSalarieByNameFunction(this.searchName, this.activePage, '');
             }, (err) => {

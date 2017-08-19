@@ -37,7 +37,7 @@
 
                                 <div class="input-wrapper">
                                     <p [hidden]="name.invalid" class="requred-field color-valid">Nom*</p>
-                                    <input type="text" class="form-control" placeholder="Nom*"
+                                    <input class="form-control" placeholder="Nom*"
                                            #name="ngModel" id="name" name='name' required [(ngModel)]="newFichier.name" />
                                     <p [hidden]="name.valid || name.untouched " class="requred-field ">Champs requis</p>
                                 </div>
@@ -97,7 +97,7 @@
 
       <div class="search-wrapper">
         <button class="search-button" type="button" (click)='findFichiersByNameFunction(findByName.value, 1, "", "")'></button>
-        <input #findByName id="findByName" name='findByName' type="text"
+        <input #findByName id="findByName" name='findByName'
                class="form-control search-input" placeholder="Rechercher"
                (keyup.enter)='findFichiersByNameFunction(findByName.value, 1, "", "")'>
       </div>
@@ -136,7 +136,7 @@
                                   setEmptyFichiers();
                                   modifierFunction(fichier.id);'>Modifier</a>
                     /
-                    <a href="javascript:void(0);" (click)='deleteFunction(fichier.id)'>Supprimer</a></td>
+                    <a href="javascript:void(0);" (click)='confirmDelete.open(); setItemForDelete(fichier.id)'>Supprimer</a></td>
                 </tr>
             </tbody>
         </table>
@@ -179,3 +179,21 @@
     </ul>
   </nav>
 </div>
+
+
+<client-groupes-modal #confirmDelete id="confirmDelete">
+  <modal-header-CG>
+    <h3>Etes-vous sûr de vouloir supprimer?</h3><br>
+  </modal-header-CG>
+
+  <modal-content-CG>
+    <div class="button-wrapper">
+      <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
+              (click)="deleteFunction(); confirmDelete.close()">Oui</button>
+      <button class="form-button green-button creer-button" data-dismiss="modal"
+              (click)="confirmDelete.close()">Non</button>
+    </div>
+  </modal-content-CG>
+
+  <modal-footer-CG></modal-footer-CG>
+</client-groupes-modal>

@@ -88,6 +88,8 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     uploadCTFileText: any;
     OtherFileName = '';
 
+  id_itemForDelete: number;
+
   @ViewChild('vgpInput')
   vgpInput: any;
 
@@ -366,13 +368,15 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.otherFiles_addToServer = [];
   }
 
-
-  public deleteFunction(id_itemForDelete: number) {
+  public setItemForDelete(id_itemForDelete: number) {
+    this.id_itemForDelete = id_itemForDelete;
+    return;
+  }
+  public deleteFunction() {
     this.cancellMessages();
     this.loading = true;
     this.emptyTable = false;
-
-    this.doRequest(this.siteService, 'deleteMachine', [this.id_site, id_itemForDelete], result => {
+    this.doRequest(this.siteService, 'deleteMachine', [this.id_site, this.id_itemForDelete], result => {
           this.loading = false;
           this.findByNameFunction(this.searchName, this.activePage, '');
       }, (err) => {

@@ -21,6 +21,7 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
     errorCreating = '';
     successCreating = '';
 
+    id_itemForDelete: number;
     links = [];
     pager: any = {};
     totalItems =  0;
@@ -187,11 +188,14 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
     if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
   }
 
-  public deleteFunction(id_itemForDelete: number) {
+  public setItemForDelete(id_itemForDelete: number) {
+    this.id_itemForDelete = id_itemForDelete;
+    return true;
+  }
+  public deleteFunction() {
         this.loading = true;
         this.emptyTable = false;
-
-        this.doRequest(this.adminService, 'deleteLink', ['/' + id_itemForDelete], result => {
+        this.doRequest(this.adminService, 'deleteLink', ['/' + this.id_itemForDelete], result => {
                     this.cancellMessages();
                     this.ngOnInit();
             }, (err) => {
