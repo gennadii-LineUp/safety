@@ -55,8 +55,11 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     imgServer: any;
     imgServerSignature: any;
     imgServerTampon: any;
+    toDelete: any;
 
     employee_responsables = [];
+    _employee_responsables = [];
+    empty_responsables = false;
     employee_fromSearch = [];
     employee_forAccess_arr = [];
     employee_forAccess_obj: any = {};
@@ -132,10 +135,10 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           }, 100);
           setTimeout(() => {
             this.getFromServerSignatureImageFunction();
-          }, 300);
+          }, 200);
           setTimeout(() => {
             this.getFromServerTamponImageFunction();
-          }, 500);
+          }, 300);
     }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -145,12 +148,14 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   }
 
   public getResponsablesFunction(sort: string) {
+    this._employee_responsables = [];
     this.cancellMessages();
     this.loadingResponsables = true;
     this.emptyTable_responsables = false;
     this.doRequest(this.siteService, 'getResponsables', [this.id_site, sort], result => {
           this.loadingResponsables = false;
           this.employee_responsables = result.items;
+          this._employee_responsables = result.items;
           this.emptyTable_responsables = false;
           if (result.items.length === 0) {
             this.emptyTable_responsables = true;
@@ -158,7 +163,15 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
-      }, (err) => {
+          let arr = [];
+          this._employee_responsables.forEach(obj => {
+            arr.push(obj.id);
+          });
+          this.toDelete = new Set(arr);
+          setTimeout(() => {
+            this.findEmployeeByName_searchFunction('', 1, '');
+          }, 100);
+    }, (err) => {
         this.loadingResponsables = false;
         this.emptyTable_responsables = true;
         console.log(err);
@@ -231,9 +244,15 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
       _name = localStorage.siteEmployeeSearch_name;
     }
     this.doRequest(this.siteService, 'findEmployeeByName', [_name, page, this.id_site, sort], result => {
-          this.loading = false;
-          this.employee_fromSearch = result.items;
-          this.loaded = true;
+          let temp_arr = result.items;
+          if (temp_arr.length > 0) {
+            this.employee_fromSearch = temp_arr.filter(obj => !this.toDelete.has(obj.id));
+            this.loading = false;
+            this.loaded = true;
+          }
+          if (!this.employee_fromSearch.length) {
+            this.empty_responsables = true;
+          } else {this.empty_responsables = false; }
           setTimeout(() => {
             this.siteService.tableMobileViewInit();
           }, 100);
@@ -272,7 +291,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
       this.saveButtonCaption = 'Modifier';
       employeeAccess = this.employee_forAccess_obj; // object
     } else {
-      employeeAccess = this.employee_forAccess_arr; // array
+      employeeAccess = this._employee_responsables.concat(this.employee_forAccess_arr); // array
     }
 
     this.doRequest(this.siteService, 'addEmployeeAccess', [employeeAccess, this.id_site, urlOption], result => {
@@ -371,7 +390,6 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
   public loadToServerSignatureFunction() {
     this.siteService.loadToServerSignature(this.content, this.id_site)
       .subscribe(result => {
-          console.log(result);
           if (result) {this.getFromServerSignatureImageFunction(); }
           this.loadingFileSignature = false;
           this.successUpdate = 'La signature est chargée.';
