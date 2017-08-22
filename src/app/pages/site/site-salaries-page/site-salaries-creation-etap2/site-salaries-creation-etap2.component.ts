@@ -379,7 +379,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       this.setEmptyDrivingLicense();
       const _modal = document.getElementById('autorModal').firstElementChild;
       if (_modal) {_modal.classList.remove('hidden'); }
-      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[1];
       if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
     }
 
@@ -647,8 +647,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             // modal close /////////
             const _modal = document.getElementById('autorModal').firstElementChild;
             _modal.classList.add('hidden');
-            const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
-            (<HTMLScriptElement>modal_bg).classList.add('hidden');
+            const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
+            (<HTMLScriptElement>modal_bg1).classList.add('hidden');
+            const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
+            (<HTMLScriptElement>modal_bg2).classList.add('hidden');
             /////////
             if (this.itemForChange_DrLicense) {
               this.saveButtonCaption_DrLicense = 'Enregistrer';
