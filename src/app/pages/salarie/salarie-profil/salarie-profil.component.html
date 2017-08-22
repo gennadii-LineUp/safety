@@ -25,7 +25,7 @@
               <label for="file-input">
                 <div id="loadedImg" *ngIf="showImg"
                      [ngStyle]="{'background': 'url(' + imgServer + ') no-repeat'}"></div>
-                <span ></span>
+                <span *ngIf="!showImg"></span>
               </label>
               <input id="file-input" type="file"   [disabled]="loadingFile"
                      (change)="fileChange($event)"
@@ -37,16 +37,6 @@
             <!--////////////////////////////////-->
           </div>
 
-
-            <!--<div class="mon-profil-image-wrapper"  style='margin-right: 20px;'>-->
-                <!--<img src="../../../../assets/img/default_progile_image-min.jpg" alt="default_progile_image-min" class="img-responsive">-->
-            <!--</div>-->
-            <!--<div class="image-upload">-->
-                <!--<label for="file-input3">-->
-                    <!--<span></span>-->
-                <!--</label>-->
-                <!--<input id="file-input3" type="file">-->
-            <!--</div>-->
             <div class="clearfix"></div>
             <div class="detailed-info-wrapper">
                 <p>Nom {{employee.name | capitalizeFirstLetter}}</p>

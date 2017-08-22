@@ -179,7 +179,7 @@ input.datepicker-default:disabled{
   background-color: #d3d3d3;
 }
 .profil-form .image-upload {
-  height: 107px !important;
+  height: 140px !important;
 }
 
 
@@ -199,6 +199,6 @@ input.datepicker-default:disabled{
 }
 .image-upload label span {
   background: url(../../../../../assets/img/ajouter-un-logo-img.png) no-repeat center;
-  height: 107px! important;
+  height: 140px! important;
   width: 140px! important;
 }

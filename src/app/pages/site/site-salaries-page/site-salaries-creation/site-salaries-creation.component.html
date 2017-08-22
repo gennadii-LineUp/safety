@@ -70,7 +70,7 @@
             <label for="file-input">
               <div id="loadedImg" *ngIf="showImg"
                    [ngStyle]="{'background': 'url(' + imgServer + ') no-repeat'}"></div>
-              <span style="cursor: pointer"></span>
+              <span  *ngIf="!showImg" style="cursor: pointer"></span>
             </label>
             <input id="file-input" type="file"   [disabled]="loadingFile"
                    (change)="fileChange($event)"

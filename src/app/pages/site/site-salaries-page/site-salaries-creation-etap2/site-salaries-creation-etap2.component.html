@@ -71,12 +71,12 @@
             </p>
 
             <!--////////////////////////////-->
-          <div class="profile-img-wrapper" style="height: 112px;">
+          <div class="profile-img-wrapper" style="height: 144px;">
             <div class="main-image-editor-wrapper" style="position: relative;">
               <label for="fileInputPhoto">
                 <div id="loadedImg" *ngIf="showImgPhoto"
                      [ngStyle]="{'background': 'url(' + imgServerPhoto + ') no-repeat'}"></div>
-                <span style="cursor: pointer"></span>
+                <span *ngIf="!showImgPhoto" style="cursor: pointer"></span>
               </label>
               <input id="fileInputPhoto" #fileInputPhoto type="file"   [disabled]="loadingPhotoFilePhoto"
                      (change)="fileChangePhoto($event)"  style="display: none;"
@@ -160,7 +160,8 @@
             <p class="form-label" style='display: inline-block; width: auto; float: left;'>Fichier *</p>
 
             <div class="input-wrapper" style='display: inline-block; width: auto;  margin-right: 12px;'>
-              <div class="image-upload" style='display: inline-block !important; float: left; margin-left: 74px;'>
+              <div class="image-upload"
+                   style='display:inline-block !important; float:left; margin-left:74px; height:43px !important'>
                 <p>{{uploadFileTextCaces}}</p>
                 <label for="fileInputCaces">
                   <span></span>
@@ -328,7 +329,7 @@
             <div class="autres-fichiers-wrapper clearfix">
                 <p class="form-subheader">Fichier</p>
                 <div class="input-wrapper" style='display: block; width: 100%'>
-                  <div class="image-upload" style='display: block; width: 100% !important;'>
+                  <div class="image-upload" style='display: block; width: 100% !important; height:43px !important'>
                     <p>{{uploadFileTextAttest}}</p>
                     <label for="fileInputAttest">
                       <span></span>

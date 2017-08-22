@@ -887,7 +887,7 @@ th {
 
 .image-upload label {
     width: 42px;
-    height: 41px;
+    height: 42px;
     background: #3ba890;
     position: absolute;
     right: -1px;
@@ -1035,7 +1035,7 @@ th {
 }
 
 #loadedImg, #loadedImg2, #loadedImg3 {
-  height: 107px;
+  height: 140px;
   width: 140px;
   display: block;
   background-position: center !important;
@@ -1047,7 +1047,7 @@ th {
 .image-upload label span,
 .profile-img-wrapper label span{
   background: url(/assets/img/ajouter-un-logo-img.png) no-repeat center;
-  height: 107px;
+  height: 140px;
   width: 140px;
   display: block;
   position: absolute;
@@ -1672,13 +1672,13 @@ th {
     border: 1px solid transparent;
     float: left;
     width: 143px;
-    height: 107px;
+    height: 143px;
     margin-left: 11px;
 }
 
 .profil-form .image-upload label {
     width: 143px;
-    height: 107px;
+    height: 143px;
     background: transparent;
     position: absolute;
     right: -1px;
@@ -1687,7 +1687,7 @@ th {
 
 .profil-form .image-upload label span {
   background: url(/assets/img/ajouter-un-logo-img.png) no-repeat center;
-  height: 107px;
+  height: 140px;
   width: 140px;
   display: block;
   position: absolute;
@@ -1752,8 +1752,8 @@ th {
 }
 
 .settings-form .image-upload {
-    width: 179px;
-    height: 107px !important;
+    width: 140px;
+    height: 140px !important;
     border-color: transparent;
     float: left;
 }
@@ -1841,8 +1841,8 @@ th {
 }
 
 .mon-profil-form .image-upload {
-    width: 179px;
-    height: 107px !important;
+    width: 140px;
+    height: 140px !important;
     border-color: transparent;
     float: left;
 }
@@ -1914,7 +1914,7 @@ th {
     }
     .profil-form .image-upload {
         float: none;
-        height: 107px !important;
+        height: 140px !important;
     }
     .profil-form .button-wrapper button {
         margin-top: 15px;

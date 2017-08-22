@@ -75,7 +75,7 @@ site-reglages-modal .form-control {
 }
 
 #loadedImg, #loadedImg1, #loadedImg2 {
-  height: 107px;
+  height: 140px;
   width: 140px;
   display: block;
   background-position: center !important;
@@ -85,10 +85,18 @@ site-reglages-modal .form-control {
 }
 .image-upload label span {
   background: url(../../../../assets/img/ajouter-un-logo-img.png) no-repeat center;
-  height: 107px;
+  height: 140px;
   width: 140px;
   display: block;
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.image-upload,
+.signature-upload,
+.tampon-upload,
+.vgp-upload {
+  padding-left: 0;
+  padding-top: 0;
 }
