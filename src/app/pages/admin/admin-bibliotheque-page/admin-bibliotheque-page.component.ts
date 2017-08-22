@@ -41,7 +41,7 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
         { display: 'Lien', variable: 'link',  filter: 'text' }
     ];
 
-    adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
+    adminBibliotheque = new AdminBibliothequeClass('', '', '');  // http://www.
 
     constructor(public adminService: AdminService,
                 public paginationService: PaginationService,
@@ -131,7 +131,7 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
     }
 
     public getItemForUpdateFunction(id_itemForUpdate: number) {
-        this.adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
+        this.adminBibliotheque = new AdminBibliothequeClass('', '', '');
         this.modalOpen();
         this.cancellMessages();
         this.creating = true;
@@ -173,7 +173,7 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
                     const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
                     (<HTMLScriptElement>modal_bg).classList.add('hidden');
                     /////////
-                    this.adminBibliotheque = new AdminBibliothequeClass('', '', 'http://www.');
+                    this.adminBibliotheque = new AdminBibliothequeClass('', '', '');
         }, (err) => {
                 this.creating = false;
                 console.log(err);

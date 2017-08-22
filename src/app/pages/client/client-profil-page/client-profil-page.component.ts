@@ -127,6 +127,9 @@ export class ClientProfilPageComponent extends BasePageComponent implements OnIn
       if (this.client.phone[0] === '0') {
         this.client.phone = '+33(' + this.client.phone[0] + ')' + this.client.phone.substr(1, this.client.phone.length);
       }
+      if (this.client.contactPhone[0] === '0') {
+        this.client.contactPhone = '+33(' + this.client.contactPhone[0] + ')' + this.client.contactPhone.substr(1, this.client.contactPhone.length);
+      }
 
       this.doRequest(this.clientService, 'updateClientProfile', [this.client], result => {
                     this.updating = false;

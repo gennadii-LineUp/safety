@@ -92,7 +92,9 @@
             <p [hidden]="contactName.valid || contactName.untouched " class="requred-field ">Champs requis</p>
         </div>
         <div class="input-wrapper">
-            <p [hidden]="contactPhone.untouched" class="requred-field color-valid">Téléphone du contact</p>
+            <p [hidden]="contactPhone.untouched" class="requred-field color-valid">
+              Téléphone du contact  (example:  +33(0)1-36-94-85-40  ou  01 36 94 85 40)
+            </p>
             <input type='text' class="form-control" placeholder="Téléphone du contact" value="555"
                    #contactPhone="ngModel" id="contactPhone" name='contactPhone' [(ngModel)]="client.contactPhone" />
             <p [hidden]="contactPhone.valid || contactPhone.untouched " class="requred-field ">Champs requis</p>
