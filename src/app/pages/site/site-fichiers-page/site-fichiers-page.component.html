@@ -24,13 +24,10 @@
                         <modal-content-SF>
                           <div *ngIf="errorCreating" style='position: fixed; top: -40px !important;' class="alert alert-danger">
                             {{errorCreating}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellErrorMessage()'>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)='cancellMessages()'>
                               <span></span>
                             </button>
                           </div>
-                          <!--<div *ngIf="successCreating" style='position: fixed; top: -40px;' class="alert alert-success">-->
-                            <!--{{successCreating}}-->
-                          <!--</div>-->
 
                           <form #site_newFichierForm="ngForm" class="modal-form" novalidate
                                   enctype="multipart/form-data">
@@ -69,12 +66,28 @@
                                   <img *ngIf="loadingGroupes" style='position: absolute; left:8%; bottom: 1%;' src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
                                   <div *ngFor="let groupe of employeeGroupes" class="radio" >
+
+                                    <!--<label class="control control&#45;&#45;checkbox">Accès Admin (entreprise + sites)-->
+                                      <!--<input type="checkbox"-->
+                                             <!--#adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'-->
+                                             <!--name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />-->
+                                      <!--<span class="control__indicator"></span>-->
+                                    <!--</label>-->
+
+                                    <!--<label class="control control&#45;&#45;checkbox">{{groupe.name}}-->
+                                      <!--<input type="checkbox"-->
+                                             <!--#{{groupe.id}}="ngModel" id={{groupe.id}} [checked]='newFichier.employeeGroups'-->
+                                             <!--name={{groupe.id}} [(ngModel)]='newFichier.employeeGroups'/>-->
+                                                <!--&lt;!&ndash;[value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'&ndash;&gt;-->
+                                               <!--&lt;!&ndash;(change)='addSubcategory($event); false'/>&ndash;&gt;-->
+                                        <!--<span class="control__indicator"></span>-->
+                                    <!--</label>-->
                                     <label class="control control--checkbox">{{groupe.name}}
                                       <input type="checkbox"
-                                               id={{groupe.id}} name={{groupe.id}}
-                                                [value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'
-                                               (change)='addSubcategory($event); false'/>
-                                        <span class="control__indicator"></span>
+                                             id={{groupe.id}} name={{groupe.id}}
+                                             [value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'
+                                             (change)='addSubcategory($event); false'/>
+                                      <span class="control__indicator"></span>
                                     </label>
                                   </div>
                                 </div>
