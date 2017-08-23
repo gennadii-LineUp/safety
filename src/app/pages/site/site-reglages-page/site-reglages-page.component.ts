@@ -139,6 +139,9 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
           setTimeout(() => {
             this.getFromServerTamponImageFunction();
           }, 300);
+          setTimeout(() => {
+            this.loading = false;
+          }, 350);
     }, (err) => {
         this.loading = false;
         this.emptyTable = true;
@@ -403,6 +406,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     this.loadingFileSignature = true;
     this.doRequest(this.siteService, 'getFromServerSignature', [this.id_site], result => {
       this.loadingFileSignature = false;
+      this.loading = false;
       this.showImgSignature = true;
       const src = 'data:' + result.contentType + ';base64,';
       this.imgServerSignature = src + result.content;
@@ -414,6 +418,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       }
+      this.loading = false;
     });
   }
 
@@ -450,6 +455,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
     this.loadingFileTampon = true;
     this.doRequest(this.siteService, 'getFromServerTampon', [this.id_site], result => {
       this.loadingFileTampon = false;
+      this.loading = false;
       this.showImgTampon = true;
       const src = 'data:' + result.contentType + ';base64,';
       this.imgServerTampon = src + result.content;
@@ -461,6 +467,7 @@ export class SiteReglagesPageComponent  extends BasePageComponent implements OnI
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       }
+      this.loading = false;
     });
   }
 

@@ -25,6 +25,7 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
 
     itemForChange =  0;
     saveButtonCaption = 'Créer';
+    id_itemForDelete: number;
 
     groupes = [];
     salaryeeGroupe = new GroupeClass('', false);
@@ -153,13 +154,15 @@ export class ClientGroupesPageComponent  extends BasePageComponent implements On
     }
 
     public modalOpen() {
+      this.salaryeeGroupe = new GroupeClass('', false);
+      this.cancellSuccessMessage();
       const _modal = document.getElementById('myModal').firstElementChild;
       if (_modal) {_modal.classList.remove('hidden'); }
       const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
       if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
     }
 
-    id_itemForDelete: number;
+
     public setItemForDelete(id_itemForDelete: number) {
       this.id_itemForDelete = id_itemForDelete;
       return true;

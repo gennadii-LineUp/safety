@@ -182,6 +182,8 @@ export class AdminBibliothequePageComponent extends BasePageComponent implements
     }
 
   public modalOpen() {
+    this.cancellMessages();
+    this.adminBibliotheque = new AdminBibliothequeClass('', '', '');
     const _modal = document.getElementById('myModal').firstElementChild;
     if (_modal) {_modal.classList.remove('hidden'); }
     const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];

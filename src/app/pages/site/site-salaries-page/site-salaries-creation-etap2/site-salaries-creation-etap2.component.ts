@@ -647,10 +647,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             // modal close /////////
             const _modal = document.getElementById('autorModal').firstElementChild;
             _modal.classList.add('hidden');
-            const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
-            (<HTMLScriptElement>modal_bg1).classList.add('hidden');
-            const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
-            (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+            if (document.getElementsByClassName('fade in modal-backdrop')[0]) {
+              const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
+              (<HTMLScriptElement>modal_bg1).classList.add('hidden');
+            }
+            if (document.getElementsByClassName('fade in modal-backdrop')[1]) {
+              const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
+              (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+            }
             /////////
             if (this.itemForChange_DrLicense) {
               this.saveButtonCaption_DrLicense = 'Enregistrer';

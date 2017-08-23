@@ -208,6 +208,7 @@ export class ClientSitesPageComponent extends BasePageComponent implements OnIni
     }
 
     public modalOpen() {
+      this.cancellMessages();
       this.newSite = new SiteClass('', '', '', '', '', false, false, false, false, false, false);
       const _modal = document.getElementById('myModal').firstElementChild;
       if (_modal) {_modal.classList.remove('hidden'); }
