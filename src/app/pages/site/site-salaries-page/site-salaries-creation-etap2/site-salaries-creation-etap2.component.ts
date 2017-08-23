@@ -309,7 +309,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         const dateIssue   = window.document.getElementsByClassName('datepicker-default')['3'].value;
         const dateExpires = window.document.getElementsByClassName('datepicker-default')['4'].value;
 
-        if (dateIssue === ''  &&  dateExpires === '') {
+        if (dateIssue === ''  ||  dateExpires === '') {
           this.datesAttestationEmpty = false;
           this.errorCreatingAttestat = 'Déterminer la date';
           return true;
@@ -331,6 +331,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     this.loadingFileAttest = true;
                     this.siteService.loadToServerAttestFile(this.contentAttest, this.id_site, this.id_salarie, attestation_id)
                       .subscribe(result => {
+                        document.getElementsByTagName('body')[0].setAttribute('style', 'overflow-y: scroll !important');
                         this.loadingFileAttest = false;
                         this.uploadedFileAttest = true;
                         this.userHasChoosenFileAttest = false;
@@ -349,13 +350,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                       });
 
                   }  else {
+                    document.getElementsByTagName('body')[0].setAttribute('style', 'overflow-y: scroll !important');
                     // modal close /////////
                     const _modal = document.getElementById('attestModal').firstElementChild;
                     _modal.classList.add('hidden');
                     const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
                     (<HTMLScriptElement>modal_bg).classList.add('hidden');
                     /////////
-                    this.successCreating = "Well done! You've created a new client.";
+                    this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles Attestations / Habilitations';
                   }
 
                   this.getAttestations('');
@@ -438,7 +440,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                         });
 
                     }  else {
-                       this.successCreating = "Well done! You've created a new client.";
+                       this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles dates.';
                     }
                     this.loading = false;
             }, (err) => {
@@ -644,6 +646,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
       this.doRequest(this.siteService, 'setCategoryDrivingLicense', [this.drivingLicense, this.id_site, this.id_salarie, urlOption], result => {
             this.getDrivingLicenses('');
+            document.getElementsByTagName('body')[0].setAttribute('style', 'overflow-y: scroll !important');
             // modal close /////////
             const _modal = document.getElementById('autorModal').firstElementChild;
             _modal.classList.add('hidden');

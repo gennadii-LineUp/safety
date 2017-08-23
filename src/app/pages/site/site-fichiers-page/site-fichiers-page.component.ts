@@ -245,20 +245,18 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
 
 
   public submitForm(name: string) {
-    if (this.id_fichier === 0) {
-      this.errorCreating = 'Le fichier doit être ajouté.';
-      return false;
-    }
     if (this.newFichier.employeeGroups.length === 0) {
       this.categoryNewFichier_nullData = true;
       this.errorCreating = 'SAFETY:  At least 1 group have to be choosen.';
       return false;
     } else {
       this.categoryNewFichier_nullData = false;
-
-      console.log(this.newFichier);
     }
     this.cancellMessages();
+    if (this.id_fichier === 0) {
+      this.errorCreating = 'Le fichier doit être ajouté.';
+      return false;
+    }
     this.creating = true;
     this.doRequest(this.siteService, 'addFichier', [this.newFichier, this.id_site, this.id_fichier], result => {
                   this.uploadedFile = true;
@@ -285,10 +283,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
 
   public modalOpen() {
     this.setEmptyFichiers();
-    if (this.id_fichier) {
-      this.saveButtonCaption = 'Ajouter';
-      this.id_fichier = 0;
-    }
     this.creating = false;
     this.userHasChoosenFile = false;
     const _modal = document.getElementById('myModal').firstElementChild;
@@ -309,7 +303,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     this.checkedGroups = [];
     const checkedI: NodeListOf<Element> = window.document.querySelectorAll('input[type=checkbox]:checked');
     for (let i = 0; i < checkedI.length; i++) {
-      console.log(checkedI.length);
       (<HTMLInputElement>checkedI[i]).checked = false;
     }
     this.uploadFileText = '.pdf fichier';

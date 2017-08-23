@@ -35,7 +35,7 @@ export class SiteFichiersModalComponent  {
     public closeOnEscape = true;
 
     @Input()
-    public closeOnOutsideClick = true;
+    public closeOnOutsideClick = false;
 
     @Input()
     public title: string;

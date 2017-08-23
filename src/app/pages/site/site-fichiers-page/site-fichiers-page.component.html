@@ -13,7 +13,7 @@
 </header>
 <div class="main-content" style="padding-top: 22px;" (click)='cancellMessages();'>
     <div class="search-panel clearfix">
-        <button *ngIf="employeeGroupes.length" class="add-an-item-button" (click)="modalOpen(); myModal.open(); setEmptyFichiers()">
+        <button *ngIf="employeeGroupes.length" class="add-an-item-button" (click)="setEmptyFichiers(); modalOpen(); myModal.open()">
         </button>
 
                     <site-fichiers-modal #myModal id="myModal" style='min-width: 454px; max-width: 454px;' tabindex="-1">
@@ -67,12 +67,14 @@
 
                                   <div *ngFor="let groupe of employeeGroupes" class="radio" >
 
-                                    <!--<label class="control control&#45;&#45;checkbox">Accès Admin (entreprise + sites)-->
+                                    <!--<label *ngFor="let groupe of employeeGroupes_view" class="control control&#45;&#45;checkbox">{{groupe.name}}-->
                                       <!--<input type="checkbox"-->
-                                             <!--#adminAccess="ngModel" id="adminAccess" [checked]='salaryeeGroupe.adminAccess'-->
-                                             <!--name='adminAccess' [(ngModel)]="salaryeeGroupe.adminAccess" />-->
+                                             <!--id={{groupe.id}} name={{groupe.id}}-->
+                                             <!--[value]="groupe.id" [checked]='_checkedGroups.indexOf(+groupe.id) != -1'-->
+                                             <!--(change)='addSubcategory($event); false'>-->
                                       <!--<span class="control__indicator"></span>-->
                                     <!--</label>-->
+
 
                                     <!--<label class="control control&#45;&#45;checkbox">{{groupe.name}}-->
                                       <!--<input type="checkbox"-->
@@ -82,6 +84,7 @@
                                                <!--&lt;!&ndash;(change)='addSubcategory($event); false'/>&ndash;&gt;-->
                                         <!--<span class="control__indicator"></span>-->
                                     <!--</label>-->
+
                                     <label class="control control--checkbox">{{groupe.name}}
                                       <input type="checkbox"
                                              id={{groupe.id}} name={{groupe.id}}
