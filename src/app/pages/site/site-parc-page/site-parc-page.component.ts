@@ -121,7 +121,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     sortingTarget = '';
     sorting: any = { column: 'type',  descending: false };
     headers: any[] = [
-          { display: 'Immatriculation', variable: 'registration', filter: 'text' },
+          { display: 'Immatriculation et/ou Numéro de série ', variable: 'registration', filter: 'text' },
           { display: 'N° de parc',      variable: 'parkNumber',   filter: 'text' },
           { display: 'Type',            variable: 'type',         filter: 'text' },
           { display: 'Modèle',          variable: 'model',        filter: 'text' },

@@ -107,20 +107,30 @@
           <p *ngIf="machine.mark"><span>Marque : </span>{{machine.mark}}</p>
           <p *ngIf="machine.model"><span>Modèle : </span>{{machine.model}}</p>
           <p *ngIf="machine.parkNumber"><span>N° Parc : </span>{{machine.parkNumber}}</p>
-          <p *ngIf="machine.registration"><span>Immatriculation : </span>{{machine.registration}}</p>
+          <p *ngIf="machine.registration"><span>Immatriculation et/ou Numéro de série : </span>{{machine.registration}}</p>
           <p *ngIf="machine.vgp"><span>Date d’expiration VGP : </span>{{machine.vgp | dateFromServerMoment}}</p>
           <p *ngIf="machine.techControl"><span>Contrôle technique : </span>{{machine.techControl | dateFromServerMoment}}</p>
         </div>
-        <div class="qr-code-wrapper">
-          <p class="form-subheader text-center">QR Code</p>
-          <div style="display: inline-block; padding: 12px; border: 2px solid #3ba890; border-radius: 2px">
-            <qr-code [value]="id_site + '-' + machine.id + '-' + machine.registration + '-' + machine.parkNumber" [size]="84"></qr-code>
-          </div>
-          <p class="form-subheader text-center">immat - n° parc</p>
-          <div class="immat-n-parc">
+        <div class="qr-code-wrapper pull-right">
+          <div class="pull-right">
+            <p class="form-subheader text-center">QR Code</p>
+            <div style="display: inline-block; padding: 12px; border: 2px solid #3ba890; border-radius: 2px">
+              <qr-code [value]="id_site + '-' + machine.id + '-' + machine.registration + '-' + machine.parkNumber" [size]="84"></qr-code>
+            </div>
+            <p class="form-subheader text-center">immat - n° parc</p>
+            <div class="immat-n-parc">
+            </div>
           </div>
         </div>
         <div class="clearfix"></div>
+
+
+        <div class="verification-generale-periodique pull-right" style="margin-top:4px">
+          <a class="form-button dark-green-button telecharger-button pull-right"
+             [href]="qrCodeData"
+             download="qr-code.png">Télécharger</a>
+        </div>
+
         <div *ngIf="machine.vgpFile" class="verification-generale-periodique" style="display: block; margin-top: 24px;">
           <p class="form-subheader" style="margin-bottom: 19px; text-align: left;">Vérification Générale Périodique</p>
           <button class="form-button dark-green-button telecharger-button pull-left"

@@ -84,6 +84,12 @@ export class SalariesService {
     const url = UrlParams.homeUrl + 'files/' + fileLink;
     return this.backendService.getFromUrl(url);
   }
+
+  public getFromServerQRCode(machine_id: number): Observable<any> {
+    const url = UrlParams.employeeHome + 'machines/' + machine_id + '/qr_code?encoded=1&size=300';
+    return this.backendService.loadImage_get(url);
+  }
+
   public getFromServerVGPFile(machine_id: number): Observable<any> {
     const url = UrlParams.employeeHome + 'machines/' + machine_id + '/vgp_file' + '?aslink=1';
     return this.backendService.loadImage_get(url);

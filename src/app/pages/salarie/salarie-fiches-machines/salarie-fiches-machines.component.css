@@ -70,18 +70,28 @@
   .parc-machine-modal a:not(.navigation-back-button) {
     width: 100% !important;
   }
-  .engine-detailed-info,
-  .qr-code-wrapper,
-  .verification-generale-periodique,
-  .immat-n-parc {
-    min-width: 100%;
-    min-height: 1px;
-    margin-bottom: 15px;
-  }
+  /*.engine-detailed-info,*/
+  /*.verification-generale-periodique,*/
+  /*.immat-n-parc {*/
+    /*min-width: 100%;*/
+    /*min-height: 1px;*/
+    /*margin-bottom: 15px;*/
+  /*}*/
 
   .verification-generale-periodique button,
   .immat-n-parc button {
     float: none !important;
   }
 
+}
+
+div.verification-generale-periodique a {
+  padding-top: 9px;
+}
+div.verification-generale-periodique a:hover,
+div.verification-generale-periodique a:visited,
+div.verification-generale-periodique a:active,
+div.verification-generale-periodique a:focus{
+  text-decoration: none;
+  color: white;
 }

@@ -25,6 +25,7 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
   activePage = 1;
   searchName = '';
   currentPage: any;
+  qrCodeData: string;
 
   categoryName: string;
   parentCategoryName: string;
@@ -151,6 +152,7 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
     this.parentCategoryName = '';
     this.loading = true;
     this.doRequest(this.salariesService, 'findOneMachine', [machine_id], result => {
+            this.getFromServerQRCodeFunction(machine_id);
             this.loading = false;
             this.categoryName = result.categoryName;
             this.parentCategoryName = result.parentCategoryName;
@@ -188,6 +190,23 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
     this.doRequest(this.salariesService, 'getFromServerLinkForPDF_', [fileLink], result => {
       this.loading = false;
       window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+
+
+  public getFromServerQRCodeFunction(machine_id) {
+    console.log('started');
+    this.doRequest(this.salariesService, 'getFromServerQRCode', [machine_id], result => {
+        const src = 'data:' + result['Content-type'] + ';base64,' + result.content;
+        console.log(src);
+        this.qrCodeData = src;
+        // let image = new Image();
+        // image.src = src;
+        // let w = window.open('');
+        // w.document.write(image.outerHTML);  // open image in new window
     }, (err) => {
       console.log(err);
       this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
