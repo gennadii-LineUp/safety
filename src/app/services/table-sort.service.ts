@@ -7,12 +7,16 @@ export class TableSortService {
 
     sorting: any = { column: 'name',  descending: false };
     sortingSecondName: any = { column: 'name',  descending: false };
+    sortingThirdName: any = { column: 'name',  descending: false };
 
     public selectedClass(columnName): string {
         return columnName === this.sorting.column ? 'sort-button-' + this.sorting.descending : 'double-sort-button';
     }        //    access = (age > 14) ? true : false;
     public selectedClassSecondName(columnName): string {
         return columnName === this.sortingSecondName.column ? 'sort-button-' + this.sortingSecondName.descending : 'double-sort-button';
+    }
+    public selectedClassThirdName(columnName): string {
+      return columnName === this.sortingThirdName.column ? 'sort-button-' + this.sortingThirdName.descending : 'double-sort-button';
     }
 
     public changeSorting(columnName): void {
@@ -24,15 +28,24 @@ export class TableSortService {
             sort.descending = false;
         }
     }
-    public changeSortingSecondName(columnName): void {
-        const sort = this.sortingSecondName;
-        if (sort.column === columnName) {
-          sort.descending = !sort.descending;
-        } else {
-          sort.column = columnName;
-          sort.descending = false;
-        }
-    }
+    // public changeSortingSecondName(columnName): void {
+    //     const sort = this.sortingSecondName;
+    //     if (sort.column === columnName) {
+    //       sort.descending = !sort.descending;
+    //     } else {
+    //       sort.column = columnName;
+    //       sort.descending = false;
+    //     }
+    // }
+    // public changeSortingThirdName(columnName): void {
+    //   const sort = this.sortingThirdName;
+    //   if (sort.column === columnName) {
+    //     sort.descending = !sort.descending;
+    //   } else {
+    //     sort.column = columnName;
+    //     sort.descending = false;
+    //   }
+    // }
 
 
     public _changeSorting(columnName: string, e: any): void {

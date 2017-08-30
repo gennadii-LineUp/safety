@@ -207,6 +207,11 @@ export class SiteService {
         return this.backendService.get(UrlParams.siteHome + query);
     }
 
+    public getCaces(siteId: number, employeeId: number, sort: string): Observable<any> {
+      // const query = siteId + '/employees/' + employeeId + '/caces' + '?q=' + sort;
+      // return this.backendService.get(UrlParams.siteHome + query);
+      return ;
+    }
     public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
         const query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
         return this.backendService.get(UrlParams.siteHome + query);
@@ -233,6 +238,11 @@ export class SiteService {
   }
 
 
+    deleteCaces(siteId: number, employeeId: number, cacesId: string): Observable<any> {
+      // const query = siteId + '/employees/' + employeeId + '/caces' + cacesId;
+      // return this.backendService.deleteData(UrlParams.siteHome + query);
+      return ;
+    }
     deleteAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {
       const query = siteId + '/employees/' + employeeId + '/attestations' + attestationId;
       return this.backendService.deleteData(UrlParams.siteHome + query);

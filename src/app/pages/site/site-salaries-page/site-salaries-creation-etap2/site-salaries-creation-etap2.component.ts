@@ -54,6 +54,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     salariesMaxPossible: number;
     salariesUsed: number;
 
+    emptyTable_caces = true;
     emptyTable = true;
     emptyTable_drLicences = true;
 
@@ -70,10 +71,11 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     userHasChoosenFilePhoto = false;
     imgServerPhoto: any;
 
+    id_itemForDeleteCaces: number;
     id_itemForDeleteAttest: number;
     id_itemForDeleteAutor: number;
 
-  @ViewChild('fileInputCaces')
+    @ViewChild('fileInputCaces')
     cacesInput: any;
 
     @ViewChild('fileInputAttest')
@@ -99,6 +101,11 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     subcategoryEquipement: number;
     checkedDrLicenses = [];
 
+    headersCaces: any[] = [
+      { display: 'Nom', variable: 'name', filter: 'text' } // ,
+      // { display: 'Date d’expiration', variable: 'dateExpires',  filter: 'text' }
+    ];
+
     headersAttest: any[] = [
         { display: 'Nom', variable: 'name', filter: 'text' }// ,
         // { display: 'Date de délivrance',variable: 'dateIssue',    filter: 'text' },
@@ -108,12 +115,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       { display: 'Type', variable: 'type', filter: 'text' }
     ];
     sortingPermis: any = { column: 'type', descending: false };
+    sortingTargetCaces = '';
     sortingTargetAttest = '';
     sortingTargetPermis = '';
 
     public employeeGroupes = [];
     employees = new EmployeesClass('', '', '', '', '', '', true, '', '', 0);
     visites = new VisitesClass('', '');
+    public employeeCaces = [];
     public employeeAttestations = [];
     attestation = new AttestationClass('', '', '');
     drivingLicense = new DrivingLicenseClass([], 0);
@@ -144,6 +153,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       // window.document.getElementById('siteSalariesMenu').classList.remove('active');
     }
 
+  public getSortingTargetCaces() {
+    this.sortingTargetCaces = this.tableSortService._getSortingTargetSecondName();
+  }
   public getSortingTargetAttest() {
     this.sortingTargetAttest = this.tableSortService._getSortingTarget();
   }
@@ -477,6 +489,28 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       });
   }
 
+  public getCacesFunction(sort: string) {
+    this.loadingFileCaces = true;
+    this.doRequest(this.siteService, 'getCaces', [this.id_site, this.id_salarie, sort], result => {
+      this.loadingFileCaces = false;
+      this.employeeCaces = result.items;
+      this.emptyTable_caces = false;
+      if (result.items.length === 0) {
+        this.emptyTable_caces = true;
+      }
+    }, (err) => {
+      if (err.status === 500 || err.status === 404) {
+        return;
+      } else {
+        this.loadingFileCaces = false;
+        this.emptyTable_caces = true;
+        console.log(err);
+        this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+      }
+    });
+  }
+
+
   public getAttestations(sort: string) {
         this.loadingAttestations = true;
         this.doRequest(this.siteService, 'getAttestations', [this.id_site, this.id_salarie, sort], result => {
@@ -519,6 +553,23 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                 this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
             });
     }
+
+  public setItemForDeleteCaces(id_itemForDelete: number) {
+    this.id_itemForDeleteCaces = id_itemForDelete;
+    // return true;
+  }
+  public deleteCacesFunction() {
+    this.loadingFileCaces = true;
+    this.emptyTable_caces = false;
+    this.doRequest(this.siteService, 'deleteCaces', [this.id_site, this.id_salarie, '/' + this.id_itemForDeleteCaces], result => {
+      this.cancellErrorMessage();
+      this.getCacesFunction('');
+    }, (err) => {
+      this.loadingFileCaces = false;
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
 
   public setItemForDeleteAttest(id_itemForDelete: number) {
     this.id_itemForDeleteAttest = id_itemForDelete;
