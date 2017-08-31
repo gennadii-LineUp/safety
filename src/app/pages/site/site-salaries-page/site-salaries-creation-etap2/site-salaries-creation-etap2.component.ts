@@ -13,6 +13,7 @@ import {MachinesGlossary} from '../../../../models/const/machine-categorie';
 import {BackendService} from '../../../../services/backend/backend.service';
 import {BasePageComponent} from '../../../base/base-page.component';
 import * as moment from 'moment';
+import {CacesClass} from '../../../../models/const/caces-class';
 declare var $: any;
 
 @Component({
@@ -35,16 +36,20 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     successCreating = '';
     errorCreatingDrLicence = '';
     successCreatingDrLicence = '';
+    errorCreatingCaces = '';
     errorCreatingAttestat = '';
     successCreatingAttestat = '';
+    successCreatingCaces = '';
 
     startDate = false;
     endDate = false;
+    datesCacesEmpty = true;
     datesAutorisationsEmpty = true;
     datesAttestationEmpty = true;
 
     disabled = 'false';
 
+    saveButtonCaptionCaces = 'Enregistrer';
     saveButtonCaptionAttest = 'Enregistrer';
     saveButtonCaption_DrLicense = 'Enregistrer';
     itemForChange = 0;
@@ -121,7 +126,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
     public employeeGroupes = [];
     employees = new EmployeesClass('', '', '', '', '', '', true, '', '', 0);
-    visites = new VisitesClass('', '');
+    cacesDate = new CacesClass('', '');
+    visites = new VisitesClass('');
     public employeeCaces = [];
     public employeeAttestations = [];
     attestation = new AttestationClass('', '', '');
@@ -302,6 +308,12 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             });
     }
 
+    public datesCacesCheckFunction() {
+      if (window.document.getElementsByClassName('datepicker-default')['2'].value) {
+        this.datesCacesEmpty = false;
+      }
+      return true;
+    }
     public datesAttestationCheckFunction() {
       if (window.document.getElementsByClassName('datepicker-default')['3'].value
         && window.document.getElementsByClassName('datepicker-default')['4'].value) {
@@ -311,7 +323,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     }
 
 
-    public submitAttestationForm(attest_name: string, attest_dateDelivrance: string, attest_dateExpir: string) {
+    public submitAttestationForm() {
         let urlOption = '';
         if (this.itemForChange) {
           urlOption = '/' + this.itemForChange;
@@ -350,8 +362,14 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                         // modal close /////////
                         const _modal = document.getElementById('attestModal').firstElementChild;
                         _modal.classList.add('hidden');
-                        const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
-                        (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                        if (document.getElementsByClassName('fade in modal-backdrop')[0]) {
+                          const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
+                          (<HTMLScriptElement>modal_bg1).classList.add('hidden');
+                        }
+                        if (document.getElementsByClassName('fade in modal-backdrop')[1]) {
+                          const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
+                          (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+                        }
                         /////////
                         this.resetAttestFile();
                       }, (err) => {
@@ -366,7 +384,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     // modal close /////////
                     const _modal = document.getElementById('attestModal').firstElementChild;
                     _modal.classList.add('hidden');
-                    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+                    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[1];
                     (<HTMLScriptElement>modal_bg).classList.add('hidden');
                     /////////
                     this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles Attestations / Habilitations';
@@ -393,18 +411,34 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       this.setEmptyDrivingLicense();
       const _modal = document.getElementById('autorModal').firstElementChild;
       if (_modal) {_modal.classList.remove('hidden'); }
-      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[1];
+      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[2];
       if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    }
+
+    public modalCacesOpen() {
+      this.modalCacesClear();
+      const _modal = document.getElementById('cacesModal').firstElementChild;
+      if (_modal) {_modal.classList.remove('hidden'); }
+      const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+      if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
+    }
+    public modalCacesClear() {
+      this.saveButtonCaptionCaces = 'Enregistrer';
+      this.uploadedFileCaces = false;
+      this.uploadFileTextCaces = '';
+      this.cacesDate = new CacesClass('', '');
+      setTimeout(() => {
+        window.document.getElementsByClassName('datepicker-default')['2'].value = '';
+      }, 100);
     }
 
     public modalAttestOpen() {
         this.modalAttestClear();
         const _modal = document.getElementById('attestModal').firstElementChild;
         if (_modal) {_modal.classList.remove('hidden'); }
-        const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[0];
+        const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[1];
         if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
     }
-
     public modalAttestClear() {
       this.saveButtonCaptionAttest = 'Enregistrer';
       this.uploadedFileAttest = false;
@@ -417,9 +451,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     }
 
     public submitDatesAutorisationsForm() {
-        if (window.document.getElementsByClassName('datepicker-default')['1'].value === '' ||
-            window.document.getElementsByClassName('datepicker-default')['2'].value === '' ) {
-            this.errorLoad = 'Visite médicale et CACES doit être rempli.';
+        if (window.document.getElementsByClassName('datepicker-default')['1'].value === '' ) {
+            this.errorLoad = 'Visite médicale doit être rempli.';
             return;
         }
         this.cancellErrorMessage();
@@ -427,12 +460,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.loading = true;
 
         const datepicker_medicalVisit = window.document.getElementsByClassName('datepicker-default')['1'].value;
-        const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
-
         const _datepicker_medicalVisit = moment(datepicker_medicalVisit, 'DD/MM/YYYY').toISOString();
-        const _datepicker_caces = moment(datepicker_caces, 'DD/MM/YYYY').toISOString();
 
-        const visites = new VisitesClass(_datepicker_medicalVisit, _datepicker_caces);
+        const visites = new VisitesClass(_datepicker_medicalVisit);
 
         this.doRequest(this.siteService, 'addMedicaleCacesDates', [visites, this.id_site, this.id_salarie], result => {
                     this.loading = false;
@@ -463,20 +493,82 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     }
 
 
+  public submitCacesForm() {
+    if (window.document.getElementsByClassName('datepicker-default')['2'].value === '' ) {
+      this.errorLoad = 'CACES doit être rempli.';
+      return;
+    }
+    this.cancellErrorMessage();
+    this.cancellSuccessMessage();
+    this.loading = true;
+
+    const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
+    const _datepicker_caces = moment(datepicker_caces, 'DD/MM/YYYY').toISOString();
+
+    const visites = new CacesClass(this.cacesDate.name, _datepicker_caces);
+    console.log(visites);
+
+    // this.doRequest(this.siteService, 'addMedicaleCacesDates', [visites, this.id_site, this.id_salarie], result => {
+    //   this.loading = false;
+    //
+    //   if (this.userHasChoosenFileCaces) {
+    //     this.loadingFileCaces = true;
+    //     this.siteService.loadToServerCacesFile(this.contentCaces, this.id_site, this.id_salarie)
+    //       .subscribe(result => {
+
+            // modal close /////////
+            const _modal = document.getElementById('cacesModal').firstElementChild;
+            _modal.classList.add('hidden');
+            if (document.getElementsByClassName('fade in modal-backdrop')[0]) {
+              const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
+              (<HTMLScriptElement>modal_bg1).classList.add('hidden');
+            }
+            if (document.getElementsByClassName('fade in modal-backdrop')[1]) {
+              const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
+              (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+            }
+            if (document.getElementsByClassName('fade in modal-backdrop')[2]) {
+              const modal_bg3 = document.getElementsByClassName('fade in modal-backdrop')[2];
+              (<HTMLScriptElement>modal_bg3).classList.add('hidden');
+            }
+            /////////
+
+    //         this.loadingFileCaces = false;
+    //         this.uploadedFileCaces = true;
+    //         this.userHasChoosenFileCaces = false;
+    //       }, (err) => {
+    //         this.loadingFileCaces = false;
+    //         this.uploadFileTextCaces = '  error  error  error';
+    //         console.log(err);
+    //         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    //       });
+    //
+    //   }  else {
+    //     this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles dates.';
+    //   }
+    //   this.loading = false;
+    // }, (err) => {
+    //   this.loading = false;
+    //   console.log(err);
+    //   this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    // });
+  }
+
+
   public getDatesAutorisations() {
     this.loadingDatesAutorisations = true;
-    this.visites = new VisitesClass('', '');
+    this.visites = new VisitesClass('');
 
     this.doRequest(this.siteService, 'getMedicaleCacesDates', [this.id_site, this.id_salarie], result => {
           this.loadingDatesAutorisations = false;
 
           if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
             this.datesAutorisationsEmpty = true;
-            this.visites = new VisitesClass('', '');
+            this.visites = new VisitesClass('');
           } else {
             this.datesAutorisationsEmpty = false;
             this.visites.medicalVisitDateExpires = this.dataService.fromServerMoment(result.medicalVisitDateExpires);
-            this.visites.cacesDateExpires = this.dataService.fromServerMoment(result.cacesDateExpires);
+            // this.visites.cacesDateExpires = this.dataService.fromServerMoment(result.cacesDateExpires);
           }
       }, (err) => {
       if (err.status === 500 || err.status === 404) {
@@ -596,6 +688,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     public cancellSuccessMessage() {
         this.loading = false;
         this.successCreating = '';
+        this.successCreatingCaces = '';
         this.successCreatingAttestat = '';
         this.successCreatingDrLicence = '';
     }
@@ -604,6 +697,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.loadingGroupes = false;
         this.errorLoad = '';
         this.errorCreating = '';
+        this.errorCreatingCaces = '';
         this.errorCreatingAttestat = '';
         this.errorCreatingDrLicence = '';
     }
@@ -618,6 +712,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     }
 
 
+    public datePicker_cacesDateExpir_run() {
+      $( '#caces_dateExpir' ).datepicker( 'show' );
+    }
     public datePicker_attestDelivrance_run() {
         $( '#attest_dateDelivrance' ).datepicker( 'show' );
     }
@@ -630,10 +727,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
       $(() => {
         this.dataService.datepickerFranceFormat();
-        $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker();
-        $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);
+        $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker();
+        $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);
         $('#format').change(function () {
-          $('#birthDate, #visiteMedicale, #caces, #attest_dateDelivrance, #attest_dateExpir')
+          $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir')
             .datepicker('option', 'dateFormat', $(this).val());
         });
        });
@@ -708,6 +805,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             if (document.getElementsByClassName('fade in modal-backdrop')[1]) {
               const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
               (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+            }
+            if (document.getElementsByClassName('fade in modal-backdrop')[2]) {
+              const modal_bg3 = document.getElementsByClassName('fade in modal-backdrop')[2];
+              (<HTMLScriptElement>modal_bg3).classList.add('hidden');
             }
             /////////
             if (this.itemForChange_DrLicense) {

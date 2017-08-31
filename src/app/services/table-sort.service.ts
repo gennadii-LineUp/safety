@@ -15,9 +15,6 @@ export class TableSortService {
     public selectedClassSecondName(columnName): string {
         return columnName === this.sortingSecondName.column ? 'sort-button-' + this.sortingSecondName.descending : 'double-sort-button';
     }
-    public selectedClassThirdName(columnName): string {
-      return columnName === this.sortingThirdName.column ? 'sort-button-' + this.sortingThirdName.descending : 'double-sort-button';
-    }
 
     public changeSorting(columnName): void {
         const sort = this.sorting;
@@ -36,15 +33,6 @@ export class TableSortService {
     //       sort.column = columnName;
     //       sort.descending = false;
     //     }
-    // }
-    // public changeSortingThirdName(columnName): void {
-    //   const sort = this.sortingThirdName;
-    //   if (sort.column === columnName) {
-    //     sort.descending = !sort.descending;
-    //   } else {
-    //     sort.column = columnName;
-    //     sort.descending = false;
-    //   }
     // }
 
 
