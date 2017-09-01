@@ -1,0 +1,21 @@
+.attestations-de-formation-table th:nth-of-type(1),
+.attestations-de-formation-table td:nth-of-type(1) {
+  width: 56%;
+  text-align: left !important;
+  padding-left: 23px !important;
+}
+.attestations-de-formation-table td:nth-of-type(1) {
+  padding-right: 8px;
+}
+
+.attestations-de-formation-table th:nth-of-type(2),
+.attestations-de-formation-table td:nth-of-type(2) {
+  width: 22%;
+}
+.attestations-de-formation-table td:nth-of-type(2) {
+  text-align: left;
+  padding-right: 20px;
+}
+.attestations-de-formation-table th:nth-of-type(2) {
+  text-align: center;
+}

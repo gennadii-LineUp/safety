@@ -27,6 +27,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     loadingDatesAutorisations = true;
     loadingAttestations = true;
     loadingDrLicences = true;
+    creatingCaces = false;
     creatingAttest = false;
     creatingDrivingLicense = false;
     loadingGroupes = true;
@@ -52,7 +53,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     saveButtonCaptionCaces = 'Enregistrer';
     saveButtonCaptionAttest = 'Enregistrer';
     saveButtonCaption_DrLicense = 'Enregistrer';
-    itemForChange = 0;
+    itemForChange_caces = 0;
+    itemForChange_attest = 0;
     itemForChange_DrLicense = 0;
 
     errorSalaries = false;
@@ -107,8 +109,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     checkedDrLicenses = [];
 
     headersCaces: any[] = [
-      { display: 'Nom', variable: 'name', filter: 'text' } // ,
-      // { display: 'Date d’expiration', variable: 'dateExpires',  filter: 'text' }
+      { display: 'Nom', variable: 'name', filter: 'text' },
+      { display: 'Date d’expiration', variable: 'expires',  filter: 'text' }
     ];
 
     headersAttest: any[] = [
@@ -245,6 +247,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     this.employees.birthDate = this.dataService.fromServerMoment(result.birthDate);
                     this.loaded = true;
                     this.getFromServerProfileImageFunction();
+                    this.getCacesFunction('');
                     window.setTimeout(() => this.checkedGroupFromEtap1 = this.employees.employeeGroup, 100);
                     this.getDatesAutorisations();
                     this.getAttestations('');
@@ -325,32 +328,35 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
     public submitAttestationForm() {
         let urlOption = '';
-        if (this.itemForChange) {
-          urlOption = '/' + this.itemForChange;
+        if (this.itemForChange_attest) {
+          urlOption = '/' + this.itemForChange_attest;
           this.saveButtonCaptionAttest = 'Modifier';
         }
 
-        const dateIssue   = window.document.getElementsByClassName('datepicker-default')['3'].value;
-        const dateExpires = window.document.getElementsByClassName('datepicker-default')['4'].value;
+      // datepicker_techControl = (<HTMLInputElement>window.document.querySelectorAll('#techControl')[0]).value;
+
+        const dateIssue   = (<HTMLInputElement>window.document.querySelectorAll('#attest_dateDelivrance')['0']).value;
+        const dateExpires = (<HTMLInputElement>window.document.querySelectorAll('#attest_dateExpir')['0']).value;
 
         if (dateIssue === ''  ||  dateExpires === '') {
-          this.datesAttestationEmpty = false;
-          this.errorCreatingAttestat = 'Déterminer la date';
-          return true;
-        }
+        this.datesAttestationEmpty = false;
+        this.errorCreatingAttestat = 'Déterminer la date';
+        return true;
+      }
 
-        this.cancellErrorMessage();
-        this.cancellSuccessMessage();
+      this.cancellErrorMessage();
+      this.cancellSuccessMessage();
         this.loading = true;
 
         const attestation = new AttestationClass(this.attestation.name,
                                                   moment(dateIssue, 'DD/MM/YYYY').toISOString(),
                                                   moment(dateExpires, 'DD/MM/YYYY').toISOString());
 
+        console.log(attestation);
         this.doRequest(this.siteService, 'setAttestation', [attestation, this.id_site, this.id_salarie, urlOption], result => {
                   let attestation_id: number;
                   attestation_id = result.id;
-                  if (this.itemForChange) {attestation_id = this.itemForChange; }
+                  if (this.itemForChange_attest) {attestation_id = this.itemForChange_attest; }
                   if (!!attestation_id && this.userHasChoosenFileAttest) {
                     this.loadingFileAttest = true;
                     this.siteService.loadToServerAttestFile(this.contentAttest, this.id_site, this.id_salarie, attestation_id)
@@ -370,6 +376,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                           const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
                           (<HTMLScriptElement>modal_bg2).classList.add('hidden');
                         }
+                        if (document.getElementsByClassName('fade in modal-backdrop')[2]) {
+                          const modal_bg3 = document.getElementsByClassName('fade in modal-backdrop')[2];
+                          (<HTMLScriptElement>modal_bg3).classList.add('hidden');
+                        }
                         /////////
                         this.resetAttestFile();
                       }, (err) => {
@@ -384,8 +394,18 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     // modal close /////////
                     const _modal = document.getElementById('attestModal').firstElementChild;
                     _modal.classList.add('hidden');
-                    const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[1];
-                    (<HTMLScriptElement>modal_bg).classList.add('hidden');
+                    if (document.getElementsByClassName('fade in modal-backdrop')[0]) {
+                      const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
+                      (<HTMLScriptElement>modal_bg1).classList.add('hidden');
+                    }
+                    if (document.getElementsByClassName('fade in modal-backdrop')[1]) {
+                      const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
+                      (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+                    }
+                    if (document.getElementsByClassName('fade in modal-backdrop')[2]) {
+                      const modal_bg3 = document.getElementsByClassName('fade in modal-backdrop')[2];
+                      (<HTMLScriptElement>modal_bg3).classList.add('hidden');
+                    }
                     /////////
                     this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles Attestations / Habilitations';
                   }
@@ -393,9 +413,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                   this.getAttestations('');
                   this.loading = false;
                     this.successCreatingAttestat = 'Bien joué! Vous avez enregistré cette attestation.';
-                    if (this.itemForChange) {
+                    if (this.itemForChange_attest) {
                       this.saveButtonCaptionAttest = 'Enregistrer';
-                      this.itemForChange = 0;
+                      this.itemForChange_attest = 0;
                     }
                     this.attestation = new AttestationClass('', '', '');
                     (<HTMLInputElement>window.document.querySelectorAll('#attest_dateDelivrance')[0]).value = '';
@@ -436,7 +456,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.modalAttestClear();
         const _modal = document.getElementById('attestModal').firstElementChild;
         if (_modal) {_modal.classList.remove('hidden'); }
-        const modal_bg = document.getElementsByClassName('fade in modal-backdrop')[1];
+        const modal_bg = document.getElementsByClassName('fade in modal-backdrop hidden')[0];
         if (modal_bg) {(<HTMLScriptElement>modal_bg).classList.remove('hidden'); }
     }
     public modalAttestClear() {
@@ -444,10 +464,13 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       this.uploadedFileAttest = false;
       this.uploadFileTextAttest = '';
       this.attestation = new AttestationClass('', '', '');
-      setTimeout(() => {
-        window.document.getElementsByClassName('datepicker-default')['3'].value = '';
-        window.document.getElementsByClassName('datepicker-default')['4'].value = '';
-      }, 100);
+      if (window.document.getElementsByClassName('datepicker-default')['3']) {
+        setTimeout(() => {window.document.getElementsByClassName('datepicker-default')['3'].value = ''; }, 100);
+      }
+      if (window.document.getElementsByClassName('datepicker-default')['4']) {
+        setTimeout(() => {window.document.getElementsByClassName('datepicker-default')['4'].value = ''; }, 150);
+      }
+
     }
 
     public submitDatesAutorisationsForm() {
@@ -464,27 +487,8 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
         const visites = new VisitesClass(_datepicker_medicalVisit);
 
-        this.doRequest(this.siteService, 'addMedicaleCacesDates', [visites, this.id_site, this.id_salarie], result => {
-                    this.loading = false;
-
-                    if (this.userHasChoosenFileCaces) {
-                      this.loadingFileCaces = true;
-                      this.siteService.loadToServerCacesFile(this.contentCaces, this.id_site, this.id_salarie)
-                        .subscribe(result => {
-                            this.loadingFileCaces = false;
-                            this.uploadedFileCaces = true;
-                            this.userHasChoosenFileCaces = false;
-                        }, (err) => {
-                          this.loadingFileCaces = false;
-                          this.uploadFileTextCaces = '  error  error  error';
-                          console.log(err);
-                          this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-                        });
-
-                    }  else {
-                       this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles dates.';
-                    }
-                    this.loading = false;
+        this.doRequest(this.siteService, 'addMedicaleDates', [visites, this.id_site, this.id_salarie], result => {
+                this.loading = false;
             }, (err) => {
                 this.loading = false;
                 console.log(err);
@@ -495,9 +499,16 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
   public submitCacesForm() {
     if (window.document.getElementsByClassName('datepicker-default')['2'].value === '' ) {
-      this.errorLoad = 'CACES doit être rempli.';
+      this.errorCreatingCaces = '*Date d’expiration* doit être rempli.';
       return;
     }
+
+    let urlOption = '';
+    if (this.itemForChange_caces) {
+      urlOption = '/' + this.itemForChange_caces;
+      this.saveButtonCaptionCaces = 'Modifier';
+    }
+
     this.cancellErrorMessage();
     this.cancellSuccessMessage();
     this.loading = true;
@@ -505,16 +516,24 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
     const _datepicker_caces = moment(datepicker_caces, 'DD/MM/YYYY').toISOString();
 
+    console.log(this.cacesDate);
     const visites = new CacesClass(this.cacesDate.name, _datepicker_caces);
     console.log(visites);
 
-    // this.doRequest(this.siteService, 'addMedicaleCacesDates', [visites, this.id_site, this.id_salarie], result => {
-    //   this.loading = false;
-    //
-    //   if (this.userHasChoosenFileCaces) {
-    //     this.loadingFileCaces = true;
-    //     this.siteService.loadToServerCacesFile(this.contentCaces, this.id_site, this.id_salarie)
-    //       .subscribe(result => {
+    this.doRequest(this.siteService, 'addCacesDates', [visites, this.id_site, this.id_salarie, urlOption], result => {
+      console.log(result);
+      this.getCacesFunction('');
+      let caces_id: number;
+      caces_id = result.id;
+      if (this.itemForChange_caces) {caces_id = this.itemForChange_caces; }
+      this.loading = false;
+
+      if (!!caces_id && this.userHasChoosenFileCaces) {
+        this.loadingFileCaces = true;
+        this.siteService.loadToServerCacesFile(this.contentCaces, this.id_site, this.id_salarie, caces_id)
+          .subscribe(result => {
+            console.log(result);
+            document.getElementsByTagName('body')[0].setAttribute('style', 'overflow-y: scroll !important');
 
             // modal close /////////
             const _modal = document.getElementById('cacesModal').firstElementChild;
@@ -533,25 +552,44 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             }
             /////////
 
-    //         this.loadingFileCaces = false;
-    //         this.uploadedFileCaces = true;
-    //         this.userHasChoosenFileCaces = false;
-    //       }, (err) => {
-    //         this.loadingFileCaces = false;
-    //         this.uploadFileTextCaces = '  error  error  error';
-    //         console.log(err);
-    //         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    //       });
-    //
-    //   }  else {
-    //     this.successCreating = 'Bien joué! Vous avez ajouté de nouvelles dates.';
-    //   }
-    //   this.loading = false;
-    // }, (err) => {
-    //   this.loading = false;
-    //   console.log(err);
-    //   this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    // });
+            this.loadingFileCaces = false;
+            this.uploadedFileCaces = true;
+            this.userHasChoosenFileCaces = false;
+          }, (err) => {
+            this.loadingFileCaces = false;
+            this.uploadFileTextCaces = '  error  error  error';
+            console.log(err);
+            this.errorCreatingCaces = this.errorMessageHandlerService.checkErrorStatus(err);
+          });
+
+      }  else {
+        // modal close /////////
+        const _modal = document.getElementById('cacesModal').firstElementChild;
+        _modal.classList.add('hidden');
+        if (document.getElementsByClassName('fade in modal-backdrop')[0]) {
+          const modal_bg1 = document.getElementsByClassName('fade in modal-backdrop')[0];
+          (<HTMLScriptElement>modal_bg1).classList.add('hidden');
+        }
+        if (document.getElementsByClassName('fade in modal-backdrop')[1]) {
+          const modal_bg2 = document.getElementsByClassName('fade in modal-backdrop')[1];
+          (<HTMLScriptElement>modal_bg2).classList.add('hidden');
+        }
+        if (document.getElementsByClassName('fade in modal-backdrop')[2]) {
+          const modal_bg3 = document.getElementsByClassName('fade in modal-backdrop')[2];
+          (<HTMLScriptElement>modal_bg3).classList.add('hidden');
+        }
+        /////////
+      }
+      if (this.itemForChange_caces) {
+        this.saveButtonCaptionCaces = 'Enregistrer';
+        this.itemForChange_caces = 0;
+      }
+      this.loading = false;
+    }, (err) => {
+      this.loading = false;
+      console.log(err);
+      this.errorCreatingCaces = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
   }
 
 
@@ -559,16 +597,15 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.loadingDatesAutorisations = true;
     this.visites = new VisitesClass('');
 
-    this.doRequest(this.siteService, 'getMedicaleCacesDates', [this.id_site, this.id_salarie], result => {
+    this.doRequest(this.siteService, 'getMedicaleDates', [this.id_site, this.id_salarie], result => {
           this.loadingDatesAutorisations = false;
 
-          if (result.medicalVisitDateExpires === null && result.cacesDateExpires === null) {
+          if (result.medicalVisitDateExpires === null) {
             this.datesAutorisationsEmpty = true;
             this.visites = new VisitesClass('');
           } else {
             this.datesAutorisationsEmpty = false;
             this.visites.medicalVisitDateExpires = this.dataService.fromServerMoment(result.medicalVisitDateExpires);
-            // this.visites.cacesDateExpires = this.dataService.fromServerMoment(result.cacesDateExpires);
           }
       }, (err) => {
       if (err.status === 500 || err.status === 404) {
@@ -581,9 +618,11 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       });
   }
 
+
   public getCacesFunction(sort: string) {
     this.loadingFileCaces = true;
     this.doRequest(this.siteService, 'getCaces', [this.id_site, this.id_salarie, sort], result => {
+      console.log(result.items);
       this.loadingFileCaces = false;
       this.employeeCaces = result.items;
       this.emptyTable_caces = false;
@@ -599,6 +638,28 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         console.log(err);
         this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
       }
+    });
+  }
+
+
+  public getCacesForUpdateFunction(id_itemForUpdate) {
+    this.modalCacesOpen();
+    this.cancellErrorMessage();
+    this.creatingCaces = true;
+    this.doRequest(this.siteService, 'getOneCaces', [this.id_site, this.id_salarie, id_itemForUpdate], result => {
+      console.log(result);
+      this.creatingCaces = false;
+      this.cacesDate.name = result.name;
+      this.cacesDate.expires = this.dataService.fromServerMoment(result.expires);
+
+      this.datesCacesEmpty = false;
+      this.saveButtonCaptionCaces = 'Modifier';
+      this.itemForChange_caces = result.id;
+      if (result.file) {this.uploadedFileCaces = true; }
+    }, (err) => {
+      this.creatingCaces = false;
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
     });
   }
 
@@ -637,7 +698,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                     this.attestation.dateIssue = this.dataService.fromServerMoment(result.dateIssue);
                     this.datesAttestationEmpty = false;
                     this.saveButtonCaptionAttest = 'Modifier';
-                    this.itemForChange = result.id;
+                    this.itemForChange_attest = result.id;
                     if (result.attestationFile) {this.uploadedFileAttest = true; }
             }, (err) => {
                 this.creatingAttest = false;
@@ -653,7 +714,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public deleteCacesFunction() {
     this.loadingFileCaces = true;
     this.emptyTable_caces = false;
-    this.doRequest(this.siteService, 'deleteCaces', [this.id_site, this.id_salarie, '/' + this.id_itemForDeleteCaces], result => {
+    this.doRequest(this.siteService, 'deleteCaces', [this.id_site, this.id_salarie, this.id_itemForDeleteCaces], result => {
       this.cancellErrorMessage();
       this.getCacesFunction('');
     }, (err) => {

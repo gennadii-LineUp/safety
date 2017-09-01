@@ -1,9 +1,9 @@
 export class CacesClass {
   name: string;
-  cacesExpires: string;
+  expires: string;
 
-  constructor(name: string, cacesExpires: string) {
+  constructor(name: string, expires: string) {
     this.name = name;
-    this.cacesExpires = cacesExpires;
+    this.expires = expires;
   }
 }

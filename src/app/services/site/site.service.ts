@@ -165,8 +165,8 @@ export class SiteService {
       const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/photo' + '?encoded=1';
       return this.backendService.loadImage_get(url);
     }
-    public loadToServerCacesFile(content: any, siteId: number, employeeId: number): Observable<any> {
-      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces/cases_file';
+    public loadToServerCacesFile(content: any, siteId: number, employeeId: number, cacesId: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/caces/' + cacesId + '/file';
       const fileToServer = {
         content: ((((content.result).split(';'))[1]).split(','))[1]
       };
@@ -188,12 +188,13 @@ export class SiteService {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId;
         return this.backendService.post(url, JSON.stringify(newEmployee));
     }
-    public addMedicaleCacesDates(MedicaleCacesDates: any, siteId: number, employeeId: number): Observable<any> {
-        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
-        return this.backendService.post(url, JSON.stringify(MedicaleCacesDates));
+    public addMedicaleDates(MedicaleDates: any, siteId: number, employeeId: number): Observable<any> {
+        const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit';
+      console.log(url);
+        return this.backendService.post(url, JSON.stringify(MedicaleDates));
     }
-  public getMedicaleCacesDates(siteId: number, employeeId: number): Observable<any> {
-    const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit_caces';
+  public getMedicaleDates(siteId: number, employeeId: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit';
     return this.backendService.get(url);
   }
 
@@ -207,12 +208,21 @@ export class SiteService {
         return this.backendService.get(UrlParams.siteHome + query);
     }
 
-    public getCaces(siteId: number, employeeId: number, sort: string): Observable<any> {
-      // const query = siteId + '/employees/' + employeeId + '/caces' + '?q=' + sort;
-      // return this.backendService.get(UrlParams.siteHome + query);
-      return ;
+    public addCacesDates(CacesDates: any, siteId: number, employeeId: number, urlOption: string): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/caces' + urlOption;
+      console.log(url);
+      return this.backendService.post(url, JSON.stringify(CacesDates));
     }
-    public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
+    public getCaces(siteId: number, employeeId: number, sort: string): Observable<any> {
+      const query = siteId + '/employees/' + employeeId + '/caces' + '?q=' + sort;
+      return this.backendService.get(UrlParams.siteHome + query);
+    }
+  public getOneCaces(siteId: number, employeeId: number, attestationId: number): Observable<any> {
+    const query = siteId + '/employees/' + employeeId + '/caces/' + attestationId;
+    return this.backendService.get(UrlParams.siteHome + query);
+  }
+
+  public getAttestations(siteId: number, employeeId: number, sort: string): Observable<any> {
         const query = siteId + '/employees/' + employeeId + '/attestations' + '?q=' + sort;
         return this.backendService.get(UrlParams.siteHome + query);
     }
@@ -238,10 +248,9 @@ export class SiteService {
   }
 
 
-    deleteCaces(siteId: number, employeeId: number, cacesId: string): Observable<any> {
-      // const query = siteId + '/employees/' + employeeId + '/caces' + cacesId;
-      // return this.backendService.deleteData(UrlParams.siteHome + query);
-      return ;
+    deleteCaces(siteId: number, employeeId: number, cacesId: number): Observable<any> {
+      const query = siteId + '/employees/' + employeeId + '/caces/' + cacesId;
+      return this.backendService.deleteData(UrlParams.siteHome + query);
     }
     deleteAttestation(siteId: number, employeeId: number, attestationId: string): Observable<any> {
       const query = siteId + '/employees/' + employeeId + '/attestations' + attestationId;

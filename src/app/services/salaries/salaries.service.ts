@@ -41,11 +41,20 @@ export class SalariesService {
     public getCacesVisit(): Observable<any> {
       return this.backendService.get(UrlParams.employeeHome + 'caces');
     }
-    public getFromServerCacesImage(): Observable<any> {
-      return this.backendService.loadImage_get(UrlParams.employeeHome + 'caces/file?encoded=1');
-    }
+    // public getFromServerCacesImage(): Observable<any> {
+    //   return this.backendService.loadImage_get(UrlParams.employeeHome + 'caces/file?encoded=1');
+    // }
 
-    public findAttestationByName(name: string, page: any, sort: string): Observable<any> {
+  public findCacesByName(name: string, page: any, sort: string): Observable<any> {
+    const query =  UrlParams.employeeHome + 'caces' + '?q=' + name + sort + '&page=' + page;
+    return this.backendService.get(query);
+  }
+  public getFromServerCacesImage(caces_id: number): Observable<any> {
+    const query = UrlParams.employeeHome + 'caces/' + caces_id + '/file?aslink=1';
+    return this.backendService.loadImage_get(query);
+  }
+
+  public findAttestationByName(name: string, page: any, sort: string): Observable<any> {
       const query =  UrlParams.employeeHome + 'attestations' + '?q=' + name + sort + '&page=' + page;
       return this.backendService.get(query);
     }

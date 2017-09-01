@@ -143,43 +143,8 @@
             </div>
         </div>
 
-        <!--<div class="form-divider clearfix" style='margin-bottom: 6px;'></div>-->
-
-        <!--<div class="one-column-input-wrapper"  style='padding-top: 12px !important;'>-->
-            <!--<p class="form-subheader">CACES</p>-->
-            <!--<div class="calendar-wrapper clearfix" style='margin-top: 2px !important;' >-->
-                <!--<p class="form-label" style="font-family:'Open Sans',sans-serif;-->
-                                            <!--font-size:14px;-->
-                                            <!--padding-left:10px;-->
-                                            <!--padding-top:10px;">Date*</p>-->
-                <!--<input type="text" class="datepicker-default" style="float: left; margin-left: 90px;"-->
-                       <!--#caces="ngModel" id='caces' name='caces'  [(ngModel)]="visites.cacesDateExpires"/>-->
-                <!--<img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />-->
-            <!--</div>-->
-
-            <!--<p class="form-label" style='display: inline-block; width: auto; float: left;'>Fichier *</p>-->
-
-            <!--<div class="input-wrapper" style='display: inline-block; width: auto;  margin-right: 12px;'>-->
-              <!--<div class="image-upload"-->
-                   <!--style='display:inline-block !important; float:left; margin-left:74px; height:43px !important'>-->
-                <!--<p>{{uploadFileTextCaces}}</p>-->
-                <!--<label for="fileInputCaces">-->
-                  <!--<span></span>-->
-                <!--</label>-->
-                <!--<input id="fileInputCaces" #fileInputCaces type="file"-->
-                       <!--(change)="fileChangeCaces($event)"-->
-                       <!--accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>-->
-
-                <!--<span *ngIf='uploadedFileCaces' class="loading_ok"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-        <!--</div>-->
 
         <div class="form-divider clearfix" style='margin: -1px 0 15px 0;'></div>
-
-
-
 
       <div class="search-panel clearfix">
         <p>
@@ -201,9 +166,9 @@
               <button [class]="tableSortService.selectedClassSecondName(header.variable)" ></button>
               {{header.display}}
             </th>
-            <th style='cursor:default;'>
-              <span>Date d’expiration</span>
-            </th>
+            <!--<th style='cursor:default;'>-->
+              <!--<span>Date d’expiration</span>-->
+            <!--</th>-->
             <th>
               <span>Action</span>
             </th>
@@ -218,9 +183,9 @@
 
           <tr *ngFor="let caces of employeeCaces">
             <td>{{caces.name}}</td>
-            <td>{{caces.dateExpires | dateFromServerMoment}}</td>
+            <td>{{caces.expires | dateFromServerMoment}}</td>
             <td>
-              <a href="javascript:void(0);" (click)='cacesModal.open(); getAttestForUpdateFunction(caces.id)'>
+              <a href="javascript:void(0);" (click)='cacesModal.open(); getCacesForUpdateFunction(caces.id)'>
                 Modifier
               </a>
               /
@@ -234,11 +199,6 @@
         </table>
       </div>
       <div class="form-divider clearfix"></div>
-
-
-
-
-
 
 
         <div class="search-panel clearfix">
@@ -380,7 +340,7 @@
         <input type="text" class="datepicker-default" style="float: right; margin-left: 10px; margin-right:0"
                (click)="datepickerViewInit(); datePicker_cacesDateExpir_run(); datesCacesCheckFunction()"
                #caces_dateExpir="ngModel" id='caces_dateExpir' name='caces_dateExpir'
-               [(ngModel)]="cacesDate.cacesExpires"/>
+               [(ngModel)]="cacesDate.expires"/>
         <!--<img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />-->
       </div>
 
@@ -411,6 +371,7 @@
     <div *ngIf="successCreatingCaces" style='position: fixed; top: -40px;' class="alert alert-success">{{successCreatingCaces}}</div>
 
     <div class="button-wrapper">
+
       <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
               (click)="cacesModal.close()">Close</button>
       <button type="submit"  class="form-button green-button enregistrer-button pull-right" data-dismiss="modal"
@@ -438,7 +399,7 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date de délivrance*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default att-delivr"
                        (click)="datepickerViewInit(); datePicker_attestDelivrance_run(); datesAttestationCheckFunction()"
                        #attest_dateDelivrance="ngModel" id='attest_dateDelivrance' name='attest_dateDelivrance'
                        [(ngModel)]="attestation.dateIssue"/>
@@ -447,7 +408,7 @@
             <div class="calendar-wrapper clearfix">
                 <div class="clearfix"></div>
                 <p>Date d’expiration*</p>
-                <input type="text" class="datepicker-default"
+                <input type="text" class="datepicker-default att-expir"
                        (click)="datepickerViewInit(); datePicker_dateExpir_run(); datesAttestationCheckFunction()"
                        #attest_dateExpir="ngModel" id='attest_dateExpir' name='attest_dateExpir'
                        [(ngModel)]="attestation.dateExpires"/>

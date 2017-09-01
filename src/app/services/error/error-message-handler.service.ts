@@ -134,7 +134,7 @@ export class ErrorMessageHandlerService {
             case 'employeeGroups':            key = "*Groupe d'employé*";  break;
             case 'files':                     key = '*Fichier(s)*';  break;
             case 'remoteControl':             key = '*Case à cocher télécommande*';  break;
-            // case '':         key = '';  break;
+            case 'expires':                   key = '*Date d’expiration*';  break;
             // case '':         key = '';  break;
             // case '':         key = '';  break;
             // case '':         key = '';  break;
