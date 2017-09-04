@@ -30,7 +30,7 @@ export class MachinesGlossary {
     { id: 9, parent: 9,  display: 'Engins de chantier R.372m' }
   ];
   types_2_engins_10 = [
-    { id: 10, parent: 10,  display: '10         Grues auxiliaire R.390' }
+    { id: 10, parent: 10,  display: 'Grues auxiliaire R.390' }
   ];
   types_2_engins_11_12 = [
     { id: 11, parent: 11,  display: 'Grues à tour R.377m' },

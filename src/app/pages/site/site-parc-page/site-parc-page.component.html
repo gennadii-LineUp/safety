@@ -391,7 +391,7 @@
                   </div>
               </div>
 
-              <div *ngIf="t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">
+              <div *ngIf="t4_t5 || t3 || t6_t8_t9_t11 || t7 || t10 || t12_41 || t12_rest" class="autres-fichiers-wrapper clearfix">
                 <p class="form-subheader text-center" style="text-align: left;">Autres fichiers
                   <img *ngIf='loadingFileOther' style='margin-left: 4%; width: 16px;'
                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -404,7 +404,7 @@
                     <tr *ngFor="let otherFile of otherFilesArray" style="height: 36px">
                       <td style="width: 100%; text-align: left !important; padding-right: 0; padding-left: 4px">
                           <span class="uploaded-file-caption">{{otherFile.name}}</span>
-                          <div  style="position: relative; display: inline-block;" class="pull-right">
+                          <div  style="position: relative; display: inline-block; margin-top:-1px" class="pull-right">
                             <button type="button" (click)="deleteOtherFileFunction(otherFile)"
                                     class="uploaded-file-remove-btn"
                                     style="margin-top: -1px;">

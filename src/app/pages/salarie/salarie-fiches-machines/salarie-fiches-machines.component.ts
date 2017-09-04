@@ -198,10 +198,8 @@ export class SalarieFichesMachinesComponent extends BasePageComponent implements
 
 
   public getFromServerQRCodeFunction(machine_id) {
-    console.log('started');
     this.doRequest(this.salariesService, 'getFromServerQRCode', [machine_id], result => {
         const src = 'data:' + result['Content-type'] + ';base64,' + result.content;
-        console.log(src);
         this.qrCodeData = src;
         // let image = new Image();
         // image.src = src;
