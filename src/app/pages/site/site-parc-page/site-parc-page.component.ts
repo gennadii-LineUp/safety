@@ -314,7 +314,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
                                       _datepicker_vgp,
                                       this.machine.equipment,
                                       false, false, [], 0);
-    console.log(_machine);
 
     this.doRequest(this.siteService, 'createMachine', [_machine, this.id_site, urlOption], result => {
           if (this.itemForChange) {
@@ -644,7 +643,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       };
       const res = reader.readAsDataURL(event.target.files[0]);
       this.uploadVGPFileText = fileVGP.name;
-      console.log(this.uploadVGPFileText);
     }
   }
 
@@ -762,12 +760,10 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
       arr.push(i);
         this.siteService.loadToServerOther(this.otherFiles_addToServer[arr.pop()].content, this.id_site, id_machine)
           .subscribe(result => {
-            console.log(result);
             this.loadingFileOther = true;
               this.siteService.loadToServerOtherFileName(this.id_site, id_machine, result.id,
                                                   this.otherFiles_addToServer[i].name) // saving file's name
                 .subscribe(result => {
-                  console.log(result);
                   this.loadingFileOther = false;
                 }, (err) => {
                   this.loadingFileOther = false;
