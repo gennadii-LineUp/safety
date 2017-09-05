@@ -331,7 +331,8 @@
                     <p [hidden]="parkNumber.valid" class="requred-field ">Champs requis</p>
                 </div>
 
-                <div *ngIf="t3 || t4_t5 || t7 || t10 || t12_41" class="input-wrapper">
+            <!--*ngIf="t3 || t4_t5 || t7 || t10 || t12_41"-->
+                <div class="input-wrapper">
                   <p [hidden]="registration.invalid" class="requred-field color-valid">Immatriculation et/ou Numéro de série *</p>
                   <input class="form-control" placeholder="Immatriculation et/ou Numéro de série *" type="text"
                          #registration="ngModel" id="registration" name='registration' required [(ngModel)]="machine.registration" />

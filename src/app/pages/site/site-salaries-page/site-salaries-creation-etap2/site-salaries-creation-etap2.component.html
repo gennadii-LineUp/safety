@@ -336,7 +336,7 @@
         <p class="form-label" style="font-family:'Open Sans',sans-serif;
                                             font-size:14px;
                                             padding-left:0;
-                                            padding-top:10px;">Date d’expiration</p>
+                                            padding-top:10px;">Date d’expiration *</p>
         <input type="text" class="datepicker-default" style="float: right; margin-left: 10px; margin-right:0"
                (click)="datepickerViewInit(); datePicker_cacesDateExpir_run(); datesCacesCheckFunction()"
                #caces_dateExpir="ngModel" id='caces_dateExpir' name='caces_dateExpir'
@@ -344,7 +344,7 @@
         <!--<img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />-->
       </div>
 
-      <p class="form-label" style='display: inline-block; width: auto; float: left; padding-top: 10px'>Fichier</p>
+      <p class="form-label" style='display: inline-block; width: auto; float: left; padding-top: 10px'>Fichier *</p>
 
       <div class="input-wrapper clearfix" style='display:block; margin-right:0'>
         <div class="image-upload"
@@ -373,10 +373,10 @@
     <div class="button-wrapper">
 
       <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
-              (click)="cacesModal.close()">Close</button>
+              (click)="cacesModal.close()">Annuler</button>
       <button type="submit"  class="form-button green-button enregistrer-button pull-right" data-dismiss="modal"
               (click)='submitCacesForm()'
-              [disabled]="!site_cacesForm.form.valid">{{saveButtonCaptionCaces}}</button>
+              [disabled]="!(site_cacesForm.form.valid && userHasChoosenFileCaces)">{{saveButtonCaptionCaces}}</button>
     </div>
     <img *ngIf="creatingCaces" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
   </modal-footer-SSAtt>
@@ -442,7 +442,7 @@
 
         <div class="button-wrapper">
             <button type="button" class="form-button red-button annuler-button" data-dismiss="modal"
-                    (click)="attestModal.close()">Close</button>
+                    (click)="attestModal.close()">Annuler</button>
             <button type="submit"  class="form-button green-button enregistrer-button pull-right" data-dismiss="modal"
                     (click)='submitAttestationForm()'
                     [disabled]="!site_AttestationForm.form.valid">{{saveButtonCaptionAttest}}</button>

@@ -210,7 +210,6 @@ export class SiteService {
 
     public addCacesDates(CacesDates: any, siteId: number, employeeId: number, urlOption: string): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/caces' + urlOption;
-      console.log(url);
       return this.backendService.post(url, JSON.stringify(CacesDates));
     }
     public getCaces(siteId: number, employeeId: number, sort: string): Observable<any> {

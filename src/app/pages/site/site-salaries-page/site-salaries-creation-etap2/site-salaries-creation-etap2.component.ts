@@ -352,7 +352,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
                                                   moment(dateIssue, 'DD/MM/YYYY').toISOString(),
                                                   moment(dateExpires, 'DD/MM/YYYY').toISOString());
 
-        console.log(attestation);
         this.doRequest(this.siteService, 'setAttestation', [attestation, this.id_site, this.id_salarie, urlOption], result => {
                   let attestation_id: number;
                   attestation_id = result.id;
@@ -502,6 +501,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       this.errorCreatingCaces = '*Date d’expiration* doit être rempli.';
       return;
     }
+    if (!this.userHasChoosenFileCaces) {
+      this.errorCreatingCaces = 'Le fichier doit être choisi.';
+      return;
+    }
 
     let urlOption = '';
     if (this.itemForChange_caces) {
@@ -516,12 +519,9 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     const datepicker_caces = window.document.getElementsByClassName('datepicker-default')['2'].value;
     const _datepicker_caces = moment(datepicker_caces, 'DD/MM/YYYY').toISOString();
 
-    console.log(this.cacesDate);
     const visites = new CacesClass(this.cacesDate.name, _datepicker_caces);
-    console.log(visites);
 
     this.doRequest(this.siteService, 'addCacesDates', [visites, this.id_site, this.id_salarie, urlOption], result => {
-      console.log(result);
       this.getCacesFunction('');
       let caces_id: number;
       caces_id = result.id;
@@ -532,7 +532,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
         this.loadingFileCaces = true;
         this.siteService.loadToServerCacesFile(this.contentCaces, this.id_site, this.id_salarie, caces_id)
           .subscribe(result => {
-            console.log(result);
             document.getElementsByTagName('body')[0].setAttribute('style', 'overflow-y: scroll !important');
 
             // modal close /////////
@@ -622,7 +621,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public getCacesFunction(sort: string) {
     this.loadingFileCaces = true;
     this.doRequest(this.siteService, 'getCaces', [this.id_site, this.id_salarie, sort], result => {
-      console.log(result.items);
       this.loadingFileCaces = false;
       this.employeeCaces = result.items;
       this.emptyTable_caces = false;
@@ -647,7 +645,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.cancellErrorMessage();
     this.creatingCaces = true;
     this.doRequest(this.siteService, 'getOneCaces', [this.id_site, this.id_salarie, id_itemForUpdate], result => {
-      console.log(result);
       this.creatingCaces = false;
       this.cacesDate.name = result.name;
       this.cacesDate.expires = this.dataService.fromServerMoment(result.expires);
