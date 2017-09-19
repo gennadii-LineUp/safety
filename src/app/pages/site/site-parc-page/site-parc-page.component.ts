@@ -830,7 +830,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     this.parentCategoryName = '';
     this.loading = true;
     this.doRequest(this.siteService, 'getOneMachine', [this.id_site, machine_id], result => {
-      console.log(result);
       this.itemForVoir = machine_id;
       this.getFromServerQRCodeFunction(machine_id);
       this.loading = false;
@@ -861,17 +860,13 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   }
 
   public getFromServerQRCodeFunction(machine_id) {
-    // this.doRequest(this.salariesService, 'getFromServerQRCode', [machine_id], result => {
-    //   const src = 'data:' + result['Content-type'] + ';base64,' + result.content;
-    //   this.qrCodeData = src;
-    //   // let image = new Image();
-    //   // image.src = src;
-    //   // let w = window.open('');
-    //   // w.document.write(image.outerHTML);  // open image in new window
-    // }, (err) => {
-    //   console.log(err);
-    //   this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
-    // });
+    this.doRequest(this.siteService, 'getFromServerSiteQRCode', [this.id_site, machine_id], result => {
+      const src = 'data:' + result['Content-type'] + ';base64,' + result.content;
+      this.qrCodeData = src;
+    }, (err) => {
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
   }
   public voirDetailMachineFunctionVGP() {
     this.doRequest(this.siteService, 'getFromServerVGPFichier', [this.id_site, this.itemForVoir], result => {

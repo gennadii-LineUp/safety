@@ -118,7 +118,13 @@ export class SiteService {
       return this.backendService.deleteData(query);
     }
 
-    public getFromServerVGPFichier(siteId: number, machine_id: number): Observable<any> {
+  public getFromServerSiteQRCode(siteId: number, machine_id: number): Observable<any> {
+    const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/qr_code?encoded=1&size=300';
+    return this.backendService.loadImage_get(url);
+  }
+  // sites/{{siteId}}/machines/{{machineId}}/qr_code
+
+  public getFromServerVGPFichier(siteId: number, machine_id: number): Observable<any> {
       const url = UrlParams.siteHome + siteId + '/machines/' + machine_id + '/vgp_file?aslink=1';
       return this.backendService.loadImage_get(url);
     }
@@ -190,7 +196,6 @@ export class SiteService {
     }
     public addMedicaleDates(MedicaleDates: any, siteId: number, employeeId: number): Observable<any> {
         const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/medical_visit';
-      console.log(url);
         return this.backendService.post(url, JSON.stringify(MedicaleDates));
     }
   public getMedicaleDates(siteId: number, employeeId: number): Observable<any> {
