@@ -10,6 +10,7 @@ import {ClientService} from '../../../services/client/client.service';
 import {BackendService} from '../../../services/backend/backend.service';
 import {BasePageComponent} from '../../base/base-page.component';
 import * as moment from 'moment';
+import {SalariesService} from 'app/services/salaries/salaries.service';
 declare var $: any;
 
 export class OtherFileClass {
@@ -23,7 +24,8 @@ export class OtherFileClass {
   selector: 'site-parc-page',
   templateUrl: './site-parc-page.component.html',
   styleUrls: ['./site-parc-page.component.css'],
-    providers: [SiteService, ClientService, TableSortService, DataService, PaginationService, MachinesGlossary, BackendService]
+    providers: [SiteService, SalariesService, ClientService,
+                TableSortService, DataService, PaginationService, MachinesGlossary, BackendService]
 })
 export class SiteParcPageComponent  extends BasePageComponent implements OnInit, OnDestroy {
     emptyTable = true;
@@ -88,6 +90,11 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
     uploadCTFileText: any;
     OtherFileName = '';
 
+  itemForVoir = 0;
+  categoryName: string;
+  parentCategoryName: string;
+  qrCodeData: string;
+
   id_itemForDelete: number;
 
   @ViewChild('vgpInput')
@@ -131,6 +138,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   public fileString;
 
   constructor(public siteService: SiteService,
+              public salariesService: SalariesService,
                 public clientService: ClientService,
                 public tableSortService: TableSortService,
                 public dataService: DataService,
@@ -139,7 +147,7 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
                 public machinesGlossary: MachinesGlossary,
                 public backendService: BackendService) {
     super();
-    this.fileString;
+    // this.fileString;
   }
 
   ngOnInit() {
@@ -814,6 +822,83 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
         this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
       });
   }
+
+  public voirDetailMachineFunction(machine_id: number) {
+    this.cancellMessages();
+    this.machine = new MachineClass(0, '', '', '', '', [], false, '', '', 1, false, false, [], 0);
+    this.categoryName = '';
+    this.parentCategoryName = '';
+    this.loading = true;
+    this.doRequest(this.siteService, 'getOneMachine', [this.id_site, machine_id], result => {
+      console.log(result);
+      this.itemForVoir = machine_id;
+      this.getFromServerQRCodeFunction(machine_id);
+      this.loading = false;
+      this.categoryName = result.categoryName;
+      this.parentCategoryName = result.parentCategoryName;
+      this.machine.id = result.id;
+      this.machine.mark = result.mark;
+      this.machine.category = result.categoryId;
+      this.machine.model = result.model;
+      if (result.parkNumber)    {this.machine.parkNumber = result.parkNumber; }
+      if (result.registration)  {this.machine.registration = result.registration; }
+      if (result.equipment)     {this.machine.equipment = result.equipment; }
+      if (result.remoteControl) {this.machine.remoteControl = result.remoteControl; }
+      if (result.techControl)   {this.machine.techControl = result.techControl; }
+      if (result.techControlFile)  {this.machine.techControlFile = result.techControlFile; }
+      if (result.vgpFile)       {this.machine.vgpFile = result.vgpFile; }
+      if (result.vgp)           {this.machine.vgp = result.vgp; }
+      if (result.files  &&  result.files.length > 0) {this.machine.files = result.files; this.files = true; }
+      if (result.files  &&  result.files.length > 0) {
+        this.machine.files = result.files;
+        this.otherFilesArray = result.files;
+      }
+    }, (err) => {
+      this.loading = false;
+      console.log(err);
+      this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+
+  public getFromServerQRCodeFunction(machine_id) {
+    // this.doRequest(this.salariesService, 'getFromServerQRCode', [machine_id], result => {
+    //   const src = 'data:' + result['Content-type'] + ';base64,' + result.content;
+    //   this.qrCodeData = src;
+    //   // let image = new Image();
+    //   // image.src = src;
+    //   // let w = window.open('');
+    //   // w.document.write(image.outerHTML);  // open image in new window
+    // }, (err) => {
+    //   console.log(err);
+    //   this.errorLoad = this.errorMessageHandlerService.checkErrorStatus(err);
+    // });
+  }
+  public voirDetailMachineFunctionVGP() {
+    this.doRequest(this.siteService, 'getFromServerVGPFichier', [this.id_site, this.itemForVoir], result => {
+      if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+  public voirDetailMachineFunctionCT() {
+    this.doRequest(this.siteService, 'getFromServerCTFichier', [this.id_site, this.itemForVoir], result => {
+      if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+  public voirDetailMachineFunctionOther(fichier_id) {
+    this.doRequest(this.siteService, 'getFromServerOtherFichier', [this.id_site, this.itemForVoir, fichier_id], result => {
+      if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+
+
   public datePicker_vgp_run() {
     $( '#vgp' ).datepicker( 'show' );
   }

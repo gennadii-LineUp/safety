@@ -317,3 +317,8 @@ button.regarderUploadedFileBtn {
   color: #000;
   margin-top: 0px !important;
 }
+
+
+.autres-fichiers-wrapper button{
+   margin-top: 0;
+}
