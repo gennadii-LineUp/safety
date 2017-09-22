@@ -883,6 +883,9 @@ th {
 
 .image-upload p {
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .image-upload label {
@@ -954,6 +957,10 @@ th {
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   color: #8d8d8d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(100% - 50px);
 }
 .uploaded-file-remove-btn {
   position: absolute;
