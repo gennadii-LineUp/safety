@@ -785,6 +785,15 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
 
       $(() => {
         this.dataService.datepickerFranceFormat();
+        $.datepicker.setDefaults({
+          dateFormat: 'dd/mm/yy',
+          showOtherMonths: true,
+          selectOtherMonths: true,
+          changeMonth: true,
+          changeYear: true,
+          minDate: '01/01/1900'
+        });
+        $( '#birthDate').datepicker({maxDate: '31/12/2007'});
         $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker();
         $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);
         $('#format').change(function () {

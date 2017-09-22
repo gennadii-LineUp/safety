@@ -135,7 +135,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
           { display: 'Marque',          variable: 'mark',         filter: 'text' }
       ];
 
-  public fileString;
 
   constructor(public siteService: SiteService,
               public salariesService: SalariesService,
@@ -147,7 +146,6 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
                 public machinesGlossary: MachinesGlossary,
                 public backendService: BackendService) {
     super();
-    // this.fileString;
   }
 
   ngOnInit() {
@@ -904,6 +902,14 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
   datepickerRun() {
        $(() => {
             this.dataService.datepickerFranceFormat();
+            $.datepicker.setDefaults({
+               dateFormat: 'dd/mm/yy',
+               showOtherMonths: true,
+               selectOtherMonths: true,
+               changeMonth: true,
+               changeYear: true,
+               minDate: '01/01/1900'
+             });
             $( '#vgp, #techControl' ).datepicker();
             $( '#vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
 

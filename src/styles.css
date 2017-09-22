@@ -1046,7 +1046,7 @@ th {
 }
 .image-upload label span,
 .profile-img-wrapper label span{
-  background: url(/assets/img/ajouter-un-logo-img.png) no-repeat center;
+  background: url(/assets/img/ajouter-un-img-img.png) no-repeat center;
   height: 140px;
   width: 140px;
   display: block;
@@ -1689,7 +1689,7 @@ th {
 }
 
 .profil-form .image-upload label span {
-  background: url(/assets/img/ajouter-un-logo-img.png) no-repeat center;
+  background: url(/assets/img/ajouter-un-img-img.png) no-repeat center;
   height: 140px;
   width: 140px;
   display: block;
