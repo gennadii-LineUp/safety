@@ -886,6 +886,7 @@ th {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  width: calc(100% - 50px);
 }
 
 .image-upload label {
