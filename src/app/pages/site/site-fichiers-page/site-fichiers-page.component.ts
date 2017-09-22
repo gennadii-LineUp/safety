@@ -282,7 +282,7 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
   }
 
   public modalOpen() {
-    this.setEmptyFichiers();
+    // this.setEmptyFichiers();
     this.creating = false;
     this.userHasChoosenFile = false;
     const _modal = document.getElementById('myModal').firstElementChild;
@@ -298,6 +298,9 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
   }
 
   public setEmptyFichiers() {
+    this.id_fichier = 0;
+    this.itemForChange = 0;
+    this.saveButtonCaption = 'Ajouter';
     this.newFichier = new FichiersClass('', []);
     this.newFichier.employeeGroups = [];
     this.checkedGroups = [];
@@ -314,7 +317,6 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     this.modalOpen();
     this.cancellMessages();
     this.creating = true;
-    this.setEmptyFichiers();
     this.itemForChange = id_itemForUpdate;
       // let result = (this.original_fichiers.filter(obj => {
     //   return obj.id === id_itemForUpdate;
