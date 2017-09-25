@@ -322,3 +322,7 @@ button.regarderUploadedFileBtn {
 .autres-fichiers-wrapper button{
    margin-top: 0;
 }
+
+.uploaded-file-caption {
+  width: calc(100% - 145px);
+}

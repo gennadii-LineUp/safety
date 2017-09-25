@@ -147,7 +147,10 @@
         <div *ngIf="files" class="autres-fichiers-wrapper button-file-input-wrapper">
           <p class="form-subheader" style="margin-bottom: 19px; text-align: left">Autres fichiers</p>
           <p *ngFor="let otherFile of otherFilesArray" class="autres-fichiers"
-                                                      style="line-height: 43px">{{otherFile.name}}
+                                                      style="line-height: 26px; position: relative">
+            <span style="display: inline-block; overflow: hidden;
+                          text-overflow: ellipsis; margin-top: 8px;
+                          white-space: nowrap; width:calc(100% - 150px);">{{otherFile.name}}</span>
             <button class="form-button dark-green-button telecharger-button pull-right"
                   (click)="voirFunctionOtherFile(machine.id, otherFile.id)">Télécharger
             </button>
