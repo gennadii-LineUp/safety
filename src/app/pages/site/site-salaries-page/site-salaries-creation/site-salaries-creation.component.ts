@@ -209,7 +209,10 @@ export class SiteSalariesCreationComponent extends BasePageComponent implements 
             changeYear: true,
             minDate: '01/01/1900'
           });
-            $( '#birthDate').datepicker({maxDate: '31/12/2007'});
+            $( '#birthDate').datepicker({
+              maxDate: '31/12/2007',
+              yearRange: '1900:2007'});
+            $( '#startDate, #endDate').datepicker({yearRange: '1900:2099'});
             $( '#birthDate, #startDate, #endDate' ).datepicker();
             $( '#birthDate, #startDate, #endDate' ).datepicker( 'option', 'changeYear', true );
             $( '#format' ).change(() => {

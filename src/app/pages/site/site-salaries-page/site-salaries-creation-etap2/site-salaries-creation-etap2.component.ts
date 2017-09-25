@@ -793,7 +793,10 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
           changeYear: true,
           minDate: '01/01/1900'
         });
-        $( '#birthDate').datepicker({maxDate: '31/12/2007'});
+        $( '#birthDate').datepicker({
+          maxDate: '31/12/2007',
+          yearRange: '1900:2007'});
+        $( '#visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker({yearRange: '1900:2099'});
         $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker();
         $('#birthDate, #visiteMedicale, #caces_dateExpir, #attest_dateDelivrance, #attest_dateExpir').datepicker('option', 'changeYear', true);
         $('#format').change(function () {

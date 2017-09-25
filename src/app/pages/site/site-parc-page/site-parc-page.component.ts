@@ -910,7 +910,8 @@ export class SiteParcPageComponent  extends BasePageComponent implements OnInit,
                changeYear: true,
                minDate: '01/01/1900'
              });
-            $( '#vgp, #techControl' ).datepicker();
+         $( '#vgp, #techControl').datepicker({yearRange: '1900:2099'});
+         $( '#vgp, #techControl' ).datepicker();
             $( '#vgp, #techControl' ).datepicker( 'option', 'changeYear', true );
 
             $( '#format' ).change(function() {
