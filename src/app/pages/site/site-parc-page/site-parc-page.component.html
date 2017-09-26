@@ -407,7 +407,8 @@
                   <thead></thead>
                   <tbody>
                     <tr *ngFor="let otherFile of otherFilesArray" style="height: 36px">
-                      <td style="width: 100%; text-align: left !important; padding-right: 0; padding-left: 4px">
+                      <td style="width: 100%; text-align: left !important; padding-right: 0; padding-left: 4px;
+                                  border-bottom: 4px solid white">
                           <span class="uploaded-file-caption">{{otherFile.name}}</span>
                           <div  style="position: relative; display: inline-block; margin-top:-1px" class="pull-right">
                             <button type="button" (click)="deleteOtherFileFunction(otherFile)"
@@ -564,7 +565,7 @@
       </div>
 
       <div class="clearfix"></div>
-      <div *ngIf="files" class="autres-fichiers-wrapper button-file-input-wrapper">
+      <div *ngIf="files" class="autres-fichiers-wrapper button-file-input-wrapper" style="display: block;  margin-top: 24px;">
         <p class="form-subheader" style="margin-bottom: 19px; text-align: left">Autres fichiers</p>
         <p *ngFor="let otherFile of otherFilesArray" class="autres-fichiers"
            style="line-height: 43px">{{otherFile.name}}

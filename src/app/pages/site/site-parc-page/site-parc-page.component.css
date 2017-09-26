@@ -326,3 +326,20 @@ button.regarderUploadedFileBtn {
 .uploaded-file-caption {
   width: calc(100% - 145px);
 }
+
+@media screen and (max-width: 767px) {
+  table:not(.ajouter-un-site-table):not(.notifications-table):not(.ajouter-responsables-table):not(.ui-datepicker-calendar):not(.attestations-de-conduite-table) tbody td:before {
+    content: none;
+  }
+
+   table.salaries-site-table tbody tr td:first-child,
+  table.salaries-site-table tbody tr,
+  table.salaries-site-table tbody tr td {
+    background: #d3d3d3;
+    color: #fff;
+     line-height: 36px !important;
+  }
+  .uploaded-file-caption {
+     margin-top: 0;
+  }
+}
