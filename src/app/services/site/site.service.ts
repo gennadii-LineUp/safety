@@ -186,7 +186,14 @@ export class SiteService {
       return this.backendService.loadImage_post(url, fileToServer);
     }
 
-    public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
+    public getFromServerCacesFichier(siteId: number, employeeId: number, caces_id: number): Observable<any> {
+      const url = UrlParams.siteHome + siteId + '/employees/' + employeeId + '/caces/' + caces_id + '/file?aslink=1';
+      console.log(url);
+      return this.backendService.loadImage_get(url);
+    }
+
+
+  public getEmployeeFromEtap1(siteId: number, employeeId: number): Observable<any> {
         const query = siteId + '/employees/' + employeeId;
         return this.backendService.get(UrlParams.siteHome + query);
     }

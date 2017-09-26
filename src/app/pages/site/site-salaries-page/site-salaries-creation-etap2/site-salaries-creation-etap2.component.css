@@ -410,3 +410,10 @@ div.control-group {
 .hidden {
   display: none !important;
 }
+
+@media (max-width: 991px) {
+  .calendar-wrapper p {
+    width: auto;
+    text-align: left;
+  }
+}

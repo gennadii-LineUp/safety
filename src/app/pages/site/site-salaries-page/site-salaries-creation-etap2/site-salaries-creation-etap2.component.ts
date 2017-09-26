@@ -92,6 +92,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     uploadedFileCaces = false;
     contentCaces: any;
     fileCaces: FileList;
+    fileCacesExist = false;
     userHasChoosenFileCaces = false;
     uploadFileTextCaces = '';
 
@@ -554,6 +555,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
             this.loadingFileCaces = false;
             this.uploadedFileCaces = true;
             this.userHasChoosenFileCaces = false;
+            this.fileCacesExist = false;
           }, (err) => {
             this.loadingFileCaces = false;
             this.uploadFileTextCaces = '  error  error  error';
@@ -621,6 +623,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   public getCacesFunction(sort: string) {
     this.loadingFileCaces = true;
     this.doRequest(this.siteService, 'getCaces', [this.id_site, this.id_salarie, sort], result => {
+      console.dir(result.items);
       this.loadingFileCaces = false;
       this.employeeCaces = result.items;
       this.emptyTable_caces = false;
@@ -645,6 +648,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.cancellErrorMessage();
     this.creatingCaces = true;
     this.doRequest(this.siteService, 'getOneCaces', [this.id_site, this.id_salarie, id_itemForUpdate], result => {
+      console.log(result);
       this.creatingCaces = false;
       this.cacesDate.name = result.name;
       this.cacesDate.expires = this.dataService.fromServerMoment(result.expires);
@@ -652,7 +656,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       this.datesCacesEmpty = false;
       this.saveButtonCaptionCaces = 'Modifier';
       this.itemForChange_caces = result.id;
-      if (result.file) {this.uploadedFileCaces = true; }
+      if (result.file) {this.uploadedFileCaces = true; this.fileCacesExist = true; }
     }, (err) => {
       this.creatingCaces = false;
       console.log(err);
@@ -977,6 +981,7 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
   }
 
   public resetCacesFile() {
+      this.fileCacesExist = false;
     this.userHasChoosenFileCaces = false;
     this.cacesInput.nativeElement.value = '';
   }
@@ -1068,6 +1073,26 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
       });
   }
 
+  public voirFunctionCaces() {
+    this.doRequest(this.siteService,
+                  'getFromServerCacesFichier',
+                  [this.id_site, this.id_salarie, this.itemForChange_caces], result => {
+      console.log(result);
+      if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
+
+  public getFromServerLinkForPDFFunction(fileLink: string) {
+    this.doRequest(this.siteService, 'getFromServerLinkForPDF', [fileLink], result => {
+      window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
+  }
 
 
 }

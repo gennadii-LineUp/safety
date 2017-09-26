@@ -324,7 +324,8 @@
   </modal-header-SSAtt>
 
   <modal-content-SSAtt>
-    <form  #site_cacesForm="ngForm"  novalidate class="modal-form" (click)='cancellSuccessMessage()'>
+    <form  #site_cacesForm="ngForm"  novalidate class="modal-form" (click)='cancellSuccessMessage()'
+    style="    overflow: auto;">
       <div class="input-wrapper">
         <p [hidden]="caces_name.invalid" class="requred-field color-valid">Nom*</p>
         <input type="text" class="form-control"  placeholder="Nom*"
@@ -344,21 +345,34 @@
         <!--<img *ngIf="loadingDatesAutorisations" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" style='margin-left: 10%;' />-->
       </div>
 
-      <p class="form-label" style='display: inline-block; width: auto; float: left; padding-top: 10px'>Fichier *</p>
+      <p class="form-label" style='display: inline-block; width: auto; float: left; padding-top: 10px;
+                                        font-family: "Open Sans"; font-size: 14px'>Fichier *</p>
 
-      <div class="input-wrapper clearfix" style='display:block; margin-right:0'>
-        <div class="image-upload"
-             style='display:inline-block !important; float:right; margin-left:10px; height:43px !important'>
-          <p>{{uploadFileTextCaces}}</p>
-          <label for="fileInputCaces">
-            <span></span>
-          </label>
-          <input id="fileInputCaces" #fileInputCaces type="file"
-                 (change)="fileChangeCaces($event)"
-                 accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
-          <span *ngIf='uploadedFileCaces' class="loading_ok"></span>
-        </div>
+      <div style="display: inline-block;
+                  font-family: 'Open Sans', sans-serif;
+                  font-size: 16px; color: #8d8d8d;
+                  padding-top: 8px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: calc(80% - 130px);">
+        {{uploadFileTextCaces}}
       </div>
+
+      <div class="vgp-upload pull-right" style="height: 34px !important">
+        <label for="ctInput">Télécharger</label>
+        <input id="ctInput" #ctInput type="file"  [disabled]="loading"
+               (change)="fileChangeCaces($event)"
+               accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
+      </div>
+
+      <button *ngIf='uploadedFileCaces' type="button" class="regarderUploadedFileBtn pull-right"
+              style="height: 34px !important; margin-top: -20px !important"
+              (click)='voirFunctionCaces()'>Regarder
+      </button>
+
+      <br>
+
     </form>
   </modal-content-SSAtt>
 
@@ -376,7 +390,7 @@
               (click)="cacesModal.close()">Annuler</button>
       <button type="submit"  class="form-button green-button enregistrer-button pull-right" data-dismiss="modal"
               (click)='submitCacesForm()'
-              [disabled]="!(site_cacesForm.form.valid && userHasChoosenFileCaces)">{{saveButtonCaptionCaces}}</button>
+              [disabled]="!(site_cacesForm.form.valid && (userHasChoosenFileCaces || fileCacesExist))">{{saveButtonCaptionCaces}}</button>
     </div>
     <img *ngIf="creatingCaces" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
   </modal-footer-SSAtt>
