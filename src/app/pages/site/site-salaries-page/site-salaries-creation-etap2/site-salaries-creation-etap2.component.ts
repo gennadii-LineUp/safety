@@ -648,7 +648,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.cancellErrorMessage();
     this.creatingCaces = true;
     this.doRequest(this.siteService, 'getOneCaces', [this.id_site, this.id_salarie, id_itemForUpdate], result => {
-      console.log(result);
       this.creatingCaces = false;
       this.cacesDate.name = result.name;
       this.cacesDate.expires = this.dataService.fromServerMoment(result.expires);
@@ -1077,7 +1076,6 @@ export class SiteSalariesCreationEtap2Component extends BasePageComponent implem
     this.doRequest(this.siteService,
                   'getFromServerCacesFichier',
                   [this.id_site, this.id_salarie, this.itemForChange_caces], result => {
-      console.log(result);
       if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
     }, (err) => {
       console.log(err);

@@ -316,6 +316,7 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
   public modifierFunction(id_itemForUpdate: number) {
     this.modalOpen();
     this.cancellMessages();
+    this.uploadFileText = '';
     this.creating = true;
     this.itemForChange = id_itemForUpdate;
       // let result = (this.original_fichiers.filter(obj => {
@@ -366,6 +367,25 @@ export class SiteFichiersPageComponent extends BasePageComponent implements OnIn
     this.successCreating = '';
     this.errorLoad = '';
     this.errorCreating = '';
+  }
+
+
+  public voirFileFunction() {
+    this.doRequest(this.siteService, 'getFromServerFileFichier', [this.id_site, this.itemForChange], result => {
+        if (result.fileLinkId) {this.getFromServerLinkForPDFFunction(result.fileLinkId); }
+      }, (err) => {
+        console.log(err);
+        this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+      });
+  }
+
+  public getFromServerLinkForPDFFunction(fileLink: string) {
+    this.doRequest(this.siteService, 'getFromServerLinkForPDF', [fileLink], result => {
+      window.open(result.url, '_blank');
+    }, (err) => {
+      console.log(err);
+      this.errorCreating = this.errorMessageHandlerService.checkErrorStatus(err);
+    });
   }
 
 }
