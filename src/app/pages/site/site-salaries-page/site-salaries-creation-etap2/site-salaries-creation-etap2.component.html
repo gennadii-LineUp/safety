@@ -362,7 +362,7 @@
         <label for="ctInput">Télécharger</label>
         <input id="ctInput" #ctInput type="file"  [disabled]="loading"
                (change)="fileChangeCaces($event)"
-               accept=".jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
+               accept=".pdf, .jpg, .jpeg, .bmp, .png, .JPG, .JPEG"/>
       </div>
 
       <button *ngIf='uploadedFileCaces' type="button" class="regarderUploadedFileBtn pull-right"
